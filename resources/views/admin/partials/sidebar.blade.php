@@ -5,7 +5,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="{{ asset('public/images/AdminLTELogo.png') }}" class="img-circle" alt="User Image">
+        <img src="{{ asset('images/AdminLTELogo.png') }}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>HRM Ecommerce</p>

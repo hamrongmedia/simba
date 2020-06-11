@@ -24,7 +24,7 @@
     <!-- for Facebook -->
     <meta property="og:title" content="Venus Charm">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <meta property="og:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
     <meta property="og:description" content="Venus Charm">
     <meta property="og:site_name" content="Venus Charm">
     <meta property="fb:admins" content="">
@@ -34,20 +34,20 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Venus Charm">
     <meta name="twitter:description" content="Venus Charm">
-    <meta name="twitter:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <link rel="shortcut icon" href="{{asset('public/images/logo.png')}}">
+    <meta name="twitter:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- thư viện css -->
-    <link rel="stylesheet"  href="{{asset('public/css/fontawesome.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/all.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/jquery.fancybox.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/owl.carousel.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/fontawesome.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/all.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/jquery.fancybox.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/owl.carousel.css')}}"/>
     <!-- code css -->
-    <link rel="stylesheet"  href="{{asset('public/css/style.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
 </head>
 <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh -->
 <body class="page-child">
@@ -64,7 +64,7 @@
                                             <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
                                             <h1 class="entry-title">
                                                 <a href="">
-                                                    <img class="img-responsive" src="{{asset('public/images/logo.png')}}" alt="">
+                                                    <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
                                                 </a>
                                             </h1>
                                         </div>
@@ -213,7 +213,7 @@
                                 <div id="site-cart" class="">
                                     <div class="site-nav-container-last">
                                         <button id="site-close-handle" class="site-close-handle">
-                                            <img src="{{asset('public/images/clo.png')}}" alt="Đóng">
+                                            <img src="{{asset('images/clo.png')}}" alt="Đóng">
                                         </button>
                                         <p class="title">Giỏ hàng</p>
                                         <span class="textCartSide">Bạn đang có <span id="qtotalitems"><b>1</b></span> sản phẩm trong giỏ hàng.</span>
@@ -225,7 +225,7 @@
                                                         <td class="img">
                                                             <a href="ao-freedom-1805-p846.html">
                                                                 <!-- ảnh được cắt 470x570 -->
-                                                                <img src="{{asset('public/images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
+                                                                <img src="{{asset('images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
                                                             </a>
                                                         </td>
                                                         <td>
@@ -292,15 +292,15 @@
                         <p><span style="font-size:18px;">Sóng tới, Venus Charm lại một lần nữa "chuyển mình". Để trở thành phiên bản tốt hơn so với phiên bản cũ.</span></p>
                         <p><span style="font-size:18px;">Lấy nguồn cảm hứng về nữ thần Venus sinh ra từ bọt biển, Venus Charm đã hoàn thiện bản thiết kế "Sóng tới"&nbsp;cho cửa hàng thứ 6 tại 112C1 Phạm Ngọc Thạch cùng không gian mua sắm HOÀN TOÀN MỚI. Với thiết kế đường lượn sóng mềm mại tại không gian cửa hàng, Venus Charm muốn cùng nàng tạo nên những trải nghiệm cảm xúc sắc nét và mới mẻ hơn bao giờ hết.</span></p>
                         <p>&nbsp;</p>
-                        <p><img alt="" src="{{asset('public/images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
-                        <p><img alt="" src="{{asset('public/images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
+                        <p><img alt="" src="{{asset('images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
+                        <p><img alt="" src="{{asset('images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
                         <p><span style="font-size:18px;">Sóng tới, chúng mình không ngại làm mới. Như đã hứa, chúng mình từng bước từng bước "chuyển mình" để đến gần nàng hơn.<br>
                         <br>
                         Venus Charm thay đổi vì nàng, vậy nàng có dám thay đổi để trở thành phiên bản tốt nhất của chính mình?<br>
                         <br>
                         Cùng chờ đón những đợt "Sóng tới"&nbsp;tiếp theo của Venus Charm nàng nhé! Coming Soon...</span></p>
                         <p>&nbsp;</p>
-                        <p><img alt="" src="{{asset('public/images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
+                        <p><img alt="" src="{{asset('images-demo/97945492-2637208763160899-2442535269736382464-o(1).jpg')}}"></p>
                         <div style="clear: both;height: 20px"></div>
                         <div style="clear: both;height: 20px"></div>
 
@@ -323,7 +323,7 @@
                                         <div class="wp-img-tin-a img-cover">
                                             <a href="">
                                              <!--    anh cắt 600x600 -->
-                                                <img src="{{asset('public/images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
+                                                <img src="{{asset('images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
                                             </a>
                                         </div>
                                         <div class="wp-text-tin-a">
@@ -339,7 +339,7 @@
                                         <div class="wp-img-tin-a img-cover">
                                             <a href="">
                                              <!--    anh cắt 600x600 -->
-                                                <img src="{{asset('public/images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
+                                                <img src="{{asset('images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
                                             </a>
                                         </div>
                                         <div class="wp-text-tin-a">
@@ -355,7 +355,7 @@
                                         <div class="wp-img-tin-a img-cover">
                                             <a href="">
                                              <!--    anh cắt 600x600 -->
-                                                <img src="{{asset('public/images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
+                                                <img src="{{asset('images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
                                             </a>
                                         </div>
                                         <div class="wp-text-tin-a">
@@ -371,7 +371,7 @@
                                         <div class="wp-img-tin-a img-cover">
                                             <a href="">
                                              <!--    anh cắt 600x600 -->
-                                                <img src="{{asset('public/images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
+                                                <img src="{{asset('images-demo/vn4-1-.jpg')}}" alt="NHỮNG HÌNH ẢNH ĐẦU TIÊN VỀ STORE THỨ 6 CỦA VENUS CHARM">
                                             </a>
                                         </div>
                                         <div class="wp-text-tin-a">
@@ -445,7 +445,7 @@
                                 <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('public/images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -525,15 +525,15 @@
 
 
 
-<script src="{{asset('public/js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('public/js/owl.carousel.js')}}"></script>
-<script src="{{asset('public/js/rangeslider.js')}}"></script>
-<script src="{{asset('public/js/fontawesome.min.js')}}"></script>
-<script src="{{asset('public/js/jquery.fancybox.min.js')}}"></script>
-<script src="{{asset('public/js/sticky-kit.min.js')}}"></script>
-<script src="{{asset('public/js/slick.min.js')}}"></script>
-<script src="{{asset('public/js/customer.js')}}"></script>
+<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/owl.carousel.js')}}"></script>
+<script src="{{asset('js/rangeslider.js')}}"></script>
+<script src="{{asset('js/fontawesome.min.js')}}"></script>
+<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
+<script src="{{asset('js/sticky-kit.min.js')}}"></script>
+<script src="{{asset('js/slick.min.js')}}"></script>
+<script src="{{asset('js/customer.js')}}"></script>
 <!-- js mạng xã hội -->
 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5ee08aae76fd6b0012055bc5&product=inline-share-buttons" async="async"></script>
 <script>

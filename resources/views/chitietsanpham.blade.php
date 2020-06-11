@@ -24,7 +24,7 @@
     <!-- for Facebook -->
     <meta property="og:title" content="Venus Charm">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <meta property="og:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
     <meta property="og:description" content="Venus Charm">
     <meta property="og:site_name" content="Venus Charm">
     <meta property="fb:admins" content="">
@@ -34,20 +34,20 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Venus Charm">
     <meta name="twitter:description" content="Venus Charm">
-    <meta name="twitter:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <link rel="shortcut icon" href="{{asset('public/images/logo.png')}}">
+    <meta name="twitter:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- thư viện css -->
-    <link rel="stylesheet"  href="{{asset('public/css/fontawesome.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/all.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/jquery.fancybox.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/owl.carousel.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/fontawesome.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/all.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/jquery.fancybox.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/owl.carousel.css')}}"/>
     <!-- code css -->
-    <link rel="stylesheet"  href="{{asset('public/css/style.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
 </head>
 <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh -->
 <body class="page-child">
@@ -64,7 +64,7 @@
                                                 <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
                                                 <h1 class="entry-title">
                                                     <a href="">
-                                                        <img class="img-responsive" src="{{asset('public/images/logo.png')}}" alt="">
+                                                        <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
                                                     </a>
                                                 </h1>
                                             </div>
@@ -213,7 +213,7 @@
                                <div id="site-cart" class="">
                                     <div class="site-nav-container-last">
                                         <button id="site-close-handle" class="site-close-handle">
-                                            <img src="{{asset('public/images/clo.png')}}" alt="Đóng">
+                                            <img src="{{asset('images/clo.png')}}" alt="Đóng">
                                         </button>
                                         <p class="title">Giỏ hàng</p>
                                         <span class="textCartSide">Bạn đang có <span id="qtotalitems"><b>1</b></span> sản phẩm trong giỏ hàng.</span>
@@ -225,7 +225,7 @@
                                                         <td class="img">
                                                             <a href="ao-freedom-1805-p846.html">
                                                                 <!-- ảnh được cắt 470x570 -->
-                                                                <img src="{{asset('public/images/1590838844.jpg')}}" alt="Áo Freedom 1805">
+                                                                <img src="{{asset('images/1590838844.jpg')}}" alt="Áo Freedom 1805">
                                                             </a>
                                                         </td>
                                                         <td>
@@ -286,24 +286,24 @@
                                 <div class="tab-content">
                                     <div id="img-id4146" class="tab-pane fade row active in">
                                         <!-- ảnh cắt với kích thức 703x800 -->
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831433.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831433.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831440.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831440.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831446.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831446.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831453.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831453.jpg')}}">
                                         </div>
                                     </div>
 
                                     <div id="img-id4145" class="tab-pane fade row">
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831387.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831387.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831396.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831396.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831403.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831403.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('public/images-demo/1590831409.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831409.jpg')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -321,10 +321,10 @@
                                     <div class="wp-chonmau">
                                         <ul class="nav nav-pills">
                                             <li class="chose_attr_advanced_color active" data-title="Da"><a class="" data-toggle="pill" href="#img-id4146">
-                                                <span class="color color4" style="background: url('{{asset('public/images-demo/1590831427.jpg')}}')"></span></a>
+                                                <span class="color color4" style="background: url('{{asset('images-demo/1590831427.jpg')}}')"></span></a>
                                             </li>
                                             <li class="chose_attr_advanced_color" data-title="Đen"><a class="" data-toggle="pill" href="#img-id4145">
-                                                <span class="color color4" style="background: url('{{asset('public/images-demo/1590831382.jpg')}}')"></span></a>
+                                                <span class="color color4" style="background: url('{{asset('images-demo/1590831382.jpg')}}')"></span></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -342,28 +342,28 @@
                                     <div class="wp-list-dinhvu2">
                                         <ul class="ul-b lits-dv2">
                                             <li>
-                                                <div class="icon-dv2"><img src="{{asset('public/images-demo/venus-charm-feeship-don-hang-700k.jpg')}}" alt="Miễn phí giao hàng toàn quốc"></div>
+                                                <div class="icon-dv2"><img src="{{asset('images-demo/venus-charm-feeship-don-hang-700k.jpg')}}" alt="Miễn phí giao hàng toàn quốc"></div>
                                                 <div class="text-dv2">
                                                     <p>Miễn phí giao hàng toàn quốc</p>
                                                     <span>(Đơn hàng trên 700.000 đ)</span>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="icon-dv2"><img src="{{asset('public/images-demo/venus-charm-bao-hanh-san-pham-30-ngay-copy.jpg')}}" alt="Hỗ trợ đổi trả khi không vừa size"></div>
+                                                <div class="icon-dv2"><img src="{{asset('images-demo/venus-charm-bao-hanh-san-pham-30-ngay-copy.jpg')}}" alt="Hỗ trợ đổi trả khi không vừa size"></div>
                                                 <div class="text-dv2">
                                                     <p>Hỗ trợ đổi trả khi không vừa size</p>
                                                     <span>(Đổi trả trong 03 ngày)</span>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="icon-dv2"><img src="{{asset('public/images-demo/dam-bao-san-pham-nhu-hinh.jpg')}}" alt="Cam kết sản phẩm như hình"></div>
+                                                <div class="icon-dv2"><img src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh.jpg')}}" alt="Cam kết sản phẩm như hình"></div>
                                                 <div class="text-dv2">
                                                     <p>Cam kết sản phẩm như hình</p>
                                                     <span></span>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="icon-dv2"><img src="{{asset('public/images-demo/bao-hanh-venus-charm-30-ngay.png')}}" alt="Bảo hành sản phẩm trong 30 ngày"></div>
+                                                <div class="icon-dv2"><img src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay.png')}}" alt="Bảo hành sản phẩm trong 30 ngày"></div>
                                                 <div class="text-dv2">
                                                     <p>Bảo hành sản phẩm trong 30 ngày</p>
                                                     <span>(Tất cả các lỗi từ nhà sản xuất)</span>
@@ -434,7 +434,7 @@
                 </div>
                 <div class="box-datmua col-md-12 col-xs-12 col-sm-2">
                     <div class="wp-icon">
-                        <img src="{{asset('public/images/icon-c4.svg')}}" alt="sản phẩm đặc biệt">
+                        <img src="{{asset('images/icon-c4.svg')}}" alt="sản phẩm đặc biệt">
                     </div>
                     <div class="wp-text col-md-8 col-sm-7 col-xs-12" style="text-align: center">
                         <p> Sản phẩm đặc biệt dành cho:</p>
@@ -458,14 +458,14 @@
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760847.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760847.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="ao-6883-cao-cap-p847.html">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760841.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760841.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -476,14 +476,14 @@
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760889.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760889.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
                                                      <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760896.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760896.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -510,10 +510,10 @@
                                     <div class="wp-list-check-color">
                                         <ul class="ul-b list-color-sp">
                                             <li class="item-color color-1 active">
-                                                <span style="background: url('{{asset('public/images-demo/1589760834.jpg')}}')"></span>
+                                                <span style="background: url('{{asset('images-demo/1589760834.jpg')}}')"></span>
                                             </li>
                                             <li class="item-color color-1">
-                                                <span style="background: url('{{asset('public/images-demo/1589760841.jpg')}}')"></span>
+                                                <span style="background: url('{{asset('images-demo/1589760841.jpg')}}')"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -530,14 +530,14 @@
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760847.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760847.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="ao-6883-cao-cap-p847.html">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760841.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760841.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -548,14 +548,14 @@
                                                     <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760889.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760889.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
                                                      <div class="item">
                                                         <div class="wp-img-slide-sp">
                                                             <a href="">
-                                                                <img class="el_image" src="{{asset('public/images-demo/1589760896.jpg')}}">
+                                                                <img class="el_image" src="{{asset('images-demo/1589760896.jpg')}}">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -582,10 +582,10 @@
                                     <div class="wp-list-check-color">
                                         <ul class="ul-b list-color-sp">
                                             <li class="item-color color-1 active">
-                                                <span style="background: url('{{asset('public/images-demo/1589760834.jpg')}}')"></span>
+                                                <span style="background: url('{{asset('images-demo/1589760834.jpg')}}')"></span>
                                             </li>
                                             <li class="item-color color-1">
-                                                <span style="background: url('{{asset('public/images-demo/1589760841.jpg')}}')"></span>
+                                                <span style="background: url('{{asset('images-demo/1589760841.jpg')}}')"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -656,7 +656,7 @@
                                 <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('public/images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -736,15 +736,15 @@
 
 
 
-<script src="{{asset('public/js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('public/js/owl.carousel.js')}}"></script>
-<script src="{{asset('public/js/rangeslider.js')}}"></script>
-<script src="{{asset('public/js/fontawesome.min.js')}}"></script>
-<script src="{{asset('public/js/jquery.fancybox.min.js')}}"></script>
-<script src="{{asset('public/js/sticky-kit.min.js')}}"></script>
-<script src="{{asset('public/js/slick.min.js')}}"></script>
-<script src="{{asset('public/js/customer.js')}}"></script>
+<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/owl.carousel.js')}}"></script>
+<script src="{{asset('js/rangeslider.js')}}"></script>
+<script src="{{asset('js/fontawesome.min.js')}}"></script>
+<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
+<script src="{{asset('js/sticky-kit.min.js')}}"></script>
+<script src="{{asset('js/slick.min.js')}}"></script>
+<script src="{{asset('js/customer.js')}}"></script>
 
 <script>
     if($(window).width() > 768) {
