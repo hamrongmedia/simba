@@ -1,0 +1,73 @@
+.wp-main-menu{
+	.navbar-default {
+	    background-color: transparent;
+	    border: none;
+	    margin-bottom: 0px;
+	    .navbar-nav{
+	    	> li{
+	    		> a{
+		    		border-bottom: 2px solid transparent;
+		    		font-size: 16px;
+				    color: #333333;
+				    font-weight: 600;
+				    text-transform: uppercase;
+	    		}
+	    		.dropdown-menu {
+				    margin-top: 0;
+				    border-top-left-radius: 0;
+				    border-top-right-radius: 0;
+				}
+				&:hover{
+					> a {
+					    border-bottom-color: #e9aea0;
+					}
+					> .dropdown-menu {
+					    display: block;
+					    visibility: visible;
+					    z-index: 9999;
+					    opacity: 1;
+					    -webkit-transform: scale(1, 1);
+					    transform: scale(1, 1);
+					    transition: transform 0.3s ease, opacity 0.2s ease .1s;
+					    -webkit-transition: -webkit-transform 0.3s ease, opacity 0.2s ease .1s;
+					    left: 0px;
+					}
+				}
+	    	}
+	    }
+	    .dropdown-menu {
+		    margin: 0px;
+		    border-radius: 0px;
+		    border: none;
+		    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.175);
+		    background: #fff;
+		    min-width: 250px;
+		    opacity: 0;
+		    padding: 10px;
+		    position: absolute;
+		    -webkit-transform-origin: top;
+		    transform-origin: top;
+		    -webkit-animation-fill-mode: forwards;
+		    animation-fill-mode: forwards;
+		    -webkit-transform: scale(1, 0);
+		    transform: scale(1, 0);
+		    transition: transform 0.3s ease, opacity 0.2s ease;
+		    -webkit-transition: -webkit-transform 0.3s ease, opacity 0.2s ease;
+		    display: block;
+		    left: 0px;
+		    width: 100%;
+		    > li {
+		    	padding: 5px 0px;
+		    	> a {
+				    display: block;
+				    padding: 3px 20px;
+				    clear: both;
+				    font-weight: 400;
+				    line-height: 1.42857143;
+				    color: #333;
+				    white-space: nowrap;
+				}
+		    }
+		}
+    }
+}
