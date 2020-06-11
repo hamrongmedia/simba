@@ -24,7 +24,7 @@ class ShopNewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.news.shop_news');
     }
 
     /**
