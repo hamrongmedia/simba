@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Admin\Posts;
 
-class ShopNewsController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +36,9 @@ class ShopNewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        Posts::create($data);
+        return redirect(route('admin.posts.index'));
     }
 
     /**

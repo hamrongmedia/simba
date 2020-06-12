@@ -83,10 +83,33 @@
           </ul>
       </li>
       <li class="header">ADMIN CONTENT</li>
-      <li>
-        <a href="pages/mailbox/mailbox.html">
+      <li class="treeview">
+        <a href="">
           <i class="fa fa-edit"></i> <span>Blog/Tin tức</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.posts.create')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Tạo mới tin</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.posts.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Danh sách tin</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Danh mục</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Tags</span></a>
+            </li>
+          </ul>
       </li>
       <li>
         <a href="pages/mailbox/mailbox.html">

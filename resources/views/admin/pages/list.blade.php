@@ -1,266 +1,101 @@
 @extends('admin.layout')
+@section('title')
+  Quản lý bài viết
+@endsection
+
+@section('css')
+<!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+@endsection
+
 @section('main')
-  <div class="row">
-    <div class="col-md-12">
-        <div class="box">
-          <div class="box-header with-border">
-            <div class="pull-right">
-                <div class="menu-right">
-                    <form action="http://localhost/s-cart/public/sc_admin/news" id="button_search">
-                       <div onclick="$(this).submit();" class="btn-group pull-right">
-                               <a class="btn btn-flat btn-primary" title="Refresh">
-                                  <i class="fa  fa-search"></i>
-                               </a>
-                       </div>
-                       <div class="btn-group pull-right">
-                             <div class="form-group">
-                               <input type="text" name="keyword" class="form-control" placeholder="Tìm tiêu đề hoặc ID Blog/News" value="">
-                             </div>
-                       </div>
-                    </form>
-                   </div>
-             </div>
-            <div class="pull-left"></div>
-            <!-- /.box-tools -->
-          </div>
-          <div class="box-header with-border">
-             <div class="pull-right">
-                <div class="menu-right">
-                  <a href="http://localhost/s-cart/public/sc_admin/news/create" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
-                  <i class="fa fa-plus" title="Thêm mới"></i>
-                  </a>
-                </div>
-            </div>
-             <div class="pull-left">
-                <div class="menu-left">
-                  <button type="button" class="btn btn-default grid-select-all"><i class="fa fa-square-o"></i></button>
-                </div>
-                <div class="menu-left">
-                  <a class="btn btn-flat btn-danger grid-trash" title="Xóa"><i class="fa fa-trash-o"></i></a>
-                </div>
-              <div class="menu-left">
-                <div class="btn-group">
-                      <select class="form-control" id="order_sort">
-                      <option value="id__desc">ID desc</option><option value="id__asc">ID asc</option><option value="title__desc">Tiêu đề z-a</option><option value="title__asc">Tiêu đề a-z</option>
-                      </select>
-                </div>
-                <div class="btn-group">
-                  <a class="btn btn-flat btn-primary" title="Sắp xếp" id="button_sort">
-                    <i class="fa fa-sort-amount-asc"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-body">
+        <table id="hrm_list" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Hình ảnh</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+               </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                  </td>
+                  <td>1</td>
+                  <td>tré</td>
+                  <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
+                  <td>0</td>
+                  <td><span class="label label-danger">OFF</span></td>
+                  <td>
+                    <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
-          </div>
-          <section id="pjax-container" class="table-list">
-            <div class="box-body table-responsive no-padding" >
-               <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th></th>
-                          <th>ID</th>
-                          <th>Tiêu đề</th>
-                          <th>Hình ảnh</th>
-                          <th>Sắp xếp</th>
-                          <th>Trạng thái</th>
-                          <th>Hành động</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                        <td>
-                          <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                        </td>
-                        <td>1</td>
-                        <td>tré</td>
-                        <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
-                        <td>0</td>
-                        <td><span class="label label-danger">OFF</span></td>
-                        <td>
-                          <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                    <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                  </td>
+                  <td>1</td>
+                  <td>tré</td>
+                  <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
+                  <td>0</td>
+                  <td><span class="label label-danger">OFF</span></td>
+                  <td>
+                    <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
-                          <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                        </td>
-                        <td>1</td>
-                        <td>tré</td>
-                        <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
-                        <td>0</td>
-                        <td><span class="label label-danger">OFF</span></td>
-                        <td>
-                          <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                    <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                  </td>
+                  <td>1</td>
+                  <td>tré</td>
+                  <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
+                  <td>0</td>
+                  <td><span class="label label-danger">OFF</span></td>
+                  <td>
+                    <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
-                          <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input class="input" type="checkbox" data-id="1" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                        </td>
-                        <td>1</td>
-                        <td>tré</td>
-                        <td><img alt="tré" title="" src="http://localhost/s-cart/public/data/content/img-27.jpg" style=" width:50px;"></td>
-                        <td>0</td>
-                        <td><span class="label label-danger">OFF</span></td>
-                        <td>
-                          <a href="http://localhost/s-cart/public/sc_admin/news/edit/1"><span title="Sửa" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
-
-                          <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
-                        </td>
-                      </tr>
-                  </tbody>
-               </table>
-            </div>
-          </section>
-        </div>
+                    <span onclick="deleteItem(1);" title="Xóa" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
+                  </td>
+                </tr>
+            </tbody>
+         </table>
+      </div>
+      <!-- /.box-body -->
     </div>
+    <!-- /.box -->
   </div>
-@endsection;
+  <!-- /.col -->
+</div>
+@endsection
 
-@push('styles')
-<style type="text/css">
-  .box-body td,.box-body th{
-  max-width:150px;word-break:break-all;
-}
-</style>
-{!! $css ?? '' !!}
-@endpush
-
-@push('scripts')
-{{-- //Pjax --}}
-<script src="{{ asset('public/admin/plugin/jquery.pjax.js')}}"></script>
-
-<script type="text/javascript">
-
-$('.grid-refresh').click(function(){
-  $.pjax.reload({container:'#pjax-container'});
-});
-
-  $(document).on('submit', '#button_search', function(event) {
-    $.pjax.submit(event, '#pjax-container')
-  })
-
-$(document).on('pjax:send', function() {
-  $('#loading').show()
-})
-$(document).on('pjax:complete', function() {
-  $('#loading').hide()
-})
-
-// tag a
-$(function(){
-  $(document).pjax('a.page-link', '#pjax-container')
-})
-
-
-$(document).ready(function(){
-// does current browser support PJAX
-  if ($.support.pjax) {
-    $.pjax.defaults.timeout = 2000; // time in milliseconds
-  }
-});
-<?php
-$buttonSort = 1;
-?>
-@if ($buttonSort)
-  $('#button_sort').click(function(event) {
-    var url = '{{ $urlSort??'' }}?sort_order='+$('#order_sort option:selected').val();
-    $.pjax({url: url, container: '#pjax-container'})
-  });
-@endif
-
-
-$(document).on('ready pjax:end', function(event) {
-  $('.table-list input').iCheck({
-    checkboxClass: 'icheckbox_square-blue',
-    radioClass: 'iradio_square-blue',
-    increaseArea: '20%' /* optional */
-  });
-})
-
-</script>
-{{-- //End pjax --}}
-<script type="text/javascript">
-  {{-- sweetalert2 --}}
-  var selectedRows = function () {
-      var selected = [];
-      $('.grid-row-checkbox:checked').each(function(){
-          selected.push($(this).data('id'));
-      });
-  
-      return selected;
-  }
-  
-  $('.grid-trash').on('click', function() {
-    var ids = selectedRows().join();
-    deleteItem(ids);
-  });
-  
-    function deleteItem(ids){
-    Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: true,
-    }).fire({
-      title: '{{ trans('admin.confirm_delete') }}',
-      text: "",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '{{ trans('admin.confirm_delete_yes') }}',
-      confirmButtonColor: "#DD6B55",
-      cancelButtonText: '{{ trans('admin.confirm_delete_no') }}',
-      reverseButtons: true,
-  
-      preConfirm: function() {
-          return new Promise(function(resolve) {
-              $.ajax({
-                  method: 'post',
-                  url: '{{ $urlDeleteItem ?? '' }}',
-                  data: {
-                    ids:ids,
-                      _token: '{{ csrf_token() }}',
-                  },
-                  success: function (data) {
-                      if(data.error == 1){
-                        alertMsg('{{ trans('admin.warning') }}', data.msg, 'error');
-                        $.pjax.reload('#pjax-container');
-                        return;
-                      }else{
-                        $.pjax.reload('#pjax-container');
-                        resolve(data);
-                      }
-  
-                  }
-              });
-          });
-      }
-  
-    }).then((result) => {
-      if (result.value) {
-        alertMsg('{{ trans('admin.confirm_delete_deleted') }}', '{{ trans('admin.confirm_delete_deleted_msg') }}', 'success');
-      } else if (
-        // Read more about handling dismissals
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        // swalWithBootstrapButtons.fire(
-        //   'Cancelled',
-        //   'Your imaginary file is safe :)',
-        //   'error'
-        // )
-      }
+@section('js')
+<!-- DataTables -->
+<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script>
+  $(function () {
+    $('#hrm_list').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true
     })
-  }
-  {{--/ sweetalert2 --}}
-  
-  
-  </script>
-  
-  {!! $js ?? '' !!}
-  @endpush
+  })
+</script>
+@endsection
