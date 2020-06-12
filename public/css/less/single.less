@@ -208,6 +208,7 @@
     justify-content: space-around;
     padding: 20px 30px;
     background: #fcdcda;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     margin-top: 30px;
 }
@@ -342,6 +343,7 @@
 
 .p-mon{
 		font-weight: 700;
+		font-size: 18px;
 	}
 .wp-pt-thanhtoan{
 	    margin: 20px 0px;
@@ -461,4 +463,39 @@
     width: auto;
     display: inline-block;
     border-radius: 5px;
+}
+
+#chitietsanphammobile .slide-sp-mobile .owl-nav .owl-prev {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translate(0,-50%);
+    background: transparent;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-nav .owl-next {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0,-50%);
+    background: transparent;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-prev i::before {
+    content: "";
+    width: 30px;
+    display: inline-block;
+    height: 30px;
+    background: url(../images/arrow_prev.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-next i::before {
+    content: "";
+    width: 30px;
+    display: inline-block;
+    height: 30px;
+    background: url(../images/arrow_next.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }

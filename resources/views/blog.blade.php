@@ -51,7 +51,7 @@
 </head>
 <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh -->
 <body class="page-child">
-    <header id="header-site">
+     <header id="header-site">
         <div class="wp-header">
              <div id="sticky-wrapper" class="sticky-wrapper">
                 <div class="main-menu-bar sticky-header-enable">
@@ -59,16 +59,41 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-2 col-sm-12 col-xs-12">
-                                      <div class="wp-header-mobile">
-                                            <div class="wp-logo text-center">
-                                                <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
-                                                <h1 class="entry-title">
-                                                    <a href="">
-                                                        <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
-                                                    </a>
-                                                </h1>
+                                    <div class="wp-header-mobile">
+                                        <div class="wp-logo text-center">
+                                            <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
+                                            <h1 class="entry-title">
+                                                <a href="">
+                                                    <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
+                                                </a>
+                                            </h1>
+                                        </div>
+                                        <div class="wp-menu-mobile hidden-lg hidden-md">
+                                            <div id="trigger-mobile">
+                                                <span class="bar bar1"></span>
+                                                <span class="bar bar2"></span>
+                                                <span class="bar bar3"></span>
                                             </div>
-                                      </div>
+                                        </div>
+                                        
+                                        <div class="box-search-mb hidden-lg hidden-md">
+                                            <button class="btn btn-default btn-search-mb"><i class="fas fa-search"></i></button>
+                                            <div class="wp-box-search-mb">
+                                                <form action="tim-kiem.html" method="get">
+                                                    <input type="text" class="form-control" name="key" value="" placeholder="Nhập từ khóa cần tìm kiếm">
+                                                    <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                         <div class="wp-cart-mb hidden-lg hidden-md">
+                                            <div class="cart-mb">
+                                                <a class="btn-click-cart">
+                                                    <img src="{{asset('images/icon-cart.png')}}" alt="icon giỏ hàng">
+                                                </a>
+                                            </div>
+                                            <span>0</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 hidden-sm hidden-xs">
                                     <div class="wp-main-menu clearfix">
@@ -210,7 +235,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               <div id="site-cart" class="">
+                                <div id="site-cart" class="">
                                     <div class="site-nav-container-last">
                                         <button id="site-close-handle" class="site-close-handle">
                                             <img src="{{asset('images/clo.png')}}" alt="Đóng">
@@ -225,7 +250,7 @@
                                                         <td class="img">
                                                             <a href="ao-freedom-1805-p846.html">
                                                                 <!-- ảnh được cắt 470x570 -->
-                                                                <img src="{{asset('images/1590838844.jpg')}}" alt="Áo Freedom 1805">
+                                                                <img src="{{asset('images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
                                                             </a>
                                                         </td>
                                                         <td>
@@ -250,21 +275,23 @@
                                             </table>
                                             <span class="line"></span>
                                             <table class="table-total">
-                                                <tbody><tr>
-                                                    <td class="text-left"><b>TỔNG TIỀN TẠM TÍNH:</b></td>
-                                                    <td class="text-right" id="total-view-cart">259.000₫</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <a href="dat-mua.html" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <a href="javascript:void(0);" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-left"><b>TỔNG TIỀN TẠM TÍNH:</b></td>
+                                                        <td class="text-right" id="total-view-cart">259.000₫</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <a href="dat-mua.html" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <a href="javascript:void(0);" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -274,11 +301,149 @@
                 </div>
             </div>
         </div>
+
+        <!-- menu mobile -->
+        <div class="mobile-main-menu">
+            <div class="la-scroll-fix-infor-user">
+                <div class="la-nav-menu-items">
+                    <ul class="la-nav-list-items ul-b">
+                        <!-- khi có sub-menu (menu con ) thì thêm 1 class  menu-item-has-children -->
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Áo lót</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2 menu-item-has-children">
+                                    <a href="#">Áo lót đệm dày</a>
+                                    <ul class="sub-menu ul-b">
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm dày</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm vừa</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm mỏng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót không gọng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót có gọng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Bralette</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót tạo kiểu</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Phụ kiện áo lót</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót đệm vừa</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót đệm mỏng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót không gọng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót có gọng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bralette</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót tạo kiểu</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Phụ kiện áo lót</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="quan-lot.html">Quần Lót</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Combo tiết kiệm</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót cotton</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót ren</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót không viền</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót thun lạnh</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót lọt khe</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót 3/4 mông</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót cả mông</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Set bras</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm dày</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm vừa</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm mỏng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót sexy</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót ren</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Đồ ngủ</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Váy ngủ sexy</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Pijama dài tay</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Pijama cộc tay</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ ngủ 2 dây</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo choàng ngủ</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1">
+                            <a href="#">Blog </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- emd menu-main-mobile -->
     </header> <!-- end header -->
     <!-- Nội dung conter -->
     <main id="main-site">
         <section class="sec-main-page">
-             <div class="wp-titlle-tin-page hidden-xs" style="background: url({{asset('images-demo/venus-charm-cover.jpg')}});background-size: cover">
+             <div class="wp-titlle-tin-page" style="background: url({{asset('images-demo/venus-charm-cover.jpg')}});background-size: cover">
                 <div class="container">
                     <div class="row text-center">
                         <h1>NEW VENUS STORY</h1>
@@ -289,7 +454,7 @@
             <div class="wp-list-tin">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 col-sm-4 col-xs-12 blog-item">
+                        <div class="col-md-4 col-sm-6 col-xs-12 blog-item">
                             <div class="wp-item-tin-a">
                                 <div class="wp-img-tin-a img-cover">
                                     <a href="">
@@ -305,7 +470,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 blog-item">
+                        <div class="col-md-4 col-sm-6 col-xs-12 blog-item">
                             <div class="wp-item-tin-a">
                                 <div class="wp-img-tin-a img-cover">
                                     <a href="">
@@ -320,7 +485,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 blog-item">
+                        <div class="col-md-4 col-sm-6 col-xs-12 blog-item">
                             <div class="wp-item-tin-a">
                                 <div class="wp-img-tin-a img-cover">
                                     <a href="">
@@ -336,7 +501,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 blog-item">
+                        <div class="col-md-4 col-sm-6 col-xs-12 blog-item">
                             <div class="wp-item-tin-a">
                                 <div class="wp-img-tin-a img-cover">
                                     <a href="">

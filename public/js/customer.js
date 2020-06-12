@@ -153,6 +153,14 @@ jQuery(document).ready(function($) {
     }
 
 
+    $(".btn-click-show-top").click( function() {
+        $(this).toggleClass("active");
+        $(this).parent().parent().find(".wp-bottom-text-sp-22").slideToggle( "slow", function() {
+        });
+        $(this).parent().parent().toggleClass("active");
+        $(this).parent().parent().parent().parent().parent().parent().parent().toggleClass("active");
+    });
+
     $(".btn-chinhsua-lai").click( function() {
         $(".wp-list-form-dosize").find(".form-1").removeClass("hidden");
         $(".wp-list-form-dosize").find(".form-2").removeClass("active");

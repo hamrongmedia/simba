@@ -51,7 +51,7 @@
 </head>
 <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh -->
 <body class="page-child">
-    <header id="header-site">
+     <header id="header-site">
         <div class="wp-header">
              <div id="sticky-wrapper" class="sticky-wrapper">
                 <div class="main-menu-bar sticky-header-enable">
@@ -59,16 +59,41 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-2 col-sm-12 col-xs-12">
-                                      <div class="wp-header-mobile">
-                                            <div class="wp-logo text-center">
-                                                <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
-                                                <h1 class="entry-title">
-                                                    <a href="">
-                                                        <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
-                                                    </a>
-                                                </h1>
+                                    <div class="wp-header-mobile">
+                                        <div class="wp-logo text-center">
+                                            <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
+                                            <h1 class="entry-title">
+                                                <a href="">
+                                                    <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
+                                                </a>
+                                            </h1>
+                                        </div>
+                                        <div class="wp-menu-mobile hidden-lg hidden-md">
+                                            <div id="trigger-mobile">
+                                                <span class="bar bar1"></span>
+                                                <span class="bar bar2"></span>
+                                                <span class="bar bar3"></span>
                                             </div>
-                                      </div>
+                                        </div>
+                                        
+                                        <div class="box-search-mb hidden-lg hidden-md">
+                                            <button class="btn btn-default btn-search-mb"><i class="fas fa-search"></i></button>
+                                            <div class="wp-box-search-mb">
+                                                <form action="tim-kiem.html" method="get">
+                                                    <input type="text" class="form-control" name="key" value="" placeholder="Nhập từ khóa cần tìm kiếm">
+                                                    <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                         <div class="wp-cart-mb hidden-lg hidden-md">
+                                            <div class="cart-mb">
+                                                <a class="btn-click-cart">
+                                                    <img src="{{asset('images/icon-cart.png')}}" alt="icon giỏ hàng">
+                                                </a>
+                                            </div>
+                                            <span>0</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 hidden-sm hidden-xs">
                                     <div class="wp-main-menu clearfix">
@@ -210,7 +235,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               <div id="site-cart" class="">
+                                <div id="site-cart" class="">
                                     <div class="site-nav-container-last">
                                         <button id="site-close-handle" class="site-close-handle">
                                             <img src="{{asset('images/clo.png')}}" alt="Đóng">
@@ -225,7 +250,7 @@
                                                         <td class="img">
                                                             <a href="ao-freedom-1805-p846.html">
                                                                 <!-- ảnh được cắt 470x570 -->
-                                                                <img src="{{asset('images/1590838844.jpg')}}" alt="Áo Freedom 1805">
+                                                                <img src="{{asset('images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
                                                             </a>
                                                         </td>
                                                         <td>
@@ -250,21 +275,23 @@
                                             </table>
                                             <span class="line"></span>
                                             <table class="table-total">
-                                                <tbody><tr>
-                                                    <td class="text-left"><b>TỔNG TIỀN TẠM TÍNH:</b></td>
-                                                    <td class="text-right" id="total-view-cart">259.000₫</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <a href="dat-mua.html" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <a href="javascript:void(0);" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-left"><b>TỔNG TIỀN TẠM TÍNH:</b></td>
+                                                        <td class="text-right" id="total-view-cart">259.000₫</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <a href="dat-mua.html" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <a href="javascript:void(0);" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -274,6 +301,144 @@
                 </div>
             </div>
         </div>
+
+        <!-- menu mobile -->
+        <div class="mobile-main-menu">
+            <div class="la-scroll-fix-infor-user">
+                <div class="la-nav-menu-items">
+                    <ul class="la-nav-list-items ul-b">
+                        <!-- khi có sub-menu (menu con ) thì thêm 1 class  menu-item-has-children -->
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Áo lót</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2 menu-item-has-children">
+                                    <a href="#">Áo lót đệm dày</a>
+                                    <ul class="sub-menu ul-b">
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm dày</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm vừa</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót đệm mỏng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót không gọng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót có gọng</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Bralette</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Áo lót tạo kiểu</a>
+                                        </li>
+                                        <li class="ng-scope ng-has-child2">
+                                            <a href="#">Phụ kiện áo lót</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót đệm vừa</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót đệm mỏng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót không gọng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót có gọng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bralette</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo lót tạo kiểu</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Phụ kiện áo lót</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="quan-lot.html">Quần Lót</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Combo tiết kiệm</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót cotton</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót ren</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót không viền</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót thun lạnh</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót lọt khe</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót 3/4 mông</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Quần lót cả mông</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Set bras</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm dày</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm vừa</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót đệm mỏng</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót sexy</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ đồ lót ren</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1 menu-item-has-children">
+                            <a href="#">Đồ ngủ</a>
+                            <ul class="sub-menu ul-b">
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Váy ngủ sexy</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Pijama dài tay</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Pijama cộc tay</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Bộ ngủ 2 dây</a>
+                                </li>
+                                <li class="ng-scope ng-has-child2">
+                                    <a href="#">Áo choàng ngủ</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ng-scope ng-has-child1">
+                            <a href="#">Blog </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- emd menu-main-mobile -->
     </header> <!-- end header -->
     <!-- Nội dung conter -->
     <main id="main-site">
@@ -287,26 +452,34 @@
                                 <div class="tab-content">
                                     <div id="img-id4146" class="tab-pane fade row active in">
                                         <!-- ảnh cắt với kích thức 703x800 -->
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831433.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831433.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831440.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831440.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831446.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831446.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831453.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831453.jpg')}}">
                                         </div>
-                                    </div>
+                                    </div> <!-- end -->
 
                                     <div id="img-id4145" class="tab-pane fade row">
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831387.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831387.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831396.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831396.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831403.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831403.jpg')}}">
                                         </div>
-                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6"><img src="{{asset('images-demo/1590831409.jpg')}}">
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{asset('images-demo/1590831409.jpg')}}">
                                         </div>
-                                    </div>
+                                    </div><!--  end -->
                                 </div>
                             </div>
                         </div>
@@ -381,8 +554,8 @@
                                         <div class="tab-content">
                                             <div id="tab-mt-1" class="tab-pane fade in active">
                                                 <div class="wp-sautab" style="padding: 15px 0px;">
-                                                    <p></p><p>Quần LK ren pinkdear sexy quyến rũ, tôn v3 đầy đặn&nbsp;</p>
-
+                                                    <p></p>
+                                                    <p>Quần LK ren pinkdear sexy quyến rũ, tôn v3 đầy đặn&nbsp;</p>
                                                     <p>Chất liệu ren thoáng mát, mềm mịn với thiết kế 2 dây hông gợi cảm&nbsp;</p>
                                                     <p></p>
                                                 </div>
@@ -421,7 +594,210 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- end sản phẩm mobile -->
+                </div> <!-- end-->
+                <!-- chi tiết sản phầm mobile -->
+                <div class="wp-img-ctsp hidden-sm hidden-md hidden-lg" id="chitietsanphammobile">
+                    <div class="container">
+                        <div class="wp-po-relative" style="position: relative;">
+                            <div class="row" style="margin-right: -5px;margin-left:-5px;">
+                                <div class="col-md-12" style="padding: 0px 6px">
+                                    <div id="load_albums_color">
+                                        <div class="slide-sp-mobile owl-carousel">
+                                            <div class="item">
+                                                <div class="wp-img-slide-sp">
+                                                    <a data-fancybox="test-srcset" data-type="image" href="{{asset('images-demo/1590831453.jpg')}}">
+                                                        <img src="{{asset('images-demo/1590831453.jpg')}}" alt="ảnh sản phẩm">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="wp-img-slide-sp">
+                                                    <a data-fancybox="test-srcset" data-type="image" href="{{asset('images-demo/1590831440.jpg')}}">
+                                                        <img src="{{asset('images-demo/1590831440.jpg')}}" alt="ảnh sản phẩm">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-right: 0;margin-left:0;">
+                                <div class="ps-relative">
+                                    <div class="wp-text-slide-sp-22" style="z-index: 2;background-color: #fff;">
+                                        <div class="wp-top-text-sp-22">
+                                            <div class="btn-click-show-top">
+                                                <i class="fas fa-chevron-up"></i>
+                                            </div>
+                                            <h2 class="h1-title-ctsp" style="margin: 10px 0">Áo 5231</h2>
+                                            <div class="price-ctsp">
+                                                <span class="int" style="margin-right: 10px">160.000 đ</span>
+                                            </div>
+                                            <div class="wp-chonmau">
+                                                <ul class="nav nav-pills">
+                                                    <li class="chose_attr_advanced_mobile  active" >
+                                                        <a href="javascript:void();" class="s_color">
+                                                            <span class="color" style="background: url('{{asset('images-demo/1590831427.jpg')}}')"></span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="chose_attr_advanced_mobile">
+                                                        <a href="javascript:void();" class="s_color">
+                                                            <span class="color" style="background: url('{{asset('images-demo/1590831382.jpg')}}')"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="wp-chonsize">
+                                            <ul class="ul-b list-size">
+                                                <li>
+                                                    <a href="javascript:void();" class="filtersize active">34</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void();" class="filtersize ">36</a>
+                                                </li>
+                                                <div class="error_size"></div>
+                                            </ul>
+                                        </div>
+                                        <div class="wp-bottom-text-sp-22" style="display: none;">
+                                            
+                                            <div class="wwp-uudai-rieng">
+                                                <p>Ưu đãi dành riêng cho bạn</p>
+                                            </div>
+                                            <div class="wp-list-dinhvu2">
+                                                <ul class="ul-b lits-dv2">
+                                                    <li>
+                                                        <div class="icon-dv2">
+                                                            <img src="{{asset('images-demo/venus-charm-feeship-don-hang-700k.jpg')}}" alt="Miễn phí giao hàng toàn quốc">
+                                                        </div>
+                                                        <div class="text-dv2">
+                                                            <p>Miễn phí giao hàng toàn quốc</p>
+                                                            <span>(Đơn hàng trên 700.000 đ)</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon-dv2">
+                                                            <img src="{{asset('images-demo/venus-charm-bao-hanh-san-pham-30-ngay-copy.jpg')}}" alt="Hỗ trợ đổi trả khi không vừa size">
+                                                        </div>
+                                                        <div class="text-dv2">
+                                                            <p>Hỗ trợ đổi trả khi không vừa size</p>
+                                                            <span>(Đổi trả trong 03 ngày)</span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon-dv2">
+                                                            <img src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh.jpg')}}" alt="Cam kết sản phẩm như hình">
+                                                        </div>
+                                                        <div class="text-dv2">
+                                                            <p>Cam kết sản phẩm như hình</p>
+                                                            <span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="icon-dv2">
+                                                            <img src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay.png')}}" alt="Bảo hành sản phẩm trong 30 ngày">
+                                                        </div>
+                                                        <div class="text-dv2">
+                                                            <p>Bảo hành sản phẩm trong 30 ngày</p>
+                                                            <span>(Tất cả các lỗi từ nhà sản xuất)</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="wp-tab-mota">
+                                                <ul class="nav nav-pills">
+                                                    <li class="active">
+                                                        <a data-toggle="pill" href="#tab-mt-1m">
+                                                            <span>MÔ tả</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="pill" href="#tab-mt-2m">
+                                                            <span>Phí ship</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="pill" href="#tab-mt-3m">
+                                                            <span>Đổi trả</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div id="tab-mt-1m" class="tab-pane fade in active">
+                                                        <div class="wp-sautab" style="padding: 15px 0px;">
+                                                            <p>
+                                                            </p>
+                                                            <p>Áo 5231 là sản phẩm phân phối Venus Charm - Hàng Việt Nam&nbsp;</p>
+
+                                                            <p>Mẫu có gọng giúp gom ngực gọn với mút mỏng dành cho form ngực vừa và lớn</p>
+
+                                                            <p>Áo chất mút êm, cotton thấm hút mồ hôi, vải ngoài ren mềm nhẹ nhàng, đem lại sự quyến rũ, gợi cảm với dáng quả dáng vát nhẹ lộ bầu ngực đầy đặn, tôn v1&nbsp;&nbsp;</p>
+
+                                                            <p>Sản phẩm bản 2 móc cảm giác&nbsp;không nóng bí&nbsp;</p>
+
+                                                            <p>Mẫu có 2 sz 34/75 - 36/80 với hồng - da sáng - da đậm - đen</p>
+                                                            <p>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div id="tab-mt-2m" class="tab-pane fade">
+                                                        <div class="wp-sautab" style="padding: 15px 0px;">
+                                                            <p>
+                                                                <b>FREESHIP VỚI ĐƠN HÀNG TỪ 03 SẢN PHẨM TRỞ LÊN</b>
+                                                            </p>
+
+                                                            <p>- Không áp dụng cũng các chương trình khuyến mại khác&nbsp;(giảm giá, combo, chiết khấu&nbsp;khách VIP)</p>
+
+                                                            <p>- Thời gian áp dụng từ: 03/05 - 30/05/2020</p>
+
+                                                            <p>&nbsp;</p>
+
+                                                            <p>
+                                                                <b>PHÍ SHIP VỚI ĐƠN HÀNG DƯỚI 03 SẢN PHẨM</b>
+                                                            </p>
+
+                                                            <p>- Khách hàng tại Hà Nội: 22.000 đ</p>
+
+                                                            <p>- Khách hàng tại tỉnh khác: 33.000 đ</p>
+                                                        </div>
+                                                    </div>
+                                                    <div id="tab-mt-3m" class="tab-pane fade">
+                                                        <div class="wp-sautab" style="padding: 15px 0px;">
+                                                            <p style="text-align: justify;">
+                                                                <strong>CHÍNH SÁCH ĐỔI&nbsp;SẢN PHẨM VENUS CHARM</strong>
+                                                            </p>
+
+                                                            <p style="text-align: justify;">- Sản phẩm đổi trả phải còn nguyên tem mác, không qua sử dụng hay giặt là.</p>
+
+                                                            <p style="text-align: justify;">- Đổi sản phẩm bằng hoặc hơn giá trong vòng 03 ngày kể từ khi nhận hàng.</p>
+
+                                                            <p style="text-align: justify;">- Không áp dụng đổi trả sản phẩm trong các chương trình khuyến mại.</p>
+
+                                                            <p style="text-align: justify;">- KHÔNG áp dụng đổi trả sản phẩm QUẦN LÓT và phụ kiện dưới mọi hình thức.</p>
+
+                                                            <p style="text-align: justify;">- Venus Charm bảo hành sản phẩm trong vòng 30 ngày tất cả các lỗi từ nhà sản xuất.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="wp-form-sdt">
+                                                <form action="" id="sform_phone_mobile" method="post">
+                                                    <div class="error uk-alert" style="display: none;">
+                                                    </div>
+                                                    <input type="text" class="form-group form-control phone" placeholder="Nhập số điện thoại" name="phone">
+                                                    <button class="btn btn-default btn-hover">Gọi lại cho tôi</button>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="wp-review">
                     <div class="wp-title-sec">
@@ -434,7 +810,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-datmua col-md-12 col-xs-12 col-sm-2">
+                <div class="box-datmua col-md-12 col-xs-12 col-sm-12">
                     <div class="wp-icon">
                         <img src="{{asset('images/icon-c4.svg')}}" alt="sản phẩm đặc biệt">
                     </div>
@@ -601,8 +977,6 @@
             </div>
         </section> <!-- end nội dung -->
     </main>
-
-
     <!-- chân trang -->
     <footer id="footer-site">
         <div class="container-fluid pd-0">

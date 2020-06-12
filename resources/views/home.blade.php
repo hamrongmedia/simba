@@ -88,6 +88,14 @@
                                                 </form>
                                             </div>
                                         </div>
+                                         <div class="wp-cart-mb hidden-lg hidden-md">
+                                            <div class="cart-mb">
+                                                <a class="btn-click-cart">
+                                                    <img src="{{asset('images/icon-cart.png')}}" alt="icon giỏ hàng">
+                                                </a>
+                                            </div>
+                                            <span>0</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 hidden-sm hidden-xs">
@@ -1477,6 +1485,8 @@
     <div class="feedback">
         <a href="#" target="_blank"><div class="inner rotate">Feedback</div></a>
     </div>
+   
+
 </body>
 
 

@@ -1876,6 +1876,7 @@ span.pro-price-view {
   justify-content: space-around;
   padding: 20px 30px;
   background: #fcdcda;
+  flex-wrap: wrap;
   margin-bottom: 30px;
   margin-top: 30px;
 }
@@ -1996,6 +1997,7 @@ span.pro-price-view {
 }
 .p-mon {
   font-weight: 700;
+  font-size: 18px;
 }
 .wp-pt-thanhtoan {
   margin: 20px 0px;
@@ -2105,6 +2107,40 @@ span.pro-price-view {
   width: auto;
   display: inline-block;
   border-radius: 5px;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-nav .owl-prev {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+  background: transparent;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-nav .owl-next {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+  background: transparent;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-prev i::before {
+  content: "";
+  width: 30px;
+  display: inline-block;
+  height: 30px;
+  background: url(../images/arrow_prev.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#chitietsanphammobile .slide-sp-mobile .owl-next i::before {
+  content: "";
+  width: 30px;
+  display: inline-block;
+  height: 30px;
+  background: url(../images/arrow_next.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 /*--------------------------------------------------------------
 # footer
@@ -2385,6 +2421,49 @@ span.pro-price-view {
   .list-link-title {
     top: 0;
   }
+  .page-child .wp-main-header {
+    padding-top: 6px;
+  }
+  .wp-cart-mb {
+    padding: 10px;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 10px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    z-index: 9;
+  }
+  .wp-cart-mb span {
+    position: absolute;
+    font-size: 11px;
+    background: red;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    bottom: 0px;
+    top: auto;
+    right: 0px;
+  }
+  #site-cart {
+    width: 100%;
+  }
+  .blog-item:nth-child(3n+1) {
+    clear: none;
+  }
+  .blog-item:nth-child(2n+1) {
+    clear: left;
+  }
+  .wp-titlle-tin-page {
+    padding: 60px 0px;
+  }
 }
 @media (max-width: 767px) {
   .wp-suport-1 .row .col-xs-6:nth-child(n+3),
@@ -2511,6 +2590,99 @@ span.pro-price-view {
   .boloc-a.open .close-fil {
     right: 320px;
   }
+  .sec-main-page .container-fluid {
+    padding: 0;
+  }
+  .sec-main-page .wp-list-sp-home .row {
+    margin: 0;
+  }
+  .btn-click-show-top {
+    width: 35px;
+    height: 35px;
+    background: #fff;
+    border: 0px solid #ccc;
+    border-radius: 100%;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wp-top-text-sp-22 {
+    padding-top: 20px;
+    position: relative;
+  }
+  .wp-text-slide-sp-22 {
+    transition: all 0.5s ease-in-out;
+  }
+  .wp-text-slide-sp-22.active {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    height: calc(100vh - 15px);
+    height: -moz-calc(100vh - 15px);
+    height: -webkit-calc(100vh - 15px);
+  }
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .wp-bottom-text-sp-22 {
+    max-height: 100%;
+    overflow-y: scroll;
+    background: #fff;
+  }
+  .wp-bottom-text-sp-22::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #e1e1e1;
+  }
+  .wp-bottom-text-sp-22::-webkit-scrollbar {
+    width: 4px;
+  }
+  .wp-bottom-text-sp-22::-webkit-scrollbar-thumb {
+    background-color: #979797;
+    border-radius: 5px;
+  }
+  #chitietsanphammobile.active {
+    margin-bottom: 212px;
+  }
+  .wp-icon {
+    background: #feeae8;
+    padding: 10px;
+    position: absolute;
+    border-radius: 100%;
+    top: -33px;
+  }
+  .wp-text {
+    margin-top: 38px;
+  }
+  .wp-btn {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  .wp-list-tin .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .wp-list-tinkhac .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .wp-title-danhmuc-s .h1-title-s {
+    font-size: 30px;
+  }
+  .wp-item-sp-222 .wp-img-to img {
+    height: 400px;
+  }
+  #main-thanhtoan .row-tt {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 @media (max-width: 600px) {
   .wp-item-dv {
@@ -2544,6 +2716,21 @@ span.pro-price-view {
   .text-banner .btn-xem {
     padding: 10px 20px;
     margin: 0px 10px;
+  }
+  #chitietsanphammobile.active {
+    margin-bottom: 298px;
+  }
+  .form-group.group3 select {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .form-group.group3 {
+    display: block;
+  }
+  .wp-bottom-text-sp-22 {
+    max-height: 451px;
+    overflow-y: scroll;
+    background: #fff;
   }
 }
 @media (min-width: 768px) {
