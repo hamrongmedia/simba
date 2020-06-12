@@ -16,6 +16,36 @@ jQuery(document).ready(function($) {
     $("#site-close-handle").click( function (){
         $("#site-cart").removeClass("active");
     });
+    $(".btn-search-mb").click(function () {
+        $(this).toggleClass("open");
+        $(".wp-box-search-mb").slideToggle( "fast", function() {
+        });
+    });
+
+
+
+    jQuery('.mobile-main-menu .menu-item-has-children > a').after('<i class="fa fa-plus fa1" aria-hidden="true"></i>');
+
+    jQuery('.mobile-main-menu .menu-item-has-children .fa1').click( function () {
+        jQuery(this).closest('li').children('.sub-menu').toggle(600);
+        jQuery(this).toggleClass('fa1');
+    });
+
+
+
+
+    $('.wp-menu-mobile').click( function(){
+         $('.mobile-main-menu').slideToggle(200);
+         $('.wp-main-header').toggleClass('bg-white');
+    });
+
+    // $('.ng-has-child1 .ul-has-child1 .ng-has-child2 a .fa2').on('click', function(e){
+    //     e.preventDefault();
+    //     var $this = $(this);
+    //     $this.parents('.ng-has-child1 .ul-has-child1 .ng-has-child2').find('.ul-has-child2').stop().slideToggle();
+    //     $(this).toggleClass('active')
+    //     return false;
+    // });
     //xóa cart
     // $(document).on('click', '.delete_item', function () {
     //     var idprd = $(this).parent().find('.ajax-quantity').val();
@@ -114,7 +144,13 @@ jQuery(document).ready(function($) {
     }
 
 
-
+    if($(window).width() < 768) {
+        $(".wp-ft-main").click(function () {
+            $(this).toggleClass("open");
+            $(this).find(".list-ft-main").slideToggle("slow", function () {
+            });
+        });
+    }
 
 
     $(".btn-chinhsua-lai").click( function() {
@@ -169,7 +205,12 @@ jQuery(document).ready(function($) {
                 items:2
 
             },
-            600:{
+            320:{
+
+                items:2
+
+            },
+            767:{
 
                 items:3
 
@@ -266,6 +307,26 @@ jQuery(document).ready(function($) {
         loop:true,
         margin:0,
         dots:false,
+        nav:true,
+        autoplay:false,
+        autoplayTimeout:3000,
+        autoplaySpeed:1200,
+        smartSpeed:1200,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:1
+            },
+            1000:{
+                items:1
+            }
+        }
+    });
+    $('.slide-sp-mobile').owlCarousel({
+        loop:true,margin:0,
+        dots:true,
         nav:true,
         autoplay:false,
         autoplayTimeout:3000,

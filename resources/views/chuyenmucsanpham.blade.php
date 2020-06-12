@@ -398,7 +398,7 @@
                         <div class="wp-list-sp-home list-danhmyc-spsp">
                             <div class="row row-eidt-0" style="margin-left: 0px;margin-right: 0px;" id="ajax-product-list">
                                 <!--   bắt bầu vòng lặp sản phẩm -->
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-4 col-xs-6">
                                     <div class="wp-item-sp">
                                         <!--màu sắc -->
                                         <div style="position: relative">
@@ -470,7 +470,7 @@
                                         <!--end màu sắc đầu tiên-->
                                     </div>
                                 </div> <!-- end 1 sản phẩm -->
-                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="col-md-3 col-sm-4 col-xs-6">
                                     <div class="wp-item-sp">
                                         <!--màu sắc -->
                                         <div style="position: relative">

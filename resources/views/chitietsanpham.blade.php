@@ -279,6 +279,7 @@
     <main id="main-site">
         <section class="sec-main-page">
             <div class="container-fluid">
+                <!-- chi tiết sản phẩm desktop -->
                 <div class="wp-img-ctsp hidden-xs">
                     <div class="row" style="position: relative;">
                         <div class="col-md-9 col-sm-8 col-xs-12">
@@ -420,7 +421,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- end sản phẩm mobile -->
+
                 <div class="wp-review">
                     <div class="wp-title-sec">
                         <h2 class="h2-title text-center">ĐÁNH GIÁ</h2>

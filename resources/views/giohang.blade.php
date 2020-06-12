@@ -274,6 +274,8 @@
                 </div>
             </div>
         </div>
+
+       
     </header> <!-- end header -->
     <!-- Nội dung conter -->
     <main id="main-thanhtoan">
@@ -383,14 +385,14 @@
                             <div class="form-group">
                                 <textarea name="message" class="text form-control" placeholder="Ví dụ: Chuyển hàng ngoài giờ hành chính"></textarea>
                             </div>
-                            <div class="wp-pt-thanhtoan" id="click_hidden" style="display: none;">
+                            <div class="wp-pt-thanhtoan" id="click_hidden" >
                                 <p class="p-mon">Phí vận chuyển</p>
                                 <div class="content-box  blank-slate">
                                     <i class="blank-slate-icon icon icon-closed-box "></i>
                                     <p>Vui lòng chọn tỉnh / thành để có danh sách phương thức vận chuyển.</p>
                                 </div>
                             </div>
-                            <div class="wp-pt-thanhtoan" id="wp-pt-thanhtoan">
+                            <div class="wp-pt-thanhtoan" id="wp-pt-thanhtoan" style="display: none;">
                                 <p class="p-mon">Phí vận chuyển</p>
                                 <div class="radio">
                                     <label>
@@ -403,7 +405,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="phuongthuc-ttt" id="phuongthuc-ttt" >
+                            <div class="phuongthuc-ttt" id="phuongthuc-ttt" style="display: none;" >
                                 <p class="p-mon">Phương thức thanh toán</p>
                                 <div class="wp-list-thanhtoan-a">
                                     <ul class="ul-b">

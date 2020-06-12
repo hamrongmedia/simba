@@ -24,7 +24,7 @@
     <!-- for Facebook -->
     <meta property="og:title" content="Venus Charm">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <meta property="og:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
     <meta property="og:description" content="Venus Charm">
     <meta property="og:site_name" content="Venus Charm">
     <meta property="fb:admins" content="">
@@ -34,20 +34,20 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Venus Charm">
     <meta name="twitter:description" content="Venus Charm">
-    <meta name="twitter:image" content="{{asset('public/images/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <link rel="shortcut icon" href="{{asset('public/images/logo.png')}}">
+    <meta name="twitter:image" content="{{asset('images/venus-charm-banner-dau-trang-1-.jpg')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- thư viện css -->
-    <link rel="stylesheet"  href="{{asset('public/css/fontawesome.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/all.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/jquery.fancybox.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/bootstrap.min.css')}}"/>
-    <link rel="stylesheet"  href="{{asset('public/css/owl.carousel.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/fontawesome.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/all.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/jquery.fancybox.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/owl.carousel.css')}}"/>
     <!-- code css -->
-    <link rel="stylesheet"  href="{{asset('public/css/style.css')}}"/>
+    <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
 </head>
 <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh -->
 <body class="page-child">
@@ -64,7 +64,7 @@
                                                 <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
                                                 <h1 class="entry-title">
                                                     <a href="">
-                                                        <img class="img-responsive" src="{{asset('public/images/logo.png')}}" alt="">
+                                                        <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
                                                     </a>
                                                 </h1>
                                             </div>
@@ -213,7 +213,7 @@
                                <div id="site-cart" class="">
                                     <div class="site-nav-container-last">
                                         <button id="site-close-handle" class="site-close-handle">
-                                            <img src="{{asset('public/images/clo.png')}}" alt="Đóng">
+                                            <img src="{{asset('images/clo.png')}}" alt="Đóng">
                                         </button>
                                         <p class="title">Giỏ hàng</p>
                                         <span class="textCartSide">Bạn đang có <span id="qtotalitems"><b>1</b></span> sản phẩm trong giỏ hàng.</span>
@@ -225,7 +225,7 @@
                                                         <td class="img">
                                                             <a href="ao-freedom-1805-p846.html">
                                                                 <!-- ảnh được cắt 470x570 -->
-                                                                <img src="{{asset('public/images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
+                                                                <img src="{{asset('images-demo/1590838844.jpg')}}" alt="Áo Freedom 1805">
                                                             </a>
                                                         </td>
                                                         <td>
@@ -288,7 +288,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -297,7 +297,7 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li>
                                                    
@@ -310,7 +310,7 @@
                              <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -319,32 +319,32 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li> <!-- end -->
                                                    
@@ -357,7 +357,7 @@
                              <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -366,7 +366,7 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li>
                                                    
@@ -379,7 +379,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -388,7 +388,7 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li>
                                                    
@@ -401,7 +401,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -410,7 +410,7 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li>
                                                    
@@ -423,7 +423,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="wp-item-sp-222 img-cover">
                                     <div class="wp-img-to">
-                                        <img src="{{asset('public/images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
+                                        <img src="{{asset('images-demo/feedback-do-lot-venus-charm.jpg')}}" alt="Feedback Venus Charm">
                                     </div>
                                     <div class="wp-img-nho">
                                         <ul class="ul-b list-img-nho-sp">
@@ -432,7 +432,7 @@
                                                 <ul class="ul-b regular">
                                                     <li>
                                                         <a href="#" tabindex="0">
-                                                            <img src="{{asset('public/images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
+                                                            <img src="{{asset('images-demo/1576159860.jpg')}}" alt="Áo lót 1654">
                                                         </a>
                                                     </li>
                                                    
@@ -515,7 +515,7 @@
                                 <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('public/images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                                <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -595,15 +595,15 @@
 
 
 
-<script src="{{asset('public/js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('public/js/owl.carousel.js')}}"></script>
-<script src="{{asset('public/js/rangeslider.js')}}"></script>
-<script src="{{asset('public/js/fontawesome.min.js')}}"></script>
-<script src="{{asset('public/js/jquery.fancybox.min.js')}}"></script>
-<script src="{{asset('public/js/sticky-kit.min.js')}}"></script>
-<script src="{{asset('public/js/slick.min.js')}}"></script>
-<script src="{{asset('public/js/customer.js')}}"></script>
+<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/owl.carousel.js')}}"></script>
+<script src="{{asset('js/rangeslider.js')}}"></script>
+<script src="{{asset('js/fontawesome.min.js')}}"></script>
+<script src="{{asset('js/jquery.fancybox.min.js')}}"></script>
+<script src="{{asset('js/sticky-kit.min.js')}}"></script>
+<script src="{{asset('js/slick.min.js')}}"></script>
+<script src="{{asset('js/customer.js')}}"></script>
 
 <script>
     if($(window).width() > 768) {
