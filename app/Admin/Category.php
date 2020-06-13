@@ -3,12 +3,12 @@
 namespace App\Admin;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Admin\Category;
 
 class Category extends Model
-{
+{ 
+    protected $table = 'category';
     protected $fillable = [
-        'name', 'slug', 'cat_id', 'type', 'note', 'status',
+        'name', 'slug', 'cat_id', 'description', 'status',
     ];
 
     protected $appends = ['parent', 'child'];

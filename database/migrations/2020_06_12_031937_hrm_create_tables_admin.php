@@ -34,10 +34,12 @@ class HrmCreateTablesAdmin extends Migration
             $table->bigIncrements('id');
             $table->string('slug')->unique();
             $table->string('name');
-            $table->integer('type')->nullable();
             $table->integer('cat_id')->nullable();
-            $table->string('note')->nullable();
+            $table->string('description', 300)->nullable();
             $table->boolean('status');
+            $table->string('meta_des')->nullable();
+            $table->string('meta_key')->nullable();
+            $table->string('meta_title')->nullable();
             $table->timestamps();
         });
     }

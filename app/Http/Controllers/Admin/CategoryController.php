@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.list');
+        $objs = Category::all();
+        return view('admin.pages.category.list')->with('data',$objs);
     }
 
     /**
@@ -25,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.news.shop_news');
+        $cats = Category::where('status',1)->get();
+        return view('admin.pages.category.create_category',['cats'=>$cats]);
     }
 
     /**
@@ -37,8 +39,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        Posts::create($data);
-        return redirect(route('admin.posts.index'));
+        Category::create($data);
+        return redirect(route('admin.category.index'));
     }
 
     /**
@@ -83,6 +85,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $obj = Category::find($id);
+        if($obj == null){
+            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
+            return redirect()->route('admin.category.index');  
+        }
+        $obj->delete();
+        Session::flash('success-category', 'Xóa thông tin thành công.');  
+        return redirect()->route('admin.category.index'); 
     }
 }

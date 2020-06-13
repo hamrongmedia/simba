@@ -102,7 +102,7 @@
                 <span>Danh sách tin</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+              <a href="{{route('admin.category.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Danh mục</span></a>
             </li>
             <li class="nav-item has-treeview">
