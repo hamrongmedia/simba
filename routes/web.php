@@ -42,3 +42,7 @@ Route::get('giohang', function () {
 //START ADMIN ROUTE
 @include('admin.php');
 //END ADMIN ROUTE
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
