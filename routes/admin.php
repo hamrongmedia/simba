@@ -12,6 +12,15 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     Route::get('/category', 'PostsController@index')->name('admin.category.index');
     Route::get('/category/create', 'PostsController@create')->name('admin.category.create');
     Route::post('/category/create', 'PostsController@store')->name('admin.category.store');
+
+    // Admin manage routes
+    Route::get('/user', 'UserManageController@index')->name('admin.user.index');
+    Route::get('create', 'Auth\UsersController@create')->name('admin.user.create');
+    Route::post('/create', 'Auth\UsersController@postCreate')->name('admin.user.create');
+    Route::get('/edit/{id}', 'Auth\UsersController@edit')->name('admin.user.edit');
+    Route::post('/edit/{id}', 'Auth\UsersController@postEdit')->name('admin.user.edit');
+    Route::post('/delete', 'Auth\UsersController@deleteList')->name('admin.user.delete');
+
 });
 
 Route::prefix('hrm')->namespace('auth')->group(function () {
