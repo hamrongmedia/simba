@@ -38,6 +38,10 @@ Route::get('feedback', function () {
 Route::get('giohang', function () {
     return view('giohang');
 });
+Route::get('tim-kiem', function () {
+    return view('tim_kiem');
+});
+
 
 //START ADMIN ROUTE
 @include('admin.php');
