@@ -1,31 +1,27 @@
 @extends('admin.layout')
 
 @section('title')
-  Tạo chuyên mục
+  Sửa chuyên mục
 @endsection
 
 @section('main')
 <div class="row">
-    <form action="{{route('admin.category.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
+    <form action="{{route('admin.category.update',['id'=>$obj->id])}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
     @csrf <!-- {{ csrf_field() }} -->
         <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tạo mới một chuyên mục</h3>
+                    <h3 class="box-title">Sửa chuyên mục</h3>
                 </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
-                </div>
-            </div> 
+             <!-- form start -->
                 <div class="box-body">   
                         <div class="form-group">
                             <label>Tên chuyên mục</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" name="name" class="form-control"  value="{{isset($obj) ? $obj->name : ''}}">
                         </div>
                         <div class="form-group">
                             <label>Slug</label>
-                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" name="slug" class="form-control"  value="{{isset($obj) ? $obj->slug : ''}}">
                         </div>
                         <div class="form-group">
                             <label>Chuyên mục cha</label>
@@ -47,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô Tả</label>
-                            <textarea class="form-control" name="description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                            <textarea class="form-control" name="description" rows="3" value="{{isset($obj) ? $obj->description : ''}}"></textarea>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
@@ -72,11 +68,11 @@
                     <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
+                        <input type="text" name="meta_title" class="form-control" value="{{isset($obj) ? $obj->meta_title : ''}}">
                     </div>
                     <div class="form-group">
                         <label>Mô Tả</label>
-                        <textarea class="form-control" name="meta_des" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                        <textarea class="form-control" name="meta_des" rows="3" value="{{isset($obj) ? $obj->meta_des : ''}}"></textarea>
                     </div>
                 </div>
             </div> 

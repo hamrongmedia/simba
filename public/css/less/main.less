@@ -199,9 +199,7 @@
 	    color: #333333;
 	}
 }
-.wp-tin {
-    max-width: 90%;
-}
+
 .sec-home-03{
 	.btn-shopnow {
 	    background: transparent;
@@ -288,14 +286,11 @@
     padding: 20px 0px;
     .h3-title{
     	font-weight: 600;
+    	font-size: 15px;
     }
     .wp-shopnow {
 	    position: relative;
 	}
-}
-
-.sec-home-06{
-
 }
 .wp-title-sec-sp{
     margin-bottom: 20px;
@@ -312,9 +307,9 @@
 }
 .list-link-title {
     float: left;
-    width: ~'calc(100% - 120px)';
-    width: ~'-moz-calc(100% - 120px)';
-    width: ~'-webkit-calc(100% - 120px)';
+    width: ~'calc(100% - 160px)';
+    width: ~'-moz-calc(100% - 160px)';
+    width: ~'-webkit-calc(100% - 160px)';
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -420,7 +415,11 @@
 		}
 	}
 }
-
+.wp-item-sp:hover{
+	.wp-add-to-cart{
+		opacity: 1;
+	}
+}
 .wp-add-to-cart {
     position: absolute;
     bottom: 0%;
@@ -432,7 +431,7 @@
     background: rgba(0, 0, 0, 0.3);
     /* font-size: 16px; */
     transition: all 0.3s ease-in-out;
-    opacity: 1;
+    opacity:0;
     a{
     	color: #fff;
     }
@@ -506,6 +505,7 @@
 .color-1.active {
     border-color: #bc684f;
 }
+
 .sec-home-10,
 .sec-home-07{
 	.row{

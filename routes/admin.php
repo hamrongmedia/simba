@@ -8,10 +8,13 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     Route::get('/posts/create', 'PostsController@create')->name('admin.posts.create');
     Route::post('/posts/create', 'PostsController@store')->name('admin.posts.store');
 
-    // Category
-    Route::get('/category', 'CategoryController@index')->name('admin.category.index');
-    Route::get('/category/create', 'CategoryController@create')->name('admin.category.create');
-    Route::post('/category/create', 'CategoryController@store')->name('admin.category.store');
-    Route::get('/category/edit/{id}', 'CategoryController@edit')->name('admin.category.edit');
-    Route::get('/category/destroy/{id}', 'CategoryController@destroy')->name('admin.category.destroy');
+
+     // Category
+    Route::get('/category','CategoryController@index')->name('admin.category.index');
+    Route::get('/category/create','CategoryController@create')->name('admin.category.create');
+    Route::post('/category/create','CategoryController@store')->name('admin.category.store');
+    Route::get('/category/edit/{id}','CategoryController@edit')->name('admin.category.edit');
+    Route::post('/category/edit/{id}','CategoryController@update')->name('admin.category.update');
+    Route::get('/category/destroy/{id}','CategoryController@destroy')->name('admin.category.destroy');
+
 });

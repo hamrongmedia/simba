@@ -29,7 +29,7 @@
 </div>
 <!-- ./wrapper -->
 @include('admin.partials.scripts')
+@include('admin.partials.alert')
 @yield('js')
-
 </body>
 </html>

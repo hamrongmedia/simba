@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Admin\Category;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -40,7 +41,7 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         Category::create($data);
-        return redirect(route('admin.category.index'));
+        return redirect()->route('admin.category.create');
     }
 
     /**
@@ -62,7 +63,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $obj = Category::find($id);
+        if($obj == null){
+            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
+            return redirect()->route('admin.category.index');  
+        }
+        $cats = Category::where('status',1)->get();
+        return view('admin.pages.category.edit_category',['obj'=>$obj,'cats'=>$cats]);
     }
 
     /**
@@ -74,7 +81,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $obj = Category::find($id);
+        if($obj == null){
+            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
+            return redirect()->route('category.index');  
+        }
+        $obj->update($request->all());
+        Session::flash('success-category', 'Thay đổi thông tin thành công.');
+        return redirect()->route('admin.category.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
     }
 
     /**
