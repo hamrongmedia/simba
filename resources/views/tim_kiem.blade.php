@@ -1,24 +1,26 @@
 @extends('front-end.main.page_main')
 
 @section('title')
-Blog
+Tìm kiếm
 @endsection
 
 @section('content')
-
     <section class="sec-main-page">
-            <div class="wp-titlle-tin-page" style="background: url({{asset('images-demo/venus-charm-cover.jpg')}});background-size: cover">
-                <div class="container">
-                    <div class="row text-center">
-                        <h1>NEW VENUS STORY</h1>
-                        <span>Beutiful Inside!</span>
-                    </div>
+        <div class="wp-list-tin">
+            <div class="container-fluid">
+                <div class="wp-boloc">
+                    <h1 class="h1-title-danhmuc">Tìm kiếm: Áo JM1185</h1>
                 </div>
-            </div>
-            <div class="wp-list-tin">
-                <div class="container">
-                    @include('front-end.content.list_post')
+                
+                <div class="row">
 
+                    <!-- phần sản phẩm -->
+                    <div class="wp-list-sp-home list-danhmyc-spsp">
+                        <div class="row row-eidt-0" style="margin-left: 0px;margin-right: 0px;" id="ajax-product-list">
+                            <!--   bắt bầu vòng lặp sản phẩm -->
+                             @include('front-end.content.product_list')
+                        </div>
+                    </div>
 
                     <div id="ajax-product-pagination" style="text-align: center">
                         <div class="phantrang text-center">
@@ -33,8 +35,8 @@ Blog
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
+    </section>
 @endsection
 
 @section('custom-js')
