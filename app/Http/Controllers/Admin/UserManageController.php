@@ -24,7 +24,7 @@ class UserManageController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.pages.admin_manage.user_create');
     }
 
     /**

@@ -19,7 +19,7 @@ class HrmCreateTablesAdmin extends Migration
             $table->string('title');
             $table->string('image', 200)->nullable();
             $table->string('description', 300)->nullable();
-            $table->text('content')->nullable();;
+            $table->text('content')->nullable();
             $table->integer('cat_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->boolean('status');
@@ -34,12 +34,15 @@ class HrmCreateTablesAdmin extends Migration
             $table->bigIncrements('id');
             $table->string('slug')->unique();
             $table->string('name');
-            $table->integer('type')->nullable();
             $table->integer('cat_id')->nullable();
-            $table->string('note')->nullable();
+            $table->string('description', 300)->nullable();
             $table->boolean('status');
+            $table->string('meta_des')->nullable();
+            $table->string('meta_key')->nullable();
+            $table->string('meta_title')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

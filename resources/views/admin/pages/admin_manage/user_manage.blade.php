@@ -34,7 +34,7 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="menu-right">
-                        <a href="https://demo.s-cart.org/sc_admin/user/create" class="btn  btn-success  btn-flat"
+                            <a href="{{route('admin.user.create')}}" class="btn  btn-success  btn-flat"
                             title="New" id="button_create_new">
                             <i class="fa fa-plus" title="Add new"></i>
                         </a>
