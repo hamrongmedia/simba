@@ -1,17 +1,50 @@
-@if(count($errors) > 0)
-<div class="alert alert-danger">
-	@foreach($errors->all() as $err)
-	<strong>{{$err}}</strong><br>
-	@endforeach
-</div>
+{{-- Need add under script of sweetaleart2 --}}
+<!--message-->
+@if(session()->has('success'))
+
+<script type="text/javascript">
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  Toast.fire({
+    type: 'success',
+    title: '{!! session()->get('success') !!}'
+  })
+</script>
 @endif
-@if(session('error-'.$name_session))
-<div class="alert alert-danger">
-	<strong>{{session('error-'.$name_session)}}</strong>
-</div>
+
+@if(session()->has('error'))
+<script type="text/javascript">
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  Toast.fire({
+    type: 'error',
+    title: '{!! session()->get('error') !!}'
+  })
+</script>
 @endif
-@if(session('success-'.$name_session))
-<div class="alert alert-success">
-	<strong>{{session('success-'.$name_session)}}</strong>
-</div>
+
+@if(session()->has('warning'))
+<script type="text/javascript">
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  Toast.fire({
+    type: 'warning',
+    title: '{!! session()->get('warning') !!}'
+  })
+</script>
 @endif

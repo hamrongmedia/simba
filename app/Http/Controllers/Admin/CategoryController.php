@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         Category::create($data);
-        return redirect(route('admin.category.create'));
+        return redirect()->route('admin.category.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         }
         $obj->update($request->all());
         Session::flash('success-category', 'Thay đổi thông tin thành công.');
-        return redirect(route('admin.category.edit', ['id' => $id]));
+        return redirect()->route('admin.category.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
     }
 
     /**

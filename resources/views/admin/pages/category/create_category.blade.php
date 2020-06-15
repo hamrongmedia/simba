@@ -6,12 +6,6 @@
 
 @section('main')
 <div class="row">
-    <div class="col-md-9">
-        <div class="updated notice notice-success is-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Alert!</h4>
-        </div>
-    </div>
     <form action="{{route('admin.category.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
     @csrf <!-- {{ csrf_field() }} -->
         <div class="col-md-9">
@@ -19,7 +13,11 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Tạo mới một chuyên mục</h3>
                 </div>
-             <!-- form start -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
+                </div>
+            </div> 
                 <div class="box-body">   
                         <div class="form-group">
                             <label>Tên chuyên mục</label>
