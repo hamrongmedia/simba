@@ -12,5 +12,6 @@ Route::prefix('hrm')->namespace('Admin')->group( function () {
     Route::get('/category/create','CategoryController@create')->name('admin.category.create');
     Route::post('/category/create','CategoryController@store')->name('admin.category.store');
     Route::get('/category/edit/{id}','CategoryController@edit')->name('admin.category.edit');
+    Route::post('/category/update/{id}','CategoryController@update')->name('admin.category.update');
     Route::get('/category/destroy/{id}','CategoryController@destroy')->name('admin.category.destroy');
 });
