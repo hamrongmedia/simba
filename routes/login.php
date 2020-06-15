@@ -10,6 +10,28 @@ Route::group(['prefix' => 'hrm/user', 'namespace' => 'Admin'], function () {
 
 });
 
+Route::group(['prefix' => 'hrm/role', 'namespace' => 'Admin'], function () {
+    // Admin manage routes
+    Route::get('/', 'RoleController@index')->name('admin.role.index');
+    Route::get('/create', 'RoleController@create')->name('admin.role.create');
+    Route::post('/create', 'RoleController@store')->name('admin.role.store');
+    Route::get('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+    Route::post('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+    Route::post('/delete', 'RoleController@delete')->name('admin.role.delete');
+
+});
+
+Route::group(['prefix' => 'hrm/permission', 'namespace' => 'Admin'], function () {
+    // Admin manage routes
+    Route::get('/', 'PermissionController@index')->name('admin.permission.index');
+    Route::get('/create', 'PermissionController@create')->name('admin.permission.create');
+    Route::post('/create', 'PermissionController@store')->name('admin.permission.store');
+    Route::get('/edit/{id}', 'PermissionController@edit')->name('admin.permission.edit');
+    Route::post('/edit/{id}', 'PermissionController@edit')->name('admin.permission.edit');
+    Route::post('/delete', 'PermissionController@delete')->name('admin.permission.delete');
+
+});
+
 Route::prefix('hrm')->namespace('Auth')->group(function () {
     Route::get('/login', 'AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'AdminLoginController@login')->name('admin.login.submit');

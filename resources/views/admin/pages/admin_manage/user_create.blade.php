@@ -22,10 +22,9 @@ Tạo mới user
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="https://demo.s-cart.org/sc_admin/user/create" method="post" accept-charset="UTF-8"
+            <form action="{{route('admin.user.store')}}" method="post" accept-charset="UTF-8"
                 class="form-horizontal" id="form-main" enctype="multipart/form-data">
-
-
+                @csrf
                 <div class="box-body">
                     <div class="fields-group">
 
@@ -158,7 +157,6 @@ Tạo mới user
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <input type="hidden" name="_token" value="0LcKMn60tAciFOtr8Qfhczn0pWGHZu6HpivjZWTQ">
                     <div class="col-md-2">
                     </div>
 

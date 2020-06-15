@@ -165,12 +165,12 @@
                 <span>Users</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
+              <a href="{{route('admin.role.index')}}" class="nav-link">
                 <i class="fa fa-user"></i>
                 <span>Roles</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+                <a href="{{route('admin.permission.index')}}" class="nav-link">
                 <i class="fa fa-ban"></i> <span>Permissions</span></a>
             </li>
             <li class="nav-item has-treeview">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserManageController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class UserManageController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.admin_manage.user_list');
+        return view('admin.pages.admin_manage.role_list');
     }
 
     /**
@@ -24,7 +24,7 @@ class UserManageController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.admin_manage.user_create');
+        return view('admin.pages.admin_manage.role_create');
     }
 
     /**
@@ -35,13 +35,7 @@ class UserManageController extends Controller
      */
     public function store(Request $request)
     {
-        //Validate form
-
-        // store data
-
-        //redirect to list user
-
-        dd($request);
+        //
     }
 
     /**
@@ -63,7 +57,7 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.pages.admin_manage.role_edit');
     }
 
     /**
