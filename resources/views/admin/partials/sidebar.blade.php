@@ -150,6 +150,42 @@
             </li>
           </ul>
       </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-sitemap"></i> <span>Admin</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.user.index')}}" class="nav-link">
+                <i class="fa fa-users"></i>
+                <span>Users</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
+                <i class="fa fa-user"></i>
+                <span>Roles</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+                <i class="fa fa-ban"></i> <span>Permissions</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-bars"></i> <span>Menu</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-history"></i> <span>Lịch sử đăng nhập</span></a>
+            </li>
+          </ul>
+      </li>
+
+
+
     </ul>
   </section>
   <!-- /.sidebar -->

@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css')}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
+  <!-- select2 -->
+  <link rel="stylesheet" href="{{asset('admin/adminLTE/bower_components/select2/dist/css/select2.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/dist/css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -21,4 +23,7 @@
 
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/plugins/iCheck/square/blue.css')}}">
+
+  @yield('css')
+
 </head>

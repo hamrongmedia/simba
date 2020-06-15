@@ -5,19 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class UserManageController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.home');
+        return view('Admin.pages.admin_manage.user_manage');
     }
 
     /**
@@ -35,7 +24,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.pages.admin_manage.user_create');
     }
 
     /**
