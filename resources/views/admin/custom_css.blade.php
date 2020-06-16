@@ -12,7 +12,6 @@
   <form action="" role="form" >
     <div class="theme-options-setting box box-primary clearfix">
       <h3 class="box-title">Thêm css</h3>
-       
        <div class="clearfix box-header box-footer text-right">
         <button type="button" class="btn btn-primary btn-sm" name="">Save</button>
         <input type="hidden" class="" name="" >

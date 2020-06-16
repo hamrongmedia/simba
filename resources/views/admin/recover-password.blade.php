@@ -38,42 +38,21 @@
       <div class="cont-login col-md-6 col-sm-12 no-padding items-center flex">
         <form action="" method="post" class="w-full">
           <div class="box-body">
-            <h2 class="text-center">LOGIN</h2>
+            <h2 class="text-center">RECOVER YOUR PASSWORD</h2>
             
-            <p class="text-center">Welcome back, please login to your account.</p>
+            <p class="text-center">Please enter your email address and we'll send you instructions on how to reset your password.</p>
             <h6>Email</h6>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input type="text" class="form-control" placeholder="Username" name="username">
+              <input type="text" class="form-control" placeholder="Email" name="recover_username">
             </div>
-            <h6>Password</h6>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-key"></i></span>
-              <input type="password" class="form-control" placeholder="Password" name="username">
-            </div>
-            <div class="form-group clearfix">
-              <div class="row ">
-                <div class="col-xs-6">
-                  <div class="checkbox">
-                    <label for="">
-                      <input type="checkbox"> Remember Me
-                    </label>
-                  </div>
-                </div>
-                <div class="col-xs-6">
-                  <div class="text-right checkbox">
-                    <a href="">Forgot Password?</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group clearfix">
+            <div class="form-group clearfix checkbox">
               <div class="row ">
                 <div class="col-xs-6 text-right">
-                  <button type="button" class="btn btn-primary btn-info ">Register</button>
+                  <button type="button" class="btn btn-primary btn-info ">Back To Login</button>
                 </div>
                 <div class="col-xs-6 ">
-                    <button type="button" class="btn btn-primary btn-info ">Login</button>
+                    <button type="button" class="btn btn-primary btn-info ">Recover Password</button>
 
                 </div>
               </div>

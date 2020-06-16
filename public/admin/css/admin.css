@@ -112,5 +112,85 @@
 
 .theme-options-setting .clear.box-body{
   padding-top:0;
+ 
+}
+
+.no-margin{
+   margin-left: 0;
+   margin-right: 0;
+}
+.w-full {
+    width: 100%;
+}
+.h-screen {
+    height: 100vh;
+}
+.justify-center {
+    justify-content: center;
+}
+.items-center {
+    align-items: center;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.content-login{
+    width: 60%;
+   background-color: #fff;
+   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
 
 }
+.bg-img {
+    background-image: url(../images/vuexy-login-bg.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-img img{
+   max-width: 100%;
+}
+
+.row.no-margin{
+  background-color: #eff2f7;
+}
+
+.cont-login{
+  min-height: 500px;
+  background-color: #fff;
+}
+
+.cont-login .box-body{
+     padding: 35px;
+}
+.cont-login button{
+      min-width: 140px;
+      max-width: 100%;
+      font-weight: 600;
+
+      text-transform: uppercase;
+      border-radius: 6px;
+
+}
+.bottom-login h2{
+    color: #f90e0e;
+    font-weight: 700;
+}
+
+.cont-login .form-group.checkbox{
+  margin-top: 30px;
+}
+
+@media (max-width: 700px){
+    .content-login{
+      width: 90%;
+    }
+    .cont-login {
+      min-height: 349px;
+   }
+   .cont-login .box-body {
+    padding: 35px 20px;
+}
+}
+

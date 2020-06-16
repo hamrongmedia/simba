@@ -47,7 +47,15 @@ Route::get('theme-options', function () {
 Route::get('mail-smtp', function () {
     return view('admin/smtp_email');
 });
-
+Route::get('login-d', function () {
+    return view('admin/login');
+});
+Route::get('register-d', function () {
+    return view('admin/register');
+});
+Route::get('recover-password-d', function () {
+    return view('admin/recover-password');
+});
 //START ADMIN ROUTE
 @include 'admin.php';
 //END ADMIN ROUTE
