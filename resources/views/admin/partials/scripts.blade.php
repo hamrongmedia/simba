@@ -8,6 +8,9 @@
 <script src="{{ asset('admin/AdminLTE/dist/js/adminlte.min.js')}}"></script>
 {{-- sweetalert2 --}}
 <script src="{{ asset('admin/plugin/sweetalert2.all.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('/admin/adminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/AdminLTE/dist/js/demo.js')}}"></script>
+

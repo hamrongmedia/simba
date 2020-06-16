@@ -79,6 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($roles as $role)
                             <tr>
                                 <td>
                                     <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
@@ -88,21 +89,14 @@
                                             style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                     </div>
                                 </td>
-                                <td>6</td>
-                                <td>maketing</td>
-                                <td>Marketing</td>
-                                <td><span class="label label-success">Dashboard</span> <span
-                                        class="label label-success">Auth manager</span> <span
-                                        class="label label-success">Upload management</span> <span
-                                        class="label label-success">CMS manager</span> <span
-                                        class="label label-success">Discount manager</span> <span
-                                        class="label label-success">Shipping status</span> <span
-                                        class="label label-success">Payment status</span> <span
-                                        class="label label-success">Customer manager</span> <span
-                                        class="label label-success">Order status</span> <span
-                                        class="label label-success">Product manager</span> <span
-                                        class="label label-success">Order Manager</span> <span
-                                        class="label label-success">Report manager</span> </td>
+                                <td>{{$role->id}}</td>
+                                <td>Chua lam</td>
+                                <td>{{$role->name}}</td>
+                                <td>
+                                    @foreach ($role->permissions as $permission)
+                                        <span class="label label-success">{{$permission->name}}</span> 
+                                    @endforeach
+                                 </td>
                                 <td>2020-03-23 22:39:22</td>
                                 <td></td>
                                 <td>
@@ -112,125 +106,7 @@
                                     <span onclick="deleteItem(6);" title="Delete" class="btn btn-flat btn-danger"><i
                                             class="fa fa-trash"></i></span></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="5"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
-                                </td>
-                                <td>5</td>
-                                <td>accountant</td>
-                                <td>Accountant</td>
-                                <td><span class="label label-success">Dashboard</span> <span
-                                        class="label label-success">Auth manager</span> <span
-                                        class="label label-success">Order Manager</span> <span
-                                        class="label label-success">Report manager</span> </td>
-                                <td>2020-03-23 22:39:22</td>
-                                <td></td>
-                                <td>
-                                    <a href="https://demo.s-cart.org/sc_admin/role/edit/5"><span title="Edit"
-                                            type="button" class="btn btn-flat btn-primary"><i
-                                                class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem(5);" title="Delete" class="btn btn-flat btn-danger"><i
-                                            class="fa fa-trash"></i></span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="4"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
-                                </td>
-                                <td>4</td>
-                                <td>cms</td>
-                                <td>Cms manager</td>
-                                <td><span class="label label-success">Auth manager</span> <span
-                                        class="label label-success">Upload management</span> <span
-                                        class="label label-success">CMS manager</span> </td>
-                                <td>2020-03-23 22:39:22</td>
-                                <td></td>
-                                <td>
-                                    <a href="https://demo.s-cart.org/sc_admin/role/edit/4"><span title="Edit"
-                                            type="button" class="btn btn-flat btn-primary"><i
-                                                class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem(4);" title="Delete" class="btn btn-flat btn-danger"><i
-                                            class="fa fa-trash"></i></span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="3"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
-                                </td>
-                                <td>3</td>
-                                <td>manager</td>
-                                <td>Manager</td>
-                                <td><span class="label label-success">Admin manager</span> <span
-                                        class="label label-success">Dashboard</span> <span
-                                        class="label label-success">Auth manager</span> <span
-                                        class="label label-success">Setting manager</span> <span
-                                        class="label label-success">Upload management</span> <span
-                                        class="label label-success">CMS manager</span> <span
-                                        class="label label-success">Discount manager</span> <span
-                                        class="label label-success">Shipping status</span> <span
-                                        class="label label-success">Payment status</span> <span
-                                        class="label label-success">Customer manager</span> <span
-                                        class="label label-success">Order status</span> <span
-                                        class="label label-success">Product manager</span> <span
-                                        class="label label-success">Order Manager</span> <span
-                                        class="label label-success">Report manager</span> <span
-                                        class="label label-success">Template manager</span> </td>
-                                <td>2020-03-23 22:39:22</td>
-                                <td></td>
-                                <td>
-                                    <a href="https://demo.s-cart.org/sc_admin/role/edit/3"><span title="Edit"
-                                            type="button" class="btn btn-flat btn-primary"><i
-                                                class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem(3);" title="Delete" class="btn btn-flat btn-danger"><i
-                                            class="fa fa-trash"></i></span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="2"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>view.all</td>
-                                <td>Group only View</td>
-                                <td></td>
-                                <td>2020-03-23 22:39:22</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="1"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>administrator</td>
-                                <td>Administrator</td>
-                                <td></td>
-                                <td>2020-03-23 22:39:22</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

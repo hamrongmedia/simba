@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Action;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PermissionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.admin_manage.permission_list');
+        $permissions = Permission::all()->sortBy('desc');
+        //dd($permissions);
+        return view('admin.pages.admin_manage.permission_list', ['permissions' => $permissions]);
     }
 
     /**
@@ -24,7 +30,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.admin_manage.permission_create');
+        $actions = Action::all()->sortBy('desc');
+        return view('admin.pages.admin_manage.permission_create', ['actions' => $actions]);
     }
 
     /**
@@ -35,7 +42,23 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate from
+
+        //storage data
+        $newPermission = new Permission;
+        $newPermission->name = $request->name;
+        $newPermission->guard_name = 'admin';
+        $newPermission->save();
+
+        foreach ($request->action_list as $action) {
+            DB::table('permission_has_action')->insert([
+                'permission_id' => $newPermission->id,
+                'action_id' => $action,
+            ]);
+        }
+        //redirect
+        return redirect()->route('admin.permission.index');
+
     }
 
     /**

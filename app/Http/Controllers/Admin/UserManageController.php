@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserManageController extends Controller
 {
@@ -14,7 +19,8 @@ class UserManageController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.admin_manage.user_list');
+        $users = Admin::all()->sortBy('desc');
+        return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
     }
 
     /**
@@ -24,7 +30,9 @@ class UserManageController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.admin_manage.user_create');
+        $permissions = Permission::all()->sortBy('desc');
+        $roles = Role::all()->sortBy('desc');
+        return view('Admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
     }
 
     /**
@@ -36,12 +44,33 @@ class UserManageController extends Controller
     public function store(Request $request)
     {
         //Validate form
-
         // store data
 
-        //redirect to list user
+        $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
+        //dd($data['password']);
+        $new_user = Admin::create($data);
 
-        dd($request);
+        if ($request->roles) {
+            foreach ($request->roles as $role) {
+                DB::table('user_has_roles')->insert([
+                    'user_id' => $new_user->id,
+                    'role_id' => $role,
+                ]);
+            }
+        }
+
+        if ($request->permissions) {
+            foreach ($request->permissions as $permission) {
+                DB::table('user_has_permissions')->insert([
+                    'user_id' => $new_user->id,
+                    'permission_id' => $permission,
+                ]);
+            }
+        }
+
+        //redirect to list user
+        return redirect()->route('admin.user.index');
     }
 
     /**

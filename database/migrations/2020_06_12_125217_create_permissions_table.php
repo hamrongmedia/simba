@@ -23,31 +23,60 @@ class CreatePermissionsTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('guard_name');
+            $table->string('guard_name')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('model_has_permissions', function (Blueprint $table) {
+        Schema::create('actions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+        });
+
+        Schema::create('permission_has_action', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('permission_id');
-            $table->string('model_type');
-            $table->unsignedBigInteger('model_id');
+            $table->unsignedBigInteger('action_id');
+            $table->timestamps();
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on('permissions')
+                ->onDelete('cascade');
+
+            $table->foreign('action_id')
+                ->references('id')
+                ->on('actions')
+                ->onDelete('cascade');
+        });
+
+        Schema::create('user_has_permissions', function (Blueprint $table) {
+            $table->unsignedBigInteger('permission_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('permission_id')
                 ->references('id')
                 ->on('permissions')
                 ->onDelete('cascade');
 
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('admin')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
 
-        Schema::create('model_has_roles', function (Blueprint $table) {
+        Schema::create('user_has_roles', function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
-            $table->string('model_type');
-            $table->unsignedBigInteger('model_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('admin')
                 ->onDelete('cascade');
 
             $table->timestamps();
@@ -83,6 +112,8 @@ class CreatePermissionsTable extends Migration
         Schema::dropIfExists('model_has_permissions');
         Schema::dropIfExists('model_has_roles');
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('actions');
+        Schema::dropIfExists('permission_has_action');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

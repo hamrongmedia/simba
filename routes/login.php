@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => 'hrm/user', 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/user', 'namespace' => 'Admin'], function () {
     // Admin manage routes
     Route::get('/', 'UserManageController@index')->name('admin.user.index');
     Route::get('/create', 'UserManageController@create')->name('admin.user.create');
@@ -10,7 +10,7 @@ Route::group(['prefix' => 'hrm/user', 'namespace' => 'Admin'], function () {
 
 });
 
-Route::group(['prefix' => 'hrm/role', 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/role', 'namespace' => 'Admin'], function () {
     // Admin manage routes
     Route::get('/', 'RoleController@index')->name('admin.role.index');
     Route::get('/create', 'RoleController@create')->name('admin.role.create');
@@ -21,7 +21,7 @@ Route::group(['prefix' => 'hrm/role', 'namespace' => 'Admin'], function () {
 
 });
 
-Route::group(['prefix' => 'hrm/permission', 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => ['web', 'auth:admin'], 'prefix' => 'hrm/permission', 'namespace' => 'Admin'], function () {
     // Admin manage routes
     Route::get('/', 'PermissionController@index')->name('admin.permission.index');
     Route::get('/create', 'PermissionController@create')->name('admin.permission.create');

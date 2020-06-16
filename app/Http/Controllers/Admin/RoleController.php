@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -14,7 +17,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.admin_manage.role_list');
+        $roles = Role::all()->sortBy('desc');
+        return view('admin.pages.admin_manage.role_list', ['roles' => $roles]);
     }
 
     /**
@@ -24,7 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.admin_manage.role_create');
+        $permissions = Permission::all()->sortBy('desc');
+        return view('admin.pages.admin_manage.role_create', ['permissions' => $permissions]);
     }
 
     /**
@@ -35,7 +40,26 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate from
+        //dd($request);
+        //storage data
+        $newRole = new Role;
+        $newRole->name = $request->name;
+        $newRole->guard_name = $request->guard_name;
+        $newRole->save();
+
+        if ($request->permission_list) {
+            foreach ($request->permission_list as $permission) {
+                DB::table('role_has_permissions')->insert([
+                    'role_id' => $newRole->id,
+                    'permission_id' => $permission,
+                ]);
+            }
+        }
+
+        //redirect
+        return redirect()->route('admin.role.index');
+
     }
 
     /**

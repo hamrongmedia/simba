@@ -24,14 +24,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_contact', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('address');
-            $table->string('phone');
-            $table->timestamps();
-        });
-
     }
 
     /**

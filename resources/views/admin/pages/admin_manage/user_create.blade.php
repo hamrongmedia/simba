@@ -78,7 +78,6 @@ Tạo mới user
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group   ">
                             <label for="password" class="col-sm-2  control-label">Password</label>
                             <div class="col-sm-8">
@@ -89,7 +88,6 @@ Tạo mới user
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group   ">
                             <label for="password" class="col-sm-2  control-label">Confirmation</label>
                             <div class="col-sm-8">
@@ -100,50 +98,27 @@ Tạo mới user
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="form-group  ">
                             <label for="roles" class="col-sm-2  control-label">Select roles</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm roles select2 select2-hidden-accessible"
                                     multiple="" data-placeholder="Select roles" style="width: 100%;" name="roles[]"
                                     tabindex="-1" aria-hidden="true">
-                                    <option value=""></option>
-                                    <option value="5">Accountant</option>
-                                    <option value="1">Administrator</option>
-                                    <option value="4">Cms manager</option>
-                                    <option value="2">Group only View</option>
-                                    <option value="3">Manager</option>
-                                    <option value="6">Marketing</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-
-
-
                         <div class="form-group  ">
                             <label for="permission" class="col-sm-2  control-label">Select permission</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm permission select2 select2-hidden-accessible"
                                     multiple="" data-placeholder="Select permission" style="width: 100%;"
-                                    name="permission[]" tabindex="-1" aria-hidden="true">
-                                    <option value=""></option>
-                                    <option value="1">Admin manager</option>
-                                    <option value="3">Auth manager</option>
-                                    <option value="8">CMS manager</option>
-                                    <option value="17">Customer manager</option>
-                                    <option value="2">Dashboard</option>
-                                    <option value="11">Discount manager</option>
-                                    <option value="20">Order Manager</option>
-                                    <option value="18">Order status</option>
-                                    <option value="15">Payment status</option>
-                                    <option value="6">Plugin manager</option>
-                                    <option value="19">Product manager</option>
-                                    <option value="21">Report manager</option>
-                                    <option value="4">Setting manager</option>
-                                    <option value="14">Shipping status</option>
-                                    <option value="22">Template manager</option>
-                                    <option value="5">Upload management</option>
+                                    name="permissions[]" tabindex="-1" aria-hidden="true">
+                                    @foreach ($permissions as $permission)
+                                        <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
