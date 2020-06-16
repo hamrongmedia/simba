@@ -122,7 +122,7 @@
         </a>
       </li>
       <li class="header">ADMIN SYSTEM</li>
-      <li class="treeview">
+{{--       <li class="treeview">
         <a href="#">
           <i class="fa fa-cogs"></i> <span>Quản lý cấu hình</span>
           <span class="pull-right-container">
@@ -148,6 +148,32 @@
               <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
             </li>
+          </ul>
+      </li> --}}
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-cogs"></i> <span>Quản lý cấu hình</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Theme options</span></a>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Custom CSS</span></a>
+            </li>
+           
           </ul>
       </li>
 

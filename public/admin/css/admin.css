@@ -69,3 +69,48 @@
   height: 1px;
   margin-bottom: 40px !important;
 }
+
+.theme-options-setting .box-title {
+    margin-top: 0px;
+    background-color: rgb(247, 247, 247);
+    font-size: 14px;
+    width: 100%;
+    border-top: 1px solid rgb(244, 244, 244);
+    border-bottom: 1px solid rgb(244, 244, 244);
+    padding: 14px 30px;
+}
+
+.theme-options-setting .form-group {
+    margin-bottom: 0px;
+    padding: 30px;
+    border-bottom: 1px solid rgb(244, 244, 244);
+}
+.theme-options-setting .nav-tabs-custom > .nav-tabs > li.active > a, 
+.theme-options-setting .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+    background-color: rgb(247, 247, 247);
+}
+.theme-options-setting .form-group textarea,
+.theme-options-setting .form-group input {
+    margin-bottom: 10px;
+}
+.theme-options-setting .form-group textarea:last-child,
+.theme-options-setting .form-group input:last-child {
+    margin-bottom: 0px;
+}
+
+.theme-options-setting .btn-block+.btn-block{
+  margin-top: 0;
+}
+.theme-options-setting li.btn-block{
+    margin-right: 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+.theme-options-setting  .tab-content{
+    min-height: 500px;
+    border-left: 1px solid #f4f4f4;
+}
+
+.theme-options-setting .clear.box-body{
+  padding-top:0;
+
+}
