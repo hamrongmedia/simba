@@ -42,6 +42,9 @@
               <li class="btn-block">
                 <a data-toggle="tab" href="#footersettings" class="btn-block"><i class="fa fa-download"></i> Cài đặt Footer</a>
               </li>
+              <li class="btn-block">
+                <a data-toggle="tab" href="#custom-login" class="btn-block"><i class="fa fa-cogs"></i> Custom Login Settings</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -173,6 +176,17 @@
               <div class="form-group">
                 <label for="">Coppyright text</label>
                 <textarea class="form-control" rows="4" placeholder="Enter ..." name="hrm_coppyright_theme"></textarea>
+              </div>
+            </div> {{-- end --}}
+            <div id="custom-login" class="tab-pane fade">
+              <h3 class="box-title">Chỉnh sửa trang đăng nhập</h3>
+              <div class="form-group">
+                <label for="">Nhập ảnh logo</label>
+                <input type="text" name="hrm_img_logo_login" class="form-control" id="" placeholder="Nhập link">
+              </div>
+              <div class="form-group">
+                <label for="">Nhập ảnh nền</label>
+                <input type="text" name="hrm_background_login" class="form-control" id="" placeholder="Nhập link">
               </div>
             </div> {{-- end --}}
 
