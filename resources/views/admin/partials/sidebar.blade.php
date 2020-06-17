@@ -83,10 +83,33 @@
           </ul>
       </li>
       <li class="header">ADMIN CONTENT</li>
-      <li>
-        <a href="pages/mailbox/mailbox.html">
+      <li class="treeview">
+        <a href="">
           <i class="fa fa-edit"></i> <span>Blog/Tin tức</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.posts.create')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Tạo mới tin</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.posts.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Danh sách tin</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.category.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Danh mục</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Tags</span></a>
+            </li>
+          </ul>
       </li>
       <li>
         <a href="pages/mailbox/mailbox.html">
@@ -99,7 +122,7 @@
         </a>
       </li>
       <li class="header">ADMIN SYSTEM</li>
-      <li class="treeview">
+{{--       <li class="treeview">
         <a href="#">
           <i class="fa fa-cogs"></i> <span>Quản lý cấu hình</span>
           <span class="pull-right-container">
@@ -126,7 +149,69 @@
                 <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
             </li>
           </ul>
+      </li> --}}
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-cogs"></i> <span>Quản lý cấu hình</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Theme options</span></a>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="fa fa-circle-o"></i> <span>Custom CSS</span></a>
+            </li>
+           
+          </ul>
       </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-sitemap"></i> <span>Admin</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.user.index')}}" class="nav-link">
+                <i class="fa fa-users"></i>
+                <span>Users</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.role.index')}}" class="nav-link">
+                <i class="fa fa-user"></i>
+                <span>Roles</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="{{route('admin.permission.index')}}" class="nav-link">
+                <i class="fa fa-ban"></i> <span>Permissions</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-bars"></i> <span>Menu</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+                <i class="fa fa-history"></i> <span>Lịch sử đăng nhập</span></a>
+            </li>
+          </ul>
+      </li>
+
+
+
     </ul>
   </section>
   <!-- /.sidebar -->

@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('home');
@@ -41,8 +41,29 @@ Route::get('giohang', function () {
 Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
-
-
+Route::get('theme-options', function () {
+    return view('admin/theme_options');
+});
+Route::get('mail-smtp', function () {
+    return view('admin/smtp_email');
+});
+Route::get('login-d', function () {
+    return view('admin/login');
+});
+Route::get('register-d', function () {
+    return view('admin/register');
+});
+Route::get('recover-password-d', function () {
+    return view('admin/recover-password');
+});
 //START ADMIN ROUTE
-@include('admin.php');
+@include 'admin.php';
 //END ADMIN ROUTE
+
+//Include user management route
+
+@include_once 'login.php';
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
