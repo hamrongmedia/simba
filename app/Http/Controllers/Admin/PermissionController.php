@@ -80,7 +80,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.admin_manage.permission_edit');
+        $actions = Action::all()->sortBy('desc');
+        $permission = Permission::find($id);
+        //dd($permission->actions->contains('id', 1));
+        return view('admin.pages.admin_manage.permission_edit', ['permission' => $permission, 'actions' => $actions]);
     }
 
     /**
@@ -92,17 +95,46 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::find($id);
+        $newAction = $request->action_list;
+        if ($newAction === null) {
+            $newAction = [];
+        }
+
+        $permission->name = $request->name;
+        $permission->save();
+        // update relation
+        $permission_action = DB::table('permission_has_action')->where('permission_id', $id)->get();
+
+        foreach ($permission_action as $item) {
+            if (!in_array($item->id, $newAction)) {
+                DB::table('permission_has_action')->where('id', $item->id)->delete();
+            }
+            if (in_array($item->id, $newAction)) {
+                $key = array_search($item->id, $newAction);
+                unset($newAction[$key]);
+            }
+        }
+
+        foreach ($newAction as $action) {
+            DB::table('permission_has_action')->insert([
+                'permission_id' => $permission->id,
+                'action_id' => $action,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Up date success');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        Permission::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
+
     }
 }

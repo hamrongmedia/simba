@@ -49,6 +49,7 @@ class CreatePermissionsTable extends Migration
         });
 
         Schema::create('user_has_permissions', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('user_id');
 
@@ -66,6 +67,7 @@ class CreatePermissionsTable extends Migration
         });
 
         Schema::create('user_has_roles', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('user_id');
 
@@ -83,6 +85,7 @@ class CreatePermissionsTable extends Migration
         });
 
         Schema::create('role_has_permissions', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('role_id');
 
@@ -109,8 +112,8 @@ class CreatePermissionsTable extends Migration
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('role_has_permissions');
-        Schema::dropIfExists('model_has_permissions');
-        Schema::dropIfExists('model_has_roles');
+        Schema::dropIfExists('user_has_permissions');
+        Schema::dropIfExists('user_has_roles');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('actions');
         Schema::dropIfExists('permission_has_action');

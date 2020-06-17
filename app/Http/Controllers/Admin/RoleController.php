@@ -81,7 +81,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.admin_manage.role_edit');
+        $permissions = Permission::all()->sortBy('desc');
+        $role = Role::find($id);
+        //dd($permission->actions->contains('id', 1));
+        return view('admin.pages.admin_manage.role_edit', ['role' => $role, 'permissions' => $permissions]);
     }
 
     /**
@@ -93,17 +96,46 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::find($id);
+        $newPermission = $request->permission_list;
+        if ($newPermission === null) {
+            $newPermission = [];
+        }
+
+        $role->name = $request->name;
+        $role->guard_name = $request->guard_name ? $request->guard_name : $role->guard_name;
+        $role->save();
+        // update relation
+        $role_action = DB::table('role_has_permissions')->where('role_id', $id)->get();
+
+        foreach ($role_action as $item) {
+            if (!in_array($item->id, $newPermission)) {
+                DB::table('role_has_permissions')->where('id', $item->id)->delete();
+            }
+            if (in_array($item->id, $newPermission)) {
+                $key = array_search($item->id, $newPermission);
+                unset($newPermission[$key]);
+            }
+        }
+
+        foreach ($newPermission as $permission) {
+            DB::table('role_has_permissions')->insert([
+                'role_id' => $role->id,
+                'permission_id' => $permission,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Update successful');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        Role::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
     }
 }

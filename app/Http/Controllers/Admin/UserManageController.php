@@ -92,7 +92,10 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
-        //
+        // get user
+
+        //return view
+        return view('Admin.pages.admin_manage.user_list');
     }
 
     /**

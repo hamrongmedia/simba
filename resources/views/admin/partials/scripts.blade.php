@@ -14,3 +14,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/AdminLTE/dist/js/demo.js')}}"></script>
 
+<script>
+    //Initialize Select2 Elements
+    $('.select2').select2()
+</script>

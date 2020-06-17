@@ -80,7 +80,7 @@
                         </thead>
                         <tbody>
                             @foreach ($roles as $role)
-                            <tr>
+                            <tr id="role-{{$role->id}}">
                                 <td>
                                     <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
                                         style="position: relative;"><input class="input" type="checkbox" data-id="6"
@@ -100,10 +100,10 @@
                                 <td>2020-03-23 22:39:22</td>
                                 <td></td>
                                 <td>
-                                    <a href="https://demo.s-cart.org/sc_admin/role/edit/6"><span title="Edit"
+                                    <a href="{{route('admin.role.edit', $role->id)}}"><span title="Edit"
                                             type="button" class="btn btn-flat btn-primary"><i
                                                 class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem(6);" title="Delete" class="btn btn-flat btn-danger"><i
+                                    <span onclick="deleteItem({{$role->id}});" title="Delete" class="btn btn-flat btn-danger"><i
                                             class="fa fa-trash"></i></span></td>
                             </tr>
                             @endforeach
@@ -139,4 +139,45 @@
 
 @section('js')
     @include('admin.component.ckeditor_js')
+    <script>
+        function deleteAjax(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            })
+            $.ajax({
+                url: "{{route('admin.role.delete')}}",
+                type: 'POST',
+                data: {
+                    id: id
+                }
+            }).done(function(){
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                );
+                $('#role-'+ id).remove();
+
+            })
+        }      
+
+        function deleteItem(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+            .then((result) => {
+                if (result.value) {
+                    deleteAjax(id);
+                }
+            })
+        }
+    </script>
 @endsection
