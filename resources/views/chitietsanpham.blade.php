@@ -97,14 +97,14 @@ Chi tiết sản phẩm
                                     <div class="slide-sp-mobile owl-carousel">
                                         <div class="item">
                                             <div class="wp-img-slide-sp">
-                                                <a data-fancybox="test-srcset" data-type="image" href="{{asset('images-demo/1590831453.jpg')}}">
+                                                <a href="javascript:void(0)">
                                                     <img src="{{asset('images-demo/1590831453.jpg')}}" alt="ảnh sản phẩm">
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="wp-img-slide-sp">
-                                                <a data-fancybox="test-srcset" data-type="image" href="{{asset('images-demo/1590831440.jpg')}}">
+                                                <a href="javascript:void(0)">
                                                     <img src="{{asset('images-demo/1590831440.jpg')}}" alt="ảnh sản phẩm">
                                                 </a>
                                             </div>

@@ -653,6 +653,19 @@ span.pro-price-view {
 .bg-white {
   background-color: #fff;
 }
+.login-mobile {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.login-mobile a {
+  display: inline-block;
+  width: 50%;
+  float: left;
+  padding: 6px 10px;
+  text-align: center;
+}
 /*--------------------------------------------------------------
 # menu
 --------------------------------------------------------------*/
@@ -791,13 +804,14 @@ span.pro-price-view {
   background-color: #fff;
   z-index: 99;
   display: none;
-  padding: 10px 15px;
+  padding: 0px 15px 10px;
 }
 .mobile-main-menu .la-scroll-fix-infor-user {
   height: calc(100% - 263px);
   height: -moz-calc(100% - 263px);
   height: -webkit-calc(100% - 263px);
   overflow: auto;
+  clear: both;
 }
 .mobile-main-menu .la-nav-list-items {
   padding: 0;
@@ -1140,6 +1154,9 @@ span.pro-price-view {
 }
 .wp-list-sp-home .col-md-3 {
   padding: 0px 1px;
+}
+.wp-list-sp-home .col-md-3:nth-child(4n+1) {
+  clear: left;
 }
 .wp-item-sp {
   position: relative;
@@ -2481,6 +2498,12 @@ span.pro-price-view {
   .wp-boloc h1.h1-title-danhmuc {
     font-size: 18px;
   }
+  .wp-list-sp-home .col-md-3:nth-child(4n+1) {
+    clear: none;
+  }
+  .wp-list-sp-home .col-md-3:nth-child(3n+1) {
+    clear: left;
+  }
 }
 @media (max-width: 767px) {
   .wp-suport-1 .row .col-xs-6:nth-child(n+3),
@@ -2706,6 +2729,12 @@ span.pro-price-view {
   }
   .wp-boloc h1.h1-title-danhmuc {
     font-size: 14px;
+  }
+  .wp-list-sp-home .col-md-3:nth-child(3n+1) {
+    clear: none;
+  }
+  .wp-list-sp-home .col-md-3:nth-child(2n+1) {
+    clear: left;
   }
 }
 @media (max-width: 600px) {

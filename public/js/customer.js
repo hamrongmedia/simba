@@ -22,7 +22,11 @@ jQuery(document).ready(function($) {
         });
     });
 
-
+        jQuery('.gallery-item a').attr("data-fancybox","images-preview");
+    jQuery().fancybox({
+        selector : '[data-fancybox="gallery"], .gallery-item a',
+        loop     : true,
+    });
 
     jQuery('.mobile-main-menu .menu-item-has-children > a').after('<i class="fa fa-plus fa1" aria-hidden="true"></i>');
 

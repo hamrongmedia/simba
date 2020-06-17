@@ -1,4 +1,8 @@
 <div class="mobile-main-menu">
+    <div class="login-mobile clearfix">
+        <a href=""><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+        <a href=""><i class="far fa-user"></i> Đăng ký</a>
+    </div>
     <div class="la-scroll-fix-infor-user">
         <div class="la-nav-menu-items">
             <ul class="la-nav-list-items ul-b">
