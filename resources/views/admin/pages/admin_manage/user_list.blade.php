@@ -120,7 +120,7 @@
                                 </td>
                                 <td>2020-03-23 22:39:57</td>
                                 <td>
-                                    <a href="https://demo.s-cart.org/sc_admin/user/edit/2"><span title="Edit"
+                                    <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
                                             type="button" class="btn btn-flat btn-primary"><i
                                                 class="fa fa-edit"></i></span></a>&nbsp;
                                 </td>

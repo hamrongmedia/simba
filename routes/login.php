@@ -5,7 +5,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/user', 'namespace' 
     Route::get('/create', 'UserManageController@create')->name('admin.user.create');
     Route::post('/create', 'UserManageController@store')->name('admin.user.store');
     Route::get('/edit/{id}', 'UserManageController@edit')->name('admin.user.edit');
-    Route::post('/edit/{id}', 'UserManageController@edit')->name('admin.user.update');
+    Route::post('/edit/{id}', 'UserManageController@update')->name('admin.user.update');
     Route::post('/delete', 'UserManageController@delete')->name('admin.user.delete');
 
 });

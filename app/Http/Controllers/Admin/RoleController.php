@@ -97,28 +97,13 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $role = Role::find($id);
-        $newPermission = $request->permission_list;
-        if ($newPermission === null) {
-            $newPermission = [];
-        }
-
         $role->name = $request->name;
         $role->guard_name = $request->guard_name ? $request->guard_name : $role->guard_name;
         $role->save();
         // update relation
-        $role_action = DB::table('role_has_permissions')->where('role_id', $id)->get();
-
-        foreach ($role_action as $item) {
-            if (!in_array($item->id, $newPermission)) {
-                DB::table('role_has_permissions')->where('id', $item->id)->delete();
-            }
-            if (in_array($item->id, $newPermission)) {
-                $key = array_search($item->id, $newPermission);
-                unset($newPermission[$key]);
-            }
-        }
-
-        foreach ($newPermission as $permission) {
+        // update relation
+        DB::table('role_has_permissions')->where('role_id', $id)->delete();
+        foreach ($request->permission_list as $permission) {
             DB::table('role_has_permissions')->insert([
                 'role_id' => $role->id,
                 'permission_id' => $permission,

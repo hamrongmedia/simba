@@ -47,4 +47,23 @@ class Admin extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Permission', 'user_has_permissions', 'user_id', 'permission_id');
     }
+
+    public function getActions()
+    {
+        $result = [];
+        $list_id = [];
+        $permissions = $this->permissions;
+        foreach ($permissions as $permission) {
+            $actions = $permission->actions;
+            foreach ($actions as $action) {
+                $action_id = $action->id;
+                if (!in_array($action_id, $list_id)) {
+                    array_push($result, $action);
+                    array_push($list_id, $action_id);
+                }
+            }
+        }
+        return $result;
+    }
+
 }
