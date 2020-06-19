@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                            <input type="checkbox">
+                            <input type="checkbox" name="is_featured">
                             Nổi bật?
                             </label>
                         </div>

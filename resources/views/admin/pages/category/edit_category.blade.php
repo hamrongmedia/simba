@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                <input type="checkbox">
+                                <input type="checkbox" name="is_featured" value="{{isset($obj) ? $obj->is_featured : ''}}">
                                 Nổi bật?
                                 </label>
                             </div>
