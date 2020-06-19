@@ -92,12 +92,12 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="{{route('admin.posts.create')}}" class="nav-link">
+              <a href="{{route('admin.post.create')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Tạo mới tin</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="{{route('admin.posts.index')}}" class="nav-link">
+              <a href="{{route('admin.post.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Danh sách tin</span></a>
             </li>

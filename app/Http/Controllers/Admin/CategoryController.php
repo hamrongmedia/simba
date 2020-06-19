@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         Category::create($data);
-        return redirect()->route('admin.category.create');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class CategoryController extends Controller
         $obj = Category::find($id);
         if($obj == null){
             Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
-            return redirect()->route('category.index');  
+            return redirect()->route('admin.category.index');  
         }
         $obj->update($request->all());
         Session::flash('success-category', 'Thay đổi thông tin thành công.');
@@ -101,11 +101,9 @@ class CategoryController extends Controller
     {
         $obj = Category::find($id);
         if($obj == null){
-            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
-            return redirect()->route('admin.category.index');  
+            return redirect()->route('admin.category.index')->with('error', 'Cập nhật thành công');;  
         }
         $obj->delete();
-        Session::flash('success-category', 'Xóa thông tin thành công.');  
-        return redirect()->route('admin.category.index'); 
+        return redirect()->route('admin.category.index')->with('success', 'Xóa thông tin thành công'); 
     }
 }
