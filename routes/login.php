@@ -31,6 +31,18 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/permission', 'nam
 
 });
 
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/menu', 'namespace' => 'Admin'], function () {
+    // Menu manage routes
+    Route::get('/', 'MenuController@index')->name('admin.menu.index');
+    Route::get('/create', 'MenuController@create')->name('admin.menu.create');
+    Route::post('/create', 'MenuController@store')->name('admin.menu.store');
+    Route::get('/edit/{id}', 'MenuController@edit')->name('admin.menu.edit');
+    Route::post('/edit/{id}', 'MenuController@update')->name('admin.menu.update');
+    Route::post('/delete', 'MenuController@delete')->name('admin.menu.delete');
+    Route::post('/savetree', 'MenuController@saveTree')->name('admin.menu.savetree');
+
+});
+
 Route::prefix('hrm')->namespace('Auth')->group(function () {
     Route::get('/login', 'AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'AdminLoginController@login')->name('admin.login.submit');

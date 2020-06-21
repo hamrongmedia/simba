@@ -99,10 +99,6 @@
 @endsection
 
 @section('js')
-    @include('admin.component.ckeditor_js')
-    <!-- Select2 -->
-<script src="{{asset('/admin/adminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
-
 <script>
     //Initialize Select2 Elements
     $('.select2').select2()

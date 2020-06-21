@@ -58,7 +58,7 @@ class Admin extends Authenticatable
             foreach ($actions as $action) {
                 $action_id = $action->id;
                 if (!in_array($action_id, $list_id)) {
-                    array_push($result, $action);
+                    array_push($result, $action->name);
                     array_push($list_id, $action_id);
                 }
             }

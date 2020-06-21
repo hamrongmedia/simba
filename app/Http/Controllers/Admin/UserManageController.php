@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserManageController extends Controller
@@ -31,9 +32,12 @@ class UserManageController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all()->sortBy('desc');
-        $roles = Role::all()->sortBy('desc');
-        return view('Admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
+        if (Gate::allows('create-user')) {
+            $permissions = Permission::all()->sortBy('desc');
+            $roles = Role::all()->sortBy('desc');
+            return view('Admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
+        }
+        return redirect()->back()->with('error', 'Action denied');
     }
 
     /**
@@ -45,11 +49,10 @@ class UserManageController extends Controller
     public function store(Request $request)
     {
         //Validate form
-        // store data
 
+        // store data
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
-        //dd($data['password']);
         $new_user = Admin::create($data);
 
         $this->saveRelationship($request, $new_user);

@@ -22,8 +22,6 @@
             </span>
       </div>
     </form>
-    <!-- /.search form -->
-    <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">ADMIN SHOP</li>
       <li class="treeview">
@@ -122,34 +120,6 @@
         </a>
       </li>
       <li class="header">ADMIN SYSTEM</li>
-{{--       <li class="treeview">
-        <a href="#">
-          <i class="fa fa-cogs"></i> <span>Quản lý cấu hình</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-          <ul class="treeview-menu">
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order" class="nav-link">
-                <i class="fa fa-circle-o"></i>
-                <span>Thông tin cửa hàng</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
-                <i class="fa fa-circle-o"></i>
-                <span>Cấu hình url</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Cấu hình website</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
-            </li>
-          </ul>
-      </li> --}}
 
       <li class="treeview">
         <a href="#">
@@ -160,11 +130,14 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
+              <a href="{{route('admin.menu.index')}}" class="nav-link"> 
+                <i class="fa fa-bars"></i> <span>Menu</span></a>
+            </li>
+            <li class="nav-item has-treeview">
               <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Theme options</span></a>
             </li>
-
             <li class="nav-item has-treeview">
               <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
@@ -173,10 +146,8 @@
               <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Custom CSS</span></a>
             </li>
-           
           </ul>
       </li>
-
       <li class="treeview">
         <a href="#">
           <i class="fa fa-sitemap"></i> <span>Admin</span>
@@ -199,20 +170,8 @@
                 <a href="{{route('admin.permission.index')}}" class="nav-link">
                 <i class="fa fa-ban"></i> <span>Permissions</span></a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-bars"></i> <span>Menu</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-history"></i> <span>Lịch sử đăng nhập</span></a>
-            </li>
           </ul>
       </li>
-
-
-
     </ul>
   </section>
-  <!-- /.sidebar -->
 </aside>

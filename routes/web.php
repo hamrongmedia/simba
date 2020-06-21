@@ -41,21 +41,6 @@ Route::get('giohang', function () {
 Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
-Route::get('theme-options', function () {
-    return view('admin/theme_options');
-});
-Route::get('mail-smtp', function () {
-    return view('admin/smtp_email');
-});
-Route::get('login-d', function () {
-    return view('admin/login');
-});
-Route::get('register-d', function () {
-    return view('admin/register');
-});
-Route::get('recover-password-d', function () {
-    return view('admin/recover-password');
-});
 //START ADMIN ROUTE
 @include 'admin.php';
 //END ADMIN ROUTE
