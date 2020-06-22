@@ -18,5 +18,14 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/theme', 'namespac
     Route::post('/edit/{id}', 'ThemeController@update')->name('admin.theme.update');
     Route::post('/delete', 'ThemeController@delete')->name('admin.theme.delete');
     Route::post('/savetree', 'ThemeController@saveTree')->name('admin.theme.savetree');
+});
 
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/mail', 'namespace' => 'Admin'], function () {
+    // Menu manage routes
+    Route::get('/', 'MailSettingController@index')->name('admin.mailsetting.index');
+    Route::get('/create', 'MailSettingController@create')->name('admin.mailsetting.create');
+    Route::post('/create', 'MailSettingController@store')->name('admin.mailsetting.store');
+    Route::get('/edit/{id}', 'MailSettingController@edit')->name('admin.mailsetting.edit');
+    Route::post('/edit/{id}', 'MailSettingController@update')->name('admin.mailsetting.update');
+    Route::get('/delete/{id}', 'MailSettingController@delete')->name('admin.mailsetting.delete');
 });

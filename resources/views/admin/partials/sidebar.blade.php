@@ -139,7 +139,7 @@
                 <span>Theme options</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="" class="nav-link">
+              <a href="{{route('admin.mailsetting.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
             </li>
             <li class="nav-item has-treeview">
