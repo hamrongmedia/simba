@@ -18,6 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('slug');
+            $table->unsignedInteger('parent_category')->nullable();
             $table->string('meta_keyword');
             $table->string('meta_title');
             $table->string('meta_description');
