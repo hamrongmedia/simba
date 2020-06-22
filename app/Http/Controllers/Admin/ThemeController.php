@@ -14,7 +14,7 @@ class ThemeController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin\pages\config_sytem\theme_options');
     }
 
     /**
