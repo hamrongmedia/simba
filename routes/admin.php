@@ -19,4 +19,6 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
 
     //Product Category
     Route::resource('product-category', 'ProductCategoryController');
+    Route::resource('product-type', 'ProductTypeController');
+    Route::resource('product-attribute', 'ProductAttributeController');
 });
