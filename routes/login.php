@@ -40,7 +40,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/menu', 'namespace
     Route::post('/edit/{id}', 'MenuController@update')->name('admin.menu.update');
     Route::post('/delete', 'MenuController@delete')->name('admin.menu.delete');
     Route::post('/savetree', 'MenuController@saveTree')->name('admin.menu.savetree');
-
 });
 
 Route::prefix('hrm')->namespace('Auth')->group(function () {

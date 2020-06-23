@@ -28,4 +28,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/mail', 'namespace
     Route::get('/edit/{id}', 'MailSettingController@edit')->name('admin.mailsetting.edit');
     Route::post('/edit/{id}', 'MailSettingController@update')->name('admin.mailsetting.update');
     Route::get('/delete/{id}', 'MailSettingController@delete')->name('admin.mailsetting.delete');
+
+});
+
+Route::group(['prefix' => 'hrm', 'middleware' => ['auth:admin']], function () {
+    Route::get('/filemanage', function () {
+        return view('admin.pages.file_manage.file_manage');
+    });
 });

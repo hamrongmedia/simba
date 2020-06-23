@@ -115,7 +115,7 @@
         </a>
       </li>
       <li>
-        <a href="pages/mailbox/mailbox.html">
+        <a href="{{url('hrm/filemanage')}}">
           <i class="fa fa-image"></i> <span>Thư viện ảnh</span>
         </a>
       </li>
