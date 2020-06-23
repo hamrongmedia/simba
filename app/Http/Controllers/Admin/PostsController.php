@@ -94,13 +94,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $obj = Posts::find($id);
-        if($obj == null){
-            return redirect()->route('admin.post.index')->with('error', 'Cập nhật thành công');
-        }
-        $obj->delete();
-        return redirect()->route('admin.post.index')->with('success', 'Xóa thông tin thành công'); 
+        Posts::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
     }
 }

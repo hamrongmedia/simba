@@ -109,10 +109,25 @@
             </li>
           </ul>
       </li>
-      <li>
-        <a href="pages/mailbox/mailbox.html">
-          <i class="fa fa-clone"></i> <span>Trang</span>
+      <li class="treeview">
+        <a href="">
+          <i class="fa fa fa-clone"></i> <span>Trang</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+          <ul class="treeview-menu">
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.page.create')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Tạo mới trang</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.page.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Danh sách trang</span></a>
+            </li>
+          </ul>
       </li>
       <li>
         <a href="{{url('hrm/filemanage')}}">

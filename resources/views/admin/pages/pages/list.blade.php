@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-  Quản lý chuyên mục
+  Quản lý trang
 @endsection
 
 @section('css')
@@ -19,19 +19,18 @@
               <tr>
                     <th class="no-sort check-all-table text-left"><input type="checkbox" id="master"></th>
                     <th>ID</th>
-                    <th>Tên danh mục</th>
+                    <th>Tên trang</th>
                     <th>Đường dẫn</th>
-                    <th>Danh mục cha</th>
+                    <th>Trạng thái</th>
                     <th>Hành động</th>
                </tr>
             </thead>
             <tbody>
               @foreach($data as $obj)
-                <tr id="post-{{$obj->id}}">
+                <tr id="page-{{$obj->id}}">
                   <td class="text-left"><input type="checkbox" class="sub_chk" data-id="{{$obj->id}}"></td>
                   <td>{{$obj->id}}</td>
-                  <td>{{$obj->name}}</td>
-                  <td>{{$obj->slug}}</td>
+                  <td>{{$obj->title}}</td>
                   <td>
                     @if ($obj->status == 1)
                       <span class="label label-success">Đang sử dụng</span></a>
@@ -40,7 +39,7 @@
                     @endif
                   </td>
                   <td>
-                    <a href="{{route('admin.category.edit', ['id'=>$obj->id])}}"><span title="Sửa" type="button" class="btn btn-flat btn-primary">
+                    <a href="{{route('admin.page.edit', ['id'=>$obj->id])}}"><span title="Sửa" type="button" class="btn btn-flat btn-primary">
                       <i class="fa fa-edit"></i></span></a>&nbsp;
                     <a  class="btn btn-flat btn-danger" onclick="deleteItem({{$obj->id}});" type="button">
                       <i class="fa fa-trash"></i>
@@ -72,8 +71,9 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true
-    })
-    $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('admin.category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
+    });
+
+    $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('admin.page.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
   });
   function deleteAjax(id) {
       $.ajaxSetup({
@@ -82,7 +82,7 @@
           },
       })
       $.ajax({
-          url: "{{route('admin.category.destroy')}}",
+          url: "{{route('admin.page.destroy')}}",
           type: 'POST',
           data: {
               id: id
@@ -93,7 +93,7 @@
               'Your file has been deleted.',
               'success'
           );
-          $('#category-'+ id).remove();
+          $('#page-'+ id).remove();
 
       });
   }      
