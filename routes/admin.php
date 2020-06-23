@@ -19,4 +19,6 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     Route::post('/category/edit/{id}','CategoryController@update')->name('admin.category.update');
     Route::get('/category/destroy/{id}','CategoryController@destroy')->name('admin.category.destroy');
 
+    //Product Category
+    Route::resource('product-category', 'ProductCategoryController');
 });

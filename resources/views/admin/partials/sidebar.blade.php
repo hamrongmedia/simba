@@ -66,7 +66,7 @@
                 <span>Quản lý sản phẩm</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
+              <a href="{{route('product-category.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý danh mục</span></a>
             </li>
