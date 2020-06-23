@@ -59,3 +59,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'file', 'middleware' => ['web', 'auth:admin']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+Route::group(['prefix' => 'filemanager', 'middleware' => 'auth:admin'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
