@@ -88,18 +88,65 @@
                     <h3 class="box-title">Chuyên Mục</h3>
                 </div>
                 <div class="box-body">
+                    
                     @if(!isset($obj))
-                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                    <div class="form-group" style="max-height: 150px; overflow:auto">
                         @foreach($cats as $p)
-                        <option value="{{$p->id}}" {{old('cat_id') == $p->id ? "selected" : ""}}>{{$p->name}}</option>
+                            <div class="checkbox">
+                                <label>
+                                <input name="cat_id[]" type="checkbox" value="{{$p->id}}" {{old('cat_id') == $p->id ? "checked" : ""}}>
+                                {{$p->name}}
+                                </label>
+                            </div>
                         @endforeach
-                    </select> 
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                            <input name="cat_id[]" type="checkbox" value="2">
+                            àd
+                            </label>
+                        </div>
+                    </div> 
                     @else
-                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                    <div multiple="true" class="form-control overflow-auto" style="height: 200px">
                         @foreach($cats as $p)
-                        <option value="{{$p->id}}" {{$obj->cat_id == $p->id ? "selected" : ""}}>{{$p->name}}</option>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cat_id[]" type="checkbox" value="{{$p->id}}" {{$obj->cat_id == $p->id ? "checked" : ""}}>
+                                    {{$p->name}}
+                                </label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
                     @endif
                 </div>
             </div> 

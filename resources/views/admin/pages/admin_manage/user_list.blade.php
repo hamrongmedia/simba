@@ -11,15 +11,15 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="menu-right">
-                        <form action="https://demo.s-cart.org/sc_admin/user" id="button_search">
-                            <div onclick="$(this).submit();" class="btn-group pull-right">
+                        <form action="{{route('admin.user.search')}}" id="button_search">
+                            <div onclick="searchAjax()" class="btn-group pull-right">
                                 <a class="btn btn-flat btn-primary" title="Refresh">
                                     <i class="fa  fa-search"></i>
                                 </a>
                             </div>
                             <div class="btn-group pull-right">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" class="form-control"
+                                    <input type="text" id="search_input" name="query" class="form-control"
                                         placeholder="Search Name, ID or Email" value="">
                                 </div>
                             </div>
@@ -73,10 +73,7 @@
                             </a>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
@@ -148,8 +145,6 @@
                     </ul>
 
                 </div>
-
-
             </section>
             <!-- /.box-body -->
         </div>
@@ -159,5 +154,41 @@
 @endsection
 
 @section('js')
-    @include('admin.component.ckeditor_js')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
+    function sortAjax(){
+        var input = $('#order_sort option:selected').val().split('__');
+        $.ajax({
+            url: "{{route('admin.user.index')}}" ,
+            data:{
+                sort_field: input[0],
+                sort_type: input[1],
+            }
+        }).done(function (result) {
+            $('.table-list').html(result);
+        })
+    }
+
+    function searchAjax(){
+        var input = $('#search_input').val();
+        $.ajax({
+            url: "{{route('admin.user.search')}}" ,
+            data:{
+                keyword: input,
+            }
+        }).done(function (result) {
+            $('.table-list').html(result);
+        })
+    }
+
+    $('#button_sort').on('click', function(e){
+        sortAjax();
+    });
+
+</script>
 @endsection

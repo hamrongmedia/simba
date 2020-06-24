@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
-use App\Admin\Category;
 use Session;
 
 class CategoryController extends Controller
@@ -16,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $objs = Category::all();
-        return view('admin.pages.category.list')->with('data',$objs);
+        $objs = PostCategory::all();
+        return view('admin.pages.category.list')->with('data', $objs);
     }
 
     /**
@@ -27,8 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $cats = Category::where('status',1)->get();
-        return view('admin.pages.category.create_category',['cats'=>$cats]);
+        $cats = PostCategory::all();
+        return view('admin.pages.category.create_category', ['cats' => $cats]);
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        Category::create($data);
+        PostCategory::create($data);
         return redirect()->route('admin.category.index');
     }
 
@@ -63,13 +63,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $obj = Category::find($id);
-        if($obj == null){
-            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
-            return redirect()->route('admin.category.index');  
+        $obj = PostCategory::find($id);
+        if ($obj == null) {
+            Session::flash('error-category', 'Không tìm thấy dữ liệu.');
+            return redirect()->route('admin.category.index');
         }
-        $cats = Category::where('status',1)->get();
-        return view('admin.pages.category.edit_category',['obj'=>$obj,'cats'=>$cats]);
+        $cats = PostCategory::where('status', 1)->get();
+        return view('admin.pages.category.edit_category', ['obj' => $obj, 'cats' => $cats]);
     }
 
     /**
@@ -81,10 +81,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $obj = Category::find($id);
-        if($obj == null){
-            Session::flash('error-category', 'Không tìm thấy dữ liệu.');  
-            return redirect()->route('admin.category.index');  
+        $obj = PostCategory::find($id);
+        if ($obj == null) {
+            Session::flash('error-category', 'Không tìm thấy dữ liệu.');
+            return redirect()->route('admin.category.index');
         }
         $obj->update($request->all());
         Session::flash('success-category', 'Thay đổi thông tin thành công.');
@@ -99,7 +99,7 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request)
     {
-        Category::find($request->id)->delete();
+        PostCategory::find($request->id)->delete();
         return ['msg' => 'Item deleted'];
     }
 }

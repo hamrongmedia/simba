@@ -5,7 +5,9 @@
     @foreach ($list as $item)
         <li class="dd-item" data-id="{{$item->id}}">
             <div class="dd-handle" >
-                <i class="fa {{$item->icon}}"></i> {{$item->name}}
+                <i class="fa {{$item->icon}}"></i> 
+                <span>{{$item->name}}</span>
+                
                 <span class="pull-right dd-nodrag">
                     <a href="https://demo.s-cart.org/sc_admin/menu/edit/54"><i
                             class="fa fa-edit"></i></a>

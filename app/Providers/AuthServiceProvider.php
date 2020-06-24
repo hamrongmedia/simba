@@ -25,12 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('create-user', function ($user) {
-            return in_array('create-user', $user->getActions());
+        Gate::define('create-admin', function ($user) {
+            return in_array('create-admin', $user->getActions());
         });
 
-        Gate::define('view-user', function ($user) {
-            return in_array('view-user', $user->getActions());
+        Gate::define('view-admin', function ($user) {
+            return in_array('view-admin', $user->getActions());
         });
 
         //

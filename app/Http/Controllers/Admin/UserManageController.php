@@ -17,12 +17,26 @@ class UserManageController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = Admin::all()->sortBy('desc');
-        return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
+        if (empty($request->all())) {
+            $users = Admin::all()->sortBy('desc');
+            return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
+        }
+        if ($request->sort_field) {
+            if ($request->sort_type == 'desc') {
+                $result = Admin::all()->sortByDesc($request->sort_field);
+            } else {
+                $result = Admin::all()->sortBy($request->sort_field);
+            }
+            return view('Admin.pages.ajax_components.user_table', ['users' => $result]);
+        }
+        return abort(404);
+
     }
 
     /**
@@ -32,7 +46,7 @@ class UserManageController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-user')) {
+        if (Gate::allows('create-admin')) {
             $permissions = Permission::all()->sortBy('desc');
             $roles = Role::all()->sortBy('desc');
             return view('Admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
@@ -64,12 +78,19 @@ class UserManageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function search(Request $request)
     {
-        //
+        $data = $request->keyword;
+        $result = Admin::where('id', '=', intval($data))
+            ->orWhere('username', 'like', "%" . $data . "%")
+            ->orWhere('email', 'like', "%" . $data . "%")
+            ->orWhere('name', 'like', "%" . $data . "%")
+            ->get();
+        return view('Admin.pages.ajax_components.user_table', ['users' => $result]);
     }
 
     /**

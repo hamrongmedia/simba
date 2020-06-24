@@ -155,7 +155,7 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.mailsetting.index')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Cấu hình Email</span></a>
+                <i class="fa fa-inbox" aria-hidden="true"></i> <span>Cấu hình Email</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="" class="nav-link">
