@@ -8,6 +8,7 @@ use Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\ProductAttribute;
+use App\Models\ProductAttributeValue;
 
 class ProductAttributeController extends Controller
 {
@@ -77,6 +78,8 @@ class ProductAttributeController extends Controller
     public function show($id)
     {
         //
+        $attribute = ProductAttribute::where(['is_deleted' => 0, 'id' => $id])->first();
+        return view('admin.pages.product_attribute.detail', ['attribute' => $attribute]);
     }
 
     /**
@@ -143,5 +146,39 @@ class ProductAttributeController extends Controller
     public function destroy($id)
     {
         
+    }
+
+    public function createValue(Request $request, $id){
+        $attr = ProductAttribute::find($id);
+        if($request->isMethod('post')){
+            $validator = Validator::make($request->all(), [
+                'value' => 'required',
+            ],[
+                'value.required' => 'Vui lòng nhập giá trị cho thuộc tính',
+            ]);
+            if ($validator->fails()) {
+                Session::flash('error', $validator->errors()->first());
+                return redirect()->back();
+            }
+            $values = explode(',', $request->value);
+            foreach($values as $key => $value){
+                $data = [
+                    'attribute_id' => $id,
+                    'value' => trim($value),
+                ];
+                $result = ProductAttributeValue::create($data);
+                if(!$result) {
+                    Session::flash('error', 'Thêm giá trị thuộc tính sản phẩm không thành công');
+                    return redirect()->back();
+                }
+            }
+            Session::flash('success', 'Thêm giá trị thuộc tính sản phẩm thành công');
+            return redirect()->route('product-attribute.show', $id);
+        }
+        if(isset($attr))return view('admin.pages.product_attribute.create_value', ['attr' => $attr]);
+        else {
+            Session::flash('error', 'Không tìm thấy thuộc tính sản phẩm');
+            return redirect()->back();
+        }
     }
 }

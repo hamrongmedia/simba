@@ -20,5 +20,8 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     //Product Category
     Route::resource('product-category', 'ProductCategoryController');
     Route::resource('product-type', 'ProductTypeController');
+    Route::any('product-attribute/{id}/create-value', 'ProductAttributeController@createValue')->name('createAttributeValue');
+    Route::get('product-attribute/delete-value/{id}', 'ProductAttributeController@deleteValue')->name('deleteAttributeValue');
     Route::resource('product-attribute', 'ProductAttributeController');
+    Route::resource('product', 'ProductController');
 });

@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-Quản lý thuộc tính sản phẩm
+Quản lý sản phẩm
 @endsection
 
 @section('css')
@@ -10,7 +10,7 @@ Quản lý thuộc tính sản phẩm
 @endsection
 
 @section('main')
-<a class="btn btn-primary pull-right btn-add" href="{{route('product-attribute.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
+<a class="btn btn-primary pull-right btn-add" href="{{route('product.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -19,37 +19,41 @@ Quản lý thuộc tính sản phẩm
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên thuộc tính</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Đường dẫn</th>
+                            <!-- <th>Danh mục</th> -->
                             <th>Trạng thái</th>
-                            <th>Ngày tạo</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($list_attributes as $attr)
+                        @foreach($products as $product)
                         <tr>
-                            <td>{{$attr->id}}</td>
-                            <td>{{$attr->name}}</td>
+                            <td>{{$product->id}}</td>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->slug}}</td>
+                            <!-- <td>{{isset($product->category_id) ? $category->parentCategory->name : 'Không có'}}</td> -->
                             <td>
-                                @if ($attr->status == 1)
+                                @if ($product->status == 1)
                                 <span class="label label-success">Đang sử dụng</span></a>
                                 @else
                                 <span class="label label-danger">Ngừng sử dụng</span></a>
                                 @endif
                             </td>
-                            <td>{{$attr->created_at->format('d/m/Y')}}</td>
                             <td>
-                                <a href="{{route('product-attribute.edit', ['product_attribute' => $attr->id])}}"><span title="Sửa"
-                                        type="button" class="btn btn-flat btn-primary">
-                                        <i class="fa fa-edit"></i></span></a>&nbsp;
+                                <a href="{{route('product.edit', ['product'=>$product->id])}}"><span title="Sửa"
+                                    type="button" class="btn btn-flat btn-primary">
+                                    <i class="fa fa-edit"></i></span>
+                                </a>
                                 <a class="btn btn-flat btn-danger"
-                                    href="{{route('product-attribute.destroy', $attr->id) }}" type="button">
+                                    href="{{route('product.destroy', $product->id) }}" type="button">
                                     <i class="fa fa-trash"></i>
                                 </a>
-                                <a class="btn btn-flat btn-info"
-                                    href="{{route('product-attribute.show', $attr->id) }}" type="button">
-                                    <i class="fa fa-info"></i>
-                                </a>
+                                <!-- <a class="btn btn-flat btn-danger"
+                                    href="{{ route('product-category.show',$category->id) }}" type="button">
+                                    <i class="fa fa-list"></i>
+                                </a> -->
                             </td>
                         </tr>
                         @endforeach
