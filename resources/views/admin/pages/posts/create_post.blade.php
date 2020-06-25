@@ -90,12 +90,14 @@
                 <div class="box-body">
                     @if(!isset($obj))
                     <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                        <option value="0">None</option>
                         @foreach($cats as $p)
                         <option value="{{$p->id}}" {{old('cat_id') == $p->id ? "selected" : ""}}>{{$p->name}}</option>
                         @endforeach
                     </select> 
                     @else
                     <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                        <option value="0">None</option>
                         @foreach($cats as $p)
                         <option value="{{$p->id}}" {{$obj->cat_id == $p->id ? "selected" : ""}}>{{$p->name}}</option>
                         @endforeach

@@ -19,7 +19,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs tab-in-left">
               <li class="active btn-block" >
-                <a data-toggle="tab" href="#home-setting" class="btn-block"><i class="fa fa-home"></i> Cấu hình trang chủ</a>
+                <a data-toggle="tab" href="#home-setting" class="btn-block"><i class="fa fa-home"></i> Cấu hình chung</a>
               </li>
               <li class="btn-block" >
                 <a data-toggle="tab" href="#header-setting" class="btn-block"><i class="fa fa-list"></i> Cài đặt Header</a>
@@ -49,14 +49,12 @@
         <div class="col-md-10 col-sm-9 no-padding">
           <div class="tab-content">
             <div id="home-setting" class="tab-pane fade in active">
-                <h3 class="box-title">Header</h3>
                 <div class="form-group">
                   <label for="">Nhập Banner</label>
                   <input type="text" name="hrm_logo_theme" class="form-control" id="" placeholder="">
                 </div>
             </div> {{-- end --}}
             <div id="header-setting" class="tab-pane fade in">
-                <h3 class="box-title">Header</h3>
                 <div class="form-group">
                   <label for="">Nhập logo</label>
                   <input type="text" name="hrm_logo_theme" class="form-control" id="" placeholder="">
@@ -152,19 +150,19 @@
                 <h3 class="box-title">Mạng xã hội</h3>
                 <div class="form-group">
                   <label for="">Facebook</label>
-                  <input type="text" name="hrm_facebook_theme" class="form-control" id="" placeholder="Nhập link">
+                  <input type="text" name="facebook" class="form-control" id="" placeholder="Nhập link">
                 </div>
                 <div class="form-group ">
                   <label for="">Instagram</label>
-                  <input type="text" name="hrm_instagram_theme" class="form-control" id="" placeholder="Nhập link">
+                  <input type="text" name="instagram" class="form-control" id="" placeholder="Nhập link">
                 </div>
                 <div class="form-group">
                   <label for="">Youtube</label>
-                  <input type="text" name="hrm_youtube_theme" class="form-control" id="" placeholder="Nhập link">
+                  <input type="text" name="youtube" class="form-control" id="" placeholder="Nhập link">
                 </div>
                 <div class="form-group">
                   <label for="">Zalo</label>
-                  <input type="text" name="hrm_zalo_theme" class="form-control" id="" placeholder="Nhập link">
+                  <input type="text" name="zalo" class="form-control" id="" placeholder="Nhập link">
                 </div>
             </div> {{-- end --}}
 

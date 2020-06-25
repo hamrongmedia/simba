@@ -43,11 +43,13 @@ Route::get('tim-kiem', function () {
 });
 //START ADMIN ROUTE
 @include 'admin.php';
-//END ADMIN ROUTE
 
 //Include user management route
 
 @include_once 'login.php';
+
+//START THEME OPTION ROUTE
+@include 'theme_options.php';
 
 Auth::routes();
 
