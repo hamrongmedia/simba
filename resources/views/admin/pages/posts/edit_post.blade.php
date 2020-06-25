@@ -37,7 +37,8 @@
                         </div>
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <textarea id="editor" class="editor" name="content" rows="10" cols="80" value="{{isset($obj) ? $obj->editor : ''}}">
+                            <textarea id="editor" class="editor" name="content" rows="10" cols="80">
+                                {{isset($obj) ? $obj->content : ''}}
                             </textarea>
                         </div>
                 </div>
@@ -87,22 +88,33 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Chuyên Mục</h3>
                     <p></p>
-                    @if(!isset($obj))
-                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
-                        @foreach($cats as $p)
-                        <option value="{{$p->id}}" {{old('cat_id') == $p->id ? "selected" : ""}}>{{$p->name}}</option>
-                        @endforeach
-                    </select> 
-                    @else
-                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
-                        @foreach($cats as $p)
-                        <option value="{{$p->id}}" {{$obj->cat_id == $p->id ? "selected" : ""}}>{{$p->name}}</option>
-                        @endforeach
-                    </select>
-                    @endif
+                   
                 </div>
                 <div class="box-body">
                     
+                    @if(!isset($obj))
+                    <div class="form-group" style="max-height: 150px; overflow:auto">
+                        @foreach($cats as $p)
+                            <div class="checkbox">
+                                <label>
+                                <input name="cat_id[]" type="checkbox" value="{{$p->id}}" {{old('cat_id') == $p->id ? "checked" : ""}}>
+                                {{$p->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div> 
+                    @else
+                    <div multiple="true" class="form-control overflow-auto" style="height: 200px">
+                        @foreach($cats as $p)
+                            <div class="checkbox">
+                                <label>
+                                    <input name="cat_id[]" type="checkbox" value="{{$p->id}}" {{in_array($p->id,$obj->category_id()) ? "checked" : ""}}>
+                                    {{$p->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    @endif
                 </div>
             </div> 
             <div class="box box-primary">

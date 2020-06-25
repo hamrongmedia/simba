@@ -9,12 +9,21 @@ class Posts extends Model
 
     protected $table = 'posts';
     protected $fillable = [
-        'title', 'slug', 'image', 'content', 'description', 'cat_id', 'status', 'tags', 'meta_des', 'meta_key', 'meta_title',
+        'title', 'slug', 'image', 'content', 'description', 'status', 'tags', 'meta_des', 'meta_key', 'meta_title',
     ];
 
     public function category()
     {
-        return $this->belongsTo('App\Admin\Category', 'cat_id');
+        return $this->belongsToMany('App\Models\PostCategory', 'post_has_categories', 'post_id', 'category_id');
+    }
+
+    public function category_id()
+    {
+        $result = [];
+        foreach ($this->category as $cat) {
+            array_push($result, $cat->id);
+        }
+        return $result;
     }
 
     public function user()

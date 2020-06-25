@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
+use DB;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -40,8 +41,20 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
-        Posts::create($data);
+        $new_post = Posts::create($data);
+        $cats = $request->cat_id;
+
+        if ($cats) {
+            foreach ($cats as $cat_id) {
+                DB::table('post_has_categories')->insert(
+                    [
+                        'post_id' => $new_post->id,
+                        'category_id' => $cat_id,
+                    ]
+                );
+            }
+        }
+
         return redirect(route('admin.post.index'));
     }
 
@@ -68,7 +81,9 @@ class PostsController extends Controller
         if ($obj == null) {
             return redirect()->route('admin.post.index');
         }
+
         $cats = PostCategory::where('status', 1)->get();
+
         return view('admin.pages.posts.edit_post', ['obj' => $obj, 'cats' => $cats]);
     }
 
@@ -86,6 +101,23 @@ class PostsController extends Controller
             return redirect()->route('admin.post.index');
         }
         $obj->update($request->all());
+
+        $cats = $request->cat_id;
+
+        if ($cats) {
+            //delete relation
+            DB::table('post_has_categories')->where('post_id', $obj->id)->delete();
+            // add new relation
+            foreach ($cats as $cat_id) {
+                DB::table('post_has_categories')->insert(
+                    [
+                        'post_id' => $obj->id,
+                        'category_id' => $cat_id,
+                    ]
+                );
+            }
+        }
+
         return redirect()->route('admin.post.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
     }
 

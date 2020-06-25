@@ -88,7 +88,6 @@
                     <h3 class="box-title">Chuyên Mục</h3>
                 </div>
                 <div class="box-body">
-                    
                     @if(!isset($obj))
                     <div class="form-group" style="max-height: 150px; overflow:auto">
                         @foreach($cats as $p)
@@ -99,42 +98,6 @@
                                 </label>
                             </div>
                         @endforeach
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                            <input name="cat_id[]" type="checkbox" value="2">
-                            àd
-                            </label>
-                        </div>
                     </div> 
                     @else
                     <div multiple="true" class="form-control overflow-auto" style="height: 200px">
