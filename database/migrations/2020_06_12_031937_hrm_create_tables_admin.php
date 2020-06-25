@@ -30,12 +30,12 @@ class HrmCreateTablesAdmin extends Migration
             $table->timestamps();
         });
 
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('post_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->unique();
             $table->string('name');
             $table->string('description', 300)->nullable();
-            $table->integer('parent_id')->unsigned()->default(0);
+            $table->integer('cat_id')->unsigned()->nullable();
             $table->string('status', 60)->default('published'); // nếu có 3 trạng thái trở lên thì lỗi
             // $table->integer('author_id');
             // $table->string('author_type', 255)->default(addslashes(User::class));
@@ -60,16 +60,28 @@ class HrmCreateTablesAdmin extends Migration
             $table->timestamps();
         });
 
-        Schema::create('post_tags', function (Blueprint $table) {
+        Schema::create('post_has_tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('tag_id')->unsigned()->references('id')->on('tags')->onDelete('cascade');
-            $table->integer('post_id')->unsigned()->references('id')->on('posts')->onDelete('cascade');
+            $table->integer('tag_id')->unsigned()
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
+            $table->integer('post_id')->unsigned()
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
         });
 
-        Schema::create('post_categories', function (Blueprint $table) {
+        Schema::create('post_has_categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->unsigned()->references('id')->on('category')->onDelete('cascade');
-            $table->integer('post_id')->unsigned()->references('id')->on('posts')->onDelete('cascade');
+            $table->integer('category_id')->unsigned()
+                ->references('id')
+                ->on('post_category')
+                ->onDelete('cascade');
+            $table->integer('post_id')->unsigned()
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade');
         });
 
         Schema::create('pages', function (Blueprint $table) {
@@ -93,11 +105,13 @@ class HrmCreateTablesAdmin extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('posts');
-        Schema::dropIfExists('post_categories');
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('post_category');
         Schema::dropIfExists('tags');
-        Schema::dropIfExists('post_tags');
         Schema::dropIfExists('pages');
+        Schema::dropIfExists('post_has_categories');
+        Schema::dropIfExists('post_has_tags');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

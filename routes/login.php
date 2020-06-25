@@ -7,6 +7,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/user', 'namespace' 
     Route::get('/edit/{id}', 'UserManageController@edit')->name('admin.user.edit');
     Route::post('/edit/{id}', 'UserManageController@update')->name('admin.user.update');
     Route::post('/delete', 'UserManageController@delete')->name('admin.user.delete');
+    Route::get('/search', 'UserManageController@search')->name('admin.user.search');
 
 });
 
@@ -40,7 +41,6 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/menu', 'namespace
     Route::post('/edit/{id}', 'MenuController@update')->name('admin.menu.update');
     Route::post('/delete', 'MenuController@delete')->name('admin.menu.delete');
     Route::post('/savetree', 'MenuController@saveTree')->name('admin.menu.savetree');
-
 });
 
 Route::prefix('hrm')->namespace('Auth')->group(function () {

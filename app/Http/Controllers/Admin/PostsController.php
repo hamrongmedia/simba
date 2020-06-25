@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PostCategory;
+use App\Models\Posts;
 use Illuminate\Http\Request;
-use App\Admin\Posts;
-use App\Admin\Category;
 
 class PostsController extends Controller
 {
@@ -17,7 +17,7 @@ class PostsController extends Controller
     public function index()
     {
         $objs = Posts::all();
-        return view('admin.pages.posts.list', ['data'=>$objs]);
+        return view('admin.pages.posts.list', ['data' => $objs]);
     }
 
     /**
@@ -27,8 +27,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $cats = Category::where('status',1)->get();
-        return view('admin.pages.posts.create_post',['cats'=>$cats]);
+        $cats = PostCategory::where('status', 1)->get();
+        return view('admin.pages.posts.create_post', ['cats' => $cats]);
     }
 
     /**
@@ -40,6 +40,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        dd($data);
         Posts::create($data);
         return redirect(route('admin.post.index'));
     }
@@ -64,11 +65,11 @@ class PostsController extends Controller
     public function edit($id)
     {
         $obj = Posts::find($id);
-        if($obj == null){
-            return redirect()->route('admin.post.index');  
+        if ($obj == null) {
+            return redirect()->route('admin.post.index');
         }
-        $cats = Category::where('status',1)->get();
-        return view('admin.pages.posts.edit_post',['obj'=>$obj,'cats'=>$cats]);
+        $cats = PostCategory::where('status', 1)->get();
+        return view('admin.pages.posts.edit_post', ['obj' => $obj, 'cats' => $cats]);
     }
 
     /**
@@ -81,8 +82,8 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $obj = Posts::find($id);
-        if($obj == null){
-            return redirect()->route('admin.post.index');  
+        if ($obj == null) {
+            return redirect()->route('admin.post.index');
         }
         $obj->update($request->all());
         return redirect()->route('admin.post.edit', ['id' => $id])->with('success', 'Cập nhật thành công');

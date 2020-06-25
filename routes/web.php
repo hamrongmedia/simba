@@ -48,9 +48,17 @@ Route::get('tim-kiem', function () {
 
 @include_once 'login.php';
 
-//START THEME OPTION ROUTE
-@include 'theme_options.php';
+// theme
+@include_once 'theme.php';
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'file', 'middleware' => ['web', 'auth:admin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+Route::group(['prefix' => 'filemanager', 'middleware' => 'auth:admin'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

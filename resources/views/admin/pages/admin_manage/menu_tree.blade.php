@@ -15,6 +15,39 @@
 <link rel="stylesheet" href="{{ asset('admin/plugin/iconpicker/fontawesome-iconpicker.min.css')}}">
 <link rel="stylesheet" href="{{asset('admin/plugin/nestable/jquery.nestable.min.css')}}">
 
+<style>
+
+    /* .dd-expand, .dd-collapse {
+        top:10px;
+    } */
+    #menu-sort>.dd-list>li{
+        background: #d2d6de;
+        margin-bottom: 50px;
+        padding-bottom: 10px;
+    }
+
+    #menu-sort>.dd-list>li>.dd-expand{
+        top:10px;
+    }
+    #menu-sort>.dd-list>li>.dd-collapse{
+        top:10px;
+    }
+
+
+    
+
+    #menu-sort>.dd-list>li>.dd-handle{
+        background: #3c8dbc;
+        border-radius: 0;
+        border: 1px solid #3c8dbc;
+        height: 50px;
+        line-height: 40px;
+    }
+
+
+
+</style>
+
 @endsection
 
 @section('main')
@@ -265,7 +298,5 @@
                 }
             })
     })
-
-
 </script>
 @endsection

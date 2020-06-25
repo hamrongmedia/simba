@@ -1,73 +1,75 @@
 .overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transform: -webkit-translate(-50%, -50%);
-  transform: -moz-translate(-50%, -50%);
-  transform: -ms-translate(-50%, -50%);
-  color:#1f222b;
-  z-index: 9999;
-  background: rgba(255,255,255,0.7);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: -webkit-translate(-50%, -50%);
+    transform: -moz-translate(-50%, -50%);
+    transform: -ms-translate(-50%, -50%);
+    color: #1f222b;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.7);
 }
-.select2-selection{
-  border-radius: inherit  !important;
-  border: 1px solid #ccc !important;
+.select2-selection {
+    border-radius: inherit !important;
+    border: 1px solid #ccc !important;
 }
 
 .form-group > label.asterisk:after {
     content: " *";
     color: red;
 }
-#loading{
-  display: none;
-  position: absolute;
+#loading {
+    display: none;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 50;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
 }
-.img_holder{
-  margin-top:15px;
+.img_holder {
+    margin-top: 15px;
 }
-.img_holder > img{
-  max-height:100px;max-width: 100px;
+.img_holder > img {
+    max-height: 100px;
+    max-width: 100px;
 }
-.more_info{
+.more_info {
     margin-top: 10px;
     margin-left: 5px;
 }
-.breadcrumb{
-  margin-right: 30px;
+.breadcrumb {
+    margin-right: 30px;
 }
-.action-teplate{
-  min-width: 80px;
+.action-teplate {
+    min-width: 80px;
 }
-.seo{
-  font-size: 10px;
-  color: #ad3419;
+.seo {
+    font-size: 10px;
+    color: #ad3419;
 }
-.menu-left, .menu-right{
-  display: inline;
+.menu-left,
+.menu-right {
+    display: inline;
 }
 .sc-old-price {
-  text-decoration: line-through;
-  color: #a95d5d;
-  font-size: 13px;
-  padding: 10px;
+    text-decoration: line-through;
+    color: #a95d5d;
+    font-size: 13px;
+    padding: 10px;
 }
 .sc-new-price {
-  color: #FE980F;
-  font-size: 14px;
-  padding: 10px 5px;
-  font-weight: bold;
+    color: #fe980f;
+    font-size: 14px;
+    padding: 10px 5px;
+    font-weight: bold;
 }
-#form-main hr{
-  background-color: #afafaf;
-  height: 1px;
-  margin-bottom: 40px !important;
+#form-main hr {
+    background-color: #afafaf;
+    height: 1px;
+    margin-bottom: 40px !important;
 }
 
 .theme-options-setting .box-title {
@@ -82,10 +84,10 @@
 
 .theme-options-setting .form-group {
     margin-bottom: 0px;
-    padding: 30px;
+    padding: 10px 30px;
     border-bottom: 1px solid rgb(244, 244, 244);
 }
-.theme-options-setting .nav-tabs-custom > .nav-tabs > li.active > a, 
+.theme-options-setting .nav-tabs-custom > .nav-tabs > li.active > a,
 .theme-options-setting .nav-tabs-custom > .nav-tabs > li.active:hover > a {
     background-color: rgb(247, 247, 247);
 }
@@ -98,26 +100,25 @@
     margin-bottom: 0px;
 }
 
-.theme-options-setting .btn-block+.btn-block{
-  margin-top: 0;
+.theme-options-setting .btn-block + .btn-block {
+    margin-top: 0;
 }
-.theme-options-setting li.btn-block{
+.theme-options-setting li.btn-block {
     margin-right: 0;
     border-bottom: 1px solid #f4f4f4;
 }
-.theme-options-setting  .tab-content{
+.theme-options-setting .tab-content {
     min-height: 500px;
     border-left: 1px solid #f4f4f4;
 }
 
-.theme-options-setting .clear.box-body{
-  padding-top:0;
- 
+.theme-options-setting .clear.box-body {
+    padding-top: 0;
 }
 
-.no-margin{
-   margin-left: 0;
-   margin-right: 0;
+.no-margin {
+    margin-left: 0;
+    margin-right: 0;
 }
 .w-full {
     width: 100%;
@@ -131,15 +132,14 @@
 .items-center {
     align-items: center;
 }
-.flex{
+.flex {
     display: flex;
     flex-wrap: wrap;
 }
-.content-login{
+.content-login {
     width: 60%;
-   background-color: #fff;
-   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
-
+    background-color: #fff;
+    box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, 0.1);
 }
 .bg-img {
     background-image: url(../images/vuexy-login-bg.jpg);
@@ -148,38 +148,37 @@
     background-size: cover;
 }
 
-.bg-img img{
-   max-width: 100%;
+.bg-img img {
+    max-width: 100%;
 }
 
-.row.no-margin{
-  background-color: #eff2f7;
+.row.no-margin {
+    background-color: #eff2f7;
 }
 
-.cont-login{
-  min-height: 500px;
-  background-color: #fff;
+.cont-login {
+    min-height: 500px;
+    background-color: #fff;
 }
 
-.cont-login .box-body{
-     padding: 35px;
+.cont-login .box-body {
+    padding: 35px;
 }
-.cont-login button{
-      min-width: 140px;
-      max-width: 100%;
-      font-weight: 600;
+.cont-login button {
+    min-width: 140px;
+    max-width: 100%;
+    font-weight: 600;
 
-      text-transform: uppercase;
-      border-radius: 6px;
-
+    text-transform: uppercase;
+    border-radius: 6px;
 }
-.bottom-login h2{
+.bottom-login h2 {
     color: #f90e0e;
     font-weight: 700;
 }
 
-.cont-login .form-group.checkbox{
-  margin-top: 30px;
+.cont-login .form-group.checkbox {
+    margin-top: 30px;
 }
 
 .preview-image-wrapper {
@@ -192,7 +191,7 @@
     height: 150px;
     width: 150px;
     text-align: center;
-    border: 1px solid rgba(195,207,216,.3);
+    border: 1px solid rgba(195, 207, 216, 0.3);
     vertical-align: middle;
     background: #fafbfc;
 }
@@ -207,22 +206,34 @@
     background: #ddd;
     color: #000;
     display: inline-block;
-    border-radius: 50%!important;
+    border-radius: 50% !important;
     width: 30px;
     height: 30px;
     text-align: center;
     font-size: 18px;
 }
 
-@media (max-width: 700px){
-    .content-login{
-      width: 90%;
+@media (max-width: 700px) {
+    .content-login {
+        width: 90%;
     }
-    .cont-login {
-      min-height: 349px;
-   }
-   .cont-login .box-body {
-    padding: 35px 20px;
-}
+    .cont-login .form-group.checkbox {
+        margin-top: 30px;
+    }
 }
 
+.btn-add {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+    .content-login {
+        width: 90%;
+    }
+    .cont-login {
+        min-height: 349px;
+    }
+    .cont-login .box-body {
+        padding: 35px 20px;
+    }
+}

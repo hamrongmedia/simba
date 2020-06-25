@@ -13,10 +13,21 @@
 <!-- Select2 -->
 <script src="{{asset('/admin/adminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
+<!-- iCheck -->
+<script src="{{ asset('admin/AdminLTE/plugins/iCheck/icheck.min.js')}}"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/AdminLTE/dist/js/demo.js')}}"></script>
 
 <script>
     //Initialize Select2 Elements
     $('.select2').select2()
+
+    $(function () {
+        $('.input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
+        });
+    });
 </script>
