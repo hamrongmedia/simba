@@ -88,7 +88,6 @@
                     <h3 class="box-title">Chuyên Mục</h3>
                 </div>
                 <div class="box-body">
-                    
                     @if(!isset($obj))
                     <div class="form-group" style="max-height: 150px; overflow:auto">
                         @foreach($cats as $p)

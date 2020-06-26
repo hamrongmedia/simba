@@ -18,6 +18,9 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin/AdminLTE/dist/js/demo.js')}}"></script>
+<!--image button-->
+<script src="{{asset('/vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
+
 
 <script>
     //Initialize Select2 Elements
