@@ -149,7 +149,7 @@
                 <i class="fa fa-bars"></i> <span>Menu</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="" class="nav-link">
+              <a href="{{route('admin.themeoptions.header')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Theme options</span></a>
             </li>

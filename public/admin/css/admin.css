@@ -81,11 +81,15 @@
     border-bottom: 1px solid rgb(244, 244, 244);
     padding: 14px 30px;
 }
-
+.theme-options-setting .nav-tabs-custom {
+    background:#ebebeb;
+}
+.theme-options-setting .nav-tabs>li>a{
+    color: #555;
+}
 .theme-options-setting .form-group {
     margin-bottom: 0px;
     padding: 10px 30px;
-    border-bottom: 1px solid rgb(244, 244, 244);
 }
 .theme-options-setting .nav-tabs-custom > .nav-tabs > li.active > a,
 .theme-options-setting .nav-tabs-custom > .nav-tabs > li.active:hover > a {
@@ -113,7 +117,7 @@
 }
 
 .theme-options-setting .clear.box-body {
-    padding-top: 0;
+    padding: 0;
 }
 
 .no-margin {
