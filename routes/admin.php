@@ -4,18 +4,29 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.index');
 
     // Posts
-    Route::get('/posts', 'PostsController@index')->name('admin.posts.index');
-    Route::get('/posts/create', 'PostsController@create')->name('admin.posts.create');
-    Route::post('/posts/create', 'PostsController@store')->name('admin.posts.store');
+    Route::get('/posts', 'PostsController@index')->name('admin.post.index');
+    Route::get('/post/create', 'PostsController@create')->name('admin.post.create');
+    Route::post('/post/create', 'PostsController@store')->name('admin.post.store');
+    Route::get('/post/edit/{id}','PostsController@edit')->name('admin.post.edit');
+    Route::post('/post/edit/{id}','PostsController@update')->name('admin.post.update');
+    Route::post('/post/destroy','PostsController@destroy')->name('admin.post.destroy');
 
-
-     // Category
+    // Category
     Route::get('/category','CategoryController@index')->name('admin.category.index');
     Route::get('/category/create','CategoryController@create')->name('admin.category.create');
     Route::post('/category/create','CategoryController@store')->name('admin.category.store');
     Route::get('/category/edit/{id}','CategoryController@edit')->name('admin.category.edit');
     Route::post('/category/edit/{id}','CategoryController@update')->name('admin.category.update');
-    Route::get('/category/destroy/{id}','CategoryController@destroy')->name('admin.category.destroy');
+    Route::post('/category/destroy','CategoryController@destroy')->name('admin.category.destroy');
+
+
+    // Pages
+    Route::get('/pages', 'PagesController@index')->name('admin.page.index');
+    Route::get('/page/create', 'PagesController@create')->name('admin.page.create');
+    Route::post('/page/create', 'PagesController@store')->name('admin.page.store');
+    Route::get('/page/edit/{id}','PagesController@edit')->name('admin.page.edit');
+    Route::post('/page/edit/{id}','PagesController@update')->name('admin.page.update');
+    Route::post('/page/destroy','PagesController@destroy')->name('admin.page.destroy');
 
     //Product Category
     Route::resource('product-category', 'ProductCategoryController');

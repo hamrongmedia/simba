@@ -5,7 +5,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/user', 'namespace' 
     Route::get('/create', 'UserManageController@create')->name('admin.user.create');
     Route::post('/create', 'UserManageController@store')->name('admin.user.store');
     Route::get('/edit/{id}', 'UserManageController@edit')->name('admin.user.edit');
-    Route::post('/edit/{id}', 'UserManageController@edit')->name('admin.user.update');
+    Route::post('/edit/{id}', 'UserManageController@update')->name('admin.user.update');
     Route::post('/delete', 'UserManageController@delete')->name('admin.user.delete');
 
 });
@@ -29,6 +29,17 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/permission', 'nam
     Route::post('/edit/{id}', 'PermissionController@update')->name('admin.permission.update');
     Route::post('/delete', 'PermissionController@delete')->name('admin.permission.delete');
 
+});
+
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/menu', 'namespace' => 'Admin'], function () {
+    // Menu manage routes
+    Route::get('/', 'MenuController@index')->name('admin.menu.index');
+    Route::get('/create', 'MenuController@create')->name('admin.menu.create');
+    Route::post('/create', 'MenuController@store')->name('admin.menu.store');
+    Route::get('/edit/{id}', 'MenuController@edit')->name('admin.menu.edit');
+    Route::post('/edit/{id}', 'MenuController@update')->name('admin.menu.update');
+    Route::post('/delete', 'MenuController@delete')->name('admin.menu.delete');
+    Route::post('/savetree', 'MenuController@saveTree')->name('admin.menu.savetree');
 });
 
 Route::prefix('hrm')->namespace('Auth')->group(function () {

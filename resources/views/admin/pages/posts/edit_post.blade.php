@@ -1,31 +1,31 @@
 @extends('admin.layout')
 
 @section('title')
-  Tạo bài viết
+  Sửa Blog/New
 @endsection
 
 @section('main')
 <div class="row">
-    <form action="{{route('admin.posts.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
+    <form action="{{route('admin.post.update',['id'=>$obj->id])}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
     @csrf <!-- {{ csrf_field() }} -->
         <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tạo mới một Blog/News</h3>
+                    <h3 class="box-title">Sửa Blog/News</h3>
                 </div>
              <!-- form start -->
                 <div class="box-body">   
                         <div class="form-group">
                             <label>Tiêu đề</label>
-                            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" name="title" class="form-control" value="{{isset($obj) ? $obj->title : ''}}">
                         </div>
                         <div class="form-group">
                             <label>Slug</label>
-                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" name="slug" class="form-control" value="{{isset($obj) ? $obj->slug : ''}}">
                         </div>
                         <div class="form-group">
                             <label>Mô Tả</label>
-                            <textarea class="form-control" name="description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                            <textarea class="form-control" name="description" rows="3" value="{{isset($obj) ? $obj->description : ''}}"></textarea>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <textarea id="editor" class="editor" name="content" rows="10" cols="80">
+                            <textarea id="editor" class="editor" name="content" rows="10" cols="80" value="{{isset($obj) ? $obj->editor : ''}}">
                             </textarea>
                         </div>
                 </div>
@@ -55,11 +55,11 @@
                     <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
                     <div class="form-group">
                         <label>Tiêu đề</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
+                        <input type="text" name="meta_title" class="form-control" value="{{isset($obj) ? $obj->meta_title : ''}}">
                     </div>
                     <div class="form-group">
                         <label>Mô Tả</label>
-                        <textarea class="form-control" name="meta_des" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                        <textarea class="form-control" name="meta_des" rows="3" value="{{isset($obj) ? $obj->meta_des : ''}}"></textarea>
                     </div>
                 </div>
             </div> 
@@ -86,6 +86,20 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Chuyên Mục</h3>
+                    <p></p>
+                    @if(!isset($obj))
+                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                        @foreach($cats as $p)
+                        <option value="{{$p->id}}" {{old('cat_id') == $p->id ? "selected" : ""}}>{{$p->name}}</option>
+                        @endforeach
+                    </select> 
+                    @else
+                    <select multiple="" class="form-control" name="cat_id" id="cat_id">
+                        @foreach($cats as $p)
+                        <option value="{{$p->id}}" {{$obj->cat_id == $p->id ? "selected" : ""}}>{{$p->name}}</option>
+                        @endforeach
+                    </select>
+                    @endif
                 </div>
                 <div class="box-body">
                     

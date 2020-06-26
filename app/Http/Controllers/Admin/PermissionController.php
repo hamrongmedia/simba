@@ -96,27 +96,12 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $permission = Permission::find($id);
-        $newAction = $request->action_list;
-        if ($newAction === null) {
-            $newAction = [];
-        }
-
         $permission->name = $request->name;
         $permission->save();
+
         // update relation
-        $permission_action = DB::table('permission_has_action')->where('permission_id', $id)->get();
-
-        foreach ($permission_action as $item) {
-            if (!in_array($item->id, $newAction)) {
-                DB::table('permission_has_action')->where('id', $item->id)->delete();
-            }
-            if (in_array($item->id, $newAction)) {
-                $key = array_search($item->id, $newAction);
-                unset($newAction[$key]);
-            }
-        }
-
-        foreach ($newAction as $action) {
+        DB::table('permission_has_action')->where('permission_id', $id)->delete();
+        foreach ($request->action_list as $action) {
             DB::table('permission_has_action')->insert([
                 'permission_id' => $permission->id,
                 'action_id' => $action,
@@ -137,4 +122,5 @@ class PermissionController extends Controller
         return ['msg' => 'Item deleted'];
 
     }
+
 }

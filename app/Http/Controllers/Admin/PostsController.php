@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Admin\Posts;
+use App\Admin\Category;
 
 class PostsController extends Controller
 {
@@ -15,7 +16,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.list');
+        $objs = Posts::all();
+        return view('admin.pages.posts.list', ['data'=>$objs]);
     }
 
     /**
@@ -25,7 +27,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.news.create_post');
+        $cats = Category::where('status',1)->get();
+        return view('admin.pages.posts.create_post',['cats'=>$cats]);
     }
 
     /**
@@ -38,7 +41,7 @@ class PostsController extends Controller
     {
         $data = $request->all();
         Posts::create($data);
-        return redirect(route('admin.posts.index'));
+        return redirect(route('admin.post.index'));
     }
 
     /**
@@ -60,7 +63,12 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $obj = Posts::find($id);
+        if($obj == null){
+            return redirect()->route('admin.post.index');  
+        }
+        $cats = Category::where('status',1)->get();
+        return view('admin.pages.posts.edit_post',['obj'=>$obj,'cats'=>$cats]);
     }
 
     /**
@@ -72,7 +80,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $obj = Posts::find($id);
+        if($obj == null){
+            return redirect()->route('admin.post.index');  
+        }
+        $obj->update($request->all());
+        return redirect()->route('admin.post.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
     }
 
     /**
@@ -81,8 +94,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Posts::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
     }
 }

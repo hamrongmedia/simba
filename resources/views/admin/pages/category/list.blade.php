@@ -27,7 +27,7 @@
             </thead>
             <tbody>
               @foreach($data as $obj)
-                <tr>
+                <tr id="post-{{$obj->id}}">
                   <td class="text-left"><input type="checkbox" class="sub_chk" data-id="{{$obj->id}}"></td>
                   <td>{{$obj->id}}</td>
                   <td>{{$obj->name}}</td>
@@ -42,7 +42,7 @@
                   <td>
                     <a href="{{route('admin.category.edit', ['id'=>$obj->id])}}"><span title="Sửa" type="button" class="btn btn-flat btn-primary">
                       <i class="fa fa-edit"></i></span></a>&nbsp;
-                    <a  class="btn btn-flat btn-danger" data-action ="{{ route('admin.category.destroy',$obj->id) }}" type="button">
+                    <a  class="btn btn-flat btn-danger" onclick="deleteItem({{$obj->id}});" type="button">
                       <i class="fa fa-trash"></i>
                     </a>
                   </td>
@@ -74,6 +74,45 @@
       'autoWidth'   : true
     })
     $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('admin.category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
-  })
+  });
+  function deleteAjax(id) {
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+      })
+      $.ajax({
+          url: "{{route('admin.category.destroy')}}",
+          type: 'POST',
+          data: {
+              id: id
+          }
+      }).done(function(){
+          Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+          );
+          $('#category-'+ id).remove();
+
+      });
+  }      
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        .then((result) => {
+            if (result.value) {
+                deleteAjax(id);
+            }
+        });
+    }
 </script>
 @endsection

@@ -1,5 +1,7 @@
 <!-- jQuery 3 -->
 <script src="{{ asset('admin/AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{ asset('js\jquery-3.4.1.min.js')}}"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('admin/AdminLTE/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->

@@ -20,10 +20,10 @@ class HrmCreateTablesAdmin extends Migration
             $table->string('image', 200)->nullable(); // Nếu bài post có 2 image trở lên se lỗi. mà post thì k cần image cx dc
             $table->string('description', 300)->nullable();
             $table->text('content')->nullable();
-            $table->integer('cat_id')->nullable(); // 1 post có thể có nhiều category
-            $table->integer('created_by')->nullable();
-            $table->boolean('status'); // nếu có 3 trạng thái trở lên thì lỗi
-            $table->text('tags')->nullable();
+            // $table->integer('author_id');
+            // $table->string('author_type', 255)->default(addslashes(User::class));
+            $table->string('status', 60)->default('published'); // nếu có 3 trạng thái trở lên thì lỗi
+            $table->tinyInteger('is_featured')->default(0);
             $table->string('meta_des')->nullable();
             $table->string('meta_key')->nullable();
             $table->string('meta_title')->nullable();
@@ -34,15 +34,56 @@ class HrmCreateTablesAdmin extends Migration
             $table->bigIncrements('id');
             $table->string('slug')->unique();
             $table->string('name');
-            $table->integer('cat_id')->nullable();
             $table->string('description', 300)->nullable();
-            $table->boolean('status'); // nếu có 3 trạng thái trở lên thì lỗi
+            $table->integer('parent_id')->unsigned()->default(0);
+            $table->string('status', 60)->default('published'); // nếu có 3 trạng thái trở lên thì lỗi
+            // $table->integer('author_id');
+            // $table->string('author_type', 255)->default(addslashes(User::class));
+            $table->tinyInteger('is_featured')->default(0);
             $table->string('meta_des')->nullable();
             $table->string('meta_key')->nullable();
             $table->string('meta_title')->nullable();
             $table->timestamps();
         });
 
+        Schema::create('tags', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 120);
+            // $table->integer('author_id');
+            // $table->string('author_type', 255)->default(addslashes(User::class));
+            $table->string('description', 400)->nullable()->default('');
+            $table->integer('parent_id')->unsigned()->default(0);
+            $table->string('status', 60)->default('published');
+            $table->string('meta_des')->nullable();
+            $table->string('meta_key')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('post_tags', function (Blueprint $table) {
+            $table->id();
+            $table->integer('tag_id')->unsigned()->references('id')->on('tags')->onDelete('cascade');
+            $table->integer('post_id')->unsigned()->references('id')->on('posts')->onDelete('cascade');
+        });
+
+        Schema::create('post_categories', function (Blueprint $table) {
+            $table->id();
+            $table->integer('category_id')->unsigned()->references('id')->on('category')->onDelete('cascade');
+            $table->integer('post_id')->unsigned()->references('id')->on('posts')->onDelete('cascade');
+        });
+
+        Schema::create('pages', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('description', 300)->nullable();
+            $table->text('content')->nullable();
+            $table->string('status', 60)->default('published'); // nếu có 3 trạng thái trở lên thì lỗi
+            $table->string('meta_des')->nullable();
+            $table->string('meta_key')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -53,6 +94,10 @@ class HrmCreateTablesAdmin extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_categories');
         Schema::dropIfExists('category');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('post_tags');
+        Schema::dropIfExists('pages');
     }
 }
