@@ -40,7 +40,6 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
         Posts::create($data);
         return redirect(route('admin.post.index'));
     }

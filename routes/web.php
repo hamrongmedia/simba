@@ -23,14 +23,6 @@ Route::get('chi-tiet-san-pham', function () {
     return view('chitietsanpham');
 });
 
-Route::get('blog', function () {
-    return view('blog');
-});
-
-Route::get('post', function () {
-    return view('post');
-});
-
 Route::get('feedback', function () {
     return view('feedback');
 });
@@ -41,6 +33,9 @@ Route::get('giohang', function () {
 Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
+
+@include 'frontend.php';
+
 //START ADMIN ROUTE
 @include 'admin.php';
 

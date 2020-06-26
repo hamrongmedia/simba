@@ -1,4 +1,4 @@
-@extends('front-end.main.page_main')
+@extends('front-end.main.main')
 
 @section('title')
 Blog
