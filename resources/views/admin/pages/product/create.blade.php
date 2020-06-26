@@ -57,6 +57,39 @@ Tạo sản phẩm
                                 placeholder="Nhập mô tả ngắn"></textarea>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Giá</label>
+                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Thuộc tính</label>
+                            </div>
+                            <div class="form-group--attribute col-md-12">
+                                <div class="row form-group--attribute--row">
+                                    <div class="col-md-5">
+                                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-danger remove-attribute"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Hình ảnh</label>
+                        <input type="text" name="image" class="form-control" placeholder="Chọn hình ảnh">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Số lượng</label>
+                        <input type="text" name="quantity" class="form-control" placeholder="Chọn hình ảnh">
+                    </div>
+                    <div class="form-group">
                         <label class="control-label">Meta title(Tiêu đề SEO)</label>
                         <input type="text" name="meta_title" class="form-control" placeholder="Nhập tên chuyên mục">
                     </div>
@@ -86,4 +119,29 @@ Tạo sản phẩm
         </div>
     </form>
 </div>
+@endsection
+@section('js')
+<!-- DataTables -->
+<script>
+    $(document).ready(function(){
+        form_attr = $('.box-body').find('.form-group--attribute');
+        if(form_attr.children().length == 1){
+            $('.remove-attribute').css('display', 'none');
+        }
+        $('.form-group--attribute').on('click', '.add-attribute', function(){
+            form = $(this).parent().parent();
+            html = form[0].outerHTML;
+            form.parent().append(html);
+            $('.remove-attribute').css('display', 'inline-block');
+        })
+        $('.form-group--attribute').on('click', '.remove-attribute', function(){
+            form = $(this).parent().parent();
+            html = form[0].outerHTML;
+            form.remove();
+            if(form_attr.children().length == 1){
+                $('.remove-attribute').css('display', 'none');
+            }
+        })
+    })
+</script>
 @endsection

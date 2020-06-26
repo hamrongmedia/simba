@@ -244,6 +244,9 @@ border-radius: 34px;
 .slider.round:before {
 border-radius: 50%;
 }
+.form-group--attribute--row{
+    margin-bottom: 10px;
+}
 
 @media (max-width: 700px){
     .content-login{
