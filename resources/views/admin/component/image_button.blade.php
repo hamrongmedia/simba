@@ -4,7 +4,7 @@
         <i class="fa fa-picture-o"></i> Duyệt ảnh
       </a>
     </span>
-    <input id="{{$name ?? ''}}" class="form-control"  type="text" name="{{$name ?? ''}}">
+    <input id="{{$name ?? ''}}" class="form-control"  type="text" name="{{$name ?? ''}}" value="{{$value ?? ''}}">
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:100px;"></div>
 
