@@ -61,7 +61,7 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order" class="nav-link">
+              <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý sản phẩm</span></a>
             </li>
@@ -71,7 +71,12 @@
                 <span>Quản lý danh mục</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+              <a href="{{route('product-type.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Quản lý loại sản phẩm</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('product-attribute.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Nhóm thuộc tính</span></a>
             </li>
             <li class="nav-item has-treeview">

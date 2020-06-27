@@ -16,8 +16,8 @@ class CreateProductAttribute extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type');
-            $table->string('description');
+            $table->string('type')->nullable();
+            $table->string('description')->nullable();
             $table->integer('status');
             $table->integer('is_deleted');
             $table->timestamps();

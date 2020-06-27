@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-Quản lý danh mục sản phẩm
+Quản lý sản phẩm
 @endsection
 
 @section('css')
@@ -10,7 +10,7 @@ Quản lý danh mục sản phẩm
 @endsection
 
 @section('main')
-<a class="btn btn-primary pull-right btn-add" href="{{route('product-category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
+<a class="btn btn-primary pull-right btn-add" href="{{route('product.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -19,39 +19,37 @@ Quản lý danh mục sản phẩm
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên danh mục</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
                             <th>Đường dẫn</th>
-                            <th>Danh mục cha</th>
+                            <!-- <th>Danh mục</th> -->
                             <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($categories as $category)
+                        @foreach($products as $product)
                         <tr>
-                            <td>{{$category->id}}</td>
-                            <td>{{$category->name}}</td>
-                            <td>{{$category->slug}}</td>
-                            <td>{{isset($category->parent_category) ? $category->parentCategory->name : 'Không có'}}</td>
+                            <td>{{$product->id}}</td>
+                            <td>{{$product->code}}</td>
+                            <td>{{$product->name}}</td>
+                            <td>{{$product->slug}}</td>
                             <td>
-                                @if ($category->status == 1)
+                                @if ($product->status == 1)
                                 <span class="label label-success">Đang sử dụng</span></a>
                                 @else
                                 <span class="label label-danger">Ngừng sử dụng</span></a>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{route('product-category.edit', ['product_category'=>$category->id])}}"><span title="Sửa"
-                                        type="button" class="btn btn-flat btn-primary">
-                                        <i class="fa fa-edit"></i></span></a>&nbsp;
+                                <a href="{{route('product.edit', ['product'=>$product->id])}}"><span title="Sửa"
+                                    type="button" class="btn btn-flat btn-primary">
+                                    <i class="fa fa-edit"></i></span>
+                                </a>
                                 <a class="btn btn-flat btn-danger"
-                                    href="{{route('product-category.destroy', $category->id) }}" type="button">
+                                    href="{{route('product.destroy', $product->id) }}" type="button">
                                     <i class="fa fa-trash"></i>
-                                    </a>
-                                    <!-- <a class="btn btn-flat btn-danger"
-                                        href="{{ route('product-category.show',$category->id) }}" type="button">
-                                        <i class="fa fa-list"></i>
-                                    </a> -->
+                                </a>
                             </td>
                         </tr>
                         @endforeach
