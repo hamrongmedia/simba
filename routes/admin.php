@@ -34,5 +34,6 @@ Route::prefix('hrm')->namespace('Admin')->group(function () {
     Route::any('product-attribute/{id}/create-value', 'ProductAttributeController@createValue')->name('createAttributeValue');
     Route::get('product-attribute/delete-value/{id}', 'ProductAttributeController@deleteValue')->name('deleteAttributeValue');
     Route::resource('product-attribute', 'ProductAttributeController');
+    Route::get('product/get-value', 'ProductController@getValue')->name('ajaxGetValue');
     Route::resource('product', 'ProductController');
 });

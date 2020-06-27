@@ -31,9 +31,9 @@ Quản lý sản phẩm
                         @foreach($products as $product)
                         <tr>
                             <td>{{$product->id}}</td>
+                            <td>{{$product->code}}</td>
                             <td>{{$product->name}}</td>
                             <td>{{$product->slug}}</td>
-                            <!-- <td>{{isset($product->category_id) ? $category->parentCategory->name : 'Không có'}}</td> -->
                             <td>
                                 @if ($product->status == 1)
                                 <span class="label label-success">Đang sử dụng</span></a>
@@ -50,10 +50,6 @@ Quản lý sản phẩm
                                     href="{{route('product.destroy', $product->id) }}" type="button">
                                     <i class="fa fa-trash"></i>
                                 </a>
-                                <!-- <a class="btn btn-flat btn-danger"
-                                    href="{{ route('product-category.show',$category->id) }}" type="button">
-                                    <i class="fa fa-list"></i>
-                                </a> -->
                             </td>
                         </tr>
                         @endforeach

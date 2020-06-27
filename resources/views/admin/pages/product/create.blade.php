@@ -24,7 +24,7 @@ Tạo sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Tên sản phẩm(*)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên chuyên mục">
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Slug</label>
@@ -36,7 +36,7 @@ Tạo sản phẩm
                             multiple="" data-placeholder="Chọn danh mục" style="width: 100%;"
                             name="categories[]" tabindex="-1" aria-hidden="true">
                             @foreach($categories as $category)
-                                <option value="{{$category->id}}" {{old('parent_category') == $category->id ? "selected" : ""}}>{{$category->name}}
+                                <option value="{{$category->id}}">{{$category->name}}
                                 </option>
                             @endforeach
                         </select>
@@ -53,12 +53,16 @@ Tạo sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Mô tả</label>
-                        <textarea class="form-control" name="description" rows="3"
-                                placeholder="Nhập mô tả ngắn"></textarea>
+                        <textarea class="form-control editor" name="description" rows="3"
+                                placeholder="Nhập mô tả ngắn" id="editor"></textarea>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Giá</label>
-                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                        <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Giá khuyễn mãi</label>
+                        <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm">
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -68,10 +72,17 @@ Tạo sản phẩm
                             <div class="form-group--attribute col-md-12">
                                 <div class="row form-group--attribute--row">
                                     <div class="col-md-5">
-                                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                                        <select class="form-control select_attribute" name="attribute[]">
+                                            <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
+                                            @foreach($types as $key => $type)
+                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" name="price" class="form-control" placeholder="Nhập tên giá sản phẩm">
+                                        <select class="form-control select_value" name="value[]">
+                                            <option value="" disabled selected>Chọn giá trị cho thuộc tính</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-2">
                                         <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
@@ -83,11 +94,11 @@ Tạo sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Hình ảnh</label>
-                        <input type="text" name="image" class="form-control" placeholder="Chọn hình ảnh">
+                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Số lượng</label>
-                        <input type="text" name="quantity" class="form-control" placeholder="Chọn hình ảnh">
+                        <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Meta title(Tiêu đề SEO)</label>
@@ -142,6 +153,28 @@ Tạo sản phẩm
                 $('.remove-attribute').css('display', 'none');
             }
         })
+        $('.form-group--attribute').on('change', ".select_attribute", function(){
+            if($(this).val()!=''){
+                el = $(this);
+                $.ajax({
+                    url: "{{route('ajaxGetValue')}}",
+                    method: "GET",
+                    data: {
+                        id: $(this).val(),
+                    },
+                    success: function(result){
+                        values = result.data;
+                        html = '<option value="" disabled selected>Chọn giá trị cho thuộc tính</option>';
+                        $.each(values, function(index, value){
+                            html += "<option value='"+value.id+"'>"+value.value+"</option>"
+                        });
+                        el.parent().parent().find('.select_value').html(html);
+                    }
+                })
+            }
+            console.log($(this).val());
+        })
     })
 </script>
+@include('admin.component.ckeditor_js')
 @endsection
