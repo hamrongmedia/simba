@@ -34,12 +34,11 @@ Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
 
-@include 'frontend.php';
-
-//START ADMIN ROUTE
-@include 'admin.php';
+@include_once 'frontend.php';
 
 //Include user management route
+//START ADMIN ROUTE
+@include_once 'admin.php';
 
 @include_once 'login.php';
 
@@ -49,10 +48,6 @@ Route::get('tim-kiem', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'file', 'middleware' => ['web', 'auth:admin']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
 
 Route::group(['prefix' => 'filemanager', 'middleware' => 'auth:admin'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

@@ -6,10 +6,10 @@
 
 <script>
     var options = {
-        filebrowserImageBrowseUrl: '/file?type=Images',
-        filebrowserImageUploadUrl: '/file/upload?type=Images&_token=',
-        filebrowserBrowseUrl: '/file?type=Files',
-        filebrowserUploadUrl: '/file/upload?type=Files&_token='
+        filebrowserImageBrowseUrl: '/filemanager?type=Images',
+        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+        filebrowserBrowseUrl: '/filemanager?type=Files',
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
     };
 
     $(function () {

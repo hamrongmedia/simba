@@ -81,24 +81,13 @@
                 </div>
                 <div class="box-body">
                     <div class="image-box">
-                        <input type="hidden" name="image" value="" class="image-data">
-                        <div class="preview-image-wrapper ">
-                            <img src="https://cms.botble.com/vendor/core/images/placeholder.png" alt="preview image" class="preview_image" width="150">
-                            <a class="btn_remove_image" title="Remove image">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                        <div class="image-box-actions">
-                            <a href="#" class="btn_gallery" data-result="image" data-action="select-image">
-                                Choose image
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div> 
         </div>
     </form>
 </div>
+
 
 @endsection
 

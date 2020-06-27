@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\Helper\Pagination\PaginationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
@@ -25,6 +26,8 @@ class UserManageController extends Controller
     {
         if (empty($request->all())) {
             $users = Admin::all()->sortBy('desc');
+            $paginator = new PaginationHelper($users, 12);
+
             return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
         }
         if ($request->sort_field) {
