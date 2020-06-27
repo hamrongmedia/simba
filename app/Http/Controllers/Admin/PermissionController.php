@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\Permission;
@@ -20,6 +21,8 @@ class PermissionController extends Controller
     {
         $permissions = Permission::all()->sortBy('desc');
         //dd($permissions);
+        $paginator = new PaginationHelper($permissions, 2);
+        dd($paginator->getitem(3));
         return view('admin.pages.admin_manage.permission_list', ['permissions' => $permissions]);
     }
 
