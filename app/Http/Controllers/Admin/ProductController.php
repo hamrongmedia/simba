@@ -12,6 +12,7 @@ use App\Models\ProductType;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductToCategory;
+use Illuminate\Support\Facades\Storage;
 use Session;
 
 class ProductController extends Controller
@@ -83,9 +84,12 @@ class ProductController extends Controller
                 if($image->isValid()){
                     $fileExtension = $image->getClientOriginalExtension();
                     $fileName = time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
-                    $uploadPath = public_path('/images/product/');
+                    $uploadPath = storage_path('app/public/photos/products');
                     $image->move($uploadPath, $fileName);
-                    $images[] = '/images/product/' . $fileName;
+                    // Storage::move($fileName, 'public');
+                    $images[] = 'storage/photos/products/' . $fileName;
+                    // dd(Storage::url('photos/'.$fileName));
+                    dd(asset('storage/photos/products/' . $fileName));
                 }
             } 
             $data = [
