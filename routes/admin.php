@@ -1,5 +1,5 @@
 <?php
-Route::prefix('hrm')->namespace('Admin')->group(function () {
+Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(function () {
 
     Route::get('/', 'AdminController@index')->name('admin.index');
 

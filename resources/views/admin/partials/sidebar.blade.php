@@ -86,15 +86,15 @@
           </ul>
       </li>
       <li class="header">ADMIN CONTENT</li>
-      <li class="treeview">
+      <li class="treeview active">
         <a href="">
           <i class="fa fa-edit"></i> <span>Blog/Tin tức</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-          <ul class="treeview-menu">
-            <li class="nav-item has-treeview">
+          <ul class="treeview-menu ">
+            <li class="nav-item has-treeview ">
               <a href="{{route('admin.post.create')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Tạo mới tin</span></a>

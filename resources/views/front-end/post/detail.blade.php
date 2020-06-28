@@ -12,7 +12,7 @@
                 <h1 class="h1-title-ct">
                     {{$post->title}}
                 </h1>
-                <p class="date-time">Ngày đăng: 2020-06-01 14:38:47</p> 
+                <p class="date-time">Ngày đăng: {{$post->created_at}}</p> 
                 <!--  nôi dung -->
                 <div class="contentimages">
                     {!! $post->content !!}
