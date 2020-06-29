@@ -61,7 +61,7 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="" class="nav-link">
+              <a href="{{route('product.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý sản phẩm</span></a>
             </li>
