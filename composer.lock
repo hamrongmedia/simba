@@ -5341,8 +5341,6 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
-=======
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
@@ -5353,7 +5351,6 @@
                     "type": "github"
                 }
             ],
->>>>>>> 8669ef7fde49359279315bd855efd24ea4f73659
             "time": "2020-06-22T07:06:58+00:00"
         },
         {
