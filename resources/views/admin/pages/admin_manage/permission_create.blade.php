@@ -79,7 +79,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- /.box-footer -->
             </form>
 

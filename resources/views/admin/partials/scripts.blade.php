@@ -33,4 +33,23 @@
         increaseArea: '20%' /* optional */
         });
     });
+    
+   // Select row
+    $(function () {
+        //Enable check and uncheck all functionality
+        $(".grid-select-all").click(function () {
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            //Uncheck all checkboxes
+            $(".box-body input[type='checkbox']").iCheck("uncheck");
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+        } else {
+            //Check all checkboxes
+            $(".box-body input[type='checkbox']").iCheck("check");
+            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+        }
+        $(this).data("clicks", !clicks);
+        });
+    });
+// == end select row
 </script>

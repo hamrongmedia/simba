@@ -17,13 +17,31 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::all()->sortBy('desc');
-        //dd($permissions);
-        $paginator = new PaginationHelper($permissions, 2);
-        dd($paginator->getitem(3));
-        return view('admin.pages.admin_manage.permission_list', ['permissions' => $permissions]);
+        // $permissions = Permission::all()->sortBy('desc');
+        // //dd($permissions);
+        // $paginator = new PaginationHelper($permissions, 2);
+        // dd($paginator->getitem(3));
+        // return view('admin.pages.admin_manage.permission_list', ['permissions' => $permissions]);
+
+        if (empty($request->all())) {
+            $permissions = Permission::all()->sortBy('desc');
+            $paginator = new PaginationHelper($permissions, 2);
+            return view('Admin.pages.admin_manage.permission_list', ['current_page' => 1, 'permissions' => $permissions, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_field) {
+            if ($request->sort_type == 'desc') {
+                $result = Permission::all()->sortByDesc($request->sort_field);
+            } else {
+                $result = Permission::all()->sortBy($request->sort_field);
+            }
+            $paginator = new PaginationHelper($result, 1);
+            return view('Admin.pages.ajax_components.permission_table', ['current_page' => 5, 'permissions' => $result, 'paginator' => $paginator]);
+        }
+        return abort(404);
+
     }
 
     /**
@@ -61,7 +79,6 @@ class PermissionController extends Controller
         }
         //redirect
         return redirect()->route('admin.permission.index');
-
     }
 
     /**
