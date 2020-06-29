@@ -12,6 +12,7 @@
     <span class="input-group-btn">
       <a id="{{$id ?? 'lfm'}}" data-input="{{$name ?? ''}}" data-preview="{{$holder ?? ''}}" class="btn btn-primary">
         <i class="fa fa-picture-o"></i> Duyệt ảnh
+        {{env('APP_URL', 'http://localhost')}}
       </a>
     </span>
     <input id="{{$name ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}">
@@ -25,7 +26,6 @@
 <script>
       // custom unisharp
   $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" });
-  //lfm("#{{$id ?? 'lfm'}}", 'image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" }, '10rem');
 </script>
 @endsection
 
