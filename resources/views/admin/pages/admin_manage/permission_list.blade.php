@@ -60,7 +60,7 @@
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                <div class="box-body table-responsive no-padding">
+                {{-- <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -101,22 +101,11 @@
                     </table>
                 </div>
                 <div class="box-footer clearfix">
-                    Showing <b>1</b> to <b>16</b> of <b>16</b> items
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <!-- Previous Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
+                    @include('admin.pages.ajax_components.permission_table')
 
-                        <!-- Pagination Elements -->
-                        <!-- "Three Dots" Separator -->
+                </div> --}}
+                @include('admin.pages.ajax_components.permission_table')
 
-                        <!-- Array Of Links -->
-                        <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-                        <!-- Next Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-                    </ul>
-
-                </div>
             </section>
             <!-- /.box-body -->
         </div>
@@ -162,7 +151,7 @@
             })
         }   
 
-        function sortAjax(){
+        function sortAjax(current_page){
             var input = $('#order_sort option:selected').val().split('__');
             
             $.ajax({
@@ -170,6 +159,7 @@
                 data:{
                     sort_field: input[0],
                     sort_type: input[1],
+                    current_page: current_page,
                 }
             })
             .done(function (result) {
@@ -196,12 +186,14 @@
         }
 
         $('#button_sort').on('click', function(e){
-            sortAjax();
+            sortAjax(1);
         });
         
-
-
-
-
-    </script>
+    function getDataPaginate(item, type){
+        console.log(item.textContent);
+        var type = type;
+        let nextPage = item.textContent;
+        sortAjax(nextPage);
+    };
+</script>
 @endsection

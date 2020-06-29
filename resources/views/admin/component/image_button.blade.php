@@ -1,3 +1,13 @@
+@section('css')
+    @parent
+    <style>
+      #{{$holder ?? ''}} img {
+        height: 15rem !important;
+      }
+
+    </style>
+@endsection
+
 <div class="input-group">
     <span class="input-group-btn">
       <a id="{{$id ?? 'lfm'}}" data-input="{{$name ?? ''}}" data-preview="{{$holder ?? ''}}" class="btn btn-primary">
@@ -10,10 +20,13 @@
 </div>
 
 @section('js')
-    @parent
-    <script>
-      $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" });
-    </script>
+@parent
+
+<script>
+      // custom unisharp
+  $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" });
+  //lfm("#{{$id ?? 'lfm'}}", 'image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" }, '10rem');
+</script>
 @endsection
 
 {{-- include vào bất cứ chỗ nào cần; truyền vào tham số 'name' và 'id'

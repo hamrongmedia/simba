@@ -96,7 +96,6 @@
                             <tr>
                                 <td>
                                     <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
-
                                 </td>
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->username}}</td>
@@ -116,11 +115,12 @@
                                     <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
                                             type="button" class="btn btn-flat btn-primary"><i
                                                 class="fa fa-edit"></i></span></a>&nbsp;
+                                    <span onclick="deleteItem({{$user->id}});" title="Delete" class="btn btn-flat btn-danger"><i
+                                        class="fa fa-trash"></i></span></td>
                                 </td>
                             </tr>
                             @endforeach
                             
-
                         </tbody>
                     </table>
                 </div>

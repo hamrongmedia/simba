@@ -15,7 +15,7 @@
             @foreach ($permissions as $permission)
             <tr id='permission-{{$permission->id}}'>
                 <td>
-                    <input class="input grid-select-all" type="checkbox" data-id="{{ $permission->id  }}">
+                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{  $permission->id  }}">
                 </td>
                 <td>{{$permission->id ?? ''}}</td>
                 <td>Add later</td>
@@ -39,21 +39,8 @@
     </table>
 </div>
 <div class="box-footer clearfix">
-    Showing <b>1</b> to <b>16</b> of <b>16</b> items
-    <ul class="pagination pagination-sm no-margin pull-right">
-        <!-- Previous Page Link -->
-        <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
-
-        <!-- Pagination Elements -->
-        <!-- "Three Dots" Separator -->
-
-        <!-- Array Of Links -->
-        <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-        <!-- Next Page Link -->
-        <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-    </ul>
+    
+    @include('admin.component.pagination_bar', ['paginator' => $paginator])
 
 </div>
 
-@include('admin.component.pagination_bar', ['paginator' => $paginator])

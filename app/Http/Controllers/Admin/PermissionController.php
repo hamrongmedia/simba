@@ -27,8 +27,9 @@ class PermissionController extends Controller
 
         if (empty($request->all())) {
             $permissions = Permission::all()->sortBy('desc');
-            $paginator = new PaginationHelper($permissions, 2);
-            return view('Admin.pages.admin_manage.permission_list', ['current_page' => 1, 'permissions' => $permissions, 'paginator' => $paginator]);
+            $paginator = new PaginationHelper($permissions, 10);
+            $items = $paginator->getItem(1);
+            return view('Admin.pages.admin_manage.permission_list', ['type' => 'sort', 'current_page' => 1, 'permissions' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_field) {
@@ -37,11 +38,12 @@ class PermissionController extends Controller
             } else {
                 $result = Permission::all()->sortBy($request->sort_field);
             }
-            $paginator = new PaginationHelper($result, 1);
-            return view('Admin.pages.ajax_components.permission_table', ['current_page' => 5, 'permissions' => $result, 'paginator' => $paginator]);
+            $paginator = new PaginationHelper($result, 10);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.permission_table', ['type' => 'sort', 'current_page' => $current_page, 'permissions' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
-
     }
 
     /**
