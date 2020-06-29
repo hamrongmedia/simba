@@ -94,7 +94,7 @@ Tạo sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Hình ảnh</label>
-                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple>
+                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
                     </div>
                     <div class="form-group">
                         <label class="control-label">Số lượng</label>

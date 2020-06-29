@@ -101,18 +101,9 @@ Cập nhật sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Hình ảnh</label>
-                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3 imgUp">
-                                <div class="imagePreview"></div>
-                                <label class="btn btn-primary">Upload
-                                    <input type="file" class="uploadFile img" value="Upload Photo" style="height: 0px;overflow: hidden;">
-                                </label>
-                            </div><!-- col-2 -->
-                            <i class="fa fa-plus imgAdd"></i>
-                        </div><!-- row -->
+                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
+                        <!-- <label class="control-label">Hình ảnh</label>
+                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple> -->
                     </div>
                     <div class="form-group">
                         <label class="control-label">Số lượng</label>
@@ -206,7 +197,6 @@ Cập nhật sản phẩm
                     attr_val = el.parent().parent().find('.select_value').attr('data');
                     html = '<option value="" disabled>Chọn giá trị cho thuộc tính</option>';
                     $.each(values, function(index, value){
-                        console.log(attr_val == value.id);
                         if(attr_val == value.id)
                             html += "<option value='"+value.id+"' selected>"+value.value+"</option>"
                         else html += "<option value='"+value.id+"'>"+value.value+"</option>"
@@ -221,80 +211,7 @@ Cập nhật sản phẩm
         $(".imgAdd").click(function(){
             $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
         });
-        $(document).on("click", "i.del" , function() {
-            $(this).parent().remove();
-        });
-        $(function() {
-            $(document).on("change",".uploadFile", function()
-            {
-                var uploadFile = $(this);
-                var files = !!this.files ? this.files : [];
-                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-        
-                if (/^image/.test( files[0].type)){ // only image file
-                    var reader = new FileReader(); // instance of the FileReader
-                    reader.readAsDataURL(files[0]); // read the local file
-        
-                    reader.onloadend = function(){ // set image data as background of div
-                        //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
-                    }
-                }
-            
-            });
-        });
     })
 </script>
 @include('admin.component.ckeditor_js')
 @endsection
-<style>
-.imagePreview {
-    width: 100%;
-    height: 180px;
-    background-position: center center;
-    background:url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
-    background-color:#fff;
-    background-size: cover;
-    background-repeat:no-repeat;
-    display: inline-block;
-    border: 1px solid rgba(0,0,0,0.2);
-}
-.btn-primary
-{
-    display:block;
-    border-radius:0px;
-    box-shadow:0px 4px 6px 2px rgba(0,0,0,0.2);
-    margin-top:-5px;
-}
-.imgUp
-{
-    margin-bottom:15px;
-}
-.del
-{
-    position:absolute;
-    top:0px;
-    right:15px;
-    width:30px;
-    height:30px;
-    text-align:center;
-    line-height:30px;
-    background-color:rgba(255,255,255,0.6);
-    cursor:pointer;
-}
-.imgAdd
-{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #4bd7ef;
-    color: #fff;
-    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
-    text-align: center;
-    line-height: 30px;
-    margin-top: 0px;
-    cursor: pointer;
-    font-size: 15px;
-    padding-top: 7px;
-}
-</style>

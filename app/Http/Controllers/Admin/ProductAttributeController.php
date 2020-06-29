@@ -145,7 +145,9 @@ class ProductAttributeController extends Controller
      */
     public function destroy($id)
     {
-        
+        $result = PrProductAttributeoduct::where('id', $id)->delete();
+        if($result) return response(['status' => 1, 'msg' => "Xóa thuộc tính sản phẩm thành công"]);
+        else return response(['status' => 0, 'msg' => "Xóa thuộc tính sản phẩm không thành công"]);
     }
 
     public function createValue(Request $request, $id){
