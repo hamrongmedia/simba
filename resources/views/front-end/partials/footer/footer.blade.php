@@ -113,7 +113,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="left-ft-bt">
-                    <span>© 2019 Venus</span>
+                    <span></span>
                 </div>
             </div>
             <div class="col-md-6 hidden-sm hidden-xs">

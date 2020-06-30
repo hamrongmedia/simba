@@ -32,7 +32,7 @@
                 <tr id="post-{{$obj->id}}">
                   <td class="text-left"><input type="checkbox" class="sub_chk" data-id="{{$obj->id}}"></td>
                   <td>{{$obj->id}}</td>
-                  <td>{{$obj->title}}</td>
+                  <td><a href="{{route('post.detail', $obj->slug)}}" target="_blank">{{$obj->title}}</a></td>
                   <td>{{$obj->slug}}</td>
                   <td>link ảnh</td>
                   <td>{{-- {{ $obj->Category->name }} --}}</td>
