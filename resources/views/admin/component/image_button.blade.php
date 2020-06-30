@@ -24,8 +24,7 @@
 
 <script>
       // custom unisharp
-  $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{env('APP_URL', 'http://simba.vn') .  '/filemanager'}}" });
-  //lfm("#{{$id ?? 'lfm'}}", 'image', {prefix:  "{{env('APP_URL', 'http://localhost') .  '/filemanager'}}" }, '10rem');
+  $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{config('app.url') .  '/filemanager'}}" });
 </script>
 @endsection
 
