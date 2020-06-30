@@ -177,6 +177,9 @@ return [
         // file manage
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+
+        // Composers
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*

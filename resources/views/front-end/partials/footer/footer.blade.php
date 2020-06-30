@@ -49,10 +49,10 @@
                     <div class="wp-ft-top">
                         <h3 class="h3-title-ft">LIKE VENUS TRÊN MẠNG XÃ HỘI</h3>
                         <ul class="ul-b list-mxh">
-                            <li><a href="" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                            <li><a href="" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                            <li><a href="{{isset($themeOption->facebook) ? $themeOption->facebook : '#'}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="{{isset($themeOption->instagram) ? $themeOption->instagram : '#'}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="{{isset($themeOption->youtube) ? $themeOption->youtube : '#'}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                            <li><a href="{{isset($themeOption->zalo) ? $themeOption->zalo : '#'}}" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,7 +118,6 @@
             </div>
             <div class="col-md-6 hidden-sm hidden-xs">
                 <div class="right-ft-bt text-right">
-                      
                 </div>
             </div>
         </div>

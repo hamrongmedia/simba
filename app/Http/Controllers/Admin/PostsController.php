@@ -42,6 +42,7 @@ class PostsController extends Controller
     {
   
         $data = $request->validate([
+            'title' => 'required',
             'slug' => 'required|unique:posts'
             ],
             [

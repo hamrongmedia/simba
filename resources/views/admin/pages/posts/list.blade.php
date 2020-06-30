@@ -34,7 +34,7 @@
                   <td>{{$obj->id}}</td>
                   <td><a href="{{route('post.detail', $obj->slug)}}" target="_blank">{{$obj->title}}</a></td>
                   <td>{{$obj->slug}}</td>
-                  <td>link ảnh</td>
+                  <td><img src="{{$obj->image}}" style="max-width: 200px;"></td>
                   <td>{{-- {{ $obj->Category->name }} --}}</td>
                   <td>
                     @if ($obj->status == 1)

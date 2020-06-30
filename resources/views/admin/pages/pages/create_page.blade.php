@@ -81,6 +81,7 @@
                 </div>
                 <div class="box-body">
                     <div class="image-box">
+                        @include('admin.component.image_button', ['name' => 'image', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder'])
                     </div>
                 </div>
             </div> 

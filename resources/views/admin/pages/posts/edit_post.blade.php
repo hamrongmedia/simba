@@ -68,7 +68,7 @@
         <div class="col-md-3">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Đăng</h3>
+                    <h3 class="box-title">Cập nhật</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="box-footer">
                     <button type="reset" class="btn btn-default">Hủy</button>
-                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
+                    <button  class="btn btn-info pull-right" name="save">Cập nhật</button>
                 </div>
             </div>
             <div class="box box-primary">
@@ -120,6 +120,15 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Hình ảnh</h3>
+                </div>
+                <div class="box-body">
+                    <div class="image-box">
+                        <?php
+                        $image = $obj->image;
+                        ?>
+                        @include('admin.component.image_button', ['name' => 'image', 'id' => 'thumb-btn', 'value' => $obj->image, 'holder' => 'image-holder'])
+
+                    </div>
                 </div>
             </div> 
         </div>

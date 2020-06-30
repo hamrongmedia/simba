@@ -21,16 +21,19 @@ Blog
                     <div class="col-md-4 col-sm-6 col-xs-12 blog-item">
                         <div class="wp-item-tin-a">
                             <div class="wp-img-tin-a img-cover">
-                                <a href="{{$post->slug}}">
+                                <a href="{{route('post.detail', $post->slug)}}">
                                  <!--    anh cắt 600x600 -->
                                     <img src="{{$post->image}}" alt="{{$post->title}}">
                                 </a>
                             </div>
                             <div class="wp-text-tin-a">
                                 <h3 class="h3-title" style="line-height: 17px">
-                                    <a href="{{$post->slug}}">{{$post->title}}</a>
+                                    <a href="{{route('post.detail', $post->slug)}}">{{$post->title}}</a>
                                 </h3>
-                                <div style="" class="desssss">{{$post->title}}</div>
+                               <?php
+                                $truncated = Str::limit(strip_tags($post->content), 85);
+                                ?>
+                                <div style="" class="desssss">{{$truncated}}</div>
                             </div>
                         </div>
                     </div> <!-- end -->

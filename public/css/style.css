@@ -136,9 +136,7 @@ a {
   background-color: transparent;
   text-decoration: none;
 }
-a {
-  color: unset;
-}
+
 a:active,
 a:hover {
   text-decoration: none;
@@ -1684,7 +1682,7 @@ span.pro-price-view {
 }
 .wp-text-tin-a .h3-title {
   font-size: 15px;
-  font-weight: 400;
+  font-weight: bold;
 }
 .wp-text-tin-a .h3-title a {
   line-height: 20px;
