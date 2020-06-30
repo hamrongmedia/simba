@@ -152,6 +152,5 @@ class ProductTypeController extends Controller
     public function destroy($id)
     {
         //
-        $category = ProductCategory::where(['is_deleted' => 0, 'id' => $id])->first();
     }
 }
