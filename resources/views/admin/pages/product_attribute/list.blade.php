@@ -42,7 +42,7 @@ Quản lý thuộc tính sản phẩm
                                 <a href="{{route('product-attribute.edit', ['product_attribute' => $attr->id])}}"><span title="Sửa"
                                         type="button" class="btn btn-flat btn-primary">
                                         <i class="fa fa-edit"></i></span></a>&nbsp;
-                                <a class="btn btn-flat btn-danger del-attribute" type="button" data-id="{{$attr->id}}">
+                                <a class="btn btn-flat btn-danger del-attribute" href="javascript:void(0)" type="button" data-id="{{$attr->id}}">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 <a class="btn btn-flat btn-info"
@@ -79,7 +79,8 @@ Quản lý thuộc tính sản phẩm
         })
         // $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('product-category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
     })
-    $(".del-attribute").on('click', function(){
+    $(".del-attribute").on('click', function(e){
+        e.preventDefault();
         id = $(this).attr('data-id');
         Swal.fire({
             title: 'Warning',
