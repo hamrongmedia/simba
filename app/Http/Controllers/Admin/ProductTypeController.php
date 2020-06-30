@@ -152,5 +152,8 @@ class ProductTypeController extends Controller
     public function destroy($id)
     {
         //
+        $result = ProductType::where('id', $id)->update(['is_deleted'=> 1]);
+        if($result) return response(['status' => 1, 'msg' => "Xóa loại sản phẩm thành công"]);
+        else return response(['status' => 0, 'msg' => "Xóa loại sản phẩm không thành công"]);
     }
 }
