@@ -21,5 +21,4 @@
 </script>
 
 
-
 @yield('custom-js')

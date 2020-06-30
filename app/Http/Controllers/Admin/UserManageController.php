@@ -24,12 +24,14 @@ class UserManageController extends Controller
      */
     public function index(Request $request)
     {
+
         if (empty($request->all())) {
             $users = Admin::all()->sortBy('desc');
             $paginator = new PaginationHelper($users, 12);
 
             return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
         }
+
         if ($request->sort_field) {
             if ($request->sort_type == 'desc') {
                 $result = Admin::all()->sortByDesc($request->sort_field);

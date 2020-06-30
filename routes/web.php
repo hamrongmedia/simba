@@ -34,8 +34,6 @@ Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
 
-@include_once 'frontend.php';
-
 //Include user management route
 //START ADMIN ROUTE
 @include_once 'admin.php';
@@ -44,6 +42,8 @@ Route::get('tim-kiem', function () {
 
 // theme
 @include_once 'theme.php';
+
+@include_once 'frontend.php';
 
 Auth::routes();
 
