@@ -39,7 +39,8 @@ class ProductController extends Controller
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
-        return view('admin.pages.product.create', ['categories' => $categories, 'types' => $types]);
+        $attributes = ProductAttribute::where('is_deleted', 0)->get();
+        return view('admin.pages.product.create', ['categories' => $categories, 'types' => $types, 'attributes' => $attributes]);
     }
 
     /**
@@ -137,7 +138,8 @@ class ProductController extends Controller
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
         $product = Product::where(['is_deleted' => 0, 'id' => $id])->first();
-        if(isset($product))return view('admin.pages.product.edit', ['product' => $product, 'types' => $types, 'categories' => $categories]);
+        $attributes = ProductAttribute::where('is_deleted', 0)->get();
+        if(isset($product))return view('admin.pages.product.edit', ['product' => $product, 'types' => $types, 'categories' => $categories, 'attributes' => $attributes]);
         else {
             Session::flash('error', 'Không tìm thấy sản phẩm');
             return redirect()->back();

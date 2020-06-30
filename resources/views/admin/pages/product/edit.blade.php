@@ -76,11 +76,11 @@ Cập nhật sản phẩm
                                     <div class="col-md-5">
                                         <select class="form-control select_attribute" name="attribute[]">
                                             <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($types as $type)
+                                            @foreach($attributes as $attr)
                                                 @if($key == $type->id)
-                                                <option value="{{$type->id}}" selected>{{$type->name}}</option>
+                                                <option value="{{$attr->id}}" selected>{{$attr->name}}</option>
                                                 @else
-                                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                                <option value="{{$attr->id}}">{{$attr->name}}</option>
                                                 @endif
                                             @endforeach
                                         </select>

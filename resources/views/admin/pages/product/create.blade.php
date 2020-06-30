@@ -74,8 +74,8 @@ Tạo sản phẩm
                                     <div class="col-md-5">
                                         <select class="form-control select_attribute" name="attribute[]">
                                             <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($types as $key => $type)
-                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                            @foreach($attributes as $key => $attr)
+                                            <option value="{{$attr->id}}">{{$attr->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
