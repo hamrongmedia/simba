@@ -13,18 +13,25 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Tạo mới một Blog/News</h3>
                 </div>
+                <div class="note note-warning">
+                    @foreach ($errors->all() as $error)
+                        <p style="color: red;">
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                </div>
              <!-- form start -->
                 <div class="box-body">   
                         <div class="form-group">
-                            <label>Tiêu đề</label>
-                            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề">
+                            <label  for="title" class="control-label required">Tiêu đề</label>
+                            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề" required>
                         </div>
                         <div class="form-group">
-                            <label>Slug</label>
-                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề">
+                            <label for="slug" class="control-label required">Slug</label>
+                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề" required>
                         </div>
                         <div class="form-group">
-                            <label>Mô Tả</label>
+                            <label for="description">Mô Tả</label>
                             <textarea class="form-control" name="description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
                         </div>
                         <div class="form-group">
@@ -36,7 +43,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Nội dung</label>
+                            <label for="content">Nội dung</label>
                             <textarea id="editor" class="editor" name="content" rows="10" cols="80">
                             </textarea>
                         </div>
@@ -54,11 +61,11 @@
                 <div class="box-body">
                     <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
                     <div class="form-group">
-                        <label>Tiêu đề</label>
+                        <label for="meta_title">Tiêu đề</label>
                         <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
                     </div>
                     <div class="form-group">
-                        <label>Mô Tả</label>
+                        <label for="meta_des">Mô Tả</label>
                         <textarea class="form-control" name="meta_des" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
                     </div>
                 </div>

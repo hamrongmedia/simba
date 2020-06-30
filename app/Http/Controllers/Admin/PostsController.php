@@ -40,7 +40,15 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+  
+        $data = $request->validate([
+            'slug' => 'required|unique:posts'
+            ],
+            [
+                'slug.unique' => 'Slug đã tồn tại'
+            ]
+        );
+
         $new_post = Posts::create($data);
         $cats = $request->cat_id;
 

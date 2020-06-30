@@ -1,6 +1,10 @@
 <?php
 Route::namespace ('Frontend')->group(function () {
-    Route::get('/hrm/tin-tuc/{slug}', 'BlogController@getListPost')->name('post.list');
-    Route::get('/hrm/hello/{slug}', 'BlogController@getDetailPost')->name('post.detail'); //lỗi ở đây
+
+    Route::get('/bai-viet/{slug}', 'BlogController@getDetailPost')->name('post.detail');
+
+    Route::get('/page/{slug}', 'BlogController@getDetailPage')->name('page.detail');
+
+    Route::get('/chuyen-muc/{slug}', 'BlogController@getListPostOfCategory')->name('category.listpost');
 
 });

@@ -30,8 +30,9 @@
                 <tr id="post-{{$obj->id}}">
                   <td class="text-left"><input type="checkbox" class="sub_chk" data-id="{{$obj->id}}"></td>
                   <td>{{$obj->id}}</td>
-                  <td>{{$obj->name}}</td>
+                  <td><a href="{{route('category.listpost', $obj->slug)}}" target="_blank">{{$obj->name}}</a></td>
                   <td>{{$obj->slug}}</td>
+                  <td></td>
                   <td>
                     @if ($obj->status == 1)
                       <span class="label label-success">Đang sử dụng</span></a>

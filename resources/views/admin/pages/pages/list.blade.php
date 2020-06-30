@@ -30,7 +30,8 @@
                 <tr id="page-{{$obj->id}}">
                   <td class="text-left"><input type="checkbox" class="sub_chk" data-id="{{$obj->id}}"></td>
                   <td>{{$obj->id}}</td>
-                  <td>{{$obj->title}}</td>
+                  <td><a href="{{route('page.detail', $obj->slug)}}" target="_blank">{{$obj->title}}</a></td>
+                  <td>{{$obj->slug}}</td>
                   <td>
                     @if ($obj->status == 1)
                       <span class="label label-success">Đang sử dụng</span></a>

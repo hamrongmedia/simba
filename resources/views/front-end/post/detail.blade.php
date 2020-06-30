@@ -1,7 +1,7 @@
 @extends('front-end.layout.main')
 
 @section('title')
-{{$post->name}}
+{{$post->title}}
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
                         <h2 class="h2-title">Tin tức khác</h2>
                     </div>
                     <div class="wp-list-tinkhac">
-                         @include('front-end.content.list_post')
+                        {{-- @include('front-end.content.list_post') --}}
                     </div>
                 </div>
             </div>

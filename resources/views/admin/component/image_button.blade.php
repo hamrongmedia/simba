@@ -11,7 +11,7 @@
 @section('js')
     @parent
     <script>
-        $("#{{$id ?? 'lfm'}}").filemanager('image');
+        $("#{{$id ?? 'lfm'}}").filemanager('image',{prefix:"{{env('APP_URl', 'localhost').'/filemanager'}}" });
     </script>
 @endsection
 
