@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
 use DB;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -28,6 +29,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Posts::class);
         $cats = PostCategory::where('status', 1)->get();
         return view('admin.pages.posts.create_post', ['cats' => $cats]);
     }
@@ -40,8 +42,9 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-  
-        $data = $request->validate([
+
+        $this->authorize('create', Posts::class);
+         $data = $request->validate([
             'slug' => 'required|unique:posts'
             ],
             [
@@ -133,11 +136,14 @@ class PostsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        Posts::find($request->id)->delete();
+        $post = Posts::find($request->id);
+        $this->authorize('delete', $post);
+        $post->delete();
         return ['msg' => 'Item deleted'];
     }
 }

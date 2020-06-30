@@ -88,7 +88,7 @@
       })
       $.ajax({
           url: "{{route('admin.post.destroy')}}",
-          type: 'POST',
+          type: 'post',
           data: {
               id: id
           }
@@ -99,7 +99,12 @@
               'success'
           );
           $('#post-'+ id).remove();
-
+      }).fail(function(result){
+          Swal.fire(
+                'Failed!',
+                'Bạn không có quyền xóa bài viết.',
+                'error'
+            );
       });
   }      
 

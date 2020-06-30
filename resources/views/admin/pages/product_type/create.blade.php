@@ -6,7 +6,7 @@ Tạo danh mục sản phẩm
 
 @section('main')
 <div class="row">
-    <form action="{{route('product-category.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main"
+    <form action="{{route('product-type.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main"
         enctype="multipart/form-data">
         @csrf
         <!-- {{ csrf_field() }} -->
@@ -23,22 +23,12 @@ Tạo danh mục sản phẩm
                         @endif
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Tên danh mục(*)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên chuyên mục">
+                        <label class="control-label">Tên loại(*)</label>
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên loại sản phẩm">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Slug</label>
                         <input type="text" name="slug" class="form-control" placeholder="Nhập slug">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Danh mục cha</label>
-                        <select class="form-control m-b" name="parent_category" id="cat_id">
-                            <option value="" disabled selected>Chọn danh mục</option>
-                            @foreach($categories as $category)
-                            <option value="{{$category->id}}" {{old('parent_category') == $category->id ? "selected" : ""}}>{{$category->name}}
-                            </option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Mô tả</label>

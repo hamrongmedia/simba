@@ -56,14 +56,11 @@
                             </a>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                <div class="box-body table-responsive no-padding">
+                {{-- <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -80,12 +77,7 @@
                             @foreach ($permissions as $permission)
                             <tr id='permission-{{$permission->id}}'>
                                 <td>
-                                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                                        style="position: relative;"><input class="input" type="checkbox" data-id="3"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                            class="iCheck-helper"
-                                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div>
+                                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $tr['id']??'' }}">
                                 </td>
                                 <td>{{$permission->id ?? ''}}</td>
                                 <td>Add later</td>
@@ -109,23 +101,10 @@
                     </table>
                 </div>
                 <div class="box-footer clearfix">
-                    Showing <b>1</b> to <b>16</b> of <b>16</b> items
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <!-- Previous Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
+                    @include('admin.pages.ajax_components.permission_table')
 
-                        <!-- Pagination Elements -->
-                        <!-- "Three Dots" Separator -->
-
-                        <!-- Array Of Links -->
-                        <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-                        <!-- Next Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-                    </ul>
-
-                </div>
-
+                </div> --}}
+                @include('admin.pages.ajax_components.permission_table')
 
             </section>
             <!-- /.box-body -->
@@ -137,12 +116,13 @@
 
 @section('js')
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+
         function deleteAjax(id) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-            })
             $.ajax({
                 url: "{{route('admin.permission.delete')}}",
                 type: 'POST',
@@ -156,9 +136,37 @@
                     'success'
                 );
                 $('#permission-'+ id).remove();
-
             })
-        }      
+        }   
+
+        function searchAjax(){
+            var input = $('#search_input').val();
+            $.ajax({
+                url: "" ,
+                data:{
+                    keyword: input,
+                }
+            }).done(function (result) {
+                $('.table-list').html(result);
+            })
+        }   
+
+        function sortAjax(current_page){
+            var input = $('#order_sort option:selected').val().split('__');
+            
+            $.ajax({
+                url: "{{route('admin.permission.index')}}" ,
+                data:{
+                    sort_field: input[0],
+                    sort_type: input[1],
+                    current_page: current_page,
+                }
+            })
+            .done(function (result) {
+                $('.table-list').html(result);
+            })
+        }
+
 
         function deleteItem(id) {
             Swal.fire({
@@ -176,5 +184,16 @@
                 }
             })
         }
-    </script>
+
+        $('#button_sort').on('click', function(e){
+            sortAjax(1);
+        });
+        
+    function getDataPaginate(item, type){
+        console.log(item.textContent);
+        var type = type;
+        let nextPage = item.textContent;
+        sortAjax(nextPage);
+    };
+</script>
 @endsection

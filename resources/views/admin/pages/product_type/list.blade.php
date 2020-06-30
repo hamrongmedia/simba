@@ -10,7 +10,7 @@ Quản lý danh mục sản phẩm
 @endsection
 
 @section('main')
-<a class="btn btn-primary pull-right btn-add" href="{{route('product-category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
+<a class="btn btn-primary pull-right btn-add" href="{{route('product-type.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -19,39 +19,35 @@ Quản lý danh mục sản phẩm
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên danh mục</th>
+                            <th>Tên loại</th>
                             <th>Đường dẫn</th>
-                            <th>Danh mục cha</th>
                             <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($categories as $category)
+                        @foreach($types as $type)
                         <tr>
-                            <td>{{$category->id}}</td>
-                            <td>{{$category->name}}</td>
-                            <td>{{$category->slug}}</td>
-                            <td>{{isset($category->parent_category) ? $category->parentCategory->name : 'Không có'}}</td>
+                            <td>{{$type->id}}</td>
+                            <td>{{$type->name}}</td>
+                            <td>{{$type->slug}}</td>
                             <td>
-                                @if ($category->status == 1)
+                                @if ($type->status == 1)
                                 <span class="label label-success">Đang sử dụng</span></a>
                                 @else
                                 <span class="label label-danger">Ngừng sử dụng</span></a>
                                 @endif
                             </td>
+                            <td>{{$type->created_at->format('d/m/Y')}}</td>
                             <td>
-                                <a href="{{route('product-category.edit', ['product_category'=>$category->id])}}"><span title="Sửa"
+                                <a href="{{route('product-type.edit', ['product_type' => $type->id])}}"><span title="Sửa"
                                         type="button" class="btn btn-flat btn-primary">
                                         <i class="fa fa-edit"></i></span></a>&nbsp;
                                 <a class="btn btn-flat btn-danger"
-                                    href="{{route('product-category.destroy', $category->id) }}" type="button">
+                                    href="{{route('product-type.destroy', $type->id) }}" type="button">
                                     <i class="fa fa-trash"></i>
-                                    </a>
-                                    <!-- <a class="btn btn-flat btn-danger"
-                                        href="{{ route('product-category.show',$category->id) }}" type="button">
-                                        <i class="fa fa-list"></i>
-                                    </a> -->
+                                </a>
                             </td>
                         </tr>
                         @endforeach

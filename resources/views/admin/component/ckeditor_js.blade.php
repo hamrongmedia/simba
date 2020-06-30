@@ -17,4 +17,6 @@
         // instance, using default configuration.
         CKEDITOR.replace('editor', options);
     })
+
+    
 </script>
