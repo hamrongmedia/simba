@@ -5,4 +5,7 @@ Route::namespace ('Frontend')->group(function () {
     Route::get('/page/{slug}', 'BlogController@getDetailPage')->name('page.detail');
     Route::get('/chuyen-muc/{slug}', 'BlogController@getListPostOfCategory')->name('category.listpost');
 
+    //Homepage
+    Route::get('/', 'HomeController@index')->name('home');
+
 });

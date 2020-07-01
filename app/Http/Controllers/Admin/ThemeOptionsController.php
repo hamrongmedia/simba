@@ -20,7 +20,7 @@ class ThemeOptionsController extends Controller
         $_form = 'header';
         $obj  = ThemeOptions::where('key','header')->first();
         $value = null;
-        if($obj != null) $value = json_decode($obj->value);
+        if($obj != null) $value = $obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 
@@ -31,13 +31,12 @@ class ThemeOptionsController extends Controller
         $_form = 'social';
         $obj  = ThemeOptions::where('key','social')->first();
         $value = null;
-        if($obj != null) $value = json_decode($obj->value);
+        if($obj != null) $value = $obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 
     public function updatesocial(Request $request){
         $data = $request->all();
-        $data = json_encode($data);
         $obj  = ThemeOptions::where('key','social')->first();
         if($obj == null) {
            $obj = ThemeOptions::create(['key'=>'social', 'value'=>$data]);
@@ -52,7 +51,7 @@ class ThemeOptionsController extends Controller
         $_form = 'header';
         $obj  = ThemeOptions::where('key','header')->first();
         $value = null;
-        if($obj != null) $value = json_decode($obj->value);
+        if($obj != null) $value = $obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 
@@ -73,13 +72,12 @@ class ThemeOptionsController extends Controller
         $_form = 'script';
         $obj  = ThemeOptions::where('key','script')->first();
         $value = null;
-        if($obj != null) $value = json_decode($obj->value);
+        if($obj != null) $value = ($obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 
     public function updatescript(Request $request){
         $data = $request->all();
-        $data = json_encode($data);
         $obj  = ThemeOptions::where('key','script')->first();
         if($obj == null) {
            $obj = ThemeOptions::create(['key'=>'script', 'value'=>$data]);
@@ -94,83 +92,16 @@ class ThemeOptionsController extends Controller
         $_form = 'footer';
         $obj  = ThemeOptions::where('key','footer')->first();
         $value = null;
-        if($obj != null) $value = json_decode($obj->value);
+        if($obj != null) $value = $obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 
     public function updatefooter(Request $request){
         $data = $request->all();
-        $data = json_encode($data);
         $obj  = ThemeOptions::where('key','footer')->first();
         if($obj == null) {
            $obj = ThemeOptions::create(['key'=>'footer', 'value'=>$data]);
         }else $obj->update(['value'=>$data]);
         return back();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

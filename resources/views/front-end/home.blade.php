@@ -1,4 +1,4 @@
-@extends('front-end.main.home_main')
+@extends('front-end.layout.main')
 
 @section('title')
 Trang chủ

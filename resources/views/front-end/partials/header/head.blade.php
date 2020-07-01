@@ -1,16 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <meta charset="utf-8">
-    <base href="https://venuscharm.vn/">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="content-language" content="vi">
-    <link rel="alternate" href="https://venuscharm.vn/" hreflang="vi-vn">
-    <meta name="robots" content="index,follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Venus Charm">
-    <meta name="copyright" content="Venus Charm">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
+    <meta charset="UTF-8">
     <title>@yield('title')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    @if(isset($themeOptionHeader->favicon_setting))
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('/').'/'.$themeOptionHeader->favicon_setting}}">
+    @endif
+    <link rel="canonical" href="{{route('home')}}">
 
     <!-- các thẻ meta -->
 

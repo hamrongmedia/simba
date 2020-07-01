@@ -33,5 +33,13 @@ class ComposerServiceProvider extends ServiceProvider
             $content = json_decode($data->value);
             $view->with(['themeOption'=>$content]);
         });
+
+        //Theme Option header
+        View::composer(['front-end.partials.header.*'], function ($view) {
+            $data = ThemeOptions::where('key','header')->first();
+            if($data == null) abort(404);
+            $content = json_decode($data->value);
+            $view->with(['themeOptionHeader'=>$content]);
+        });
     }
 }
