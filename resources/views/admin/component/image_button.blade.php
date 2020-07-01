@@ -17,6 +17,9 @@
     <input id="{{$name ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}">
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:{{$height ?? '100px'}};">
+  @if (isset($holder_img))
+  <img src="{{$holder_img}}" style="height: 5rem;">
+  @endif
 </div>
 
 @section('js')
