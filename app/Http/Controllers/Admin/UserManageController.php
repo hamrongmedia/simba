@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
@@ -73,9 +74,7 @@ class UserManageController extends Controller
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
         $new_user = Admin::create($data);
-
         $this->saveRelationship($request, $new_user);
-
         //redirect to list user
         return redirect()->route('admin.user.index');
     }
@@ -90,11 +89,7 @@ class UserManageController extends Controller
     public function search(Request $request)
     {
         $data = $request->keyword;
-        $result = Admin::where('id', '=', intval($data))
-            ->orWhere('username', 'like', "%" . $data . "%")
-            ->orWhere('email', 'like', "%" . $data . "%")
-            ->orWhere('name', 'like', "%" . $data . "%")
-            ->get();
+        $result = SearchHelper::search(Admin::class, ['username', 'email', 'name'], $data);
         return view('Admin.pages.ajax_components.user_table', ['users' => $result]);
     }
 

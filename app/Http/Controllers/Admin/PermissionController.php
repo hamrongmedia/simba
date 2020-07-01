@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\Permission;
@@ -33,11 +34,14 @@ class PermissionController extends Controller
         }
 
         if ($request->sort_field) {
-            if ($request->sort_type == 'desc') {
-                $result = Permission::all()->sortByDesc($request->sort_field);
-            } else {
-                $result = Permission::all()->sortBy($request->sort_field);
-            }
+            $permissions = Permission::all();
+            // if ($request->sort_type == 'desc') {
+            //     $result = Permission::all()->sortByDesc($request->sort_field);
+            // } else {
+            //     $result = Permission::all()->sortBy($request->sort_field);
+            // }
+
+            $result = SortHelper::sort($permissions, $request->sort_field, $request->sort_type);
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
