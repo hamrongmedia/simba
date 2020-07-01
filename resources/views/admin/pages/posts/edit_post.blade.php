@@ -126,8 +126,7 @@
                         <?php
                         $image = $obj->image;
                         ?>
-                        @include('admin.component.image_button', ['name' => 'image', 'id' => 'thumb-btn', 'value' => $obj->image, 'holder' => 'image-holder'])
-
+                        @include('admin.component.image_button', ['holder_img' => $image,'name' => 'image', 'id' => 'thumb-btn', 'value' => $obj->image, 'holder' => 'image-holder'])
                     </div>
                 </div>
             </div> 

@@ -2,13 +2,14 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
     @if(isset($themeOptionHeader->favicon_setting))
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/').'/'.$themeOptionHeader->favicon_setting}}">
     @endif
-    <link rel="canonical" href="{{route('home')}}">
+    <link rel="canonical" href="{{url('/')}}">
 
     <!-- các thẻ meta -->
 

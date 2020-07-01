@@ -44,8 +44,8 @@ Quản lý danh mục sản phẩm
                                 <a href="{{route('product-type.edit', ['product_type' => $type->id])}}"><span title="Sửa"
                                         type="button" class="btn btn-flat btn-primary">
                                         <i class="fa fa-edit"></i></span></a>&nbsp;
-                                <a class="btn btn-flat btn-danger"
-                                    href="{{route('product-type.destroy', $type->id) }}" type="button">
+                                <a class="btn btn-flat btn-danger del-type"
+                                    href="javascript:void(0)" data-id="{{$type->id}}" type="button">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
@@ -77,6 +77,40 @@ Quản lý danh mục sản phẩm
             'autoWidth': true,
         })
         // $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('product-category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
+    })
+    $(".del-type").on('click', function(e){
+        e.preventDefault();
+        id = $(this).attr('data-id');
+        Swal.fire({
+            title: 'Warning',
+            text: "Bạn có chắc muốn xóa loại sản phẩm này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        .then((result) => {
+            if (result.value) {
+                var url = '{{ route("product-type.destroy", ":id") }}';
+                url = url.replace(':id', id);
+                $.ajax({
+                    method: 'delete',
+                    url: url,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (result) {
+                        MenuToast.fire({
+                            type: result.status ? 'success' : 'danger',
+                            title: result.msg
+                        })
+                    }
+                })
+                $(this).parent().parent().remove();
+                // deleteMenu(id);
+            }
+        })
     })
 </script>
 @endsection

@@ -157,6 +157,8 @@ class ProductCategoryController extends Controller
     public function destroy($id)
     {
         //
-        $category = ProductCategory::where(['is_deleted' => 0, 'id' => $id])->first();
+        $result = ProductCategory::where(['id' => $id])->update(['is_deleted' => 1]);
+        if($result) return response(['status' => 1, 'msg' => "Xóa danh mục sản phẩm thành công"]);
+        else return response(['status' => 0, 'msg' => "Xóa danh mục sản phẩm không thành công"]);
     }
 }

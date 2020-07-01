@@ -72,7 +72,7 @@ class ThemeOptionsController extends Controller
         $_form = 'script';
         $obj  = ThemeOptions::where('key','script')->first();
         $value = null;
-        if($obj != null) $value = ($obj->value;
+        if($obj != null) $value = $obj->value;
         return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
     }
 

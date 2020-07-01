@@ -180,8 +180,6 @@ return [
 
         // Composers
         App\Providers\ComposerServiceProvider::class,
-        App\Providers\ViewProvider::class,
-
     ],
 
     /*
