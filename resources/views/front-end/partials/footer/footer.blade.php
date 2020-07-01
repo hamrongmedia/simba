@@ -60,42 +60,25 @@
         </div><!--  end -->
         <div class="wp-footer-main">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="wp-ft-main">
-                        <h3 class="h3-title-ft">HỆ THỐNG CỬA HÀNG</h3>
-                        <ul class="ul-b list-ft-main" style="display: none;">
-                            <li><a href="" title="Add 1: 11 Đội Cấn, Ba Đình, Hà Nội">Add 1: 11 Đội Cấn, Ba Đình, Hà Nội</a></li>
-                            <li><a href="" title="Add 2: 209 Cầu Giấy, Cầu Giấy, Hà Nội">Add 2: 209 Cầu Giấy, Cầu Giấy, Hà Nội</a></li>
-                            <li><a href="" title="Add 3: 31 Tây Sơn, Đống Đa, Hà Nội">Add 3: 31 Tây Sơn, Đống Đa, Hà Nội</a></li>
-                            <li><a href="" title="Add 4: Số 01 Đại Cồ Việt, HBT, Hà Nội">Add 4: Số 01 Đại Cồ Việt, HBT, Hà Nội</a></li>
-                            <li><a href="/" title="Add 5: 678 Nguyễn Trãi, Thanh Xuân, Hà Nội">Add 5: 678 Nguyễn Trãi, Thanh Xuân, Hà Nội</a></li>
-                            <li><a href="/" title="Add 6: 112C1 Phạm Ngọc Thạch, Đống Đa, Hà Nội">Add 6: 112C1 Phạm Ngọc Thạch, Đống Đa, Hà Nội</a></li>
-                            <li><a href="/" title="Add 7: A27 Shophouse Vincom, Lê Hoàn, Thanh Hoá">Add 7: A27 Shophouse Vincom, Lê Hoàn, Thanh Hoá</a></li>
-                        </ul>
+                @if (isset($bottom_menu))
+                    @foreach ($bottom_menu->child as $item)
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="wp-ft-main">
+                            <h3 class="h3-title-ft">{{$item->title}}</h3>
+                            @if ($item->child)
+                            <ul class="ul-b list-ft-main" style="display: none;">
+                                @foreach ($item->child as $child)
+                                <li><a target="_blank" href="{{$child->link}}" title="{{$child->title}}"> {{$child->title}}</a></li>
+                                @endforeach
+                            </ul>
+                            @endif
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="wp-ft-main">
-                        <h3 class="h3-title-ft">HỖ TRỢ KHÁCH HÀNG</h3>
-                        <ul class="ul-b list-ft-main" style="display: none;">
-                            <li><a href="" title="Chính sách đổi trả">Chính sách đổi trả</a></li>
-                            <li><a href="" title="Chính sách bảo hành">Chính sách bảo hành</a></li>
-                            <li><a href="" title="Chính sách thanh toán">Chính sách thanh toán</a></li>
-                            <li><a href="chinh-sach-bao-mat.html" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="wp-ft-main">
-                        <h3 class="h3-title-ft">VỀ VENUS CHARM</h3>
-                        <ul class="ul-b list-ft-main" style="display: none;">
-                            <li><a href="gioi-thieu-venus-charm.html" title="Giới thiệu">Giới thiệu </a></li>
-                            <li><a href="lien-he.html" title="Liên hệ">Liên hệ</a></li>
-                            <li><a href="tuyen-dung-venus-charm.html" title="Tuyển dụng">Tuyển dụng</a></li>
-                            <li><a href="javascript: void(0)" title="Tìm đại lý">Tìm đại lý</a></li>
-                        </ul>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
+
+
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="wp-ft-main">
                         <h3 class="h3-title-ft">Fanpage của chúng tôi</h3>

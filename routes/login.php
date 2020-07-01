@@ -8,7 +8,6 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/user', 'namespace' 
     Route::post('/edit/{id}', 'UserManageController@update')->name('admin.user.update');
     Route::post('/delete', 'UserManageController@delete')->name('admin.user.delete');
     Route::get('/search', 'UserManageController@search')->name('admin.user.search');
-
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'hrm/role', 'namespace' => 'Admin'], function () {

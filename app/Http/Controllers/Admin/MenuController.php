@@ -16,7 +16,6 @@ class MenuController extends Controller
     public function index()
     {
         $list_menu = Menu::all();
-        //dd($list_menu->child);
         return view('admin.pages.admin_manage.menu_tree', ['list_menu' => $list_menu]);
     }
 
@@ -27,6 +26,7 @@ class MenuController extends Controller
      */
     public function create()
     {
+
     }
 
     /**
@@ -61,7 +61,12 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list_menu = Menu::all();
+        $menu = Menu::find($id);
+        if (!$menu) {
+            abort(404);
+        }
+        return view('admin.pages.admin_manage.menu_edit', ['list_menu' => $list_menu, 'menu' => $menu]);
     }
 
     /**
@@ -73,7 +78,10 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $menu = Menu::find($id);
+        $data = $request->all();
+        $menu->update($data);
+        return redirect()->back()->with('success', 'Menu updated');
     }
 
     /**

@@ -79,7 +79,7 @@
                 <h3 class="box-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Create menu</h3>
 
             </div>
-                <form action="{{route('admin.menu.store')}}" method="post" accept-charset="UTF-8"
+                <form action="{{route('admin.menu.update',$menu->id)}}" method="post" accept-charset="UTF-8"
                 class="form-horizontal" id="form-main" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
@@ -92,22 +92,23 @@
                                     style="width: 100%;" name="parent_id" tabindex="-1" aria-hidden="true">
                                     <option value=""></option>
                                     <option value="" selected="">== ROOT ==</option>
-
                                     @php
-                                        function renderMenu($list, $order){
+                                        $parent = $menu->parent;
+                                        function renderMenu($list, $order, $parent){
                                             foreach ($list as $item) {
                                                 $line = '';
                                                 for ($i=0; $i < $order; $i++) { 
                                                     $line = $line . '-';
                                                 }
-                                                echo  "<option value='".$item->id."'>" .$line.' '.$item->title. "</option>";
+                                                if($parent->id == $item->id) echo  "<option selected value='".$item->id."'>" .$line.' '.$item->title. "</option>";
+                                                else echo  "<option value='".$item->id."'>" .$line.' '.$item->title. "</option>";
                                                 if($item->child){
                                                     $new_order = $order + 1;
-                                                    renderMenu($item->child, $new_order);
+                                                    renderMenu($item->child, $new_order, $parent);
                                                 }
                                             }
                                         };
-                                        renderMenu($list_root, 0);
+                                        renderMenu($list_root, 0, $parent);
                                     @endphp
                                 </select>
                             </div>
@@ -117,7 +118,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="title" name="title" value=""
+                                    <input type="text" id="title" name="title" value="{{$menu->title}}"
                                         class="form-control title" placeholder="">
                                 </div>
                             </div>
@@ -126,8 +127,8 @@
                             <label for="icon" class="col-sm-2 col-form-label">Icon</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input required="1" style="width: 140px" type="text" id="icon" name="icon" value="{{ old('icon',$menu['icon']??'fa-bars') }}" class="form-control icon" placeholder="Input Icon" />
+                                    <span class="input-group-addon"><i class="{{$menu->icon}}"></i></span>
+                                    <input required="1" style="width: 140px" type="text" id="icon" name="icon" value="{{ $menu->icon }}" class="form-control icon" placeholder="Input Icon" />
                                 </div>
                             </div>
                         </div>
@@ -136,8 +137,8 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="uri" name="link" value=""
-                                        class="form-control uri" placeholder="Example: /ao-dai">
+                                    <input type="text" id="uri" name="link" value="{{$menu->link}}"
+                                        class="form-control uri" placeholder="Example: admin.dashboard">
                                 </div>
                             </div>
                         </div>
@@ -146,12 +147,11 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="number" style="width: 100px;" id="sort" name="sort" value="0"
+                                    <input type="number" style="width: 100px;" id="sort" name="sort" value="{{$menu->sort}}"
                                         class="form-control input-sm sort" placeholder="">
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
