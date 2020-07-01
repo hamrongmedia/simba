@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use App\Admin\ThemeOptions;
-use DB;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -26,12 +23,6 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Theme Option
-        View::composer(['front-end.partials.footer.footer'], function ($view) {
-            $data = ThemeOptions::where('key','social')->first();
-            if($data == null) abort(404);
-            $content = json_decode($data->value);
-            $view->with(['themeOption'=>$content]);
-        });
+
     }
 }

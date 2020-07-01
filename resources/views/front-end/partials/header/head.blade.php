@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <base href="https://venuscharm.vn/">
+    <base href="{{url('/')}}">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv="content-language" content="vi">
     <link rel="alternate" href="https://venuscharm.vn/" hreflang="vi-vn">
