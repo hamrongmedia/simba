@@ -64,6 +64,27 @@ class ThemeOptionsController extends Controller
         }else $obj->update(['value'=>$data]);
         return back();
     }
+    
+        //Header Setting
+    public function homepage(Request $request){
+        $page_name = "Cấu hình trang chủ";
+        $_route = route('admin.themeoptions.updatehomepage');
+        $_form = 'homepage';
+        $obj  = ThemeOptions::where('key','homepage')->first();
+        $value = null;
+        if($obj != null) $value = $obj->value;
+        return view('admin.pages.theme_config.theme_options',['page_name'=>$page_name, '_route'=>$_route, '_form'=>$_form, 'value'=>$value]);
+    }
+
+    public function updatehomepage(Request $request){
+        $data = $request->all();
+        $data = json_encode($data);
+        $obj  = ThemeOptions::where('key','homepage')->first();
+        if($obj == null) {
+           $obj = ThemeOptions::create(['key'=>'homepage', 'value'=>$data]);
+        }else $obj->update(['value'=>$data]);
+        return back();
+    }
 
     //Script Setting
     public function script(Request $request){
