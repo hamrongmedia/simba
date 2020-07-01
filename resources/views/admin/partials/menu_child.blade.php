@@ -6,10 +6,10 @@
         <li class="dd-item" data-id="{{$item->id}}">
             <div class="dd-handle" >
                 <i class="fa {{$item->icon}}"></i> 
-                <span>{{$item->name}}</span>
+                <span>{{$item->title}}</span>
                 
                 <span class="pull-right dd-nodrag">
-                    <a href="https://demo.s-cart.org/sc_admin/menu/edit/54"><i
+                    <a href="{{route('admin.menu.edit', $item->id)}}"><i
                             class="fa fa-edit"></i></a>
                     <a data-id="{{$item->id}}" class="remove-menu"><i class="fa fa-trash"></i></a>
                 </span>

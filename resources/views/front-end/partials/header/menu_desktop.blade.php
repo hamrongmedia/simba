@@ -4,13 +4,13 @@
             <ul class="nav navbar-nav navbar-left" id="primary-menu">
                 @foreach ($main_menu->child as $item)
                 <li class="dropdown">
-                    <a href="{{url('#')}}"><span>{{$item->name}}</span></a>
+                    <a href="{{url('#')}}"><span>{{$item->title}}</span></a>
                     @if ($item->child->isNotEmpty())
                         <span class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></span>
                         <ul class="dropdown-menu">
                         @foreach ($item->child as $child)
                                 <li>
-                                    <a href="{{url('#')}}" title="Bộ đồ lót đệm dày">{{$child->name}}</a>
+                                    <a href="{{url('#')}}" title="Bộ đồ lót đệm dày">{{$child->title}}</a>
                                 </li>
                         @endforeach
                         </ul>
