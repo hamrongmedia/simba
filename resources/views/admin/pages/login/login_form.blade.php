@@ -29,7 +29,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="bottom-login">
-  {{$errors}}
   <div id="page-login" class="w-full justify-center items-center flex h-screen bg-img" style="background-image: url({{asset('images/vuexy-login-bg.jpg')}});background-position: 50%;background-repeat: no-repeat;background-size: cover;">
     <div class="content-login">
      <div class="row no-margin flex justify-center items-center">
@@ -54,11 +53,18 @@
               <input type="password" class="form-control" placeholder="Password" name="password">
             </div>
             <div class="form-group clearfix">
+              @error('fail')
+                  <span class="invalid-feedback text-red" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="form-group clearfix">
               <div class="row ">
                 <div class="col-xs-6">
                   <div class="checkbox">
                     <label for="">
-                      <input type="checkbox"> Remember Me
+                      <input type="checkbox" name="remember"> Remember Me
                     </label>
                   </div>
                 </div>

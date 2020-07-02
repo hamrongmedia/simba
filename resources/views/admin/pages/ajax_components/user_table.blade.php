@@ -16,12 +16,7 @@
             @foreach ($users as $user)
             <tr>
                 <td>
-                    <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                        style="position: relative;"><input class="input" type="checkbox" data-id="2"
-                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                            class="iCheck-helper"
-                            style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>
+                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
                 </td>
                 <td>{{$user->id}}</td>
                 <td>{{$user->username}}</td>
@@ -41,9 +36,16 @@
                     <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
                             type="button" class="btn btn-flat btn-primary"><i
                                 class="fa fa-edit"></i></span></a>&nbsp;
+                    <span onclick="deleteItem({{$user->id}});" title="Delete" class="btn btn-flat btn-danger"><i
+                        class="fa fa-trash"></i></span></td>
                 </td>
             </tr>
             @endforeach
+            
         </tbody>
     </table>
+</div>
+<div class="box-footer clearfix">
+    @include('admin.component.pagination_bar', ['paginator' => $paginator])
+
 </div>

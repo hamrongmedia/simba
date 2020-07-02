@@ -26,3 +26,123 @@
         </div>
     </div>
 </div>
+
+<script>
+    var type = 'sort';
+
+    function deleteAjax(id) {
+        $.ajax({
+            url: "{{route('admin.permission.delete')}}",
+            type: 'POST',
+            data: {
+                id: id
+            }
+        }).done(function () {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+            );
+            $('#permission-' + id).remove();
+        })
+    }
+
+    // function searchAjax(page = 1){
+    //     var input = $('#search_input').val();
+    //     $.ajax({
+    //         url: "" ,
+    //         data:{
+    //             keyword: input,
+    //             page:page,
+    //         }
+    //     }).done(function (result) {
+    //         $('.table-list').html(result);
+    //     })
+    // }   
+
+    function sortAjax(current_page = 1) {
+        var input = $('#order_sort option:selected').val().split('__');
+
+        $.ajax({
+            url: "{{route('admin.permission.index')}}",
+            data: {
+                sort_by: input[0],
+                sort_type: input[1],
+                current_page: current_page,
+            }
+        })
+            .done(function (result) {
+                type = 'sort';
+                $('.table-list').html(result);
+            })
+    }
+
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+            .then((result) => {
+                if (result.value) {
+                    deleteAjax(id);
+                }
+            })
+    }
+
+    $('#button_sort').on('click', function (e) {
+        sortAjax(1);
+    });
+
+    function getDataPaginate(item, type) {
+        let nextPage = item.textContent;
+        if (type == 'sort') {
+            sortAjax(nextPage);
+        }
+        if (type == 'search') {
+            searchAjax(nextPage);
+        }
+    };
+
+    function multipleDelete() {
+        let idList = [];
+        let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
+            idList.push(item.getAttribute('data-id'));
+        })
+
+        if (idList.length > 0) {
+            console.log(idList)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    idList.forEach(function (id) {
+                        deleteAjax(id);
+                    })
+                }
+            })
+        }
+    }
+
+    const treeMenu = document.querySelectorAll('.treeview');
+    console.log(treeMenu);
+    treeMenu.forEach(function (item) {
+        console.log(item);
+        item.querySelectorAll('a').forEach(function (link) {
+            if (link.getAttribute(href) == location.href) {
+                console.log(link);
+            }
+        })
+    })
+</script>

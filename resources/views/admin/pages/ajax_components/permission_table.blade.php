@@ -15,7 +15,7 @@
             @foreach ($permissions as $permission)
             <tr id='permission-{{$permission->id}}'>
                 <td>
-                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{  $permission->id  }}">
+                    <input class="input table-checkbox" type="checkbox" class="grid-row-checkbox" data-id="{{  $permission->id  }}">
                 </td>
                 <td>{{$permission->id ?? ''}}</td>
                 <td>Add later</td>

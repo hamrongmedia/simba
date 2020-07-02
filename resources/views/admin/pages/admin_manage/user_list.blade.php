@@ -77,70 +77,8 @@
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>User name</th>
-                                <th>Full name</th>
-                                <th>Roles</th>
-                                <th>Permission</th>
-                                <th>Created at</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                            <tr>
-                                <td>
-                                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
-                                </td>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->username}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>
-                                    @foreach ($user->roles as $role)
-                                        <span class="label label-success">{{$role->name}}</span> 
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($user->permissions as $permission)
-                                        <span class="label label-success">{{$permission->name}}</span> 
-                                    @endforeach
-                                </td>
-                                <td>2020-03-23 22:39:57</td>
-                                <td>
-                                    <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
-                                            type="button" class="btn btn-flat btn-primary"><i
-                                                class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem({{$user->id}});" title="Delete" class="btn btn-flat btn-danger"><i
-                                        class="fa fa-trash"></i></span></td>
-                                </td>
-                            </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <div class="box-footer clearfix">
-                    Showing <b>1</b> to <b>2</b> of <b>2</b> items
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <!-- Previous Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
+                @include('admin.pages.ajax_components.user_table')
 
-                        <!-- Pagination Elements -->
-                        <!-- "Three Dots" Separator -->
-
-                        <!-- Array Of Links -->
-                        <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-                        <!-- Next Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-                    </ul>
-
-                </div>
             </section>
             <!-- /.box-body -->
         </div>
@@ -150,19 +88,14 @@
 @endsection
 
 @section('js')
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    });
-
-    function sortAjax(){
+{{-- <script>
+    function sortAjax(current_page = 1){
         var input = $('#order_sort option:selected').val().split('__');
         $.ajax({
             url: "{{route('admin.user.index')}}" ,
             data:{
-                sort_field: input[0],
+                current_page: current_page,
+                sort_by: input[0],
                 sort_type: input[1],
             }
         }).done(function (result) {
@@ -186,5 +119,116 @@
         sortAjax();
     });
 
+</script> --}}
+
+<script>
+    var type = 'sort';
+
+    function deleteAjax(id) {
+        $.ajax({
+            url: "{{route('admin.user.delete')}}",
+            type: 'POST',
+            data: {
+                id: id
+            }
+        }).done(function () {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+            );
+            $('#user-' + id).remove();
+        })
+    }
+
+    function searchAjax(page = 1){
+        var input = $('#search_input').val();
+        $.ajax({
+            url: '{{route("admin.user.search")}}' ,
+            data:{
+                keyword: input,
+                current_page:page,
+            }
+        }).done(function (result) {
+            type = 'search';
+            $('.table-list').html(result);
+        })
+    }   
+
+    function sortAjax(current_page = 1) {
+        var input = $('#order_sort option:selected').val().split('__');
+
+        $.ajax({
+            url: "{{route('admin.user.index')}}",
+            data: {
+                sort_by: input[0],
+                sort_type: input[1],
+                current_page: current_page,
+            }
+        })
+            .done(function (result) {
+                type = 'sort';
+                $('.table-list').html(result);
+            })
+    }
+
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+            .then((result) => {
+                if (result.value) {
+                    deleteAjax(id);
+                }
+            })
+    }
+
+    $('#button_sort').on('click', function (e) {
+        sortAjax(1);
+    });
+
+    function getDataPaginate(item, type) {
+        let nextPage = item.textContent;
+        if (type == 'sort') {
+            sortAjax(nextPage);
+        }
+        if (type == 'search') {
+            searchAjax(nextPage);
+        }
+    };
+
+    function multipleDelete() {
+        let idList = [];
+        console.log(document.querySelectorAll('.table-checkbox'));
+        let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
+            idList.push(item.getAttribute('data-id'));
+        })
+
+        if (idList.length > 0) {
+            console.log(idList)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    idList.forEach(function (id) {
+                        deleteAjax(id);
+                    })
+                }
+            })
+        }
+    }
 </script>
 @endsection

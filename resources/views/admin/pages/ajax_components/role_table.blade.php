@@ -17,12 +17,7 @@
                 @foreach ($roles as $role)
                 <tr id="role-{{$role->id}}">
                     <td>
-                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false"
-                            style="position: relative;"><input class="input" type="checkbox" data-id="6"
-                                style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins
-                                class="iCheck-helper"
-                                style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                        </div>
+                        <input class="input table-checkbox " type="checkbox" class="grid-row-checkbox" data-id="{{ $role->id }}">
                     </td>
                     <td>{{$role->id}}</td>
                     <td>Chua lam</td>
@@ -46,20 +41,7 @@
         </table>
     </div>
     <div class="box-footer clearfix">
-        Showing <b>1</b> to <b>6</b> of <b>6</b> items
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <!-- Previous Page Link -->
-            <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
-
-            <!-- Pagination Elements -->
-            <!-- "Three Dots" Separator -->
-
-            <!-- Array Of Links -->
-            <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-            <!-- Next Page Link -->
-            <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-        </ul>
+        @include('admin.component.pagination_bar', ['paginator' => $paginator])
 
     </div>
 </section>
