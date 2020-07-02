@@ -17,7 +17,6 @@
             <tr>
                 <td>
                     <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
-
                 </td>
                 <td>{{$user->id}}</td>
                 <td>{{$user->username}}</td>
@@ -42,6 +41,11 @@
                 </td>
             </tr>
             @endforeach
+            
         </tbody>
     </table>
+</div>
+<div class="box-footer clearfix">
+    @include('admin.component.pagination_bar', ['paginator' => $paginator])
+
 </div>

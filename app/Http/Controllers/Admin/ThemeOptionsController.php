@@ -34,11 +34,7 @@ class ThemeOptionsController extends Controller
         $page_name = "Thiết lập social";
         $_route = route('admin.themeoptions.updatesocial');
         $_form = 'social';
-        $obj = ThemeOptions::where('key', 'social')->first();
-        $value = null;
-        if ($obj != null) {
-            $value = json_decode($obj->value);
-        }
+        $value = ThemeOptions::get('social');
 
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
@@ -46,13 +42,8 @@ class ThemeOptionsController extends Controller
     public function updatesocial(Request $request)
     {
         $data = $request->all();
-        $data = json_encode($data);
-        $obj = ThemeOptions::where('key', 'social')->first();
-        if ($obj == null) {
-            $obj = ThemeOptions::create(['key' => 'social', 'value' => $data]);
-        } else {
-            $obj->update(['value' => $data]);
-        }
+
+        ThemeOptions::set('social', $data);
 
         return back();
     }

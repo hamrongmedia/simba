@@ -86,7 +86,7 @@
           </ul>
       </li>
       <li class="header">ADMIN CONTENT</li>
-      <li class="treeview active">
+      <li class="treeview ">
         <a href="">
           <i class="fa fa-edit"></i> <span>Blog/Tin tức</span>
           <span class="pull-right-container">
@@ -134,7 +134,7 @@
             </li>
           </ul>
       </li>
-      <li>
+      <li class="">
         <a href="{{url('hrm/filemanage')}}">
           <i class="fa fa-image"></i> <span>Thư viện ảnh</span>
         </a>

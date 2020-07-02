@@ -134,4 +134,15 @@
             })
         }
     }
+
+    const treeMenu = document.querySelectorAll('.treeview');
+    console.log(treeMenu);
+    treeMenu.forEach(function (item) {
+        console.log(item);
+        item.querySelectorAll('a').forEach(function (link) {
+            if (link.getAttribute(href) == location.href) {
+                console.log(link);
+            }
+        })
+    })
 </script>

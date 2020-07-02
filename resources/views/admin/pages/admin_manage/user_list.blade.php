@@ -77,57 +77,8 @@
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>User name</th>
-                                <th>Full name</th>
-                                <th>Roles</th>
-                                <th>Permission</th>
-                                <th>Created at</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                            <tr>
-                                <td>
-                                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
-                                </td>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->username}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>
-                                    @foreach ($user->roles as $role)
-                                        <span class="label label-success">{{$role->name}}</span> 
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($user->permissions as $permission)
-                                        <span class="label label-success">{{$permission->name}}</span> 
-                                    @endforeach
-                                </td>
-                                <td>2020-03-23 22:39:57</td>
-                                <td>
-                                    <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
-                                            type="button" class="btn btn-flat btn-primary"><i
-                                                class="fa fa-edit"></i></span></a>&nbsp;
-                                    <span onclick="deleteItem({{$user->id}});" title="Delete" class="btn btn-flat btn-danger"><i
-                                        class="fa fa-trash"></i></span></td>
-                                </td>
-                            </tr>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <div class="box-footer clearfix">
-                    @include('admin.pages.ajax_components.user_table')
+                @include('admin.pages.ajax_components.user_table')
 
-                </div>
             </section>
             <!-- /.box-body -->
         </div>
@@ -137,7 +88,7 @@
 @endsection
 
 @section('js')
-<script>
+{{-- <script>
     function sortAjax(current_page = 1){
         var input = $('#order_sort option:selected').val().split('__');
         $.ajax({
@@ -168,7 +119,7 @@
         sortAjax();
     });
 
-</script>
+</script> --}}
 
 <script>
     var type = 'sort';
@@ -190,18 +141,19 @@
         })
     }
 
-    // function searchAjax(page = 1){
-    //     var input = $('#search_input').val();
-    //     $.ajax({
-    //         url: "" ,
-    //         data:{
-    //             keyword: input,
-    //             page:page,
-    //         }
-    //     }).done(function (result) {
-    //         $('.table-list').html(result);
-    //     })
-    // }   
+    function searchAjax(page = 1){
+        var input = $('#search_input').val();
+        $.ajax({
+            url: '{{route("admin.user.search")}}' ,
+            data:{
+                keyword: input,
+                current_page:page,
+            }
+        }).done(function (result) {
+            type = 'search';
+            $('.table-list').html(result);
+        })
+    }   
 
     function sortAjax(current_page = 1) {
         var input = $('#order_sort option:selected').val().split('__');

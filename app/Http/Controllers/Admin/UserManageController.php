@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
@@ -28,18 +29,18 @@ class UserManageController extends Controller
 
         if (empty($request->all())) {
             $users = Admin::all()->sortBy('desc');
-            $paginator = new PaginationHelper($users, 12);
-
-            return view('Admin.pages.admin_manage.user_list', ['users' => $users]);
+            $paginator = new PaginationHelper($users, 10);
+            $items = $paginator->getItem(1);
+            return view('Admin.pages.admin_manage.user_list', ['current_page' => 1, 'users' => $items, 'paginator' => $paginator]);
         }
 
-        if ($request->sort_field) {
-            if ($request->sort_type == 'desc') {
-                $result = Admin::all()->sortByDesc($request->sort_field);
-            } else {
-                $result = Admin::all()->sortBy($request->sort_field);
-            }
-            return view('Admin.pages.ajax_components.user_table', ['users' => $result]);
+        if ($request->sort_by) {
+            $users = Admin::all();
+            $result = SortHelper::sort($users, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 10);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
 
@@ -90,7 +91,12 @@ class UserManageController extends Controller
     {
         $data = $request->keyword;
         $result = SearchHelper::search(Admin::class, ['username', 'email', 'name'], $data);
-        return view('Admin.pages.ajax_components.user_table', ['users' => $result]);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
     }
 
     /**
@@ -129,17 +135,6 @@ class UserManageController extends Controller
         $this->removeAllPermission($user);
         $this->saveRelationship($request, $user);
         return redirect()->back()->with('success', "User updated");
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     protected function saveRelationship($request, $new_user)
@@ -183,6 +178,13 @@ class UserManageController extends Controller
     {
         DB::table('user_has_roles')->where('user_id', $user->id)->delete();
         DB::table('user_has_permissions')->where('user_id', $user->id)->delete();
+    }
+
+    public function delete(Request $request)
+    {
+        Admin::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
+
     }
 
 }

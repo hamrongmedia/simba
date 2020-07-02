@@ -59,8 +59,14 @@ $.ajaxSetup({
     },
 });
 
-
-
-
-
+// hightlight menu
+const treeMenu = document.querySelectorAll('.sidebar-menu>li');
+let url = location.href;
+treeMenu.forEach(function (item) {
+    item.querySelectorAll('a').forEach(function (link) {
+        if (link.getAttribute('href') == url) {
+            item.classList.add('active');
+        }
+    })
+})
 </script>
