@@ -34,7 +34,7 @@
                                 class="fa fa-square-o"></i></button>
                     </div>
                     <div class="menu-left">
-                        <a class="btn btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i></a>
+                        <a class="btn btn-flat btn-danger grid-trash" onclick="multipleDelete()"  title="Delete"><i class="fa fa-trash-o"></i></a>
                     </div>
 
                     <div class="menu-left">
@@ -82,7 +82,7 @@
                             @foreach ($roles as $role)
                             <tr id="role-{{$role->id}}">
                                 <td>
-                                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
+                                    <input class="input table-checkbox" type="checkbox" class="grid-row-checkbox" data-id="{{ $role->id }}">
 
                                 </td>
                                 <td>{{$role->id}}</td>
@@ -107,21 +107,7 @@
                     </table>
                 </div>
                 <div class="box-footer clearfix">
-                    Showing <b>1</b> to <b>6</b> of <b>6</b> items
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <!-- Previous Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">«</span></li>
-
-                        <!-- Pagination Elements -->
-                        <!-- "Three Dots" Separator -->
-
-                        <!-- Array Of Links -->
-                        <li class="page-item active"><span class="page-link pjax-container">1</span></li>
-
-                        <!-- Next Page Link -->
-                        <li class="page-item disabled"><span class="page-link pjax-container">»</span></li>
-                    </ul>
-
+                    @include('admin.component.pagination_bar', ['paginator' => $paginator])
                 </div>
 
 
@@ -134,32 +120,98 @@
 @endsection
 
 @section('js')
-    @include('admin.component.ckeditor_js')
-    <script>
-        function deleteAjax(id) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
+
+<script>
+    var type = 'sort';
+
+    function deleteAjax(id) {
+        $.ajax({
+            url: "{{route('admin.role.delete')}}",
+            type: 'POST',
+            data: {
+                id: id
+            }
+        }).done(function () {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+            );
+            $('#role-' + id).remove();
+        })
+    }
+
+    // function searchAjax(page = 1){
+    //     var input = $('#search_input').val();
+    //     $.ajax({
+    //         url: "" ,
+    //         data:{
+    //             keyword: input,
+    //             page:page,
+    //         }
+    //     }).done(function (result) {
+    //         $('.table-list').html(result);
+    //     })
+    // }   
+
+    function sortAjax(current_page = 1) {
+        var input = $('#order_sort option:selected').val().split('__');
+
+        $.ajax({
+            url: "{{route('admin.role.index')}}",
+            data: {
+                sort_by: input[0],
+                sort_type: input[1],
+                current_page: current_page,
+            }
+        })
+            .done(function (result) {
+                type = 'sort';
+                $('.table-list').html(result);
             })
-            $.ajax({
-                url: "{{route('admin.role.delete')}}",
-                type: 'POST',
-                data: {
-                    id: id
+    }
+
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+            .then((result) => {
+                if (result.value) {
+                    deleteAjax(id);
                 }
-            }).done(function(){
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                );
-                $('#role-'+ id).remove();
-
             })
-        }      
+    }
 
-        function deleteItem(id) {
+    $('#button_sort').on('click', function (e) {
+        sortAjax(1);
+    });
+
+    function getDataPaginate(item, type) {
+        let nextPage = item.textContent;
+        if (type == 'sort') {
+            sortAjax(nextPage);
+        }
+        if (type == 'search') {
+            searchAjax(nextPage);
+        }
+    };
+
+    function multipleDelete() {
+        let idList = [];
+        let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
+            idList.push(item.getAttribute('data-id'));
+        })
+        console.log(idList);
+
+        if (idList.length > 0) {
+            console.log(idList)
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -168,12 +220,14 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-            })
-            .then((result) => {
+            }).then((result) => {
                 if (result.value) {
-                    deleteAjax(id);
+                    idList.forEach(function (id) {
+                        deleteAjax(id);
+                    })
                 }
             })
         }
-    </script>
+    }
+</script>
 @endsection

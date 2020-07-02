@@ -8,7 +8,7 @@ Showing <b>{{($current_page-1)*$paginator->per_page +1}}</b> to <b>{{$current_pa
     @if ($paginator->total_page <= 5)
         @for ($i = 1; $i <= $paginator->total_page; $i++)
             <li class="page-item {{$i == $current_page ? 'active' : ''}}">
-                <span onclick="getDataPaginate(this, 'sort')" class="page-link"> {{$i}} </span>
+                <span onclick="getDataPaginate(this, type)" class="page-link"> {{$i}} </span>
             </li>
         @endfor                 
     @endif
@@ -16,7 +16,7 @@ Showing <b>{{($current_page-1)*$paginator->per_page +1}}</b> to <b>{{$current_pa
     @if ($paginator->total_page > 5 && $current_page < 5 )
         @for ($i = 1; $i <= 5; $i++)
             <li class="page-item {{$i == $current_page ? 'active' : ''}}">
-                <span onclick="getDataPaginate(this, 'sort')" class="page-link"> {{$i}} </span>
+                <span onclick="getDataPaginate(this, type)" class="page-link"> {{$i}} </span>
             </li>
         @endfor
         <li class="page-item ">
@@ -30,7 +30,7 @@ Showing <b>{{($current_page-1)*$paginator->per_page +1}}</b> to <b>{{$current_pa
         </li>  
         @for ($i = $current_page - 2; $i <= $current_page + 2; $i++)
             <li class="page-item {{$i == $current_page ? 'active' : ''}}">
-                <span onclick="getDataPaginate(this, 'sort')" class="page-link"> {{$i}} </span>
+                <span onclick="getDataPaginate(this, type)" class="page-link"> {{$i}} </span>
             </li>
         @endfor
         <li class="page-item">
@@ -44,7 +44,7 @@ Showing <b>{{($current_page-1)*$paginator->per_page +1}}</b> to <b>{{$current_pa
         </li> 
         @for ($i = $paginator->total_page - 4; $i <= $paginator->total_page; $i++)
             <li class="page-item {{$i == $current_page ? 'active' : ''}}">
-                <span onclick="getDataPaginate(this, 'sort')" class="page-link"> {{$i}} </span>
+                <span onclick="getDataPaginate(this, type)" class="page-link"> {{$i}} </span>
             </li>
         @endfor                  
     @endif
