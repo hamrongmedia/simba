@@ -1686,6 +1686,7 @@ span.pro-price-view {
 }
 .wp-text-tin-a .h3-title a {
   line-height: 20px;
+  color: #333;
 }
 /*--------------------------------------------------------------
 # single
@@ -2239,6 +2240,9 @@ span.pro-price-view {
   background: #f1f1f1;
   margin: 20px 0px 0px;
   padding: 20px 50px;
+}
+#footer-site a {
+  color: #333;
 }
 .wp-footer-main .h3-title-ft {
   font-size: 14px;

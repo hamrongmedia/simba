@@ -1,4 +1,4 @@
-@extends('front-end.main.home_main')
+@extends('front-end.layout.main')
 
 @section('title')
 Trang chủ
@@ -11,7 +11,8 @@ Trang chủ
                 <div class="col-md-12 col-edit-0">
                     <div class="wp-banner">
                         <div class="img-banner">
-                            <img class="sample2 el_image hidden-xs" src="{{asset('images-demo/pc-venus-charm-grand-opening-112c1-pham-ngoc-thach.png.png')}}" alt="banner1">
+                            <?php //dd($homepageOption);?>
+                            <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : '#'}}" alt="banner1">
                            <!--  banner mobile -->
                             <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{asset('images-demo/venus-charm-grand-opening-112c1-pham-ngoc-thach.png')}}" alt="banner1">
                         </div>

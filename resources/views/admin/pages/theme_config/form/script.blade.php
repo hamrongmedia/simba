@@ -17,6 +17,5 @@
     <textarea class="form-control" rows="4" placeholder="Enter ..." name="footer_script"></textarea>
     <span><em class="help-block">Nhập mã được chèn vào chân trang</em></span>
     @endif
-
   </div>
 </div> {{-- end --}}

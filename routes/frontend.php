@@ -9,4 +9,6 @@ Route::namespace ('Frontend')->group(function () {
 
 Route::get('/lien-he', function () {
     return view('front-end.page.contact');
+    //Homepage
 });
+Route::get('/', 'HomeController@index')->name('home');

@@ -11,10 +11,6 @@
 |
  */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Route::get('chuyen-muc-san-pham', function () {
     return view('chuyenmucsanpham');
 });

@@ -5,7 +5,7 @@
         <a  href="{{route('admin.themeoptions.header')}}" class="btn-block"><i class="fa fa-list"></i> Cài đặt chung</a>
       </li>
       <li class="btn-block" >
-        <a  href="#home-setting" class="btn-block"><i class="fa fa-home"></i> Cấu hình trang chủ</a>
+        <a  href="{{route('admin.themeoptions.homepage')}}" class="btn-block"><i class="fa fa-home"></i> Cấu hình trang chủ</a>
       </li>
       <li class="btn-block" >
         <a  href="#product-setting" class="btn-block"><i class="fa fa-shopping-cart"></i> Cài đặt sản phẩm</a>

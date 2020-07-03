@@ -3,7 +3,7 @@
     <div class="form-group">
       <label for="">Nhập logo</label>
       @if($value != null && isset($value->logo_setting))
-       @include('admin.component.image_button', ['name' => 'logo_setting', 'id' => 'logo-btn', 'value' => $value->logo_setting, 'holder' => 'logo-holder'])
+       @include('admin.component.image_button', ['name' => 'logo_setting', 'id' => 'logo-btn', 'value' => $value->logo_setting, 'holder' => 'logo-holder','holder_img' => $value->logo_setting])
       @else
        @include('admin.component.image_button', ['name' => 'logo_setting', 'id' => 'logo-btn', 'value' => '', 'holder' => 'logo-holder'])
       @endif
