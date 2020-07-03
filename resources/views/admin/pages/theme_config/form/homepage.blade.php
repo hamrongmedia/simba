@@ -5,19 +5,8 @@
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Section 1</a></li>
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Section 2</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Section 3</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-            Dropdown <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-          </ul>
-        </li>
-        <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+        <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Section 4</a></li>
+        <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Section 5</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -51,7 +40,7 @@
             <div class="form-group">
               <label for="">Nhập mô tả </label>
               @if($value != null && isset($value->home2_desc1))
-               <textarea class="form-control" name="home2_desc1" rows="4" value="{{$value->home2_desc1}}" name="home2_desc1"></textarea>
+               <textarea class="form-control" name="home2_desc1" rows="4" name="home2_desc1">{{$value->home2_desc1}}</textarea>
               @else
               <textarea class="form-control" rows="4" placeholder="Enter ..." name="home2_desc1"></textarea>
               @endif
@@ -76,7 +65,7 @@
             <div class="form-group">
               <label for="">Nhập mô tả </label>
               @if($value != null && isset($value->home2_desc2))
-               <textarea class="form-control" name="home2_desc2" rows="4" value="{{$value->home2_desc2}}" name="home2_desc2"></textarea>
+               <textarea class="form-control" name="home2_desc2" rows="4"  name="home2_desc2">{{$value->home2_desc2}}</textarea>
               @else
               <textarea class="form-control" rows="4" placeholder="Enter ..." name="home2_desc2"></textarea>
               @endif
@@ -95,9 +84,35 @@
             <div class="form-group">
               <label for="">Nhập mô tả </label>
               @if($value != null && isset($value->home3_desc))
-               <textarea class="form-control" name="home3_desc" rows="4" value="{{$value->home3_desc}}" name="home3_desc"></textarea>
+               <textarea class="form-control" name="home3_desc" rows="4" name="home3_desc">{{$value->home3_desc}}</textarea>
               @else
               <textarea class="form-control" rows="4" placeholder="Enter ..." name="home3_desc"></textarea>
+              @endif
+            </div>
+        </div>
+        <div class="tab-pane" id="tab_3">
+            <div class="form-group">
+              <label for="">Nhập mô tả 1 </label>
+              @if($value != null && isset($value->home4_desc1))
+               <textarea class="form-control" name="home4_desc1" rows="4" name="home4_desc1">{{$value->home4_desc1}}</textarea>
+              @else
+              <textarea class="form-control" rows="4" placeholder="Enter ..." name="home4_desc1"></textarea>
+              @endif
+            </div>
+            <div class="form-group">
+              <label for="">Nhập mô tả 2 </label>
+              @if($value != null && isset($value->home4_desc2))
+               <textarea class="form-control" name="home4_desc1" rows="4" name="home4_desc2">{{$value->home4_desc2}}</textarea>
+              @else
+              <textarea class="form-control" rows="4" placeholder="Enter ..." name="home4_desc2"></textarea>
+              @endif
+            </div>
+            <div class="form-group">
+              <label for="">Nhập mô tả 3 </label>
+              @if($value != null && isset($value->home4_desc3))
+               <textarea class="form-control" name="home4_desc3" rows="4" name="home4_desc3">{{$value->home4_desc3}}</textarea>
+              @else
+              <textarea class="form-control" rows="4" placeholder="Enter ..." name="home4_desc3"></textarea>
               @endif
             </div>
         </div>

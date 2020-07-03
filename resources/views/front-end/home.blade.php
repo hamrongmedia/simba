@@ -12,7 +12,7 @@ Trang chủ
                     <div class="wp-banner">
                         <div class="img-banner">
                             <?php //dd($homepageOption);?>
-                            <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : '#'}}" alt="banner1">
+                            <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
                            <!--  banner mobile -->
                             <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{asset('images-demo/venus-charm-grand-opening-112c1-pham-ngoc-thach.png')}}" alt="banner1">
                         </div>
@@ -39,12 +39,12 @@ Trang chủ
                     <div class="wp-tin wp-tin2 flex-oder">
                         <div class="img-tin">
                             <a href="#" class="d-block w-100">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-banner-cheo-2.jpg')}}" alt="Chiếc áo lót đang mặc <br>có làm nàng thoải mái?">
+                                <img class="el_image" src="{{isset($homepageOption->home2_background1) ? $homepageOption->home2_background1 : ''}}" alt="">
                             </a>
                         </div>
                         <div class="text-tin">
-                            <h2 class="h2-title">Chiếc áo lót đang mặc <br>có làm nàng thoải mái?</h2>
-                            <span></span>
+                            <h2 class="h2-title">{!!isset($homepageOption->home2_title1) ? $homepageOption->home2_title1 : ''!!}</h2>
+                            <span><p>{!!isset($homepageOption->home2_desc1) ? $homepageOption->home2_desc1 : ''!!}<br></p></span>
                         </div>
                     </div>
                 </div>
@@ -52,13 +52,12 @@ Trang chủ
                     <div class="wp-tin wp-tin1">
                         <div class="img-tin">
                             <a href="" class="d-block w-100">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-ao-quay.jpg')}}" alt="Êm - Mềm - Nhẹ <br>Venus Charm">
+                                <img class="el_image" src="{{isset($homepageOption->home2_background2) ? $homepageOption->home2_background2 : ''}}" alt="">
                             </a>
                         </div>
                         <div class="text-tin">
-                            <h2 class="h2-title">Êm - Mềm - Nhẹ <br>Venus Charm
-                            </h2>
-                            <span><p>Giúp nàng luôn đẹp mà không cần cố gắng<br></p></span>
+                            <h2 class="h2-title">{!!isset($homepageOption->home2_title2) ? $homepageOption->home2_title2 : ''!!}</h2>
+                            <span><p>{!!isset($homepageOption->home2_desc2) ? $homepageOption->home2_desc2 : ''!!}<br></p></span>
                         </div>
                     </div>
                 </div>
@@ -68,12 +67,10 @@ Trang chủ
     <section class="sec-home-03">
         <div class="wp-shopnow hidden-xs">
             <div class="img-bg">
-                <img class="el_image" src="{{asset('images-demo/venuscharm-banner-3.jpg')}}" alt="banner">
+                <img class="el_image" src="{{isset($homepageOption->home3_background) ? $homepageOption->home3_background : ''}}" alt="">
             </div>
             <div class="text-home-03">
-                <h2 class="h2-title"><br><br>KHÔNG GỌNG <br></h2>
-                <h3>XU HƯỚNG NỘI Y THẾ HỆ MỚI <br> <br></h3>
-                <a href="#" target="_blank" class="btn btn-default btn-shopnow btn-hover">shop now</a>
+                {!!isset($homepageOption->home3_desc) ? $homepageOption->home3_desc : ''!!}
             </div>
         </div>
         <div class="wp-suport-1">
