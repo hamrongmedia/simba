@@ -6,3 +6,7 @@ Route::namespace ('Frontend')->group(function () {
     Route::get('/chuyen-muc/{slug}', 'BlogController@getListPostOfCategory')->name('category.listpost');
 
 });
+
+Route::get('/lien-he', function () {
+    return view('front-end.page.contact');
+});
