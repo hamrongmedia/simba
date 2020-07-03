@@ -13,9 +13,9 @@
             <div class="form-group">
               <label for="">Nhập ảnh Background</label>
               @if($value != null && isset($value->home1_background))
-                @include('admin.component.image_button', ['name' => 'home1_background', 'id' => 'logo-btn', 'value' => $value->home1_background, 'holder' => 'home1_background','holder_img' => $value->home1_background])
+                @include('admin.component.image_button', ['name' => 'home1_background', 'id' => 'logo-btn1', 'value' => $value->home1_background, 'holder' => 'home1_background','holder_img' => $value->home1_background])
               @else
-                @include('admin.component.image_button', ['name' => 'home1_background', 'id' => 'logo-btn', 'value' => '', 'holder' => 'home1_background'])
+                @include('admin.component.image_button', ['name' => 'home1_background', 'id' => 'logo-btn1', 'value' => '', 'holder' => 'home1_background'])
               @endif
             </div>
         </div>
@@ -32,9 +32,9 @@
               <div class="form-group">
               <label for="">Nhập ảnh </label>
               @if($value != null && isset($value->home2_background1))
-                @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn', 'value' => $value->home2_background1, 'holder' => 'home2_background1','holder_img' => $value->home2_background1])
+                @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn2', 'value' => $value->home2_background1, 'holder' => 'home2_background1','holder_img' => $value->home2_background1])
               @else
-                @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn', 'value' => '', 'holder' => 'home2_background1'])
+                @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home2_background1'])
               @endif
             </div>
             <div class="form-group">
@@ -57,9 +57,9 @@
             <div class="form-group">
                 <label for="">Nhập ảnh </label>
                 @if($value != null && isset($value->home2_background2))
-                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn', 'value' => $value->home2_background2, 'holder' => 'logo-holder','holder_img' => $value->home2_background2])
+                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn3', 'value' => $value->home2_background2, 'holder' => 'logo-holder','holder_img' => $value->home2_background2])
                 @else
-                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn', 'value' => '', 'holder' => 'logo-holder'])
+                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn3', 'value' => '', 'holder' => 'logo-holder'])
                 @endif
             </div>
             <div class="form-group">
@@ -76,9 +76,9 @@
             <div class="form-group">
                 <label for="">Nhập ảnh background </label>
                 @if($value != null && isset($value->home3_background))
-                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn', 'value' => $value->home3_background, 'holder' => 'logo-holder','holder_img' => $value->home3_background])
+                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn4', 'value' => $value->home3_background, 'holder' => 'logo-holder','holder_img' => $value->home3_background])
                 @else
-                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn', 'value' => '', 'holder' => 'logo-holder'])
+                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn4', 'value' => '', 'holder' => 'logo-holder'])
                 @endif
             </div>
             <div class="form-group">

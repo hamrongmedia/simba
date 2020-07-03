@@ -14,7 +14,7 @@
         <i class="fa fa-picture-o"></i> Duyệt ảnh
       </a>
     </span>
-    <input id="{{$name ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}">
+    <input id="{{$name ?? ''}}" value="{{$value ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}">
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:{{$height ?? '100px'}};">
   @if (isset($holder_img))

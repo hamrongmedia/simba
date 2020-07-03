@@ -38,7 +38,7 @@ class UserManageController extends Controller
             $users = Admin::all();
             $result = SortHelper::sort($users, $request->sort_by, $request->sort_type);
             $paginator = new PaginationHelper($result, 10);
-            $current_page = $request->current_page ?? 1;
+            $current_page = $erquest->current_page ?? 1;
             $items = $paginator->getItem($current_page);
             return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
         }

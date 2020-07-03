@@ -131,7 +131,6 @@ class ContactController extends Controller
     {
         $data = $request->keyword;
         $result = SearchHelper::search(Contact::class, ['customer_name', 'email', 'phone'], $data);
-
         $paginator = new PaginationHelper($result, 10);
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);

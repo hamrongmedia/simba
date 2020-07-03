@@ -11,7 +11,7 @@
     <div class="form-group">
       <label for="">Nhập Favicon</label>
       @if($value != null && isset($value->favicon_setting))
-        @include('admin.component.image_button', ['name' => 'favicon_setting', 'id' => 'favicon-btn', 'value' =>$value->favicon_setting, 'holder' => 'favicon-holder'])
+        @include('admin.component.image_button', ['name' => 'favicon_setting', 'id' => 'favicon-btn', 'value' =>$value->favicon_setting, 'holder' => 'favicon-holder', 'holder_img' => $value->favicon_setting])
       @else
         @include('admin.component.image_button', ['name' => 'favicon_setting', 'id' => 'favicon-btn', 'value' => '', 'holder' => 'favicon-holder'])
       @endif
@@ -19,7 +19,7 @@
     <div class="form-group">
       <label for="">Nhập Banner</label>
       @if($value != null && isset($value->banner_setting))
-        @include('admin.component.image_button', ['name' => 'banner_setting', 'id' => 'banner-btn', 'value' => $value->banner_setting, 'holder' => 'banner-holder'])
+        @include('admin.component.image_button', ['name' => 'banner_setting', 'id' => 'banner-btn', 'value' => $value->banner_setting, 'holder' => 'banner-holder', 'holder_img' => $value->banner_setting])
       @else
         @include('admin.component.image_button', ['name' => 'banner_setting', 'id' => 'banner-btn', 'value' => '', 'holder' => 'banner-holder'])
       @endif    

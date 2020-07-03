@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\ThemeOptions;
 use App\Http\Controllers\Controller;
+use App\Models\ThemeOptions;
 use Illuminate\Http\Request;
 
 class ThemeOptionsController extends Controller
@@ -20,7 +20,6 @@ class ThemeOptionsController extends Controller
         $_route = route('admin.themeoptions.updateheader');
         $_form = 'header';
         $value = ThemeOptions::get('header');
-
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
 
@@ -31,7 +30,6 @@ class ThemeOptionsController extends Controller
         $_route = route('admin.themeoptions.updateheader');
         $_form = 'header';
         $value = ThemeOptions::get('header');
-
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
 
@@ -42,7 +40,6 @@ class ThemeOptionsController extends Controller
         return back();
     }
 
-
     //Header Setting
     public function homepage(Request $request)
     {
@@ -50,7 +47,7 @@ class ThemeOptionsController extends Controller
         $_route = route('admin.themeoptions.updatehomepage');
         $_form = 'homepage';
         $value = ThemeOptions::get('homepage');
-
+        //dd($value);
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
 
@@ -79,7 +76,7 @@ class ThemeOptionsController extends Controller
         return back();
     }
 
-        //Social Setting
+    //Social Setting
     public function social(Request $request)
     {
         $page_name = "Thiết lập social";
