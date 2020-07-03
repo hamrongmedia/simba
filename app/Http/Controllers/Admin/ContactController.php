@@ -115,7 +115,7 @@ class ContactController extends Controller
 
     public function delete(Request $request)
     {
-        Admin::find($request->id)->delete();
+        Contact::find($request->id)->delete();
         return ['msg' => 'Item deleted'];
 
     }

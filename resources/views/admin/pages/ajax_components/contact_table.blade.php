@@ -15,7 +15,7 @@
         <tbody>
             @if ($contacts->isNotEmpty())
                 @foreach ($contacts as $contact)
-                <tr>
+                <tr  id="contact-{{$contact->id}}">
                     <td>
                         <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $contact->id }}">
                     </td>

@@ -97,6 +97,7 @@
                 'Your file has been deleted.',
                 'success',
             );
+            console.log($('#contact-' + id));
             $('#contact-' + id).remove();
         })
     }
