@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-
 use App\Models\ThemeOptions;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -29,18 +28,24 @@ class ComposerServiceProvider extends ServiceProvider
 
         //Theme Option
         View::composer(['front-end.partials.footer.footer'], function ($view) {
-            $data = ThemeOptions::where('key','social')->first();
-            if($data == null) abort(404);
+            $data = ThemeOptions::where('key', 'social')->first();
+            if ($data == null) {
+                return;
+            }
+
             $content = json_decode($data->value);
-            $view->with(['themeOption'=>$content]);
+            $view->with(['themeOption' => $content]);
         });
 
         //Theme Option header
         View::composer(['front-end.partials.header.*'], function ($view) {
-            $data = ThemeOptions::where('key','header')->first();
-            if($data == null) abort(404);
+            $data = ThemeOptions::where('key', 'header')->first();
+            if ($data == null) {
+                return;
+            }
+
             $content = json_decode($data->value);
-            $view->with(['themeOptionHeader'=>$content]);
+            $view->with(['themeOptionHeader' => $content]);
         });
     }
 }

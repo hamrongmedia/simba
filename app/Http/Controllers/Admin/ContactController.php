@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\ContactReplyMail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -13,22 +18,22 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (empty($request->all())) {
-            $users = Admin::all()->sortBy('desc');
-            $paginator = new PaginationHelper($users, 10);
+            $contacts = Contact::all()->sortBy('desc');
+            $paginator = new PaginationHelper($contacts, 10);
             $items = $paginator->getItem(1);
-            return view('admin.pages.contact.list_contact', ['current_page' => 1, 'users' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.contact.list_contact', ['current_page' => 1, 'contacts' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
-            $users = Admin::all();
-            $result = SortHelper::sort($users, $request->sort_by, $request->sort_type);
+            $contacts = Contact::all();
+            $result = SortHelper::sort($contacts, $request->sort_by, $request->sort_type);
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
+            return view('Admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }
@@ -92,7 +97,8 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::find($id);
+        return view('admin.pages.contact.contact_detail', ['contact' => $contact]);
     }
 
     /**
@@ -107,14 +113,29 @@ class ContactController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        Admin::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
+
+    }
+    public function reply($id, Request $request)
+    {
+        $content = $request->content;
+        $contact = Contact::find($id);
+        Mail::to($contact->email)->send(new ContactReplyMail($content));
+        return redirect()->back()->with('success', 'Gủi mail thành công');
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Contact::class, ['customer_name', 'email', 'phone'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
     }
 }

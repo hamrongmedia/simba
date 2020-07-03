@@ -139,6 +139,11 @@
           <i class="fa fa-image"></i> <span>Thư viện ảnh</span>
         </a>
       </li>
+      <li class="">
+        <a href="{{url('hrm/contacts')}}">
+          <i class="fa fa-envelope"></i> <span>Contacts</span>
+        </a>
+      </li>
       <li class="header">ADMIN SYSTEM</li>
 
       <li class="treeview">

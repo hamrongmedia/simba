@@ -28,7 +28,7 @@ class ViewProvider extends ServiceProvider
         View::composer(['front-end.partials.header.menu_desktop', 'front-end.partials.footer.footer'], function ($view) {
             $main_menu = Menu::where('title', 'main_menu')->first();
             if ($main_menu == null) {
-                abort(404);
+                return;
             }
 
             $view->with(['main_menu' => $main_menu]);

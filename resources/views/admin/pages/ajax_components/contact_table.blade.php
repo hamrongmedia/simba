@@ -13,39 +13,54 @@
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($users as $user)
-            <tr>
-                <td>
-                    <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $user->id }}">
-                </td>
-                <td>{{$user->id}}</td>
-                <td>{{$user->username}}</td>
-                <td>{{$user->name}}</td>
-                <td>
-                    @foreach ($user->roles as $role)
-                        <span class="label label-success">{{$role->name}}</span> 
-                    @endforeach
-                </td>
-                <td>
-                    @foreach ($user->permissions as $permission)
-                        <span class="label label-success">{{$permission->name}}</span> 
-                    @endforeach
-                </td>
-                <td>2020-03-23 22:39:57</td>
-                <td>
-                    <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
-                            type="button" class="btn btn-flat btn-primary"><i
-                                class="fa fa-edit"></i></span></a>&nbsp;
-                    <span onclick="deleteItem({{$user->id}});" title="Delete" class="btn btn-flat btn-danger"><i
-                        class="fa fa-trash"></i></span></td>
-                </td>
-            </tr>
-            @endforeach --}}
+            @if ($contacts->isNotEmpty())
+                @foreach ($contacts as $contact)
+                <tr>
+                    <td>
+                        <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $contact->id }}">
+                    </td>
+                    <td>{{$contact->id}}</td>
+                    <td>{{$contact->customer_name}}</td>
+                    <td>{{$contact->email}}</td>
+                    <td>
+                        {{$contact->phone}}
+                    </td>
+                    <td>
+                        {{$contact->create_at}}
+                    </td>
+                    <td>{{$contact->status ? 'Đã xem' : 'Chưa đọc'}}</td>
+                    <td>
+                        <a href="{{route('admin.contact.edit', $contact->id)}}"><span title="Edit"
+                                type="button" class="btn btn-flat btn-primary"><i
+                                    class="fa fa-edit"></i></span></a>&nbsp;
+                        <span onclick="deleteItem({{$contact->id}});" title="Delete" class="btn btn-flat btn-danger"><i
+                            class="fa fa-trash"></i></span></td>
+                    </td>
+                </tr>
+                @endforeach
+            @else
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                    </th>
+                    <th>
+                        Không có thư nào!
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            @endif
+
+
+            
             
         </tbody>
     </table>
 </div>
 <div class="box-footer clearfix">
-    {{-- @include('admin.component.pagination_bar', ['paginator' => $paginator]) --}}
+    @include('admin.component.pagination_bar', ['paginator' => $paginator])
 
 </div>

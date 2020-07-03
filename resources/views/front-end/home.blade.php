@@ -39,11 +39,11 @@ Trang chủ
                     <div class="wp-tin wp-tin2 flex-oder">
                         <div class="img-tin">
                             <a href="#" class="d-block w-100">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-banner-cheo-2.jpg')}}" alt="Chiếc áo lót đang mặc <br>có làm nàng thoải mái?">
+                                <img class="el_image" src="{{asset('images-demo/venus-charm-banner-cheo-2.jpg')}}" alt="Chiếc áo lót đang mặc<br>có làm nàng thoải mái?">
                             </a>
                         </div>
                         <div class="text-tin">
-                            <h2 class="h2-title">Chiếc áo lót đang mặc <br>có làm nàng thoải mái?</h2>
+                            <h2 class="h2-title">Chiếc áo lót đang mặc<br>có làm nàng thoải mái?</h2>
                             <span></span>
                         </div>
                     </div>
@@ -52,11 +52,11 @@ Trang chủ
                     <div class="wp-tin wp-tin1">
                         <div class="img-tin">
                             <a href="" class="d-block w-100">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-ao-quay.jpg')}}" alt="Êm - Mềm - Nhẹ <br>Venus Charm">
+                                <img class="el_image" src="{{asset('images-demo/venus-charm-ao-quay.jpg')}}" alt="Êm - Mềm - Nhẹ<br>Venus Charm">
                             </a>
                         </div>
                         <div class="text-tin">
-                            <h2 class="h2-title">Êm - Mềm - Nhẹ <br>Venus Charm
+                            <h2 class="h2-title">Êm - Mềm - Nhẹ<br>Venus Charm
                             </h2>
                             <span><p>Giúp nàng luôn đẹp mà không cần cố gắng<br></p></span>
                         </div>

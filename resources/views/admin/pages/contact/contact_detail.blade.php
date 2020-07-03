@@ -1,77 +1,70 @@
 @extends('admin.layout')
 
 @section('title')
-  Quản lý Contact
+  Chi tiết tin nhắn
 @endsection
 
 @section('main')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
         <div class="box">
             <div class="box-header with-border">
-                <div class="pull-right">
-                    <div class="menu-right">
-                        <form action="{{route('admin.contact.search')}}" id="button_search">
-                            <div onclick="searchAjax()" class="btn-group pull-right">
-                                <a class="btn btn-flat btn-primary" title="Refresh">
-                                    <i class="fa  fa-search"></i>
-                                </a>
-                            </div>
-                            <div class="btn-group pull-right">
-                                <div class="form-group">
-                                    <input type="text" id="search_input" name="query" class="form-control"
-                                        placeholder="Search Name, ID or Email" value="">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="pull-left">
-                </div>
+                <strong>Nội dung tin nhắn</strong>
+
                 <!-- /.box-tools -->
             </div>
 
-            <div class="box-header with-border">
-
-
-                <div class="pull-left">
-                    <div class="menu-left">
-                        <button type="button" class="btn btn-default grid-select-all"><i
-                                class="fa fa-square-o"></i></button>
-                    </div>
-                    <div class="menu-left">
-                        <a class="btn btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-
-                    <div class="menu-left">
-                        <a class="btn btn-flat btn-primary grid-refresh" title="Refresh"><i
-                                class="fa fa-refresh"></i></a>
-                    </div>
-
-                    <div class="menu-left">
-                        <div class="btn-group">
-                            <select class="form-control" id="order_sort">
-                                <option value="id__desc">ID desc</option>
-                                <option value="id__asc">ID asc</option>
-                                <option value="customer_name__desc">Tên khách hàng giảm dần</option>
-                                <option value="customer_name__asc">Tên khách hàng tăng dần</option>
-                                <option value="email__desc">Email tăng</option>
-                                <option value="email__asc">Email giảm</option>
-                            </select>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                                <i class="fa fa-sort-amount-asc"></i>
-                            </a>
-                        </div>
-                    </div>
+            <div class="box-body">
+                <p><strong>Ngày nhận: </strong>{{$contact->create_at}}</p> 
+                <p><strong>Người gửi: </strong>{{$contact->customer_name}}</p> 
+                <p><strong>Email: </strong><a href="mailto:{{$contact->email}}">{{$contact->email}}</a></p> 
+                <p><strong>Số điện thoại: </strong>{{$contact->phone}}</p> 
+                <p><strong>Địa chỉ: </strong>{{$contact->address}}</p>
+                <p><strong>Tiêu đề: </strong>{{$contact->title}}</p>
+                <p><strong>Nội dung: </strong></p>
+                <div style="background: rgb(248,249,250); padding: 10px">
+                    {{$contact->content}}
                 </div>
+
+
             </div>
             <!-- /.box-header -->
-            <section id="pjax-container" class="table-list">
-                 @include('admin.pages.ajax_components.contact_table')
 
-            </section>
+            <!-- /.box-body -->
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <strong>Phản hồi</strong>
+
+                <!-- /.box-tools -->
+            </div>
+            <div class="box-body">
+                <form action="{{route('admin.contact.reply', $contact->id)}}" method="post">
+                    @csrf
+                    <button class="btn btn-success" type="submit">Trả lời</button>
+
+                    <div class="box-body">
+                        <textarea id="editor" class="editor" name="content" rows="10" cols="80">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-header -->
+
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="box">
+            <div class="box-header with-border">
+                    <strong>Trạng thái tin nhắn</strong>
+    
+                <!-- /.box-tools -->
+            </div>
+
+            <!-- /.box-header -->
+
             <!-- /.box-body -->
         </div>
     </div>
@@ -81,12 +74,13 @@
 
 @section('js')
 
+@include('admin.component.ckeditor_js');
 <script>
     var type = 'sort';
 
     function deleteAjax(id) {
         $.ajax({
-            url: "{{route('admin.contact.delete')}}",
+            url: "{{route('admin.user.delete')}}",
             type: 'POST',
             data: {
                 id: id
@@ -97,14 +91,14 @@
                 'Your file has been deleted.',
                 'success',
             );
-            $('#contact-' + id).remove();
+            $('#user-' + id).remove();
         })
     }
 
     function searchAjax(page = 1){
         var input = $('#search_input').val();
         $.ajax({
-            url: '{{route("admin.contact.search")}}' ,
+            url: '{{route("admin.user.search")}}' ,
             data:{
                 keyword: input,
                 current_page:page,
@@ -119,7 +113,7 @@
         var input = $('#order_sort option:selected').val().split('__');
 
         $.ajax({
-            url: "{{route('admin.contact.index')}}",
+            url: "{{route('admin.user.index')}}",
             data: {
                 sort_by: input[0],
                 sort_type: input[1],

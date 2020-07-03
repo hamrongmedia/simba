@@ -8,4 +8,6 @@ class Contact extends Model
 {
     protected $table = 'contact';
     protected $fillable = ['customer_name', 'email', 'phone', 'title', 'content', 'status'];
+
+    public $timestamps = true;
 }

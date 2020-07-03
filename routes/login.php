@@ -53,9 +53,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/contacts', 'names
     Route::get('/', 'ContactController@index')->name('admin.contact.index');
     //Route::get('/create', 'ContactController@create')->name('admin.contact.create');
     //Route::post('/create', 'ContactController@store')->name('admin.contact.store');
+    Route::post('/reply/{id}', 'ContactController@reply')->name('admin.contact.reply');
     Route::get('/edit/{id}', 'ContactController@edit')->name('admin.contact.edit');
     Route::post('/edit/{id}', 'ContactController@update')->name('admin.contact.update');
     Route::post('/delete', 'ContactController@delete')->name('admin.contact.delete');
+    Route::get('/search', 'ContactController@search')->name('admin.contact.search');
 
 });
 
