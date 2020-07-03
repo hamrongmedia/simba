@@ -14,7 +14,7 @@
         @yield('title')
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ </a></li>
+        <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Trang chủ </a></li>
         <li class="active">@yield('title')</li>
       </ol>
     </section>

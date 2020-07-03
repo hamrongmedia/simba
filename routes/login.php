@@ -47,3 +47,16 @@ Route::prefix('hrm')->namespace('Auth')->group(function () {
     Route::post('/login', 'AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout', 'AdminLoginController@adminLogout')->name('admin.logout');
 });
+
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/contacts', 'namespace' => 'Admin'], function () {
+    // Contact manage routes
+    Route::get('/', 'ContactController@index')->name('admin.contact.index');
+    //Route::get('/create', 'ContactController@create')->name('admin.contact.create');
+    //Route::post('/create', 'ContactController@store')->name('admin.contact.store');
+    Route::get('/edit/{id}', 'ContactController@edit')->name('admin.contact.edit');
+    Route::post('/edit/{id}', 'ContactController@update')->name('admin.contact.update');
+    Route::post('/delete', 'ContactController@delete')->name('admin.contact.delete');
+
+});
+
+Route::post('/contacts', 'Admin\ContactController@store')->middleware('web')->name('contact.store');
