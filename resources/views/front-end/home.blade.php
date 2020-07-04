@@ -149,7 +149,7 @@ Trang chủ
 
     <section class="sec-home-07 hidden-xs hidden-sm">
         <div class="container-fluid">
-            @include('front-end.content.list_term_product')
+            @include('front-end.content.list_term_product', ['main_img' ])
         </div>
     </section> <!-- end sec-home-07 -->
     <section class="sec-home-08 mb-20">
