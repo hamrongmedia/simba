@@ -7,6 +7,7 @@
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Section 3</a></li>
         <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Section 4</a></li>
         <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Section 5</a></li>
+        <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">Section ưu đãi</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -134,8 +135,18 @@
               @include('admin.component.image_button', ['name' => 'term_img_sub', 'id' => 'logo-btn6', 'value' => '', 'holder' => 'term_img_sub_holder'])
             @endif
           </div>
-      </div>
-      </div>
+        </div>
+        <div class="tab-pane" id="tab_6">
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID chuyên mục ưu đãi</label>
+              @if($value != null && isset($value->home6_cat))
+                <input type="text" name="home6_cat" class="form-control" id="" value="{{$value->home6_cat}}">
+              @else
+                <input type="text" name="home6_cat" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+        </div>
+        </div>
       <!-- /.tab-content -->
     </div>
 </div> {{-- end --}}
