@@ -18,7 +18,12 @@
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:{{$height ?? '100px'}};">
   @if (isset($holder_img))
-  <img src="{{$holder_img}}" style="height: 5rem;">
+  @php
+      $holder_list = explode(',', $holder_img);
+  @endphp
+  @foreach ($holder_list as $item)
+  <img src="{{$item}}" style="height: 7rem;">
+  @endforeach
   @endif
 </div>
 

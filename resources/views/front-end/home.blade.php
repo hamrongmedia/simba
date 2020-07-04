@@ -142,11 +142,8 @@ Trang chủ
             <div class="wp-list-sp-home">
                 <div class="row">
                       @include('front-end.content.product_list')
-                  
                 </div>
             </div>
-
-           
         </div>
     </section> <!-- end sec-home-06 -->
 
@@ -155,7 +152,6 @@ Trang chủ
             @include('front-end.content.list_term_product')
         </div>
     </section> <!-- end sec-home-07 -->
-
     <section class="sec-home-08 mb-20">
         <div class="container-fluid">
             <div class="wp-dichvu">
@@ -187,8 +183,7 @@ Trang chủ
                             </div>
                             <div class="text-dv">
                                 <h2 class="h2-title">ĐẢM BẢO SẢN PHẨM NHƯ HÌNH</h2>
-                            </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>

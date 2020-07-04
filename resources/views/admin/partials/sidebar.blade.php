@@ -23,7 +23,7 @@
       </div>
     </form>
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">ADMIN SHOP</li>
+      <li class="header">ADMIN SHOP</li>  
       <li class="treeview">
         <a href="#">
           <i class="fa fa-cart-arrow-down"></i> <span>Quản lý đơn hàng</span>
@@ -96,21 +96,23 @@
           <ul class="treeview-menu ">
             <li class="nav-item has-treeview ">
               <a href="{{route('admin.post.create')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+                </i><i class="fa fa-plus" aria-hidden="true"></i>
                 <span>Tạo mới tin</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.post.index')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+                <i class="fa fa-list" aria-hidden="true"></i>
                 <span>Danh sách tin</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.category.index')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Danh mục</span></a>
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span>Danh mục</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Tags</span></a>
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <span>Tags</span></a>
             </li>
           </ul>
       </li>
@@ -160,7 +162,7 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.themeoptions.header')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+                <i class="fa fa-television" aria-hidden="true"></i>
                 <span>Theme options</span></a>
             </li>
             <li class="nav-item has-treeview">
@@ -169,7 +171,8 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Custom CSS</span></a>
+                <i class="fa fa-css3" aria-hidden="true"></i>
+                <span>Custom CSS</span></a>
             </li>
           </ul>
       </li>

@@ -43,7 +43,7 @@ Route::get('tim-kiem', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Frontend\HomeController@index')->name('home');
 
 Route::group(['prefix' => 'filemanager', 'middleware' => 'auth:admin'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
