@@ -1,8 +1,13 @@
 @extends('front-end.layout.main')
 
-@section('title')
-Blog
-@endsection
+@section('title', $cat->name)
+
+@section('title', $cat->meta_title)
+@section('description',  $cat->meta_des)
+
+@section('keywords', $cat->meta_key)
+@section('og:description', $cat->meta_des)
+@section('og:title', $cat->meta_title?? $cat->name)
 
 @section('content')
 

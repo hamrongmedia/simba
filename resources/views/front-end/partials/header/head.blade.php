@@ -13,27 +13,21 @@
 
     <!-- các thẻ meta -->
 
-    <meta name="keywords" content="Venus Charm">
-    <meta name="description" content="Venus Charm">
-    <meta name="revisit-after" content="1 days">
-    <meta name="rating" content="general">
-    
-    <!-- for Facebook -->
-    <meta property="og:title" content="Venus Charm">
-    <meta property="og:type" content="article">
-    <meta property="og:image" content="{{asset('images-demo/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <meta property="og:description" content="Venus Charm">
-    <meta property="og:site_name" content="Venus Charm">
-    <meta property="fb:admins" content="">
-    <meta property="fb:app_id" content="">
-
-    <!-- for Twitter -->          
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Venus Charm">
-    <meta name="twitter:description" content="Venus Charm">
-    <meta name="twitter:image" content="{{asset('images-demo/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
-
+     <!-- SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="@yield('description')">
+    <meta name="title" content="@yield('title')">
+    <meta name="keywords" content="@yield('keywords')" >
+    <!-- end SEO -->
+    <!-- tag share facebook -->
+    <meta property="og:description" content="@yield('og:description')">
+    <meta property="og:title" content="@yield('og:title')">
+    <meta property="og:image" content="@yield('og:image')">
+    <meta property="og:site_name" content="">
+    <meta property="og:url" content="{{Request::url()}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN">
+    <!-- end tag facebook -->
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -45,4 +39,8 @@
     <link rel="stylesheet"  href="{{asset('css/owl.carousel.css')}}"/>
     <!-- code css -->
     <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
+
+{{--     @if(isset($themeOptionScript->header_script))
+        {{$themeOptionScript->header_script}}
+    @endif --}}
 </head>
