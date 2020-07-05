@@ -35,6 +35,9 @@
                                 <input type="text" id="name" name="name" value="{{$permission->name}}" class="form-control name"
                                       placeholder="">
                               </div>
+                              @error('name')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                           </div>
                       </div>
 
@@ -65,6 +68,9 @@
                                   @endforeach
                                   </select>
                               </div>
+                              @error('action_list')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                       </div>
                   </div>
               </div>

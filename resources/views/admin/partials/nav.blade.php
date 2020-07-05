@@ -219,13 +219,12 @@
 
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="overflow:hidden">
             <img src="{{ asset('admin/adminlte/dist/img/user4-128x128.jpg')}}" class="user-image" alt="User Image">
-            <span class="hidden-xs">{{-- {{Auth::user()->name}} --}}</span>
           </a>
           <ul class="dropdown-menu" style="width: auto; top:50px;">
             <li class="user-footer " style="padding:0">
-                 <a href="{{route('admin.logout')}}" style="padding: 10px" class="btn btn-default btn-flat"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign out</a>
+                 <a href="{{route('admin.logout')}}" style="padding: 10px" class="btn btn-default btn-flat"><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</a>
             </li>
           </ul>
         </li>

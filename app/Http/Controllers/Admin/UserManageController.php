@@ -38,7 +38,7 @@ class UserManageController extends Controller
             $users = Admin::all();
             $result = SortHelper::sort($users, $request->sort_by, $request->sort_type);
             $paginator = new PaginationHelper($result, 10);
-            $current_page = $erquest->current_page ?? 1;
+            $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
             return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
         }
@@ -70,6 +70,30 @@ class UserManageController extends Controller
     public function store(Request $request)
     {
         //Validate form
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:50',
+            'username' => 'required|min:3|max:50|unique:admin',
+            'email' => 'email:rfc',
+            'password' => 'min:5|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:5',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.min' => 'Tên tối thiểu 3 ký tự',
+            'name.max' => 'Tên tối đa 50 ký tự',
+
+            'username.required' => 'Trường username không được để trống',
+            'username.min' => 'Tên tối thiểu 3 ký tự',
+            'username.max' => 'Tên tối đa 50 ký tự',
+            'username.unique' => 'Tên đăng nhập đã tồn tại',
+
+            'email.email' => 'Email không đúng định dạng',
+
+            'password.min' => 'Mật khẩu tối thiểu 5 ký tự',
+            'password.required_with' => 'Mật khẩu không được để trống',
+            'password.same' => 'Mật khẩu xác nhận không đúng',
+
+            'password_confirmation' => 'Mật khẩu xác nhận không đúng',
+        ]);
 
         // store data
         $data = $request->all();
@@ -124,7 +148,29 @@ class UserManageController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $user = Admin::find($id);
+        $user = Admin::findOrFail($id);
+        //Validate form
+        $validatedData = $request->validate([
+            'name' => 'required|min:3|max:50',
+            'username' => 'required|min:3|max:50|unique:admin,username,' . $user->id,
+            'email' => 'email:rfc',
+            'password' => 'nullable|min:5|same:password_confirmation',
+            'password_confirmation' => 'nullable|min:5',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.min' => 'Tên tối thiểu 3 ký tự',
+            'name.max' => 'Tên tối đa 50 ký tự',
+
+            'username.required' => 'Trường username không được để trống',
+            'username.min' => 'Tên tối thiểu 3 ký tự',
+            'username.max' => 'Tên tối đa 50 ký tự',
+            'username.unique' => 'Tên đăng nhập đã tồn tại',
+
+            'password.same' => 'Mật khẩu xác nhận không đúng',
+
+            'email.email' => 'Email không đúng định dạng',
+        ]);
+
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
         } else {

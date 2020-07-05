@@ -36,6 +36,9 @@ Tạo mới user
                                     <input type="text" id="name" name="name" value="" class="form-control name"
                                         placeholder="">
                                 </div>
+                                @error('name')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
@@ -47,6 +50,9 @@ Tạo mới user
                                     <input type="text" id="username" name="username" value=""
                                         class="form-control username" placeholder="">
                                 </div>
+                                @error('username')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
@@ -58,10 +64,13 @@ Tạo mới user
                                     <input type="text" id="email" name="email" value="" class="form-control email"
                                         placeholder="">
                                 </div>
+                                @error('email')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="form-group   ">
+                        {{-- <div class="form-group   ">
                             <label for="avatar" class="col-sm-2  control-label">Avatar</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
@@ -77,7 +86,7 @@ Tạo mới user
                                 <div id="preview_avatar" class="img_holder">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group   ">
                             <label for="password" class="col-sm-2  control-label">Password</label>
                             <div class="col-sm-8">
@@ -86,6 +95,9 @@ Tạo mới user
                                     <input type="password" id="password" name="password" value=""
                                         class="form-control password" placeholder="">
                                 </div>
+                                @error('password')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group   ">
@@ -96,6 +108,9 @@ Tạo mới user
                                     <input type="password" id="password_confirmation" name="password_confirmation"
                                         value="" class="form-control password_confirmation" placeholder="">
                                 </div>
+                                @error('password_confirmation')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group  ">

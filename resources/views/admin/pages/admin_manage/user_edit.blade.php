@@ -36,6 +36,9 @@ User Info
                                     <input type="text" id="name" name="name" value="{{$user->name}}" class="form-control name"
                                         placeholder="">
                                 </div>
+                                @error('name')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
@@ -47,6 +50,9 @@ User Info
                                     <input type="text" id="username" name="username" value="{{$user->username}}"
                                         class="form-control username" placeholder="">
                                 </div>
+                                @error('username')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
@@ -58,26 +64,13 @@ User Info
                                     <input type="text" id="email" name="email" value="{{$user->email}}" class="form-control email"
                                         placeholder="">
                                 </div>
+                                @error('email')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
 
-                        <div class="form-group   ">
-                            <label for="avatar" class="col-sm-2  control-label">Avatar</label>
-                            <div class="col-sm-8">
-                                <div class="input-group">
-                                    <input type="text" id="avatar" name="avatar" value="{{$user->avatar}}"
-                                        class="form-control input-sm avatar" placeholder="">
-                                    <span class="input-group-btn">
-                                        <a data-input="avatar" data-preview="preview_avatar" data-type="avatar"
-                                            class="btn btn-sm btn-primary lfm">
-                                            <i class="fa fa-picture-o"></i> Choose
-                                        </a>
-                                    </span>
-                                </div>
-                                <div id="preview_avatar" class="img_holder">
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="form-group   ">
                             <label for="password" class="col-sm-2  control-label">Password</label>
                             <div class="col-sm-8">
@@ -86,6 +79,9 @@ User Info
                                     <input type="password" id="password" name="password" value=""
                                         class="form-control password" placeholder="">
                                 </div>
+                                @error('password')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group   ">
@@ -96,6 +92,9 @@ User Info
                                     <input type="password" id="password_confirmation" name="password_confirmation"
                                         value="" class="form-control password_confirmation" placeholder="">
                                 </div>
+                                @error('password_confirmation')
+                                <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group  ">
