@@ -40,6 +40,6 @@ class CreateProductToCategories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_categories');
+        Schema::dropIfExists('product_to_categories');
     }
 }

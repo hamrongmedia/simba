@@ -35,6 +35,6 @@ class CreateProductAttributeValue extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_attribute_value');
+        Schema::dropIfExists('product_attribute_values');
     }
 }

@@ -35,5 +35,6 @@ class CreateContactTable extends Migration
     public function down()
     {
         Schema::dropIfExists('contact');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
     }
 }

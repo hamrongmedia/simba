@@ -36,7 +36,7 @@ class CreateProductTypesTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('product_type');
+        Schema::dropIfExists('product_types');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

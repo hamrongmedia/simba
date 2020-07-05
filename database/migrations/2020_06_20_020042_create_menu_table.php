@@ -61,6 +61,5 @@ class CreateMenuTable extends Migration
         Schema::dropIfExists('menu');
         Schema::dropIfExists('menu_has_roles');
         Schema::dropIfExists('menu_has_permissions');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

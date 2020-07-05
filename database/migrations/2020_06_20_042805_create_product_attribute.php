@@ -31,6 +31,6 @@ class CreateProductAttribute extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_attribute');
+        Schema::dropIfExists('product_attributes');
     }
 }

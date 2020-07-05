@@ -58,14 +58,13 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         //validate from
-
         $validatedData = $request->validate([
             'name' => 'required|unique:permissions|max:255',
-            'permission_list' => 'required',
+            'action_list' => 'required',
         ], [
             'name.required' => 'Trường tên không được để trống',
             'name.unique' => 'Tên quyền đã tồn tại',
-            'permission_list.required' => 'Hành động không được để trống',
+            'action_list.required' => 'Hành động không được để trống',
         ]);
 
         //storage data
