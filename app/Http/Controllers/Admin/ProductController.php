@@ -41,7 +41,7 @@ class ProductController extends Controller
             $paginator = new PaginationHelper($result, 1);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+            return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
         }
     }
 
@@ -250,5 +250,17 @@ class ProductController extends Controller
             $values = ProductAttributeValue::where('attribute_id', $id)->get();
             return response(['data' => $values]);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Posts::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

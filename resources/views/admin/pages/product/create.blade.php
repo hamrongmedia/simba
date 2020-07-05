@@ -6,7 +6,7 @@ Tạo sản phẩm
 
 @section('main')
 <div class="row">
-    <form action="{{route('product.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main"
+    <form action="{{route('admin.product.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main"
         enctype="multipart/form-data">
         @csrf
         <!-- {{ csrf_field() }} -->
@@ -142,7 +142,7 @@ Tạo sản phẩm
                     <div class="form-group">
                         <label class="control-label">Loại sản phẩm</label>
                         <select class="form-control m-b" name="type" id="cat_id">
-                            <option value="" disabled selected>Chọn loại sản phẩm</option>
+                            <option value="0" disabled selected>Chọn loại sản phẩm</option>
                             @foreach($types as $type)
                             <option value="{{$type->id}}" {{old('type') == $type->id ? "selected" : ""}}>{{$type->name}}
                             </option>

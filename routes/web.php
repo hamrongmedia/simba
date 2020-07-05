@@ -41,6 +41,8 @@ Route::get('tim-kiem', function () {
 
 @include_once 'frontend.php';
 
+@include_once 'product.php';
+
 Auth::routes();
 
 Route::get('/home', 'Frontend\HomeController@index')->name('home');

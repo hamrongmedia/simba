@@ -61,7 +61,7 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="{{route('product.index')}}" class="nav-link">
+              <a href="{{route('admin.product.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý sản phẩm</span></a>
             </li>
@@ -80,7 +80,7 @@
                 <i class="fa fa-circle-o"></i> <span>Nhóm thuộc tính</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+              <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Quản lý phí vận chuyển</span></a>
             </li>
           </ul>

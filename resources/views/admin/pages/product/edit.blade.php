@@ -6,7 +6,7 @@ Cập nhật sản phẩm
 
 @section('main')
 <div class="row">
-    <form action="{{route('product.update', $product->id)}}" method="post" accept-charset="UTF-8" class="" id="form-main"
+    <form action="{{route('admin.product.update', $product->id)}}" method="post" accept-charset="UTF-8" class="" id="form-main"
         enctype="multipart/form-data">
         {{ method_field('PUT') }}
         @csrf

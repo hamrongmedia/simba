@@ -21,8 +21,6 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        // $objs = Posts::all();
-        // return view('admin.pages.posts.list', ['data' => $objs]);
 
         if (empty($request->all())) {
             $data = Posts::all()->sortBy('desc');

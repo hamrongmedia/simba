@@ -11,7 +11,7 @@
         <div class="box-header with-border">
           <div class="pull-right">
               <div class="menu-right">
-                  <form action="{{route('admin.user.search')}}" id="button_search">
+                  <form action="{{route('admin.post.search')}}" id="button_search">
                       <div onclick="searchAjax()" class="btn-group pull-right">
                           <a class="btn btn-flat btn-primary" title="Refresh">
                               <i class="fa  fa-search"></i>
@@ -162,7 +162,6 @@
   });
 
   function getDataPaginate(item, type) {
-      console.log(item.textContent);
       let nextPage = item.textContent;
       if (type == 'sort') {
           sortAjax(nextPage);
@@ -173,14 +172,12 @@
   };
 
   function multipleDelete() {
-      console.log('hello');
       let idList = [];
       let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
           idList.push(item.getAttribute('data-id'));
       })
 
       if (idList.length > 0) {
-          console.log(idList)
           Swal.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",

@@ -11,7 +11,7 @@
         <div class="box-header with-border">
           <div class="pull-right">
               <div class="menu-right">
-                  <form action="{{route('admin.user.search')}}" id="button_search">
+                  <form action="{{route('admin.product.search')}}" id="button_search">
                       <div onclick="searchAjax()" class="btn-group pull-right">
                           <a class="btn btn-flat btn-primary" title="Refresh">
                               <i class="fa  fa-search"></i>
@@ -34,7 +34,7 @@
       <div class="box-header with-border">
           <div class="pull-right">
               <div class="menu-right">
-                      <a href="{{route('product.create')}}" class="btn  btn-success  btn-flat"
+                      <a href="{{route('admin.product.create')}}" class="btn  btn-success  btn-flat"
                       title="New" id="button_create_new">
                       <i class="fa fa-plus" title="Add new"></i>
                   </a>
@@ -92,7 +92,7 @@
 
   function deleteAjax(id) {
       $.ajax({
-          url: "{{ route("product.destroy", ":id") }}",
+          url: "{{ route("admin.product.destroy", ":id") }}",
           type: 'POST',
           data: {
               id: id
@@ -125,7 +125,7 @@
       var input = $('#order_sort option:selected').val().split('__');
 
       $.ajax({
-          url: "{{route('product.index')}}",
+          url: "{{route('admin.product.index')}}",
           data: {
               sort_by: input[0],
               sort_type: input[1],
@@ -161,7 +161,6 @@
   });
 
   function getDataPaginate(item, type) {
-      console.log(item.textContent);
       let nextPage = item.textContent;
       if (type == 'sort') {
           sortAjax(nextPage);
@@ -172,14 +171,12 @@
   };
 
   function multipleDelete() {
-      console.log('hello');
       let idList = [];
       let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
           idList.push(item.getAttribute('data-id'));
       })
 
       if (idList.length > 0) {
-          console.log(idList)
           Swal.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
