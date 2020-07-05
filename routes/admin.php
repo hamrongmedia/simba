@@ -9,7 +9,8 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('/post/create', 'PostsController@store')->name('admin.post.store');
     Route::get('/post/edit/{id}', 'PostsController@edit')->name('admin.post.edit');
     Route::post('/post/edit/{id}', 'PostsController@update')->name('admin.post.update');
-    Route::post('/post/destroy', 'PostsController@destroy')->name('admin.post.destroy');
+    Route::post('/post/delete', 'PostsController@delete')->name('admin.post.delete');
+    Route::get('/post/search', 'PostsController@search')->name('admin.post.search');
 
     // Category
     Route::get('/post-category', 'CategoryController@index')->name('admin.category.index');

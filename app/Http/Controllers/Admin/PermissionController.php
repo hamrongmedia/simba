@@ -59,6 +59,15 @@ class PermissionController extends Controller
     {
         //validate from
 
+        $validatedData = $request->validate([
+            'name' => 'required|unique:permissions|max:255',
+            'permission_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'permission_list.required' => 'Hành động không được để trống',
+        ]);
+
         //storage data
         $newPermission = new Permission;
         $newPermission->name = $request->name;
@@ -109,7 +118,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::find($id);
+
+        $permission = Permission::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:25|unique:permissions,name,' . $permission->id,
+            'action_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'action_list.required' => 'Hành động không được để trống',
+        ]);
+
         $permission->name = $request->name;
         $permission->save();
 

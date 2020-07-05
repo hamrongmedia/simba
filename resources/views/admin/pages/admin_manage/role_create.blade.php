@@ -35,9 +35,12 @@
                                     <input type="text" id="name" name="name" value="" class="form-control name"
                                         placeholder="">
                                 </div>
+                                @error('name')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
-
+{{-- 
                         <div class="form-group   ">
                             <label for="slug" class="col-sm-2  control-label">Slug</label>
                             <div class="col-sm-8">
@@ -47,7 +50,7 @@
                                         placeholder="">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group  ">
                             <label for="permission" class="col-sm-2  control-label">Select permission</label>
@@ -59,9 +62,12 @@
                                         <option value="{{$permission->id}}">{{$permission->name}}</option>
                                     @endforeach
                                 </select>
+                                @error('permission_list')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                             </div>
                         </div>
-                        <div class="form-group  ">
+                        {{-- <div class="form-group  ">
                             <label for="administrators" class="col-sm-2  control-label">Select user</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm administrators select2 "
@@ -71,7 +77,7 @@
                                     <option value="admin">Administrator</option>
                                     <option value="user">User</option>
                                 </select>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!-- /.box-body -->
