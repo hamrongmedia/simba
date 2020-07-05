@@ -18,10 +18,16 @@
                 <div class="form-group">
                     <label for="">Email đi</label>
                     <input value="{{$mail_edit->mail_from_adress}}" type="text" name="mail_from_adress" class="form-control" id="" placeholder="">
+                    @error('mail_from_adress')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Tên người gửi</label>
                     <input value="{{$mail_edit->mail_from_name}}" type="text" name="mail_from_name" class="form-control" id="" placeholder="">
+                    @error('mail_from_name')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Phương thức gửi gmail</label>
@@ -35,11 +41,17 @@
                         <option value="Gmail" {{$mail_edit->mail_mailer == "Gmail" ? 'selected' : ''}}>Gmail</option>
                         <option value="Amazon SES" {{$mail_edit->mail_mailer == "Amazon SES" ? 'selected' : ''}}>Other SMTP</option>
                     </select>
+                    @error('mail_mailer')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <h3 class="box-title">Other SMTP</h3>
                 <div class="form-group">
                     <label for="">SMTP Host</label>
                     <input value="{{$mail_edit->mail_smpt_host}}" type="text" name="mail_smpt_host" class="form-control" id="" placeholder="">
+                    @error('mail_smtp_host')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">Mã hóa</label>
@@ -83,20 +95,26 @@
                 <div class="form-group">
                     <label for="">SMTP Port</label>
                     <input value="{{$mail_edit->mail_port}}" type="number" name="mail_port" class="form-control" id="" placeholder="">
+                    @error('mail_port')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">SMTP Username</label>
                     <input value="{{$mail_edit->mail_username}}" type="text" name="mail_username" class="form-control" id="" placeholder="">
+                    @error('mail_username')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="">SMTP Password</label>
                     <input value="{{$mail_edit->mail_password}}" type="password" name="mail_password" class="form-control" id="" placeholder="">
-                    <span><em class="help-block">The password is stored in plain text. We highly recommend you set up
-                            your password in your WordPress configuration file for improved security.</em></span>
-                    <span><em class="help-block">define( 'WPMS_SMTP_PASS', 'your_password' );</em></span>
+                    @error('mail_password')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <div class="clearfix box-header box-footer text-right">
-                    <button type="submit" class="btn btn-primary btn-sm" name="">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm" name="">Lưu thay đổi</button>
                 </div>
             </div>
         </form>

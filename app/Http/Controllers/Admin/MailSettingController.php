@@ -26,23 +26,26 @@ class MailSettingController extends Controller
      */
     public function store(Request $request)
     {
-        // //dd($request->all());
-        // // validate form
-        // $validatedData = $request->validate([
-        //     "mail_from_adress" => "required|email:rfc",
-        //     "mail_from_name" => "required|min:3|max:50",
-        //     "mail_mailer" => "required|max:50",
-        //     "mail_smpt_host" => "adfads",
-        //     "mail_encryption" => "ssl",
-        //     "mail_port" => "123",
-        //     "mail_username" => "admin123",
-        //     "mail_password" => "admin123",
-        // ], [
-        //     'name.required' => 'Trường tên không được để trống',
-        //     'name.unique' => 'Tên quyền đã tồn tại',
-        //     'action_list.required' => 'Hành động không được để trống',
-        // ]);
-        //save data
+        // validate form
+        $validatedData = $request->validate([
+            "mail_from_adress" => "required|email:rfc",
+            "mail_from_name" => "required|min:3|max:50",
+            "mail_mailer" => "required|max:50",
+            "mail_smpt_host" => "required|max:50",
+            "mail_encryption" => "required",
+            "mail_port" => "required|max:50",
+            "mail_username" => "required|max:50|email:rfc",
+            "mail_password" => "required|max:50",
+        ], [
+            "mail_form_adress.required" => "Địa chỉ Email không được để trống",
+            "mail_form_adress.email" => "Địa chỉ Email không đúng định dạng",
+            "mail_smpt_host.required" => "SMTP host không được để trống",
+            "mail_encryption.required" => "SMTP encryption không được để trống",
+            "mail_port.required" => "SMTP port không được để trống",
+            "mail_username.required" => "SMTP mail không được để trống",
+            "mail_username.required" => "Phải là định dạng email",
+            "mail_password.required" => "SMTP password không được để trống",
+        ]);
         $data = $request->all();
         MailConfig::create($data);
         //redirect back
@@ -82,6 +85,25 @@ class MailSettingController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            "mail_from_adress" => "required|email:rfc",
+            "mail_from_name" => "required|min:3|max:50",
+            "mail_mailer" => "required|max:50",
+            "mail_smpt_host" => "required|max:50",
+            "mail_encryption" => "required",
+            "mail_port" => "required|max:50",
+            "mail_username" => "required|max:50|email:rfc",
+            "mail_password" => "required|max:50",
+        ], [
+            "mail_form_adress.required" => "Địa chỉ Email không được để trống",
+            "mail_form_adress.email" => "Địa chỉ Email không đúng định dạng",
+            "mail_smpt_host.required" => "SMTP host không được để trống",
+            "mail_encryption.required" => "SMTP encryption không được để trống",
+            "mail_port.required" => "SMTP port không được để trống",
+            "mail_username.required" => "SMTP mail không được để trống",
+            "mail_username.required" => "Phải là định dạng email",
+            "mail_password.required" => "SMTP password không được để trống",
+        ]);
         $data = $request->all();
         $mail = MailConfig::findOrFail($id);
         $mail->update($data);

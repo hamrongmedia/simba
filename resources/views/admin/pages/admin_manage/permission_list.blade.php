@@ -92,18 +92,6 @@
         })
     }
 
-    // function searchAjax(page = 1){
-    //     var input = $('#search_input').val();
-    //     $.ajax({
-    //         url: "" ,
-    //         data:{
-    //             keyword: input,
-    //             page:page,
-    //         }
-    //     }).done(function (result) {
-    //         $('.table-list').html(result);
-    //     })
-    // }   
 
     function sortAjax(current_page = 1) {
         var input = $('#order_sort option:selected').val().split('__');

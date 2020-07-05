@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
-use Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Models\ProductType;
+use Session;
 
 class ProductTypeController extends Controller
 {
@@ -43,30 +43,34 @@ class ProductTypeController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên danh mục',
             ]);
-    
+
             if ($validator->fails()) {
                 Session::flash('error', $validator->errors()->first());
                 return redirect()->back();
             }
             $data = [
                 'name' => $request->name,
-                'slug' => isset($request->slug) ? $request->slug :  Str::slug($request->name, '-'),
-                'description' => isset($request->description) ? $request->description :  '',
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
+                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
+                'description' => isset($request->description) ? $request->description : '',
+                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
+                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
+                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
                 'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
                 'is_deleted' => 0,
             ];
             $result = ProductType::create($data);
-            if($result) Session::flash('success', 'Thêm loại sản phẩm thành công');
-            else Session::flash('error', 'Thêm loại sản phẩm không thành công');
+            if ($result) {
+                Session::flash('success', 'Thêm loại sản phẩm thành công');
+            } else {
+                Session::flash('error', 'Thêm loại sản phẩm không thành công');
+            }
+
             return redirect()->back();
         }
     }
@@ -92,8 +96,9 @@ class ProductTypeController extends Controller
     {
         //
         $type = ProductType::where(['is_deleted' => 0, 'id' => $id])->first();
-        if(isset($type))return view('admin.pages.product_type.edit', ['type' => $type]);
-        else {
+        if (isset($type)) {
+            return view('admin.pages.product_type.edit', ['type' => $type]);
+        } else {
             Session::flash('error', 'Không tìm thấy loại sản phẩm');
             return redirect()->back();
         }
@@ -109,34 +114,37 @@ class ProductTypeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if($request->isMethod('put')){
+        if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên danh mục',
             ]);
-    
+
             if ($validator->fails()) {
                 Session::flash('error', $validator->errors()->first());
                 return redirect()->back();
             }
             $category = ProductType::where(['is_deleted' => 0, 'id' => $id])->first();
-            if(isset($category)){
+            if (isset($category)) {
                 $data = [
                     'name' => $request->name,
-                    'slug' => isset($request->slug) ? $request->slug :  Str::slug($request->name, '-'),
-                    'description' => isset($request->description) ? $request->description :  '',
-                    'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
-                    'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
-                    'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
+                    'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
+                    'description' => isset($request->description) ? $request->description : '',
+                    'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
+                    'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
+                    'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
                     'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
                 ];
                 $result = ProductType::where(['is_deleted' => 0, 'id' => $id])->update($data);
-                if($result) Session::flash('success', 'Update loại sản phẩm thành công');
-                else Session::flash('error', 'Update loại sản phẩm không thành công');
+                if ($result) {
+                    Session::flash('success', 'Update loại sản phẩm thành công');
+                } else {
+                    Session::flash('error', 'Update loại sản phẩm không thành công');
+                }
+
                 return redirect()->back();
-            }
-            else {
+            } else {
                 Session::flash('error', 'Loại sản phẩm không tồn tại');
                 return redirect()->route('product-category.index');
             }
@@ -152,8 +160,12 @@ class ProductTypeController extends Controller
     public function destroy($id)
     {
         //
-        $result = ProductType::where('id', $id)->update(['is_deleted'=> 1]);
-        if($result) return response(['status' => 1, 'msg' => "Xóa loại sản phẩm thành công"]);
-        else return response(['status' => 0, 'msg' => "Xóa loại sản phẩm không thành công"]);
+        $result = ProductType::where('id', $id)->delete();
+        if ($result) {
+            return response(['status' => 1, 'msg' => "Xóa loại sản phẩm thành công"]);
+        } else {
+            return response(['status' => 0, 'msg' => "Xóa loại sản phẩm không thành công"]);
+        }
+
     }
 }

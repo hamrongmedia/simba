@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\MailConfig;
 use App\Models\Menu;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,6 @@ class ViewProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -42,6 +42,20 @@ class ViewProvider extends ServiceProvider
 
             $view->with(['bottom_menu' => $bottom_menu]);
         });
+
+        if (\Schema::hasTable('mail_config')) {
+            $this->mail = MailConfig::first();
+            if (isset($this->mail)) {
+                Config::set([
+                    'mail.mailers.smtp.transpot' => 'smtp',
+                    'mail.mailers.smtp.host' => $mail->mail_smpt_host,
+                    'mail.mailers.smtp.port' => $mail->mail_port,
+                    'mail.mailers.smtp.encryption' => $mail->mail_encryption,
+                    'mail.mailers.smtp.username' => $mail->mail_username,
+                    'mail.mailers.smtp.password' => $mail->mail_password,
+                ]);
+            }
+        }
 
     }
 }

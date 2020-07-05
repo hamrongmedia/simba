@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductType;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
+use App\Models\ProductCategory;
 use App\Models\ProductToCategory;
+use App\Models\ProductType;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Session;
 
 class ProductController extends Controller
@@ -52,7 +52,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'categories' => 'required|array|min: 1',
@@ -62,7 +62,7 @@ class ProductController extends Controller
                 'promotion_price' => 'numeric',
                 "images" => 'required',
                 // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên sản phẩm',
                 'categories.required' => 'Vui lòng chọn danh mục sản phẩm',
                 'categories.min' => 'Vui lòng chọn danh mục sản phẩm',
@@ -77,7 +77,7 @@ class ProductController extends Controller
                 return redirect()->back();
             }
             $attrs = [];
-            foreach($request->attribute as $key => $attr){
+            foreach ($request->attribute as $key => $attr) {
                 $attrs[$attr] = $request->value[$key];
             }
             // $images = [];
@@ -85,32 +85,36 @@ class ProductController extends Controller
             $data = [
                 'name' => $request->name,
                 'code' => isset($request->code) ? $request->code : '',
-                'slug' => isset($request->slug) ? $request->slug :  Str::slug($request->name, '-'),
+                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
                 'type_id' => $request->type,
                 'price' => $request->price,
                 'attribute' => json_encode($attrs),
                 'images' => json_encode($images),
                 'promotion_price' => $request->promotion_price,
                 'quantity' => isset($request->quantity) ? $request->quantity : 0,
-                'description' => isset($request->description) ? $request->description :  '',
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
+                'description' => isset($request->description) ? $request->description : '',
+                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
+                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
+                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
                 'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
                 'is_deleted' => 0,
                 'view' => 0,
             ];
             $result = Product::create($data);
-            foreach($request->categories as $key => $category){
+            foreach ($request->categories as $key => $category) {
                 ProductToCategory::create([
                     'product_id' => $result->id,
                     'category_id' => $category,
                     'status' => 1,
-                    'is_deleted' => 0
+                    'is_deleted' => 0,
                 ]);
             }
-            if($result) Session::flash('success', 'Thêm sản phẩm thành công');
-            else Session::flash('error', 'Thêm sản phẩm không thành công');
+            if ($result) {
+                Session::flash('success', 'Thêm sản phẩm thành công');
+            } else {
+                Session::flash('error', 'Thêm sản phẩm không thành công');
+            }
+
             return redirect()->back();
         }
     }
@@ -139,8 +143,9 @@ class ProductController extends Controller
         $types = ProductType::where('is_deleted', 0)->get();
         $product = Product::where(['is_deleted' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
-        if(isset($product))return view('admin.pages.product.edit', ['product' => $product, 'types' => $types, 'categories' => $categories, 'attributes' => $attributes]);
-        else {
+        if (isset($product)) {
+            return view('admin.pages.product.edit', ['product' => $product, 'types' => $types, 'categories' => $categories, 'attributes' => $attributes]);
+        } else {
             Session::flash('error', 'Không tìm thấy sản phẩm');
             return redirect()->back();
         }
@@ -156,7 +161,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'categories' => 'required|array|min: 1',
@@ -166,7 +171,7 @@ class ProductController extends Controller
                 'promotion_price' => 'numeric',
                 "images" => 'required',
                 // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên sản phẩm',
                 'categories.required' => 'Vui lòng chọn danh mục sản phẩm',
                 'categories.min' => 'Vui lòng chọn danh mục sản phẩm',
@@ -181,7 +186,7 @@ class ProductController extends Controller
                 return redirect()->back();
             }
             $attrs = [];
-            foreach($request->attribute as $key => $attr){
+            foreach ($request->attribute as $key => $attr) {
                 $attrs[$attr] = $request->value[$key];
             }
             // $images = [];
@@ -189,33 +194,37 @@ class ProductController extends Controller
             $data = [
                 'name' => $request->name,
                 'code' => isset($request->code) ? $request->code : '',
-                'slug' => isset($request->slug) ? $request->slug :  Str::slug($request->name, '-'),
+                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
                 'type_id' => $request->type,
                 'price' => $request->price,
                 'attribute' => json_encode($attrs),
                 'images' => json_encode($images),
                 'promotion_price' => $request->promotion_price,
                 'quantity' => isset($request->quantity) ? $request->quantity : 0,
-                'description' => isset($request->description) ? $request->description :  '',
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
+                'description' => isset($request->description) ? $request->description : '',
+                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
+                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
+                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
                 'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
                 'is_deleted' => 0,
                 'view' => 0,
             ];
             $result = Product::where('id', $id)->update($data);
             ProductToCategory::where('product_id', $id)->delete();
-            foreach($request->categories as $key => $category){
+            foreach ($request->categories as $key => $category) {
                 ProductToCategory::create([
                     'product_id' => $result->id,
                     'category_id' => $category,
                     'status' => 1,
-                    'is_deleted' => 0
+                    'is_deleted' => 0,
                 ]);
             }
-            if($result) Session::flash('success', 'Cập nhật sản phẩm thành công');
-            else Session::flash('error', 'Cập nhật sản phẩm không thành công');
+            if ($result) {
+                Session::flash('success', 'Cập nhật sản phẩm thành công');
+            } else {
+                Session::flash('error', 'Cập nhật sản phẩm không thành công');
+            }
+
             return redirect()->back();
         }
     }
@@ -230,13 +239,18 @@ class ProductController extends Controller
     {
         //
         $result = Product::where('id', $id)->update('is_deleted', 1);
-        if($result) return response(['status' => 1, 'msg' => "Xóa sản phẩm thành công"]);
-        else return response(['status' => 0, 'msg' => "Xóa sản phẩm không thành công"]);
+        if ($result) {
+            return response(['status' => 1, 'msg' => "Xóa sản phẩm thành công"]);
+        } else {
+            return response(['status' => 0, 'msg' => "Xóa sản phẩm không thành công"]);
+        }
+
     }
 
-    public function getValue(Request $request){
+    public function getValue(Request $request)
+    {
         $id = $request->id;
-        if(isset($id) && $id !==''){
+        if (isset($id) && $id !== '') {
             $values = ProductAttributeValue::where('attribute_id', $id)->get();
             return response(['data' => $values]);
         }
