@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,11 +25,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $products = Product::where('is_deleted', 0)->get();
-        return view('admin.pages.product.list', ['products' => $products]);
+        if (empty($request->all())) {
+            $data = Product::all()->sortBy('desc');
+            $paginator = new PaginationHelper($data, 1);
+            $items = $paginator->getItem(1);
+            return view('admin.pages.product.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_by) {
+            $data = Product::all();
+            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 1);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        }
     }
 
     /**

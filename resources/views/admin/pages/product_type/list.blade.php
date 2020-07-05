@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('title')
-Quản lý danh mục sản phẩm
+Quản lý loại sảm phẩm
 @endsection
 
 @section('css')
