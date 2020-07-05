@@ -1,8 +1,14 @@
 @extends('front-end.layout.main')
 
-@section('title')
-{{$page->title}}
-@endsection
+@section('title', $page->title)
+
+@section('title', $page->meta_title)
+@section('description',  $page->meta_des)
+
+@section('keywords', $page->meta_key)
+@section('og:description', $page->meta_des)
+@section('og:title', $page->meta_title?? $page->name)
+@section('og:image',  isset($page->image) ?  $page->image : '')
 
 @section('content')
 

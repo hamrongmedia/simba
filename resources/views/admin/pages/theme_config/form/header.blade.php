@@ -41,4 +41,13 @@
         <input type="text" name="phone_setting" class="form-control" id="" placeholder="">
       @endif
     </div>
+    <div class="form-group">
+      <label for="">Nhập số điện thoại 2</label>
+      
+      @if($value != null && isset($value->phone2_setting))
+        <input type="text" name="phone2_setting" class="form-control" id="" value="{{$value->phone2_setting}}">
+      @else
+        <input type="text" name="phone2_setting" class="form-control" id="" placeholder="">
+      @endif
+    </div>
 </div> {{-- end --}}

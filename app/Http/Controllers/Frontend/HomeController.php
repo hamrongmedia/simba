@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\ThemeOptions;
+use App\Models\Posts;
+use App\Models\PostCategory;
 
 class HomeController extends Controller
 {
@@ -19,8 +21,13 @@ class HomeController extends Controller
         if ($data == null) {
             abort(404);
         }
-
         $content = json_decode($data->value);
-        return view('front-end.home')->with(['homepageOption' => $content]);
+
+        // Get hightline category
+        $hightline_cat = PostCategory::where('status',1)->where('id',$content->home6_cat)->first();
+
+        //dd($hightline_cat->posts);
+       
+        return view('front-end.home')->with(['homepageOption' => $content, 'list_hightline_post'=>$hightline_cat->posts]);
     }
 }

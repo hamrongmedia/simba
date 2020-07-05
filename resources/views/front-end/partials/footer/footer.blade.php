@@ -7,7 +7,7 @@
                         <h3 class="h3-title-ft">GỌI MUA HÀNG <span>(09:00-22:00)</span> </h3>
                         <p class="p-phone">
                             <i class="fas fa-phone-alt"></i>
-                            <a href="tel:0989935818"> <span>0989935818</span></a>
+                            <a href="tel:{{isset($themeOptionHeader->phone_setting) ? $themeOptionHeader->phone_setting : '#'}}"> <span>{{isset($themeOptionHeader->phone_setting) ? $themeOptionHeader->phone_setting : '#'}}</span></a>
                         </p>
                         <p class="hidden-lg hidden-md p-time">( 9:00 - 22:00 )</p>
                         <p class="p-span">Tất cả các ngày trong tuần</p>
@@ -18,7 +18,7 @@
                         <h3 class="h3-title-ft">GÓP Ý, KHIẾU NẠI <span>(09:00-22:00)</span></h3>
                         <p class="p-phone">
                             <i class="fas fa-phone-alt"></i>
-                            <span><a href="tel:0989097523">0989097523</a></span>
+                            <span><a href="tel:{{isset($themeOptionHeader->phone2_setting) ? $themeOptionHeader->phone2_setting : '#'}}">{{isset($themeOptionHeader->phone2_setting) ? $themeOptionHeader->phone2_setting : '#'}}</a></span>
                         </p>
                         <p class="hidden-lg hidden-md p-time">( 9:00 - 22:00 )</p>
                         <p class="p-span">Tất cả các ngày trong tuần</p>
@@ -49,10 +49,10 @@
                     <div class="wp-ft-top">
                         <h3 class="h3-title-ft">LIKE VENUS TRÊN MẠNG XÃ HỘI</h3>
                         <ul class="ul-b list-mxh">
-                            <li><a href="{{isset($themeOption->facebook) ? $themeOption->facebook : '#'}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="{{isset($themeOption->instagram) ? $themeOption->instagram : '#'}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="{{isset($themeOption->youtube) ? $themeOption->youtube : '#'}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                            <li><a href="{{isset($themeOption->zalo) ? $themeOption->zalo : '#'}}" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                            <li><a href="{{isset($themeOptionSocial->facebook) ? $themeOptionSocial->facebook : '#'}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="{{isset($themeOptionSocial->instagram) ? $themeOptionSocial->instagram : '#'}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="{{isset($themeOptionSocial->youtube) ? $themeOptionSocial->youtube : '#'}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                            <li><a href="{{isset($themeOptionSocial->zalo) ? $themeOptionSocial->zalo : '#'}}" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -84,8 +84,7 @@
                         <h3 class="h3-title-ft">Fanpage của chúng tôi</h3>
                         <div class="ul-b list-ft-main" style="display: none;">
                             <div class="wp-iframe-fb">
-                                <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/Venuscharm.com.vn/%2F&amp;tabs=timeline&amp;width=360&amp;height=200&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true&amp;appId=1821093994887965" width="360" height="200" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true" allow="encrypted-media">
-                                </iframe>
+                                {!!isset($themeOptionFooter->fanpage) ? $themeOptionFooter->fanpage : '#'!!}
                             </div>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="left-ft-bt">
-                    <span></span>
+                    <span>{{isset($themeOptionFooter->coppyright_setting) ? $themeOptionFooter->coppyright_setting : '#'}}</span>
                 </div>
             </div>
             <div class="col-md-6 hidden-sm hidden-xs">

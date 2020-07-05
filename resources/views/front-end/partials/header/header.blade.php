@@ -11,7 +11,7 @@
                                         <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
                                         <h1 class="entry-title">
                                             <a href="">
-                                                <img class="img-responsive" src="{{asset('images/logo.png')}}" alt="">
+                                                <img class="img-responsive" src="{{isset($themeOptionHeader->logo_setting) ? $themeOptionHeader->logo_setting : '#'}}" alt="">
                                             </a>
                                         </h1>
                                     </div>
@@ -58,15 +58,6 @@
                                             <input type="text" placeholder="Bạn cần tìm gì" value="" name="key" class="form-control">
                                         </form>
                                     </div><!--  end -->
-                                    <div class="wp-user">
-                                        <i class="far fa-user"></i>
-                                        <div class="wp-sub-menu">
-                                            <ul class="ul-b list-login">
-                                                <li><a href="#">Đăng nhập</a></li>
-                                                <li><a href="#">Đăng ký</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> <!-- end -->
                                     <div class="wp-cart">
                                         <a class="btn-click-cart"><i class="fas fa-shopping-cart"></i></a>
                                     </div> <!-- end -->

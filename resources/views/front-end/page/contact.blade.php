@@ -1,8 +1,6 @@
 @extends('front-end.layout.main')
 
-@section('title')
-Liên hệ
-@endsection
+@section('title', 'Liên hệ')
 
 @section('content')
 

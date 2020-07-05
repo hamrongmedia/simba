@@ -26,7 +26,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        //Theme Option
+        //Theme Option Social
         View::composer(['front-end.partials.footer.footer'], function ($view) {
             $data = ThemeOptions::where('key', 'social')->first();
             if ($data == null) {
@@ -34,11 +34,11 @@ class ComposerServiceProvider extends ServiceProvider
             }
 
             $content = json_decode($data->value);
-            $view->with(['themeOption' => $content]);
+            $view->with(['themeOptionSocial' => $content]);
         });
 
         //Theme Option header
-        View::composer(['front-end.partials.header.*'], function ($view) {
+        View::composer(['front-end.partials.header.*', 'front-end.partials.footer.footer'], function ($view) {
             $data = ThemeOptions::where('key', 'header')->first();
             if ($data == null) {
                 return;
@@ -46,6 +46,28 @@ class ComposerServiceProvider extends ServiceProvider
 
             $content = json_decode($data->value);
             $view->with(['themeOptionHeader' => $content]);
+        });
+
+        //Theme Option Footer
+        View::composer(['front-end.partials.footer.footer'], function ($view) {
+            $data = ThemeOptions::where('key', 'footer')->first();
+            if ($data == null) {
+                return;
+            }
+
+            $content = json_decode($data->value);
+            $view->with(['themeOptionFooter' => $content]);
+        });
+
+        //Theme Option Script
+        View::composer(['front-end.partials.footer.*', 'front-end.partials.header.*'], function ($view) {
+            $data = ThemeOptions::where('key', 'script')->first();
+            if ($data == null) {
+                return;
+            }
+
+            $content = json_decode($data->value);
+            $view->with(['themeOptionScript' => $content]);
         });
     }
 }

@@ -1,8 +1,14 @@
 @extends('front-end.layout.main')
 
-@section('title')
-{{$post->title}}
-@endsection
+@section('title', $post->title)
+
+@section('title', $post->meta_title)
+@section('description',  $post->meta_des)
+
+@section('keywords', $post->meta_key)
+@section('og:description', $post->meta_des)
+@section('og:title', $post->meta_title ?? $post->name)
+@section('og:image',  isset($post->image) ?  $post->image : '')
 
 @section('content')
 
