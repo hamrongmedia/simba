@@ -109,24 +109,20 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="ao-lot.html">ÁO LÓT</a>
+                    <a href="{{$product_cat1->name}}">{{$product_cat1->name}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    <li class="item"><a href="">ÁO LÓT TẠO KIỂU</a></li>
-                    <li class="item"><a href="">ĐỆM DÀY</a></li>
-                    <li class="item"><a href="">ĐỆM VỪA</a></li>
-                    <li class="item"><a href="">ĐỆM MỎNG</a></li>
-                    <li class="item"><a href="">KHÔNG GỌNG</a></li>
+                    @foreach($child_product_cat1 as $subcat)
+                    <li class="item"><a href="">{{$subcat->name}}</a></li>
+                    @endforeach
                 </ul>
                 <!-- trên mobile -->
                  <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    <li class="item"><a href="">ÁO LÓT TẠO KIỂU</a></li>
-                    <li class="item"><a href="">ĐỆM DÀY</a></li>
-                    <li class="item"><a href="">ĐỆM VỪA</a></li>
-                    <li class="item"><a href="">ĐỆM MỎNG</a></li>
-                    <li class="item"><a href="">KHÔNG GỌNG</a></li>
+                    @foreach($child_product_cat1 as $subcat)
+                    <li class="item"><a href="">{{$subcat->name}}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
@@ -184,24 +180,20 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="ao-lot.html">QUẦN LÓT</a>
+                    <a href="{{$product_cat2->name}}">{{$product_cat2->name}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    <li class="item"><a href="">ÁO LÓT TẠO KIỂU</a></li>
-                    <li class="item"><a href="">ĐỆM DÀY</a></li>
-                    <li class="item"><a href="">ĐỆM VỪA</a></li>
-                    <li class="item"><a href="">ĐỆM MỎNG</a></li>
-                    <li class="item"><a href="">KHÔNG GỌNG</a></li>
+                    @foreach($child_product_cat2 as $subcat)
+                    <li class="item"><a href="">{{$subcat->name}}</a></li>
+                    @endforeach
                 </ul>
                 <!-- trên mobile -->
                  <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    <li class="item"><a href="">ÁO LÓT TẠO KIỂU</a></li>
-                    <li class="item"><a href="">ĐỆM DÀY</a></li>
-                    <li class="item"><a href="">ĐỆM VỪA</a></li>
-                    <li class="item"><a href="">ĐỆM MỎNG</a></li>
-                    <li class="item"><a href="">KHÔNG GỌNG</a></li>
+                    @foreach($child_product_cat2 as $subcat)
+                    <li class="item"><a href="">{{$subcat->name}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="wp-list-sp-home">

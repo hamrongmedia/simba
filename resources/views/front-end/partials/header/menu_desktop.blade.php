@@ -19,9 +19,6 @@
                     </li>
                     @endforeach
                 @endif
-                <li>
-                    <a href="#"><span>Blog</span></a>
-                </li>
             </ul>
         </div>
     </nav>

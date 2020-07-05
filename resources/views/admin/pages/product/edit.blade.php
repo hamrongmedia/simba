@@ -8,7 +8,6 @@ Cập nhật sản phẩm
 <div class="row">
     <form action="{{route('admin.product.update', $product->id)}}" method="post" accept-charset="UTF-8" class="" id="form-main"
         enctype="multipart/form-data">
-        {{ method_field('PUT') }}
         @csrf
         <!-- {{ csrf_field() }} -->
         <div class="col-md-9">
@@ -59,13 +58,13 @@ Cập nhật sản phẩm
                                     <div class="col-md-5">
                                         <select class="form-control select_attribute" name="attribute[]">
                                             <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($attributes as $attr)
+{{--                                             @foreach($attributes as $attr)
                                                 @if($key == $type->id)
                                                 <option value="{{$attr->id}}" selected>{{$attr->name}}</option>
                                                 @else
                                                 <option value="{{$attr->id}}">{{$attr->name}}</option>
                                                 @endif
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                     <div class="col-md-5">

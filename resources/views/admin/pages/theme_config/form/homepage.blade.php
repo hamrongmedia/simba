@@ -8,7 +8,9 @@
         <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Section 4</a></li>
         <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Section 5</a></li>
         <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">Section ưu đãi</a></li>
-        <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">Section chính sách</a></li>
+        <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">Section sản phẩm 1</a></li>
+        <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false">Section chính sách</a></li>
+        <li class=""><a href="#tab_9" data-toggle="tab" aria-expanded="false">Section sản phẩm 2</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -33,11 +35,11 @@
             </div>
               <div class="form-group">
               <label for="">Nhập ảnh </label>
-              @if($value != null && isset($value->home2_background1))
-                @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn2', 'value' => $value->home2_background1, 'holder' => 'home2_background1_holder','holder_img' => $value->home2_background1])
-              @else
-                @include('admin.component.image_button', ['name' => 'home2_background1_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home2_background1'])
-              @endif
+                @if($value != null && isset($value->home2_background1))
+                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn3', 'value' => $value->home2_background1, 'holder' => 'home2_background2_holder','holder_img' => $value->home2_background1])
+                @else
+                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn3', 'value' => '', 'holder' => 'home2_background1_holder'])
+                @endif
             </div>
             <div class="form-group">
               <label for="">Nhập mô tả </label>
@@ -104,7 +106,7 @@
             <div class="form-group">
               <label for="">Nhập mô tả 2 </label>
               @if($value != null && isset($value->home4_desc2))
-               <textarea class="form-control" name="home4_desc1" rows="4" name="home4_desc2">{{$value->home4_desc2}}</textarea>
+               <textarea class="form-control" name="home4_desc2" rows="4" name="home4_desc2">{{$value->home4_desc2}}</textarea>
               @else
               <textarea class="form-control" rows="4" placeholder="Enter ..." name="home4_desc2"></textarea>
               @endif
@@ -173,6 +175,16 @@
           </div>
         </div>
         <div class="tab-pane" id="tab_7">
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID chuyên mục sản phẩm</label>
+              @if($value != null && isset($value->home7_cat))
+                <input type="text" name="home7_cat" class="form-control" id="" value="{{$value->home7_cat}}">
+              @else
+                <input type="text" name="home7_cat" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_8">
           <div class="form-group">
             <label for="">Nhập tiêu đề 1</label>
             @if($value != null && isset($value->home7_title1))
@@ -222,6 +234,16 @@
             @else
               @include('admin.component.image_button', ['name' => 'home7_icon3_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon3'])
             @endif
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_9">
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID chuyên mục sản phẩm</label>
+              @if($value != null && isset($value->home9_cat))
+                <input type="text" name="home9_cat" class="form-control" id="" value="{{$value->home9_cat}}">
+              @else
+                <input type="text" name="home9_cat" class="form-control" id="" placeholder="">
+              @endif 
           </div>
         </div>
         </div>
