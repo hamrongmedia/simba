@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\MailConfig;
 use App\Models\Menu;
+use Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

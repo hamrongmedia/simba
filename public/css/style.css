@@ -1097,6 +1097,10 @@ span.pro-price-view {
   margin-bottom: 20px;
   position: relative;
 }
+.wp-title-sec-sp a{
+  text-transform: uppercase;
+  color:#333333;
+}
 .wp-title-sec-sp .h2-title {
   margin-bottom: 0px;
   font-size: 24px;

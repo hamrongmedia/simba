@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
@@ -14,10 +16,24 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = PostCategory::all();
-        return view('admin.pages.category.list')->with('data', $objs);
+        if (empty($request->all())) {
+            $data = PostCategory::all()->sortBy('desc');
+            $paginator = new PaginationHelper($data, 1);
+            $items = $paginator->getItem(1);
+            return view('Admin.pages.category.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_by) {
+            $data = PostCategory::all();
+            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 1);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        }
+        return abort(404);
     }
 
     /**
@@ -101,5 +117,17 @@ class CategoryController extends Controller
     {
         PostCategory::find($request->id)->delete();
         return ['msg' => 'Item deleted'];
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Pages::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

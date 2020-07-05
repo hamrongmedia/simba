@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductAttribute;
@@ -22,11 +25,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $products = Product::where('is_deleted', 0)->get();
-        return view('admin.pages.product.list', ['products' => $products]);
+        if (empty($request->all())) {
+            $data = Product::all()->sortBy('desc');
+            $paginator = new PaginationHelper($data, 1);
+            $items = $paginator->getItem(1);
+            return view('admin.pages.product.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_by) {
+            $data = Product::all();
+            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 1);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        }
     }
 
     /**
@@ -55,19 +71,11 @@ class ProductController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'categories' => 'required|array|min: 1',
-                'type' => 'required|numeric',
-                'description' => 'required',
                 'price' => 'required|numeric',
                 'promotion_price' => 'numeric',
-                "images" => 'required',
-                // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+
             ], [
                 'name.required' => 'Vui lòng nhập tên sản phẩm',
-                'categories.required' => 'Vui lòng chọn danh mục sản phẩm',
-                'categories.min' => 'Vui lòng chọn danh mục sản phẩm',
-                'type.required' => 'Vui lòng chọn loại sản phẩm',
-                'description.required' => 'Vui lòng nhập mô tả sản phẩm',
                 'price.required' => 'Vui lòng nhập giá sản phẩm',
                 'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
                 'promotion_price.numeric' => 'Giá sản phẩm chỉ được nhập số',
@@ -77,8 +85,10 @@ class ProductController extends Controller
                 return redirect()->back();
             }
             $attrs = [];
-            foreach ($request->attribute as $key => $attr) {
-                $attrs[$attr] = $request->value[$key];
+            if (is_array($request->attribute)) {
+                foreach ($request->attribute as $key => $attr) {
+                    $attrs[$attr] = $request->value[$key];
+                }
             }
             // $images = [];
             $images = explode(',', $request->images);
@@ -254,5 +264,17 @@ class ProductController extends Controller
             $values = ProductAttributeValue::where('attribute_id', $id)->get();
             return response(['data' => $values]);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Posts::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

@@ -10,7 +10,7 @@
                                     <div class="wp-logo text-center">
                                         <!-- /** Yêu cầu trang chủ để logo h1 còn các trang khác để h2 **/ -->
                                         <h1 class="entry-title">
-                                            <a href="">
+                                            <a href="{{url('/')}}">
                                                 <img class="img-responsive" src="{{isset($themeOptionHeader->logo_setting) ? $themeOptionHeader->logo_setting : '#'}}" alt="">
                                             </a>
                                         </h1>

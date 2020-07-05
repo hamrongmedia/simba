@@ -6,12 +6,11 @@ Cập nhật sản phẩm
 
 @section('main')
 <div class="row">
-    <form action="{{route('product.update', $product->id)}}" method="post" accept-charset="UTF-8" class="" id="form-main"
+    <form action="{{route('admin.product.update', $product->id)}}" method="post" accept-charset="UTF-8" class="" id="form-main"
         enctype="multipart/form-data">
-        {{ method_field('PUT') }}
         @csrf
         <!-- {{ csrf_field() }} -->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
@@ -25,12 +24,125 @@ Cập nhật sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Tên sản phẩm(*)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->name}}">
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" value="{{$product->name}}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Slug</label>
                         <input type="text" name="slug" class="form-control" placeholder="Nhập slug" value="{{$product->slug}}">
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">Mô tả</label>
+                        <textarea class="form-control editor" name="description" rows="3"
+                                placeholder="Nhập mô tả ngắn" id="editor">{{$product->description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Giá</label>
+                                <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{$product->price}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Giá khuyến mãi</label>
+                                <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm" {{$product->promotion_price}}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">Thuộc tính</label>
+                            </div>
+                            <div class="form-group--attribute col-md-12">
+                                @foreach(json_decode($product->attribute) as $key => $value)
+                                <div class="row form-group--attribute--row">
+                                    <div class="col-md-5">
+                                        <select class="form-control select_attribute" name="attribute[]">
+                                            <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
+{{--                                             @foreach($attributes as $attr)
+                                                @if($key == $type->id)
+                                                <option value="{{$attr->id}}" selected>{{$attr->name}}</option>
+                                                @else
+                                                <option value="{{$attr->id}}">{{$attr->name}}</option>
+                                                @endif
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select class="form-control select_value" name="value[]" data="{{$value}}">
+                                            <option value="" disabled selected>Chọn giá trị cho thuộc tính</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-danger remove-attribute"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Số lượng</label>
+                        <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng" value="{{$product->quantity}}">
+                    </div>
+                    <div class="form-group">
+                        <div class="assign-switch">
+                            <label class="switch-label">
+                                <input type="checkbox" class="switch-assign" name="status" {{!$product->status ? 'checked' : ''}}>
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="d-inline-block">Bật tắt</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    </div>
+                </div>
+                
+                <div class="box-body">
+                    <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
+                    <div class="form-group">
+                        <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
+                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề" value="{{$product->meta_title}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="meta_des">Mô Tả</label>
+                        <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn">{{$product->meta_description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Meta Keyword</label>
+                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa" value="{{$product->meta_keyword}}">
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Đăng</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control" name="status">
+                            <option value="1">Đã đăng</option>
+                            <option value="2">Bản nháp</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="reset" class="btn btn-default">Hủy</button>
+                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-body">
                     <div class="form-group">
                         <label class="control-label">Danh mục</label>
                         <select class="form-control input-sm permission select2 select2-hidden-accessible"
@@ -52,90 +164,19 @@ Cập nhật sản phẩm
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Mô tả</label>
-                        <textarea class="form-control editor" name="description" rows="3"
-                                placeholder="Nhập mô tả ngắn" id="editor">{{$product->description}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Giá</label>
-                        <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{$product->price}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Giá khuyễn mãi</label>
-                        <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{$product->promotion_price}}">
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="control-label">Thuộc tính</label>
-                            </div>
-                            <div class="form-group--attribute col-md-12">
-                                @foreach(json_decode($product->attribute) as $key => $value)
-                                <div class="row form-group--attribute--row">
-                                    <div class="col-md-5">
-                                        <select class="form-control select_attribute" name="attribute[]">
-                                            <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($attributes as $attr)
-                                                @if($key == $type->id)
-                                                <option value="{{$attr->id}}" selected>{{$attr->name}}</option>
-                                                @else
-                                                <option value="{{$attr->id}}">{{$attr->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <select class="form-control select_value" name="value[]" data="{{$value}}">
-                                            <option value="" disabled selected>Chọn giá trị cho thuộc tính</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-danger remove-attribute"><i class="fa fa-minus"></i></button>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Hình ảnh</label>
-                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
-                        <!-- <label class="control-label">Hình ảnh</label>
-                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple> -->
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Số lượng</label>
-                        <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng" value="{{$product->quantity}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta title(Tiêu đề SEO)</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->meta_title}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta key word</label>
-                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->meta_keyword}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta description</label>
-                        <textarea class="form-control" name="meta_description" rows="3"
-                            placeholder="Nhập mô tả ngắn">{{$product->meta_description}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="assign-switch">
-                            <label class="switch-label">
-                                <input type="checkbox" class="switch-assign" name="status" {{!$product->status ? 'checked' : ''}}>
-                                <span class="slider round"></span>
-                            </label>
-                            <label class="d-inline-block">Bật tắt</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
             </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hình ảnh</h3>
+                </div>
+                <div class="box-body">
+                    <div class="image-box">
+                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
+
+                    </div>
+                </div>
+            </div> 
         </div>
     </form>
 </div>

@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-Tạo danh mục sản phẩm
+Tạo loại sảm phẩm
 @endsection
 
 @section('main')
