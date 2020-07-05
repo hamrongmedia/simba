@@ -8,6 +8,7 @@
         <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Section 4</a></li>
         <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Section 5</a></li>
         <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">Section ưu đãi</a></li>
+        <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">Section chính sách</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -119,21 +120,46 @@
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_5">
-          <div class="form-group">
-            <label for="">Nhập ảnh chính </label>
-            @if($value != null && isset($value->term_img_main))
-                @include('admin.component.image_button', ['name' => 'term_img_main', 'id' => 'logo-btn5', 'value' => $value->term_img_main, 'holder' => 'term_img_main_holder','holder_img' => $value->term_img_main])
-            @else
-              @include('admin.component.image_button', ['name' => 'term_img_main', 'id' => 'logo-btn5', 'value' => '', 'holder' => 'term_img_main_holder'])
-            @endif
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID sản phẩm</label>
+              @if($value != null && isset($value->home5_product1))
+                <input type="text" name="home5_product1" class="form-control" id="" value="{{$value->home5_product1}}">
+              @else
+                <input type="text" name="home5_product1" class="form-control" id="" placeholder="">
+              @endif 
           </div>
-          <div class="form-group">
-            <label for="">Nhập ảnh phụ </label>
-            @if($value != null && isset($value->term_img_sub))
-                @include('admin.component.image_button', ['name' => 'term_img_sub', 'id' => 'logo-btn6', 'value' => $value->term_img_sub, 'holder' => 'term_img_sub_holder','holder_img' => $value->term_img_sub])
-            @else
-              @include('admin.component.image_button', ['name' => 'term_img_sub', 'id' => 'logo-btn6', 'value' => '', 'holder' => 'term_img_sub_holder'])
-            @endif
+
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID sản phẩm</label>
+              @if($value != null && isset($value->home5_product2))
+                <input type="text" name="home5_product2" class="form-control" id="" value="{{$value->home5_product2}}">
+              @else
+                <input type="text" name="home5_product2" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID sản phẩm</label>
+              @if($value != null && isset($value->home5_product3))
+                <input type="text" name="home5_product3" class="form-control" id="" value="{{$value->home5_product3}}">
+              @else
+                <input type="text" name="home5_product3" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID sản phẩm</label>
+              @if($value != null && isset($value->home5_product4))
+                <input type="text" name="home5_product4" class="form-control" id="" value="{{$value->home5_product4}}">
+              @else
+                <input type="text" name="home5_product4" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+          <div class="form-group col-xs-3">
+            <label for="">Chọn ID sản phẩm nổi bật</label>
+              @if($value != null && isset($value->home5_product5))
+                <input type="text" name="home5_product5" class="form-control" id="" value="{{$value->home5_product5}}">
+              @else
+                <input type="text" name="home5_product5" class="form-control" id="" placeholder="">
+              @endif 
           </div>
         </div>
         <div class="tab-pane" id="tab_6">
@@ -144,6 +170,58 @@
               @else
                 <input type="text" name="home6_cat" class="form-control" id="" placeholder="">
               @endif 
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_7">
+          <div class="form-group">
+            <label for="">Nhập tiêu đề 1</label>
+            @if($value != null && isset($value->home7_title1))
+              <input type="text" name="home7_title1" class="form-control" id="" value="{{$value->home7_title1}}">
+            @else
+              <input type="text" name="home7_title1" class="form-control" id="" placeholder="">
+            @endif 
+          </div>
+          <div class="form-group">
+            <label for="">Nhập ảnh 1</label>
+            @if($value != null && isset($value->home7_icon1))
+              @include('admin.component.image_button', ['name' => 'home7_icon1', 'id' => 'logo-btn2', 'value' => $value->home7_icon1, 'holder' => 'home7_icon1_holder','holder_img' => $value->home7_icon1])
+            @else
+              @include('admin.component.image_button', ['name' => 'home7_icon1_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon1'])
+            @endif
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="">Nhập tiêu đề 2</label>
+            @if($value != null && isset($value->home7_title2))
+              <input type="text" name="home7_title2" class="form-control" id="" value="{{$value->home7_title2}}">
+            @else
+              <input type="text" name="home7_title2" class="form-control" id="" placeholder="">
+            @endif 
+          </div>
+          <div class="form-group">
+            <label for="">Nhập ảnh 2</label>
+            @if($value != null && isset($value->home7_icon2))
+              @include('admin.component.image_button', ['name' => 'home7_icon2', 'id' => 'logo-btn2', 'value' => $value->home7_icon2, 'holder' => 'home7_icon2_holder','holder_img' => $value->home7_icon2])
+            @else
+              @include('admin.component.image_button', ['name' => 'home7_icon2_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon2'])
+            @endif
+          </div>
+          <hr>
+          <div class="form-group">
+            <label for="">Nhập tiêu đề 3</label>
+            @if($value != null && isset($value->home7_title3))
+              <input type="text" name="home7_title3" class="form-control" id="" value="{{$value->home7_title3}}">
+            @else
+              <input type="text" name="home7_title3" class="form-control" id="" placeholder="">
+            @endif 
+          </div>
+          <div class="form-group">
+            <label for="">Nhập ảnh 3</label>
+            @if($value != null && isset($value->home7_icon3))
+              @include('admin.component.image_button', ['name' => 'home7_icon3', 'id' => 'logo-btn2', 'value' => $value->home7_icon3, 'holder' => 'home7_icon3_holder','holder_img' => $value->home7_icon3])
+            @else
+              @include('admin.component.image_button', ['name' => 'home7_icon3_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon3'])
+            @endif
           </div>
         </div>
         </div>

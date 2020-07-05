@@ -11,7 +11,7 @@ Cập nhật sản phẩm
         {{ method_field('PUT') }}
         @csrf
         <!-- {{ csrf_field() }} -->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
@@ -25,32 +25,11 @@ Cập nhật sản phẩm
                     </div>
                     <div class="form-group">
                         <label class="control-label">Tên sản phẩm(*)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->name}}">
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" value="{{$product->name}}">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Slug</label>
                         <input type="text" name="slug" class="form-control" placeholder="Nhập slug" value="{{$product->slug}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Danh mục</label>
-                        <select class="form-control input-sm permission select2 select2-hidden-accessible"
-                            multiple="" data-placeholder="Chọn danh mục" style="width: 100%;"
-                            name="categories[]" tabindex="-1" aria-hidden="true" id="select-category">
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}" {{old('parent_category') == $category->id ? "selected" : ""}}>{{$category->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Loại sản phẩm</label>
-                        <select class="form-control m-b" name="type" id="cat_id">
-                            <option value="" disabled selected>Chọn loại sản phẩm</option>
-                            @foreach($types as $type)
-                            <option value="{{$type->id}}" {{old('type') == $type->id || $product->type_id == $type->id ? "selected" : ""}}>{{$type->name}}
-                            </option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Mô tả</label>
@@ -58,12 +37,16 @@ Cập nhật sản phẩm
                                 placeholder="Nhập mô tả ngắn" id="editor">{{$product->description}}</textarea>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Giá</label>
-                        <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{$product->price}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Giá khuyễn mãi</label>
-                        <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{$product->promotion_price}}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="control-label">Giá</label>
+                                <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{$product->price}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Giá khuyến mãi</label>
+                                <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm" {{$product->promotion_price}}>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -100,27 +83,8 @@ Cập nhật sản phẩm
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Hình ảnh</label>
-                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
-                        <!-- <label class="control-label">Hình ảnh</label>
-                        <input type="file" name="images[]" placeholder="Chọn hình ảnh" multiple> -->
-                    </div>
-                    <div class="form-group">
                         <label class="control-label">Số lượng</label>
                         <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng" value="{{$product->quantity}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta title(Tiêu đề SEO)</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->meta_title}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta key word</label>
-                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$product->meta_keyword}}">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta description</label>
-                        <textarea class="form-control" name="meta_description" rows="3"
-                            placeholder="Nhập mô tả ngắn">{{$product->meta_description}}</textarea>
                     </div>
                     <div class="form-group">
                         <div class="assign-switch">
@@ -132,10 +96,88 @@ Cập nhật sản phẩm
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    </div>
+                </div>
+                
+                <div class="box-body">
+                    <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
+                    <div class="form-group">
+                        <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
+                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề" value="{{$product->meta_title}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="meta_des">Mô Tả</label>
+                        <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn">{{$product->meta_description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Meta Keyword</label>
+                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa" value="{{$product->meta_keyword}}">
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Đăng</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control" name="status">
+                            <option value="1">Đã đăng</option>
+                            <option value="2">Bản nháp</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <button type="reset" class="btn btn-default">Hủy</button>
+                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
                 </div>
             </div>
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label class="control-label">Danh mục</label>
+                        <select class="form-control input-sm permission select2 select2-hidden-accessible"
+                            multiple="" data-placeholder="Chọn danh mục" style="width: 100%;"
+                            name="categories[]" tabindex="-1" aria-hidden="true" id="select-category">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}" {{old('parent_category') == $category->id ? "selected" : ""}}>{{$category->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Loại sản phẩm</label>
+                        <select class="form-control m-b" name="type" id="cat_id">
+                            <option value="" disabled selected>Chọn loại sản phẩm</option>
+                            @foreach($types as $type)
+                            <option value="{{$type->id}}" {{old('type') == $type->id || $product->type_id == $type->id ? "selected" : ""}}>{{$type->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hình ảnh</h3>
+                </div>
+                <div class="box-body">
+                    <div class="image-box">
+                        @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
+
+                    </div>
+                </div>
+            </div> 
         </div>
     </form>
 </div>

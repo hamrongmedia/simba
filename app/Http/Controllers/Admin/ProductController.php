@@ -55,19 +55,11 @@ class ProductController extends Controller
         if($request->isMethod('post')){
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'categories' => 'required|array|min: 1',
-                'type' => 'required|numeric',
-                'description' => 'required',
                 'price' => 'required|numeric',
                 'promotion_price' => 'numeric',
-                "images" => 'required',
-                // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+
             ],[
                 'name.required' => 'Vui lòng nhập tên sản phẩm',
-                'categories.required' => 'Vui lòng chọn danh mục sản phẩm',
-                'categories.min' => 'Vui lòng chọn danh mục sản phẩm',
-                'type.required' => 'Vui lòng chọn loại sản phẩm',
-                'description.required' => 'Vui lòng nhập mô tả sản phẩm',
                 'price.required' => 'Vui lòng nhập giá sản phẩm',
                 'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
                 'promotion_price.numeric' => 'Giá sản phẩm chỉ được nhập số',
@@ -77,8 +69,10 @@ class ProductController extends Controller
                 return redirect()->back();
             }
             $attrs = [];
-            foreach($request->attribute as $key => $attr){
-                $attrs[$attr] = $request->value[$key];
+            if(is_array($request->attribute)) {
+                foreach($request->attribute as $key => $attr){
+                    $attrs[$attr] = $request->value[$key];
+                }
             }
             // $images = [];
             $images = explode(',', $request->images);

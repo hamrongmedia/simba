@@ -77,26 +77,17 @@ Trang chủ
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-6">
                     <div class="wp-item-support">
-                        <h3 class="h3-title">Hỗ trợ đổi trả <br> khi không vừa size</h3>
-                        <div class="wp-btn-xemct">
-                            <a href="javascript: void(0)" class="btn btn-default btn-xem-ct btn-hover">Xem chi tiết</a>
-                        </div>
+                        {!!isset($homepageOption->home4_desc1) ? $homepageOption->home4_desc1 : ''!!}
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-6">
                     <div class="wp-item-support">
-                        <h3 class="h3-title">Bảo hành sản phẩm trong vòng 30 ngày</h3>
-                        <div class="wp-btn-xemct">
-                            <a href="javascript: void(0)" class="btn btn-default btn-xem-ct btn-hover">Xem chi tiết</a>
-                        </div>
+                        {!!isset($homepageOption->home4_desc2) ? $homepageOption->home4_desc2 : ''!!}
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-6">
                     <div class="wp-item-support">
-                        <h3 class="h3-title">Cam kết <br> sản phẩm như hình</h3>
-                        <div class="wp-btn-xemct">
-                            <a href="javascript: void(0)" class="btn btn-default btn-xem-ct btn-hover">Xem chi tiết</a>
-                        </div>
+                        {!!isset($homepageOption->home4_desc2) ? $homepageOption->home4_desc2 : ''!!}
                     </div>
                 </div>
             </div>

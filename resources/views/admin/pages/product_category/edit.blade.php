@@ -11,7 +11,7 @@ Chỉnh sửa danh mục sản phẩm
         {{ method_field('PUT') }}
         @csrf
         <!-- {{ csrf_field() }} -->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
@@ -46,35 +46,52 @@ Chỉnh sửa danh mục sản phẩm
                         <textarea class="form-control" name="description" rows="3"
                                 placeholder="Nhập mô tả ngắn">{{$category->description}}</textarea>
                     </div>
+                </div>
+            </div>
+            <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    </div>
+                </div>  
+                <div class="box-body">
+                    <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
                     <div class="form-group">
-                        <label class="control-label">Meta title(Tiêu đề SEO)</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tên chuyên mục" value="{{$category->meta_title}}">
+                        <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
+                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề" value="{{$category->meta_title}}">
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Meta key word</label>
-                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập keyword chuyên mục" value="{{$category->meta_keyword}}">
+                        <label for="meta_des">Mô Tả</label>
+                        <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn">{{$category->meta_description}}</textarea>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Meta description</label>
-                        <textarea class="form-control" name="meta_description" rows="3"
-                            placeholder="Nhập mô tả ngắn">{{$category->meta_description}}</textarea>
+                        <label class="control-label">Meta Keyword</label>
+                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa" value="{{$category->meta_keyword}}">
                     </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Đăng</h3>
+                </div>
+                <div class="box-body">
                     <div class="form-group">
-                        <div class="assign-switch">
-                            <label class="switch-label">
-                                @if($category->status)
-                                <input type="checkbox" class="switch-assign" name="status" checked>
-                                @else
-                                <input type="checkbox" class="switch-assign" name="status">
-                                @endif
-                                <span class="slider round"></span>
-                            </label>
-                            <label class="d-inline-block">Bật tắt</label>
-                        </div>
+                        <label>Trạng thái</label>
+                        <select class="form-control" name="status">
+                            <option value="1" {{isset($category) ? ($category->status == 1 ? 'selected' : '') : 
+                (old('status') == 1 ? 'selected' : '')}} >Đã đăng</option>
+                            <option value="0" {{isset($category) ? ($category->status == 0 ? 'selected' : '') : 
+                (old('status') == 0 ? 'selected' : '')}}>Bản nháp</option>
+                        </select>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <button type="reset" class="btn btn-default">Hủy</button>
+                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
                 </div>
             </div>
         </div>
