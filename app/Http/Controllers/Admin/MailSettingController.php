@@ -18,17 +18,6 @@ class MailSettingController extends Controller
         $mail_list = MailConfig::all()->sortBy('desc');
         return view('admin/pages/theme_config/smtp_email_index', ['mails' => $mail_list]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -37,8 +26,22 @@ class MailSettingController extends Controller
      */
     public function store(Request $request)
     {
-        // validate form
-
+        // //dd($request->all());
+        // // validate form
+        // $validatedData = $request->validate([
+        //     "mail_from_adress" => "required|email:rfc",
+        //     "mail_from_name" => "required|min:3|max:50",
+        //     "mail_mailer" => "required|max:50",
+        //     "mail_smpt_host" => "adfads",
+        //     "mail_encryption" => "ssl",
+        //     "mail_port" => "123",
+        //     "mail_username" => "admin123",
+        //     "mail_password" => "admin123",
+        // ], [
+        //     'name.required' => 'Trường tên không được để trống',
+        //     'name.unique' => 'Tên quyền đã tồn tại',
+        //     'action_list.required' => 'Hành động không được để trống',
+        // ]);
         //save data
         $data = $request->all();
         MailConfig::create($data);

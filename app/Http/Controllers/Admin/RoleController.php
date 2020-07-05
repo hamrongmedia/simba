@@ -60,7 +60,15 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //validate from
-        //dd($request);
+        $validatedData = $request->validate([
+            'name' => 'required|max:25|unique:permissions,name,',
+            'permission_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'permisison_list.required' => 'Hành động không được để trống',
+        ]);
+
         //storage data
         $newRole = new Role;
         $newRole->name = $request->name;
@@ -115,7 +123,17 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:25|unique:permissions,name,' . $role->id,
+            'permission_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'permisison_list.required' => 'Hành động không được để trống',
+        ]);
+
         $role->name = $request->name;
         $role->guard_name = $request->guard_name ? $request->guard_name : $role->guard_name;
         $role->save();

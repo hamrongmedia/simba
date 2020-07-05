@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
@@ -16,10 +19,28 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = Posts::all();
-        return view('admin.pages.posts.list', ['data' => $objs]);
+        // $objs = Posts::all();
+        // return view('admin.pages.posts.list', ['data' => $objs]);
+
+        if (empty($request->all())) {
+            $data = Posts::all()->sortBy('desc');
+            $paginator = new PaginationHelper($data, 1);
+            $items = $paginator->getItem(1);
+            return view('Admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_by) {
+            $data = Posts::all();
+            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 1);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        }
+        return abort(404);
+
     }
 
     /**
@@ -44,12 +65,12 @@ class PostsController extends Controller
     {
 
         $this->authorize('create', Posts::class);
-         $data = $request->validate([
+        $data = $request->validate([
             'title' => 'required',
-            'slug' => 'required|unique:posts'
-            ],
+            'slug' => 'required|unique:posts',
+        ],
             [
-                'slug.unique' => 'Slug đã tồn tại'
+                'slug.unique' => 'Slug đã tồn tại',
             ]
         );
 
@@ -140,11 +161,23 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $post = Posts::find($request->id);
         $this->authorize('delete', $post);
         $post->delete();
         return ['msg' => 'Item deleted'];
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Posts::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

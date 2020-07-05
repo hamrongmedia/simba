@@ -88,38 +88,6 @@
 @endsection
 
 @section('js')
-{{-- <script>
-    function sortAjax(current_page = 1){
-        var input = $('#order_sort option:selected').val().split('__');
-        $.ajax({
-            url: "{{route('admin.user.index')}}" ,
-            data:{
-                current_page: current_page,
-                sort_by: input[0],
-                sort_type: input[1],
-            }
-        }).done(function (result) {
-            $('.table-list').html(result);
-        })
-    }
-
-    function searchAjax(){
-        var input = $('#search_input').val();
-        $.ajax({
-            url: "{{route('admin.user.search')}}" ,
-            data:{
-                keyword: input,
-            }
-        }).done(function (result) {
-            $('.table-list').html(result);
-        })
-    }
-
-    $('#button_sort').on('click', function(e){
-        sortAjax();
-    });
-
-</script> --}}
 
 <script>
     var type = 'sort';
