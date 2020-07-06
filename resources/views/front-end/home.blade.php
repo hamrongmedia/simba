@@ -109,20 +109,26 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="{{$product_cat1->name}}">{{$product_cat1->name}}</a>
+                    <a href="{{$product_cat1->name ?? ''}}">{{$product_cat1->name ?? ''}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    @foreach($child_product_cat1 as $subcat)
-                    <li class="item"><a href="">{{$subcat->name}}</a></li>
-                    @endforeach
+                    @if ($child_product_cat1)
+                        @foreach($child_product_cat1 as $subcat)
+                        <li class="item"><a href="">{{$subcat->name}}</a></li>
+                        @endforeach
+                    @endif
+                    
                 </ul>
                 <!-- trên mobile -->
                  <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    @foreach($child_product_cat1 as $subcat)
-                    <li class="item"><a href="">{{$subcat->name}}</a></li>
-                    @endforeach
+                    @if ($child_product_cat1)
+                        @foreach($child_product_cat1 as $subcat)
+                        <li class="item"><a href="">{{$subcat->name}}</a></li>
+                        @endforeach
+                    @endif
+                    
                 </ul>
             </div>
 
@@ -136,7 +142,7 @@ Trang chủ
 
     <section class="sec-home-07 hidden-xs hidden-sm">
         <div class="container-fluid">
-            @include('front-end.content.list_term_product', ['main_img' ])
+            @include('front-end.content.list_term_product')
         </div>
     </section> <!-- end sec-home-07 -->
     <section class="sec-home-08 mb-20">
@@ -180,20 +186,26 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="{{$product_cat2->name}}">{{$product_cat2->name}}</a>
+                    <a href="{{$product_cat2->name ?? ''}}">{{$product_cat2->name ?? ''}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    @foreach($child_product_cat2 as $subcat)
-                    <li class="item"><a href="">{{$subcat->name}}</a></li>
-                    @endforeach
+                    @if ($child_product_cat2)
+                        @foreach($child_product_cat2 as $subcat)
+                        <li class="item"><a href="">{{$subcat->name}}</a></li>
+                        @endforeach
+                    @endif
+                    
                 </ul>
                 <!-- trên mobile -->
                  <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    @foreach($child_product_cat2 as $subcat)
-                    <li class="item"><a href="">{{$subcat->name}}</a></li>
-                    @endforeach
+                    @if ($child_product_cat2)
+                        @foreach($child_product_cat2 as $subcat)
+                        <li class="item"><a href="">{{$subcat->name}}</a></li>
+                        @endforeach
+                    @endif
+                    
                 </ul>
             </div>
             <div class="wp-list-sp-home">
