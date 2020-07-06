@@ -15,10 +15,6 @@ Route::get('chuyen-muc-san-pham', function () {
     return view('chuyenmucsanpham');
 });
 
-Route::get('chi-tiet-san-pham', function () {
-    return view('chitietsanpham');
-});
-
 Route::get('feedback', function () {
     return view('feedback');
 });

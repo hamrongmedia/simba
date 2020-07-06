@@ -7,6 +7,9 @@ Route::namespace ('Frontend')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('home');
 
+    // Routes Sản Phẩm
+    Route::get('/san-pham/{slug}', 'ProductController@getDetailProduct')->name('product.detail');
+
 });
 
 Route::get('/lien-he', function () {

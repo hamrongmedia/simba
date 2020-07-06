@@ -2,7 +2,7 @@
     <ul class="ul-b lits-dv2">
         <li>
             <div class="icon-dv2">
-                <img src="{{asset('images-demo/venus-charm-feeship-don-hang-700k.jpg')}}" alt="Miễn phí giao hàng toàn quốc">
+                <img src="{{asset('images-demo/venus-charm-feeship-don-hang-700k.jpg')}}" alt="">
             </div>
             <div class="text-dv2">
                 <p>Miễn phí giao hàng toàn quốc</p>
@@ -11,7 +11,7 @@
         </li>
         <li>
             <div class="icon-dv2">
-                <img src="{{asset('images-demo/venus-charm-bao-hanh-san-pham-30-ngay-copy.jpg')}}" alt="Hỗ trợ đổi trả khi không vừa size">
+                <img src="{{asset('images-demo/venus-charm-bao-hanh-san-pham-30-ngay-copy.jpg')}}" alt="">
             </div>
             <div class="text-dv2">
                 <p>Hỗ trợ đổi trả khi không vừa size</p>
@@ -20,7 +20,7 @@
         </li>
         <li>
             <div class="icon-dv2">
-                <img src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh.jpg')}}" alt="Cam kết sản phẩm như hình">
+                <img src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh.jpg')}}" alt="">
             </div>
             <div class="text-dv2">
                 <p>Cam kết sản phẩm như hình</p>
@@ -30,7 +30,7 @@
         </li>
         <li>
             <div class="icon-dv2">
-                <img src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay.png')}}" alt="Bảo hành sản phẩm trong 30 ngày">
+                <img src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay.png')}}" alt="">
             </div>
             <div class="text-dv2">
                 <p>Bảo hành sản phẩm trong 30 ngày</p>

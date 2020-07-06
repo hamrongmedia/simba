@@ -16,7 +16,7 @@ class ThemeOptionsController extends Controller
     public function index()
     {
 
-        $page_name = "Thiết lập chung";
+        $page_name = "THIẾT LẬP CHUNG";
         $_route = route('admin.themeoptions.updateheader');
         $_form = 'header';
         $value = ThemeOptions::get('header');
@@ -26,7 +26,7 @@ class ThemeOptionsController extends Controller
     //Header Setting
     public function header(Request $request)
     {
-        $page_name = "Thiết lập chung";
+        $page_name = "THIẾT LẬP CHUNG";
         $_route = route('admin.themeoptions.updateheader');
         $_form = 'header';
         $value = ThemeOptions::get('header');
@@ -40,10 +40,10 @@ class ThemeOptionsController extends Controller
         return back();
     }
 
-    //Header Setting
+    //HomePage Setting
     public function homepage(Request $request)
     {
-        $page_name = "Thiết lập chung";
+        $page_name = "THIẾT LẬP TRANG CHỦ";
         $_route = route('admin.themeoptions.updatehomepage');
         $_form = 'homepage';
         $value = ThemeOptions::get('homepage');
@@ -58,10 +58,28 @@ class ThemeOptionsController extends Controller
         return back();
     }
 
+    //HomePage Setting
+    public function product(Request $request)
+    {
+        $page_name = "THIẾT LẬP SẢN PHẨM";
+        $_route = route('admin.themeoptions.updateproduct');
+        $_form = 'product';
+        $value = ThemeOptions::get('product');
+        //dd($value);
+        return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
+    }
+
+    public function updateproduct(Request $request)
+    {
+        $data = $request->all();
+        ThemeOptions::set('product', $data);
+        return back();
+    }
+
     //Script Setting
     public function script(Request $request)
     {
-        $page_name = "Chèn Script vào Header hoặc Footer";
+        $page_name = "CHÈN SCRIPT VÀO HEADER HOẶC FOOTER";
         $_route = route('admin.themeoptions.updatescript');
         $_form = 'script';
         $value = ThemeOptions::get('script');
@@ -79,7 +97,7 @@ class ThemeOptionsController extends Controller
     //Social Setting
     public function social(Request $request)
     {
-        $page_name = "Thiết lập social";
+        $page_name = "THIẾT LẬP SOCIAL";
         $_route = route('admin.themeoptions.updatesocial');
         $_form = 'social';
         $value = ThemeOptions::get('social');
@@ -99,7 +117,7 @@ class ThemeOptionsController extends Controller
     //Footer Setting
     public function footer(Request $request)
     {
-        $page_name = "Cấu hình chân trang";
+        $page_name = "CẤU HÌNH CHÂN TRANG";
         $_route = route('admin.themeoptions.updatefooter');
         $_form = 'footer';
         $value = ThemeOptions::get('footer');
@@ -112,71 +130,5 @@ class ThemeOptionsController extends Controller
         $data = $request->all();
         ThemeOptions::set('footer', $data);
         return back();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

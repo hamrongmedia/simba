@@ -2,6 +2,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+            <th></th>
             <th>ID</th>
             <th>Mã sản phẩm</th>
             <th>Tên sản phẩm</th>

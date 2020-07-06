@@ -1,8 +1,14 @@
-@extends('front-end.main.page_main')
+@extends('front-end.layout.main')
 
-@section('title')
-Chi tiết sản phẩm
-@endsection
+@section('title', $product->name)
+
+@section('title', $product->meta_title)
+@section('description',  $product->meta_description)
+
+@section('keywords', $product->meta_key)
+@section('og:description', $product->meta_description)
+@section('og:title', $product->meta_title ?? $product->name)
+@section('og:image',  isset($product->image) ?  $product->image : '')
 
 @section('content')
     <section class="sec-main-page">
@@ -48,11 +54,21 @@ Chi tiết sản phẩm
                     </div>
                     <div class="col-md-3 col-sm-4 col-xs-12 pca-pl-r fixed-menu" >
                         <div class="wp-text-right">
-                            <h1 class="h1-title-ctsp">Quần 9872</h1>
-                            <div class="price-ctsp"><span class="int" style="margin-right: 10px;">70.000 đ</span></div>
+                            <h1 class="h1-title-ctsp">{{$product->name}}</h1>
+                            <div class="price-ctsp">
+                                <div class="price-ctsp">
+                                    <span class="int" style="margin-right: 10px">{{$product->promotion_price}}</span>
+                                    <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">{{$product->price}} đ</span>                                
+                                </div>
+                            </div>
                             <div class="wpmaxx">
                                 <p>Mã sản phẩm: 002697</p>
-                                <p>Trạng thái: Còn hàng</p>
+                                <p>Trạng thái: 
+                                    @if($product->status == 1)
+                                        Còn hàng
+                                        @else
+                                        Hết hàng
+                                    @endif</p>
                             </div>
                             <!-- màu sản phẩm -->
                             <div class="wp-chonmau">
