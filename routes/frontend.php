@@ -11,6 +11,6 @@ Route::namespace ('Frontend')->group(function () {
     Route::get('/san-pham/{slug}', 'ProductController@getDetailProduct')->name('product.detail');
 
 	Route::get('/lien-he', function () {
-		return view('front-end.page.contact'
-	);
+		return view('front-end.page.contact');
+	});
 });
