@@ -55,8 +55,8 @@ class ProductController extends Controller
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
-        $attributes = ProductAttribute::where('is_deleted', 0)->get();
-        return view('admin.pages.product.create', ['categories' => $categories, 'types' => $types, 'attributes' => $attributes]);
+        $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
+        return view('admin.pages.product.create',compact('categories','types','attributes'));
     }
 
     /**

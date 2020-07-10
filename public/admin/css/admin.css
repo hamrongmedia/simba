@@ -308,3 +308,9 @@ border-radius: 50%;
         padding: 35px 20px;
     }
 }
+
+.btn-secondary {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}

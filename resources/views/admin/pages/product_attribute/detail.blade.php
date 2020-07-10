@@ -25,7 +25,7 @@ Quản lý giá trị thuộc tính: {{$attribute->name}}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($attribute->values as $value)
+                        @foreach($attribute->attributeValues as $value)
                         <tr>
                             <td>{{$value->id}}</td>
                             <td>{{$value->value}}</td>

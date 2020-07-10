@@ -8,6 +8,7 @@ use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
+Use App\Models\ProductAttribute;
 use DB;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;

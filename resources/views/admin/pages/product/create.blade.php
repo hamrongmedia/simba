@@ -48,45 +48,137 @@ Tạo sản phẩm
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="control-label">Thuộc tính</label>
-                            </div>
-                            <div class="form-group--attribute col-md-12">
-                                <div class="row form-group--attribute--row">
-                                    <div class="col-md-6">
-                                        <select class="form-control select_attribute" name="attribute[]">
-                                            <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($attributes as $key => $attr)
-                                            <option value="{{$attr->id}}">{{$attr->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control select_value" name="value[]">
-                                            <option value="" disabled selected>Chọn giá trị cho thuộc tính</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-danger remove-attribute"><i class="fa fa-minus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label">Số lượng</label>
                         <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng">
                     </div>
                 </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Sản phẩm đa thuộc tính</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="list-product-attribute-values-wrap hidden">
+                        <div class="product-select-attribute-item-template">
+                            <div class="product-attribute-set-item">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="text-title-field">Tên thuộc tính</label>
+                                            <select class="form-control next-input product-select-attribute-item">
+                                                @if( count($attributes) > 0 )
+                                                    @foreach($attributes as $attribute)
+                                                        <option value="{{ $attribute->id }}">
+                                                            {{ $attribute->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label class="text-title-field">Giá trị</label>
+                                            <div class="product-select-attribute-item-value-wrap">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-6 product-set-item-delete-action hidden">
+                                        <div class="form-group">
+                                            <label class="text-title-field">&nbsp;</label>
+                                            <div style="height: 36px;line-height: 33px;vertical-align: middle">
+                                                <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @if( count($attributes) > 0 )
+                            @foreach($attributes as $attribute)
+                                <div class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attribute->id }}">
+                                    <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attribute->id }}" data-set-id="{{ $attribute->id }}">
+                                        @foreach($attribute->attributeValues() as $atv)
+                                            {{ dd($atv) }}
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="list-product-attribute-wrap">
+                        <div class="list-product-attribute-wrap-detail">
+                            @if( count($attributes) > 0 )
+                                @foreach($attributes as $attribute)
+                                    @if($loop->first)
+                                        <div class="product-attribute-set-item">
+                                            <div class="row">
+                                                <div class="col-md-5 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="text-title-field">Tên thuộc tính</label>
+                                                        <select class="form-control next-input product-select-attribute-item" aria-invalid="false">
+                                                            <option value="2">
+                                                                Size
+                                                            </option>
+                                                            <option value="1">
+                                                                Color
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="text-title-field">Giá trị thuộc tính</label>
+                                                        <div class="product-select-attribute-item-value-wrap">
+                                                            <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-2" name="added_attributes[2]" data-set-id="2">
+                                                                <option value="5">
+                                                                    S
+                                                                </option>
+                                                                <option value="6">
+                                                                    M
+                                                                </option>
+                                                                <option value="7">
+                                                                    L
+                                                                </option>
+                                                                <option value="8">
+                                                                    XL
+                                                                </option>
+                                                                <option value="9">
+                                                                    XXL
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-6 product-set-item-delete-action">
+                                                    <div class="form-group">
+                                                        <label class="text-title-field">&nbsp;</label>
+                                                        <div style="height: 36px;line-height: 33px;vertical-align: middle">
+                                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <a href="#" class="btn btn-secondary btn-trigger-add-attribute-item">Thêm thuộc tính</a>
+                    </div>
+                </div>            
             </div>
             <div class="box box-primary collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                     </div>
                 </div>
                 
@@ -208,7 +300,33 @@ Tạo sản phẩm
                 })
             }
             console.log($(this).val());
-        })
+        });
+        // Logic product
+        $(document).on("change", ".product-select-attribute-item", (function() {
+            var e = [];
+            $.each($(".product-select-attribute-item"), (function(t, a) {
+                "" !== $(a).val() && e.push(t)
+            })), e.length ? $(".btn-trigger-add-attribute-to-simple-product").removeClass("hidden") : $(".btn-trigger-add-attribute-to-simple-product").addClass("hidden")
+        }));
+        $(document).on("change", ".product-select-attribute-item", (function(t) {
+            $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t.currentTarget).val()).html()), $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-id-" + $(t.currentTarget).val()).prop("name", "added_attributes[" + $(t.currentTarget).val() + "]"), e()
+        }));
+        $(document).on("click", ".btn-trigger-add-attribute-item", (function(t) {
+            t.preventDefault();
+            var a = $(".list-product-attribute-values-wrap .product-select-attribute-item-template"),
+                r = null;
+            $.each($(".product-attribute-set-item:visible .product-select-attribute-item option"), (function(e, t) {
+                $(t).prop("value") !== $(t).closest("select").val() && !1 === $(t).prop("disabled") && (a.find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t).prop("value")).html()), 
+                r = $(t).prop("value"))
+            }));
+            var n = $(".list-product-attribute-wrap-detail");
+            n.append(a.html()), 
+            n.find(".product-attribute-set-item:last-child .product-select-attribute-item").val(r), 
+            n.find(".product-select-attribute-item-value-id-" + r).prop("name", "added_attributes[" + r + "]"), 
+            n.find(".product-attribute-set-item").length === $(".list-product-attribute-values-wrap .product-select-attribute-item-wrap-template").length 
+                && $(t.currentTarget).addClass("hidden"), 
+                $(".product-set-item-delete-action").removeClass("hidden")
+        }))
     })
 </script>
 @include('admin.component.ckeditor_js')
