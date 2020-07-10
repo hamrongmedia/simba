@@ -31,6 +31,6 @@ class ProductAttribute extends Model
      * @author Bao Do
      */
     public function attributeValues(){
-        return $this->hasMany('App\Models\ProductAttributeValue', 'attribute_id', 'id');
+        return $this->hasMany(ProductAttributeValue::class, 'attribute_id', 'id');
     }
 }

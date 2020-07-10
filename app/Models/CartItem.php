@@ -4,14 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductAttributeValue extends Model
+class CartItem extends Model
 {
+    /**
+     * @var bool
+     */
+    public $timestamps = true;
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = "product_attribute_values";
+    protected $table = 'cart_items';
 
     /**
      * The attributes that are mass assignable.
@@ -19,16 +23,22 @@ class ProductAttributeValue extends Model
      * @var array
      */
     protected $fillable = [
-    	'attribute_id', 
-    	'value'
+        'cart_id',
+        'product_id',
+        'quantity',
+        'price'
     ];
+
+    public function getTotalPriceAttribute() {
+        return $this->quantity * $this->price;
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      * @author Bao Do
      */
-    public function attribute()
+    public function cart()
     {
-        return $this->belongsTo(ProductAttribute::class);
+        return $this->belongsTo('App\Cart');
     }
 }

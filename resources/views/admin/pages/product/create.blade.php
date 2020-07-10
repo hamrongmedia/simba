@@ -65,7 +65,7 @@ Tạo sản phẩm
                         <div class="product-select-attribute-item-template">
                             <div class="product-attribute-set-item">
                                 <div class="row">
-                                    <div class="col-md-4 col-sm-6">
+                                    <div class="col-md-5 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-title-field">Tên thuộc tính</label>
                                             <select class="form-control next-input product-select-attribute-item">
@@ -79,7 +79,7 @@ Tạo sản phẩm
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
+                                    <div class="col-md-5 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-title-field">Giá trị</label>
                                             <div class="product-select-attribute-item-value-wrap">
@@ -88,7 +88,7 @@ Tạo sản phẩm
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-6 product-set-item-delete-action hidden">
+                                    <div class="col-md-2 col-sm-6 product-set-item-delete-action hidden">
                                         <div class="form-group">
                                             <label class="text-title-field">&nbsp;</label>
                                             <div style="height: 36px;line-height: 33px;vertical-align: middle">
@@ -104,8 +104,8 @@ Tạo sản phẩm
                             @foreach($attributes as $attribute)
                                 <div class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attribute->id }}">
                                     <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attribute->id }}" data-set-id="{{ $attribute->id }}">
-                                        @foreach($attribute->attributeValues() as $atv)
-                                            {{ dd($atv) }}
+                                        @foreach($attribute->attributeValues as $atv)
+                                            <option value="{{ $atv->id }}">{{ $atv->value }}</option>
                                         @endforeach
                                     </select>
                                 </div>

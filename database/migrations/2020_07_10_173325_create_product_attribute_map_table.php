@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductInfoTable extends Migration
+class CreateProductAttributeMapTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateProductInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_info', function (Blueprint $table) {
-            $table->id();
+        Schema::create('product_attribute_map', function (Blueprint $table) {
             $table->integer('product_id')->unsigned();
-            $table->integer('attribute_value1')->nullable();
-            $table->integer('attribute_value2')->nullable();
-            $table->timestamps();
+            $table->integer('product_attribute_id')->unsigned();
 
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
+                ->onDelete('cascade'); 
+            $table->foreign('product_attribute_id')
+                ->references('id')
+                ->on('product_attributes')
                 ->onDelete('cascade');  
         });
     }
@@ -34,6 +35,6 @@ class CreateProductInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_info');
+        Schema::dropIfExists('product_attribute_map');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductReviewsTable extends Migration
+class CreateProductColorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateProductReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_reviews', function (Blueprint $table) {
+        Schema::create('product_color', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned();
-            $table->double('star', 8, 2)->default(0);
-            $table->string('comment')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->integer('color_id');
+            $table->string('image_path');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
@@ -37,6 +34,6 @@ class CreateProductReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_reviews');
+        Schema::dropIfExists('product_color');
     }
 }

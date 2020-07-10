@@ -18,8 +18,8 @@ class CreateProductAttribute extends Migration
             $table->string('name');
             $table->string('type')->nullable();
             $table->string('description')->nullable();
-            $table->integer('status');
-            $table->integer('is_deleted');
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
         });
     }
