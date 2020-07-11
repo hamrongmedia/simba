@@ -17,8 +17,21 @@ class ProductCategory extends Model
         return $this->hasMany('App\Models\ProductCategory', 'parent_category', 'id');
     }
 
-    // public function product()
-    // {
-    //     return $this->belongsToMany('App\Models\Product', 'post_has_categories', 'category_id', 'post_id');
-    // }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author Baodv
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_to_categories','category_id','product_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (ProductCategory $category) {
+            $category->products()->detach();
+        });
+    }
 }

@@ -364,3 +364,13 @@ border-radius: 50%;
 .dropzone-previews .dz-preview .dz-image img {
     width: 100%;
 }
+.required:after {
+    content: " *";
+    color: red;
+}
+.error {
+    color: red;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 13px;
+}

@@ -22,9 +22,8 @@ class CreateProductCategoriesTable extends Migration
             $table->string('meta_keyword')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
-            $table->integer('status');
-            $table->integer('is_deleted');
-            $table->integer('view');
+            $table->integer('status')->default(1);
+            $table->integer('is_deleted')->default(0);
             $table->timestamps();
         });
     }

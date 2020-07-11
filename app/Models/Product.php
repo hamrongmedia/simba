@@ -49,10 +49,15 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-
-    public function categories(){
-        return $this->hasMany('App\Model\ProductToCategory', 'product_id', 'id');
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author Baodv
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(ProductCategory::class, 'product_to_categories','product_id','category_id');
     }
+
     
     public function getCategories(){
         $categories = ProductToCategory::where('product_id', $this->id)->get();
@@ -61,5 +66,15 @@ class Product extends Model
             $list[] = $category->category_id;
         }
         return $list;
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Post $post) {
+            $post->categories()->detach();
+        });
     }
 }
