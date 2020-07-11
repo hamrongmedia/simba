@@ -7,9 +7,48 @@ use App\Models\ProductToCategory;
 
 class Product extends Model
 {
-    //
-    protected $table = "products";
-    protected $fillable = ['name', 'code', 'slug', 'description', 'type_id', 'price', 'promotion_price', 'images', 'quantity', 'attribute', "meta_keyword", "meta_title", "meta_description", "status", "is_deleted", "view"];
+    const PUBLISHED = 1;
+    const PENDING = 0;
+    const DRAFT = 2;
+
+    /**
+     * @var bool
+     */
+    public $timestamps = true;
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'products';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'content',
+        'price',
+        'sale_price',
+        'thumbnail',
+        'type',
+        'status',
+        'delete_flag',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @author
+     */
+    public function productImage()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
 
     public function categories(){
         return $this->hasMany('App\Model\ProductToCategory', 'product_id', 'id');

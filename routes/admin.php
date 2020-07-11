@@ -1,6 +1,8 @@
 <?php
 Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(function () {
 
+    Route::post('slug/creat','SlugController@store')->name('slug.create');
+
     Route::get('/', 'AdminController@index')->name('admin.index');
 
     // Posts

@@ -55,6 +55,22 @@ Tạo sản phẩm
             </div>
             <div class="box box-primary">
                 <div class="box-header with-border">
+                    <label for="description" class="control-label ec-tooltip" data-toggle="tooltip"
+                           data-placement="top" title="Hình ảnh sản phẩm">Hình ảnh sản phẩm <i
+                            class="fa fa-question-circle fa-lg ml-1"></i></label>
+                </div>
+                <div class="box-body">
+                    <div class="form-group clearfix">
+                        <div class="dropzone-previews"></div>
+                        <div class="dropzone-deletes"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="dropzone sortable dz-clickable sortable" id="dropzone"></div>
+                    </div>
+                </div>
+            </div><!-- end.tab-content -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
                     <h3 class="box-title">Sản phẩm đa thuộc tính</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -156,14 +172,6 @@ Tạo sản phẩm
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 col-sm-6 product-set-item-delete-action">
-                                                    <div class="form-group">
-                                                        <label class="text-title-field">&nbsp;</label>
-                                                        <div style="height: 36px;line-height: 33px;vertical-align: middle">
-                                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     @endif
@@ -231,16 +239,6 @@ Tạo sản phẩm
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Loại sản phẩm</label>
-                        <select class="form-control m-b" name="type" id="cat_id">
-                            <option value="0" disabled selected>Chọn loại sản phẩm</option>
-                            @foreach($types as $type)
-                            <option value="{{$type->id}}" {{old('type') == $type->id ? "selected" : ""}}>{{$type->name}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
             </div>
             <div class="box box-primary">
@@ -260,6 +258,7 @@ Tạo sản phẩm
 @endsection
 @section('js')
 <!-- DataTables -->
+@include('admin.pages.product.script')
 <script>
     $(document).ready(function(){
         form_attr = $('.box-body').find('.form-group--attribute');
@@ -302,6 +301,44 @@ Tạo sản phẩm
             console.log($(this).val());
         });
         // Logic product
+        function createSlug(name,model) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('slug.create') }}',
+                type: 'POST',
+                data: {
+                    name: name,
+                    model: model,
+                },
+                success: (data) => {
+                    if(data.status) {
+                        $('input[name="slug"]').val(data.data);
+                    }
+                },
+                error: (data) => {
+                    alert(data.msg)
+                }
+            });            
+        }
+        $('input[name="name"]').blur(() => {
+            let name = $('input[name="name"]').val();
+            let model = 'product';
+            if (name !== null && name !== '') {
+                console.log('vao day');
+                createSlug(name, model);
+            }
+        });
+
+        $('button[name="save"]').click(() => {
+            let name = $('input[name="name"]').val();
+            let model = 'product';
+            if (name !== null && name !== '') {
+                createSlug(name, model);
+            }
+        });
+
         $(document).on("change", ".product-select-attribute-item", (function() {
             var e = [];
             $.each($(".product-select-attribute-item"), (function(t, a) {
@@ -309,8 +346,14 @@ Tạo sản phẩm
             })), e.length ? $(".btn-trigger-add-attribute-to-simple-product").removeClass("hidden") : $(".btn-trigger-add-attribute-to-simple-product").addClass("hidden")
         }));
         $(document).on("change", ".product-select-attribute-item", (function(t) {
-            $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t.currentTarget).val()).html()), $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-id-" + $(t.currentTarget).val()).prop("name", "added_attributes[" + $(t.currentTarget).val() + "]"), e()
+            $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t.currentTarget).val()).html()), $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-id-" + $(t.currentTarget).val()).prop("name", "added_attributes[" + $(t.currentTarget).val() + "]")
         }));
+        $(document).on("click", ".product-set-item-delete-action a", (function(t) {
+            t.preventDefault(), $(t.currentTarget).closest(".product-attribute-set-item").remove();
+            var a = $(".list-product-attribute-wrap-detail");
+            a.find(".product-attribute-set-item").length < 2 && $(".product-set-item-delete-action").addClass("hidden"), 
+            a.find(".product-attribute-set-item").length < $(".list-product-attribute-values-wrap .product-select-attribute-item-wrap-template").length && $(".btn-trigger-add-attribute-item").removeClass("hidden")
+        }))
         $(document).on("click", ".btn-trigger-add-attribute-item", (function(t) {
             t.preventDefault();
             var a = $(".list-product-attribute-values-wrap .product-select-attribute-item-template"),
