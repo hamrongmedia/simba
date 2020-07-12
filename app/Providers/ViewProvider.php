@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\MailConfig;
 use App\Models\Menu;
 use Config;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,7 +45,7 @@ class ViewProvider extends ServiceProvider
             $view->with(['bottom_menu' => $bottom_menu]);
         });
 
-        if (\Schema::hasTable('mail_config')) {
+        if (Schema::hasTable('mail_config')) {
             $this->mail = MailConfig::first();
             if (isset($this->mail)) {
                 Config::set([
