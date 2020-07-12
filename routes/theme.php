@@ -16,8 +16,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/theme-options', '
     Route::get('/header', 'ThemeOptionsController@header')->name('admin.themeoptions.header');
     Route::post('/header', 'ThemeOptionsController@updateheader')->name('admin.themeoptions.updateheader');
 
-        Route::get('/homepage', 'ThemeOptionsController@homepage')->name('admin.themeoptions.homepage');
+    Route::get('/homepage', 'ThemeOptionsController@homepage')->name('admin.themeoptions.homepage');
     Route::post('/homepage', 'ThemeOptionsController@updatehomepage')->name('admin.themeoptions.updatehomepage');
+
+    Route::get('/product', 'ThemeOptionsController@product')->name('admin.themeoptions.product');
+    Route::post('/product', 'ThemeOptionsController@updateproduct')->name('admin.themeoptions.updateproduct');
 
     Route::get('/script', 'ThemeOptionsController@script')->name('admin.themeoptions.script');
     Route::post('/script', 'ThemeOptionsController@updatescript')->name('admin.themeoptions.updatescript');

@@ -17,9 +17,38 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Session;
+use App\Http\Requests\Admin\ProductRequest;
+use App\Services\ProductService;
+use DB;
 
 class ProductController extends Controller
 {
+    const TAKE = 15;
+    const ORDERBY = 'desc';
+    /**
+     * @var request
+     */
+    protected $request;
+
+    /**
+     * @var productService
+     */
+    protected $productService;
+
+    /**
+     * @var $pathView
+     */
+    private $pathView = 'admin.page.';
+
+    public function __construct(
+        Request $request,
+        ProductService $productService
+    )
+    {
+        $this->request = $request;
+        $this->productService = $productService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +70,7 @@ class ProductController extends Controller
             $paginator = new PaginationHelper($result, 1);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
         }
     }
 
@@ -55,8 +84,8 @@ class ProductController extends Controller
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
-        $attributes = ProductAttribute::where('is_deleted', 0)->get();
-        return view('admin.pages.product.create', ['categories' => $categories, 'types' => $types, 'attributes' => $attributes]);
+        $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
+        return view('admin.pages.product.create',compact('categories','types','attributes'));
     }
 
     /**
@@ -65,67 +94,31 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
-        if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'price' => 'required|numeric',
-                'promotion_price' => 'numeric',
+        // dd($request->all());
 
-            ], [
-                'name.required' => 'Vui lòng nhập tên sản phẩm',
-                'price.required' => 'Vui lòng nhập giá sản phẩm',
-                'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
-                'promotion_price.numeric' => 'Giá sản phẩm chỉ được nhập số',
-            ]);
-            if ($validator->fails()) {
-                Session::flash('error', $validator->errors()->first());
-                return redirect()->back();
-            }
-            $attrs = [];
-            if (is_array($request->attribute)) {
-                foreach ($request->attribute as $key => $attr) {
-                    $attrs[$attr] = $request->value[$key];
-                }
-            }
-            // $images = [];
-            $images = explode(',', $request->images);
-            $data = [
-                'name' => $request->name,
-                'code' => isset($request->code) ? $request->code : '',
-                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
-                'type_id' => $request->type,
-                'price' => $request->price,
-                'attribute' => json_encode($attrs),
-                'images' => json_encode($images),
-                'promotion_price' => $request->promotion_price,
-                'quantity' => isset($request->quantity) ? $request->quantity : 0,
-                'description' => isset($request->description) ? $request->description : '',
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
-                'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
-                'is_deleted' => 0,
-                'view' => 0,
-            ];
-            $result = Product::create($data);
-            foreach ($request->categories as $key => $category) {
-                ProductToCategory::create([
-                    'product_id' => $result->id,
-                    'category_id' => $category,
-                    'status' => 1,
-                    'is_deleted' => 0,
-                ]);
-            }
-            if ($result) {
-                Session::flash('success', 'Thêm sản phẩm thành công');
-            } else {
-                Session::flash('error', 'Thêm sản phẩm không thành công');
-            }
-
-            return redirect()->back();
+        DB::beginTransaction();
+        try {
+            $product = New Product();
+            $product->name = $request->name;
+            $product->slug = $request->slug;
+            $product->product_code = $request->product_code;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->sale_price = $request->sale_price;
+            $product->content = $request->content;
+            $product->thumbnail = $request->thumbnail;
+            $product->type = 1;
+            $product->save();
+            # Create Product Category
+            $this->productService->storeProductCategory($request, $product);
+            # Create Product Images
+            DB::commit();
+            return back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
         }
     }
 
@@ -151,10 +144,10 @@ class ProductController extends Controller
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
-        $product = Product::where(['is_deleted' => 0, 'id' => $id])->first();
+        $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
-        if (isset($product)) {
-            return view('admin.pages.product.edit', ['product' => $product, 'types' => $types, 'categories' => $categories, 'attributes' => $attributes]);
+        if (isset($data)) {
+            return view('admin.pages.product.edit', compact('data','types','categories','attributes'));
         } else {
             Session::flash('error', 'Không tìm thấy sản phẩm');
             return redirect()->back();
@@ -168,75 +161,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
-        if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'categories' => 'required|array|min: 1',
-                'type' => 'required|numeric',
-                'description' => 'required',
-                'price' => 'required|numeric',
-                'promotion_price' => 'numeric',
-                "images" => 'required',
-                // 'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
-            ], [
-                'name.required' => 'Vui lòng nhập tên sản phẩm',
-                'categories.required' => 'Vui lòng chọn danh mục sản phẩm',
-                'categories.min' => 'Vui lòng chọn danh mục sản phẩm',
-                'type.required' => 'Vui lòng chọn loại sản phẩm',
-                'description.required' => 'Vui lòng nhập mô tả sản phẩm',
-                'price.required' => 'Vui lòng nhập giá sản phẩm',
-                'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
-                'promotion_price.numeric' => 'Giá sản phẩm chỉ được nhập số',
-            ]);
-            if ($validator->fails()) {
-                Session::flash('error', $validator->errors()->first());
-                return redirect()->back();
-            }
-            $attrs = [];
-            foreach ($request->attribute as $key => $attr) {
-                $attrs[$attr] = $request->value[$key];
-            }
-            // $images = [];
-            $images = explode(',', $request->images);
-            $data = [
-                'name' => $request->name,
-                'code' => isset($request->code) ? $request->code : '',
-                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
-                'type_id' => $request->type,
-                'price' => $request->price,
-                'attribute' => json_encode($attrs),
-                'images' => json_encode($images),
-                'promotion_price' => $request->promotion_price,
-                'quantity' => isset($request->quantity) ? $request->quantity : 0,
-                'description' => isset($request->description) ? $request->description : '',
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
-                'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
-                'is_deleted' => 0,
-                'view' => 0,
-            ];
-            $result = Product::where('id', $id)->update($data);
-            ProductToCategory::where('product_id', $id)->delete();
-            foreach ($request->categories as $key => $category) {
-                ProductToCategory::create([
-                    'product_id' => $result->id,
-                    'category_id' => $category,
-                    'status' => 1,
-                    'is_deleted' => 0,
-                ]);
-            }
-            if ($result) {
-                Session::flash('success', 'Cập nhật sản phẩm thành công');
-            } else {
-                Session::flash('error', 'Cập nhật sản phẩm không thành công');
-            }
-
-            return redirect()->back();
-        }
     }
 
     /**

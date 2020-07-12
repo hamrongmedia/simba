@@ -22,7 +22,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{ asset('admin/css/admin.css')}}">
-
+  <link rel="stylesheet" href="{{ asset('admin/css/dropzone.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('admin/AdminLTE/plugins/iCheck/square/blue.css')}}">
 

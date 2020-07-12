@@ -6,7 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductToCategory extends Model
 {
-    //
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = "product_to_categories";
-    protected $fillable = ['product_id', 'category_id', 'status', 'is_deleted'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */ 
+    protected $fillable = [
+    	'product_id', 
+    	'category_id'
+    ];
 }

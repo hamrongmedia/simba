@@ -6,168 +6,16 @@ Tạo sản phẩm
 
 @section('main')
 <div class="row">
-    <form action="{{route('admin.product.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main"
-        enctype="multipart/form-data">
+    <form action="{{route('admin.product.store')}}" method="post" accept-charset="UTF-8" class="" id="form-main" enctype="multipart/form-data">
         @csrf
         <!-- {{ csrf_field() }} -->
-        <div class="col-md-9">
-            <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group">
-                        @if (\Session::has('error'))
-                            <div class="alert alert-danger">
-                                <ul>
-                                    <li>{!! \Session::get('error') !!}</li>
-                                </ul>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Tên sản phẩm(*)</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Slug</label>
-                        <input type="text" name="slug" class="form-control" placeholder="Nhập slug">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Mô tả</label>
-                        <textarea class="form-control editor" name="description" rows="3"
-                                placeholder="Nhập mô tả ngắn" id="editor"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="control-label">Giá</label>
-                                <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="control-label">Giá khuyến mãi</label>
-                                <input type="text" name="promotion_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="control-label">Thuộc tính</label>
-                            </div>
-                            <div class="form-group--attribute col-md-12">
-                                <div class="row form-group--attribute--row">
-                                    <div class="col-md-6">
-                                        <select class="form-control select_attribute" name="attribute[]">
-                                            <option value="" disabled selected>Chọn thuộc tính cho sản phẩm</option>
-                                            @foreach($attributes as $key => $attr)
-                                            <option value="{{$attr->id}}">{{$attr->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <select class="form-control select_value" name="value[]">
-                                            <option value="" disabled selected>Chọn giá trị cho thuộc tính</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-primary add-attribute"><i class="fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-danger remove-attribute"><i class="fa fa-minus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Số lượng</label>
-                        <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng">
-                    </div>
-                </div>
-            </div>
-            <div class="box box-primary collapsed-box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                    </div>
-                </div>
-                
-                <div class="box-body">
-                    <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
-                    <div class="form-group">
-                        <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
-                    </div>
-                    <div class="form-group">
-                        <label for="meta_des">Mô Tả</label>
-                        <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta Keyword</label>
-                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa">
-                    </div>
-                </div>
-            </div> 
-        </div>
-        <div class="col-md-3">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Đăng</h3>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Trạng thái</label>
-                        <select class="form-control" name="status">
-                            <option value="1">Đã đăng</option>
-                            <option value="2">Bản nháp</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <button type="reset" class="btn btn-default">Hủy</button>
-                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group">
-                        <label class="control-label">Danh mục</label>
-                        <select class="form-control input-sm permission select2 select2-hidden-accessible"
-                            multiple="" data-placeholder="Chọn danh mục" style="width: 100%;"
-                            name="categories[]" tabindex="-1" aria-hidden="true">
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Loại sản phẩm</label>
-                        <select class="form-control m-b" name="type" id="cat_id">
-                            <option value="0" disabled selected>Chọn loại sản phẩm</option>
-                            @foreach($types as $type)
-                            <option value="{{$type->id}}" {{old('type') == $type->id ? "selected" : ""}}>{{$type->name}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Hình ảnh</h3>
-                </div>
-                <div class="box-body">
-                    <div class="image-box">
-                    @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
-
-                    </div>
-                </div>
-            </div> 
-        </div>
+        @include('admin.pages.product.form')
     </form>
 </div>
 @endsection
 @section('js')
 <!-- DataTables -->
+@include('admin.pages.product.script')
 <script>
     $(document).ready(function(){
         form_attr = $('.box-body').find('.form-group--attribute');
@@ -208,7 +56,77 @@ Tạo sản phẩm
                 })
             }
             console.log($(this).val());
-        })
+        });
+        // Logic product
+        function createSlug(name,model) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ route('slug.create') }}',
+                type: 'POST',
+                data: {
+                    name: name,
+                    model: model,
+                },
+                success: (data) => {
+                    if(data.status) {
+                        $('input[name="slug"]').val(data.data);
+                    }
+                },
+                error: (data) => {
+                    alert(data.msg)
+                }
+            });            
+        }
+        $('input[name="name"]').blur(() => {
+            let name = $('input[name="name"]').val();
+            let model = 'product';
+            if (name !== null && name !== '') {
+                console.log('vao day');
+                createSlug(name, model);
+            }
+        });
+
+        $('button[name="save"]').click(() => {
+            let name = $('input[name="name"]').val();
+            let model = 'product';
+            if (name !== null && name !== '') {
+                createSlug(name, model);
+            }
+        });
+
+        $(document).on("change", ".product-select-attribute-item", (function() {
+            var e = [];
+            $.each($(".product-select-attribute-item"), (function(t, a) {
+                "" !== $(a).val() && e.push(t)
+            })), e.length ? $(".btn-trigger-add-attribute-to-simple-product").removeClass("hidden") : $(".btn-trigger-add-attribute-to-simple-product").addClass("hidden")
+        }));
+        $(document).on("change", ".product-select-attribute-item", (function(t) {
+            $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t.currentTarget).val()).html()), $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-id-" + $(t.currentTarget).val()).prop("name", "added_attributes[" + $(t.currentTarget).val() + "]")
+        }));
+        $(document).on("click", ".product-set-item-delete-action a", (function(t) {
+            t.preventDefault(), $(t.currentTarget).closest(".product-attribute-set-item").remove();
+            var a = $(".list-product-attribute-wrap-detail");
+            a.find(".product-attribute-set-item").length < 2 && $(".product-set-item-delete-action").addClass("hidden"), 
+            a.find(".product-attribute-set-item").length < $(".list-product-attribute-values-wrap .product-select-attribute-item-wrap-template").length && $(".btn-trigger-add-attribute-item").removeClass("hidden")
+        }))
+        $(document).on("click", ".btn-trigger-add-attribute-item", (function(t) {
+            t.preventDefault();
+            var a = $(".list-product-attribute-values-wrap .product-select-attribute-item-template"),
+                r = null;
+            $.each($(".product-attribute-set-item:visible .product-select-attribute-item option"), (function(e, t) {
+                $(t).prop("value") !== $(t).closest("select").val() && !1 === $(t).prop("disabled") && (a.find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t).prop("value")).html()), 
+                r = $(t).prop("value"))
+            }));
+            var n = $(".list-product-attribute-wrap-detail");
+            n.append(a.html()), 
+            n.find(".product-attribute-set-item:last-child .product-select-attribute-item").val(r), 
+            n.find(".product-select-attribute-item-value-id-" + r).prop("name", "added_attributes[" + r + "]"), 
+            n.find(".product-attribute-set-item").length === $(".list-product-attribute-values-wrap .product-select-attribute-item-wrap-template").length 
+                && $(t.currentTarget).addClass("hidden"), 
+                $(".product-set-item-delete-action").removeClass("hidden")
+        }))
     })
 </script>
 @include('admin.component.ckeditor_js')

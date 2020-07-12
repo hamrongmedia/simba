@@ -8,7 +8,7 @@
         <a  href="{{route('admin.themeoptions.homepage')}}" class="btn-block"><i class="fa fa-home"></i> Cấu hình trang chủ</a>
       </li>
       <li class="btn-block" >
-        <a  href="#product-setting" class="btn-block"><i class="fa fa-shopping-cart"></i> Cài đặt sản phẩm</a>
+        <a  href="{{route('admin.themeoptions.product')}}" class="btn-block"><i class="fa fa-shopping-cart"></i> Cài đặt sản phẩm</a>
       </li>
       <li class="btn-block" >
         <a  href="{{route('admin.themeoptions.script')}}" class="btn-block"><i class="fa fa-code"></i> General & Script</a>

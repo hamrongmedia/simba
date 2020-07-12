@@ -2,6 +2,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+            <th></th>
             <th>ID</th>
             <th>Mã sản phẩm</th>
             <th>Tên sản phẩm</th>
@@ -19,7 +20,7 @@
                     </td>
                     <td>{{$product->id}}</td>
                     <td>{{$product->code}}</td>
-                    <td><a href="" target="_blank">{{$product->name}}</a></td>
+                    <td><a href="{{route('product.detail', $product->slug)}}" target="_blank">{{$product->name}}</a></td>
                     <td>{{$product->slug}}</td>
                     <td>
                         @if ($product->status == 1)
