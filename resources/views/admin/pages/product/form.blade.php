@@ -38,14 +38,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="control-label required">Giá</label>
-                        <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm" value="{{ isset($data) ? $data->price : old('price') }}">
+                        <input type="text" name="price" class="form-control inputmask" placeholder="Nhập giá sản phẩm" value="{{ isset($data) ? $data->price : old('price') }}">
                         @if ($errors->first('price'))
                             <div class="error">{{ $errors->first('price') }}</div>
                         @endif
                     </div>
                     <div class="col-md-6">
                         <label class="control-label">Giá khuyến mãi</label>
-                        <input type="text" name="sale_price" class="form-control" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{ isset($data) ? $data->title : old('sale_price') }}">
+                        <input type="text" name="sale_price" class="form-control inputmask" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{ isset($data) ? $data->title : old('sale_price') }}">
                         @if ($errors->first('sale_price'))
                             <div class="error">{{ $errors->first('sale_price') }}</div>
                         @endif
@@ -53,11 +53,31 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label required">Số lượng</label>
-                <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng" value="{{ isset($data) ? $data->quantity : old('quantity') }}">
-                @if ($errors->first('quantity'))
-                    <div class="error">{{ $errors->first('quantity') }}</div>
-                @endif
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label required">Mã sản phẩm</label>
+                        <input type="text" name="product_code" class="form-control" placeholder="Nhập mã sản phẩm" value="{{ isset($data) ? $data->product_code : old('product_code') }}">
+                        @if ($errors->first('product_code'))
+                            <div class="error">{{ $errors->first('product_code') }}</div>
+                        @endif
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label required">Số lượng</label>
+                        <input type="number" name="quantity" class="form-control" placeholder="Nhập số lượng" value="{{ isset($data) ? $data->quantity : old('quantity') }}">
+                        @if ($errors->first('quantity'))
+                            <div class="error">{{ $errors->first('quantity') }}</div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="assign-switch">
+                    <label class="switch-label">
+                        <input type="checkbox" class="switch-assign" name="type" @if(isset($data) && $data->type==2) checked @endif value="2">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="d-inline-block">Sản phẩm đa thuộc tính</label>
+                </div>
             </div>
             <div class="form-group">
                 <label class="control-label">Nội dung</label>
@@ -207,15 +227,15 @@
             <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
             <div class="form-group">
                 <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
-                <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
+                <input type="text" name="seo[meta_title]" class="form-control" placeholder="Nhập tiêu đề">
             </div>
             <div class="form-group">
                 <label for="meta_des">Mô Tả</label>
-                <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                <textarea class="form-control" name="seo[meta_description]" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
             </div>
             <div class="form-group">
                 <label class="control-label">Meta Keyword</label>
-                <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa">
+                <input type="text" name="seo[meta_keyword]" class="form-control" placeholder="Nhập từ khóa">
             </div>
         </div>
     </div> 

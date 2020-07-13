@@ -11,7 +11,7 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('payment_methods')->insert([
+        DB::table('product_categories')->insert([
             [
                 'name' => 'Quần áo',
                 'slug' => 'quan-ao',

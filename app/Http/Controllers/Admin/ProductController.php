@@ -96,8 +96,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        // dd($request->all());
-
         DB::beginTransaction();
         try {
             $product = New Product();
@@ -109,10 +107,16 @@ class ProductController extends Controller
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
             $product->thumbnail = $request->thumbnail;
-            $product->type = 1;
+            if($request->type) {
+                $product->type = Product::PRODUCT_ATTRIBUTE;
+            }
             $product->save();
+            # Create Seo Meta
+            $this->seoHelper($product,$request);
             # Create Product Category
             $this->productService->storeProductCategory($request, $product);
+            # Create Product Attribute
+            $this->productService->storeProductAttributeMap($request, $product);
             # Create Product Images
             DB::commit();
             return back();

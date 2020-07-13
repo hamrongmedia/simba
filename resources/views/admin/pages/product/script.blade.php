@@ -1,3 +1,4 @@
+<script src="{{ asset('admin/js/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     $("#dropzone").dropzone({
@@ -89,5 +90,15 @@
             distance: 20,
             tolerance: 'pointer'
         });
+    });
+    $(".inputmask").inputmask({
+        alias: "numeric",
+        rightAlign: !1,
+        digits: 2,
+        groupSeparator: ",",
+        placeholder: "0",
+        autoGroup: !0,
+        autoUnmask: !0,
+        removeMaskOnSubmit: !0
     });
 </script>
