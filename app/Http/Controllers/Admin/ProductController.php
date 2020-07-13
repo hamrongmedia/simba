@@ -6,20 +6,17 @@ use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
 use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductCategory;
-use App\Models\ProductToCategory;
 use App\Models\ProductType;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Session;
-use App\Http\Requests\Admin\ProductRequest;
 use App\Services\ProductService;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Session;
 
 class ProductController extends Controller
 {
@@ -43,8 +40,7 @@ class ProductController extends Controller
     public function __construct(
         Request $request,
         ProductService $productService
-    )
-    {
+    ) {
         $this->request = $request;
         $this->productService = $productService;
     }
@@ -85,7 +81,7 @@ class ProductController extends Controller
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
         $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
-        return view('admin.pages.product.create',compact('categories','types','attributes'));
+        return view('admin.pages.product.create', compact('categories', 'types', 'attributes'));
     }
 
     /**
@@ -100,7 +96,8 @@ class ProductController extends Controller
 
         DB::beginTransaction();
         try {
-            $product = New Product();
+            dd($request->all());
+            $product = new Product();
             $product->name = $request->name;
             $product->slug = $request->slug;
             $product->product_code = $request->product_code;
@@ -147,7 +144,7 @@ class ProductController extends Controller
         $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
         if (isset($data)) {
-            return view('admin.pages.product.edit', compact('data','types','categories','attributes'));
+            return view('admin.pages.product.edit', compact('data', 'types', 'categories', 'attributes'));
         } else {
             Session::flash('error', 'Không tìm thấy sản phẩm');
             return redirect()->back();

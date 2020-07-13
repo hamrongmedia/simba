@@ -105,12 +105,14 @@ Tạo sản phẩm
         $(document).on("change", ".product-select-attribute-item", (function(t) {
             $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-wrap").html($(".list-product-attribute-values-wrap .product-select-attribute-item-value-wrap-" + $(t.currentTarget).val()).html()), $(t.currentTarget).closest(".product-attribute-set-item").find(".product-select-attribute-item-value-id-" + $(t.currentTarget).val()).prop("name", "added_attributes[" + $(t.currentTarget).val() + "]")
         }));
+
         $(document).on("click", ".product-set-item-delete-action a", (function(t) {
             t.preventDefault(), $(t.currentTarget).closest(".product-attribute-set-item").remove();
             var a = $(".list-product-attribute-wrap-detail");
             a.find(".product-attribute-set-item").length < 2 && $(".product-set-item-delete-action").addClass("hidden"), 
             a.find(".product-attribute-set-item").length < $(".list-product-attribute-values-wrap .product-select-attribute-item-wrap-template").length && $(".btn-trigger-add-attribute-item").removeClass("hidden")
         }))
+        
         $(document).on("click", ".btn-trigger-add-attribute-item", (function(t) {
             t.preventDefault();
             var a = $(".list-product-attribute-values-wrap .product-select-attribute-item-template"),
