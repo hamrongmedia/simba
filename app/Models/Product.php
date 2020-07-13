@@ -11,6 +11,9 @@ class Product extends Model
     const PENDING = 0;
     const DRAFT = 2;
 
+    const PRODUCT_STANDARD = 1;
+    const PRODUCT_ATTRIBUTE = 2;
+
     /**
      * @var bool
      */
@@ -34,6 +37,7 @@ class Product extends Model
         'content',
         'price',
         'sale_price',
+        'product_code',
         'thumbnail',
         'type',
         'status',
@@ -58,6 +62,14 @@ class Product extends Model
         return $this->belongsToMany(ProductCategory::class, 'product_to_categories','product_id','category_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author Baodv
+     */
+    public function productAttributes()
+    {
+        return $this->belongsToMany(ProductAttribute::class, 'product_attribute_map','product_id','product_attribute_id');
+    }
     
     public function getCategories(){
         $categories = ProductToCategory::where('product_id', $this->id)->get();

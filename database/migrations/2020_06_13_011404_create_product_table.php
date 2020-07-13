@@ -25,6 +25,9 @@ class CreateProductTable extends Migration
             $table->integer('sale_price')->nullable()->default(0);
             $table->mediumText('content')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
             $table->tinyInteger('type')->comment('1:Default, 2:Attribute')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->boolean('delete_flag')->default(0);

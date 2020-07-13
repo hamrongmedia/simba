@@ -11,7 +11,7 @@ class ProductAttributeMap extends Model
      *
      * @var string
      */
-    protected $table = "product_attributes";
+    protected $table = "product_attribute_map";
 
     /**
      * The attributes that are mass assignable.
