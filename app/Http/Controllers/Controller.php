@@ -7,10 +7,44 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Str;
-use Log;
+use Illuminate\Http\Response as Res;
+use Response;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    /**
+     * @var int
+     */
+    protected $statusCode = Res::HTTP_OK;
+
+    /**
+     * @return mixed
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
+     * @param $message
+     * @return json response
+     */
+    public function setStatusCode($statusCode)
+    {
+        $this->statusCode = $statusCode;
+        return $this;
+    }
+
+    /**
+     * Base Response Api
+     * @param Object: $data
+     * @param $Respond Json
+     * @return json response
+     */
+    public function respond($data, $headers = [])
+    {
+        return Response::json($data, $this->getStatusCode(), $headers);
+    }
 
     /**
      * Creat Seo
@@ -22,8 +56,7 @@ class Controller extends BaseController
     protected function seoHelper($data, $request)
     {
     	$seo = $request->seo;
-        Log::info($seo);
-    	$meta_title = $request->title;
+    	$meta_title = $request->name;
     	$meta_description = '';
     	if($request->content) {
     		$meta_description = Str::substr(strip_tags($request->content),30);

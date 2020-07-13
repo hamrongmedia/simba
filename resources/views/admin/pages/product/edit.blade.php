@@ -15,6 +15,7 @@ Cập nhật sản phẩm
 </div>
 @endsection
 @section('js')
+@include('admin.pages.product.script')
 <!-- DataTables -->
 <script>
     $(document).ready(function(){

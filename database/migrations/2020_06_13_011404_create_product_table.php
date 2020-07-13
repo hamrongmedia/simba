@@ -22,6 +22,8 @@ class CreateProductTable extends Migration
             $table->string('product_code',20)->nullable();
             $table->text('description')->nullable();
             $table->integer('price')->default(0);
+            $table->integer('stock')->nullable();
+            $table->tinyInteger('stock_unlimited')->default(1);
             $table->integer('sale_price')->nullable()->default(0);
             $table->mediumText('content')->nullable();
             $table->string('thumbnail')->nullable();

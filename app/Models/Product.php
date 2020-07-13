@@ -38,6 +38,7 @@ class Product extends Model
         'price',
         'sale_price',
         'product_code',
+        'stock',
         'thumbnail',
         'type',
         'status',

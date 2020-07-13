@@ -35,8 +35,8 @@ class ProductService
      */
     public function storeProductAttributeMap(Request $request,Product $product)
     {
-        $added_attributes = $request->input('added_attributes');
-        if (!empty($added_attributes)) {
+        $added_attributes = $request->input('added_attributes',[]);
+        if (!empty($added_attributes) && $request->input('type') == Product::PRODUCT_ATTRIBUTE) {
             # Get Key : Get Attributes
             $attributes = array_keys($added_attributes);
             $product->productAttributes()->detach();
@@ -45,12 +45,13 @@ class ProductService
             }
             # Get Value : Get Attribute Value;
             $attribute_values = array_values($added_attributes);
-            foreach ($attribute_values as $value) {
-                Log::info($value);
-                // $product_info = New ProductInfo();
-                // $product_info = $value;
-                
+            $product_info = New ProductInfo();
+            $product_info->product_id = $product->id;
+            $product_info->attribute_value1 = $attribute_values[0];
+            if(count($attribute_values) == 2) {
+                $product_info->attribute_value2 = $attribute_values[1];
             }
+            $product_info->save();
         }
     }
 

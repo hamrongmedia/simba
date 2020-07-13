@@ -7,6 +7,9 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
 	Route::resource('product-attribute', 'ProductAttributeController');
 	Route::get('product/get-value', 'ProductController@getValue')->name('ajaxGetValue');
 
+    Route::post('product/image/upload','ProductController@uploadImages')->name('admin.product.image.upload');
+    Route::post('product/image/remove','ProductController@removeImage')->name('admin.product.image.remove');
+
     Route::get('product', 'ProductController@index')->name('admin.product.index');
     Route::get('product/create', 'ProductController@create')->name('admin.product.create');
     Route::post('product/create', 'ProductController@store')->name('admin.product.store');
@@ -14,4 +17,6 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::put('product/{id}', 'ProductController@update')->name('admin.product.update');
     Route::post('product/destroy', 'ProductController@delete')->name('admin.product.destroy');
     Route::get('product/search', 'ProductController@search')->name('admin.product.search');
+
+    Route::delete('product/info','ProductInfoController@delete');
 });
