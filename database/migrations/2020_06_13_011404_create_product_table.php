@@ -22,9 +22,14 @@ class CreateProductTable extends Migration
             $table->string('product_code',20)->nullable();
             $table->text('description')->nullable();
             $table->integer('price')->default(0);
+            $table->integer('stock')->nullable();
+            $table->tinyInteger('stock_unlimited')->default(1);
             $table->integer('sale_price')->nullable()->default(0);
             $table->mediumText('content')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
             $table->tinyInteger('type')->comment('1:Default, 2:Attribute')->default(1);
             $table->tinyInteger('status')->default(1);
             $table->boolean('delete_flag')->default(0);

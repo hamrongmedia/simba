@@ -33,4 +33,13 @@ class ProductAttribute extends Model
     public function attributeValues(){
         return $this->hasMany(ProductAttributeValue::class, 'attribute_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author Baodv
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_attribute_map','product_attribute_id','product_id');
+    }
 }

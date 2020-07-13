@@ -3,7 +3,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Response;
 class UploadService
 {
     /**
@@ -38,6 +38,23 @@ class UploadService
     public function handleDownload()
     {
 
+    }
+
+    /**
+     * @param File $image
+     * @param String $filePath
+     * @param Request $request
+     *
+     * @return mixed|void
+     */
+    public function handleRemove($filePath='')
+    {
+        $exists = Storage::exists($filePath);
+        if($exists) {
+            Storage::delete($filePath);
+            return true;
+        }
+        return false;
     }
 
     /**

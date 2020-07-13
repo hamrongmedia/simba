@@ -1,3 +1,4 @@
+<script src="{{ asset('admin/js/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     $("#dropzone").dropzone({
@@ -7,7 +8,7 @@
         previewsContainer: ".dropzone-previews",
         dictDefaultMessage: '<i class="fa fa-cloud-upload fa-3x text-ec-lightGray mx-3 align-middle" aria-hidden="true"></i> <span class="btn-upload-dropzon"> Kéo thả hình ảnh</span>',
         dictRemoveFile: 'Xóa hình ảnh',
-        url: "{{ route('slug.create') }}",
+        url: "{{ route('admin.product.image.upload') }}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -35,7 +36,7 @@
                     };
                     // Call the default addedfile event handler
                     myDropzone.options.addedfile.call(myDropzone, mockFile);
-                    myDropzone.options.thumbnail.call(myDropzone, mockFile, '{{ URL::asset($product_image->image_file) }}');
+                    myDropzone.options.thumbnail.call(myDropzone, mockFile, '{{ Storage::url($product_image->image_file) }}');
                     // Init Image
                     var element_add = $("div.dz-preview").last();
                     element_add.append('<input type="hidden" name="product_images[]" value="{{ $product_image->image_file }}">');
@@ -58,7 +59,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'POST',
-                url: '{{ route("slug.create") }}',
+                url: '{{ route("admin.product.image.remove") }}',
                 data: {
                     filename: name,
                     el_delete: el_delete
@@ -73,10 +74,12 @@
             return (fileRef = file.previewElement) != null ? fileRef.parentNode.removeChild(file.previewElement) : void 0;
         },
         success: function (file, response) {
+            console.log('vao day');
             var element_add = file.previewElement;
             $(element_add).append('<input type="hidden" name="product_images[]" value="' + response.data + '">');
         },
         error: function (file, response) {
+            console.log('vao day 2');
             return false;
         }
     });
@@ -89,5 +92,19 @@
             distance: 20,
             tolerance: 'pointer'
         });
+    });
+    $(".inputmask").inputmask({
+        alias: "numeric",
+        rightAlign: !1,
+        digits: 2,
+        groupSeparator: ",",
+        placeholder: "0",
+        autoGroup: !0,
+        autoUnmask: !0,
+        removeMaskOnSubmit: !0
+    });
+    $('.switch-assign').on('change.bootstrapSwitch', function () {
+        console.log("inside switchchange");
+        console.log(this.val());
     });
 </script>
