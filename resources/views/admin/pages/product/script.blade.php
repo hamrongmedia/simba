@@ -105,6 +105,5 @@
     });
     $('.switch-assign').on('change.bootstrapSwitch', function () {
         console.log("inside switchchange");
-        console.log(this.val());
     });
 </script>

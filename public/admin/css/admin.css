@@ -374,3 +374,114 @@ border-radius: 50%;
     font-style: italic;
     font-size: 13px;
 }
+#product-variations-wrapper {
+    position: relative
+}
+
+#product-variations-wrapper .variation-actions {
+    position: absolute;
+    top: -42px;
+    right: 10px
+}
+
+#product-variations-wrapper .variation-actions>a {
+    display: inline-block;
+    padding-left: 20px
+}
+
+#product-variations-wrapper .table-hover-variants tr:hover td {
+    background: #eff9fd !important
+}
+
+#product-variations-wrapper .wrap-img-product {
+    min-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    border: 1px solid rgba(195, 207, 216, .3);
+    display: table-cell;
+    vertical-align: middle;
+    background: #fafbfc
+}
+
+#product-variations-wrapper .wrap-img-product img {
+    height: 39px;
+    max-width: 100%
+}
+
+.add-new-product-attribute-wrap {
+    position: relative
+}
+
+.add-new-product-attribute-wrap .btn-trigger-add-attribute {
+    position: absolute;
+    right: 10px;
+    top: -42px
+}
+
+.list-product-attribute-wrap {
+    background-color: #f9fafb;
+    padding: 15px
+}
+
+.tab-list .list-group-item {
+    padding: 0
+}
+
+.tab-list .list-group-item a {
+    padding: 11px 12px;
+    display: block
+}
+
+.tab-list .list-group-item.active a {
+    color: #fff
+}
+
+.product-variations-accordion-wrapper .panel-title {
+    position: relative
+}
+
+.product-variations-accordion-wrapper .panel-title .delete-version {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    transform: translateY(-50%);
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer
+}
+
+.product-variations-accordion-wrapper .panel-title .delete-version:hover {
+    opacity: .5
+}
+
+.product-variations-accordion-wrapper .accordion-toggle {
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1
+}
+
+.product-variations-accordion-wrapper .default-variation-product {
+    padding: 15px 15px 0;
+    line-height: 22px
+}
+
+.variations-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 -15px 30px
+}
+
+.variations-selector .item {
+    flex: 1;
+    padding: 0 15px
+}
+.bg-info .modal-title {
+    float: left;
+}
