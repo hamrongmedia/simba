@@ -166,6 +166,7 @@ class ProductController extends Controller
         $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
 
+<<<<<<< HEAD
         // $curent = ProductAttributeMap::join('product_attributes as pa','product_attribute_map.product_attribute_id','=','pa.id')
         //                             ->join('product_attribute_values as pav','pa.id','=','pav.attribute_id')
         //                             ->where('product_id',$id)
@@ -177,12 +178,15 @@ class ProductController extends Controller
         //                             ->get();
         // dd($product_attributes);
 
+=======
+>>>>>>> 05bc79d80005a1a7bd33b60670c144c984ee0268
         $product_attribute_map = ProductAttribute::with('attributeValues')
             ->join('product_attribute_map', 'product_attributes.id', '=', 'product_attribute_map.product_attribute_id')
             ->where('product_id', $id)
             ->select('product_attributes.name', 'product_attributes.id')
             ->get();
 
+<<<<<<< HEAD
         $product_info = ProductInfo::leftJoin('product_attribute_values as pav1', 'product_info.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
             ->leftJoin('product_color as pc', 'product_info.attribute_value1', '=', 'pc.id')
@@ -196,6 +200,21 @@ class ProductController extends Controller
                 'image_path'
             )
             ->get();
+=======
+        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
+                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
+                                    ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.id')
+                                    ->where('product_info.product_id',$id)
+                                    ->select(
+                                        'product_info.id',
+                                        'pav1.id as pav1_id',
+                                        'pav1.value as pav1_value',
+                                        'pav2.id as pav2_id',
+                                        'pav2.value as pav2_value',
+                                        'image_path'
+                                    )
+                                    ->get();
+>>>>>>> 05bc79d80005a1a7bd33b60670c144c984ee0268
         if (isset($data)) {
             return view('admin.pages.product.edit', compact(
                 'data',
