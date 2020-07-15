@@ -18,5 +18,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('product/destroy', 'ProductController@delete')->name('admin.product.destroy');
     Route::get('product/search', 'ProductController@search')->name('admin.product.search');
 
-    Route::delete('product/info','ProductInfoController@delete');
+    Route::get('product-info/{id}','ProductInfoController@index');
+    Route::post('product/{id}/product-info','ProductInfoController@store')->name('admin.product.info.store');
+    Route::delete('product-info/{id}','ProductInfoController@delete')->name('admin.product.info.delete');
 });

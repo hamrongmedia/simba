@@ -25,6 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'slug' => 'required|unique:products,slug',
             'product_code' => 'required',
             'price' => 'required|numeric',
             'sale_price' => 'nullable|numeric|max:'.(int)$this->price,
@@ -42,6 +43,8 @@ class ProductRequest extends FormRequest
     {
         $messages = [
             'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'slug.required' => 'Vui lòng nhập slug',
+            'slug.unique' => 'Vui lòng không nhập giá trị trùng',
             'product_code.required' => 'Vui lòng nhập mã sản phẩm',
             'price.required' => 'Vui lòng nhập giá sản phẩm',
             'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
