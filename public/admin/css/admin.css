@@ -482,6 +482,7 @@ border-radius: 50%;
     flex: 1;
     padding: 0 15px
 }
+.bg-danger .modal-title,
 .bg-info .modal-title {
     float: left;
 }

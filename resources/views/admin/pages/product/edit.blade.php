@@ -155,30 +155,6 @@ Cập nhật sản phẩm
             </div>
         </div>
     </div>
-    <!-- end Modal -->
-    <div id="confirm-delete-version-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog    modal-xs  ">
-            <div class="modal-content">
-                <div class="modal-header bg-danger">
-                    <h4 class="modal-title"><i class="til_img"></i><strong>Delete variation?</strong></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-
-                <div class="modal-body with-padding">
-                    Are you sure you want to delete this variation? This action cannot be undo.
-                </div>
-
-                <div class="modal-footer">
-                    <button class="float-left btn btn-warning" data-dismiss="modal">Hủy bỏ</button>
-                    <a class="float-right btn btn-danger" id="delete-version-button" href="#">Continue</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end Modal -->
-    
 </div>
 @endsection
 @section('js')
@@ -354,6 +330,90 @@ Cập nhật sản phẩm
             $("#add-new-product-variation-modal").modal("show")
         }));
     }));
+    function editVarition(product_info_id)
+    {
+        var url = '{{ route('admin.product.info.show') }}';
+        jQuery.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: url,
+            data: {
+                product_info_id: product_info_id,
+            },
+            success: function (data) {
+                $('.discount-form-edit').html(data);
+                var url_update = '{{ route('admin.product.info.update') }}';
+                $('#edit-discount button[type="submit"]').click(function (e) {
+                    jQuery.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        url: url_update,
+                        data: {
+                            product_info_id: product_info_id,
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            $('#form-edit-discount p.error').remove();
+                            swal({
+                                title: 'Thành công',
+                                text: 'Thêm chiết khấu thành công',
+                                type: 'success'
+                            });
+                            $('#edit-discount').modal('toggle');
+                        },
+                        error: function (data) {
+                            $('#form-edit-discount p.error').remove();
+                            var errors = data.responseText;
+                            errors = JSON.parse(errors);
+                            $.each(errors.errors, function (key, value) {
+                                $('#form-edit-discount input[name="'+key+'"]').after('<p class="error">' + value[0] + '</p>');
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    }
+    function deleteVarition(id , product_id)
+    {
+        Swal.fire({
+            title: 'Bạn có chắc chắn không?',
+            text: 'Bạn có chắc chắn muốn xóa biến thể này? Hành động này không thể hoàn tác.',
+            type: 'warning',
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy",
+            preConfirm: function() {
+                url_delete = '{{ route('admin.product.info.delete') }}';
+                jQuery.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: url_delete,
+                    data: {
+                        id : id,
+                        product_id : product_id,
+                    },
+                    dataType: 'json',
+                    success: function (data){
+                        Swal.fire( 'Thành công!','Bạn đã xóa biến thể thành công','success' );
+                        $("#product-variations-wrapper").html(data.data);
+                    },
+                    error: function (data) {
+                        Swal.fire( 'Thất bại!','Không thể xóa biến thể','error' );
+                    }
+                });
+            }
+        });
+    }
 </script>
 @include('admin.component.ckeditor_js')
 @endsection

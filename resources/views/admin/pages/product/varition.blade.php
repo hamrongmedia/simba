@@ -1,11 +1,11 @@
     <div class="variation-actions">
-        <a href="#" class="btn-trigger-select-product-attributes" data-target="http://hasa.botble.com/admin/ecommerce/products/store-related-attributes/36">
+        <a href="javascript:void(0)" class="btn-trigger-select-product-attributes">
             Chỉnh thuộc tính
         </a>
-        <a href="#" class="btn-trigger-add-new-product-variation" data-target="http://hasa.botble.com/admin/ecommerce/products/add-version/36">
+        <a href="javascript:void(0)" class="btn-trigger-add-new-product-variation">
             Thêm biến thể mới
         </a>
-        <a href="#" class="btn-trigger-generate-all-versions" data-target="http://hasa.botble.com/admin/ecommerce/products/generate-all-version/36">
+        <a href="javascript:void(0)" class="btn-trigger-generate-all-versions" >
             Tạo toàn bộ biến thể
         </a>
     </div>
@@ -41,8 +41,8 @@
                             <td>{{ $pi->pav2_value }}</td>
                         @endif
                         <td style="width: 180px;" class="text-center">
-                            <a href="#" class="btn btn-info btn-trigger-edit-product-version" data-target="http://hasa.botble.com/admin/ecommerce/products/update-version/31" data-load-form="http://hasa.botble.com/admin/ecommerce/products/get-version-form/31">Sửa</a>
-                            <a href="#" data-target="{{ route('admin.product.info.delete',['id'=>$pi->id]) }}" class="btn-trigger-delete-version btn btn-danger">Xóa</a>
+                            <a href="#" class="btn btn-info btn-trigger-edit-product-version" onclick="">Sửa</a>
+                            <a href="#" class="btn btn-danger" onclick="deleteVarition({{ $pi->id }}, {{ $data->id }})">Xóa</a>
                         </td>
                     </tr>
                 @endforeach
