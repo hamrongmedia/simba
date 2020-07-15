@@ -6,25 +6,23 @@ use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
 use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Response;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductAttributeMap;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductCategory;
-use App\Models\ProductToCategory;
-use App\Models\ProductAttributeMap;
-use App\Models\ProductType;
 use App\Models\ProductImage;
 use App\Models\ProductInfo;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Session;
-use DB;
-use App\Http\Requests\Admin\ProductRequest;
+use App\Models\ProductType;
 use App\Services\ProductService;
 use App\Services\UploadService;
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Session;
+
 class ProductController extends Controller
 {
     const TAKE = 15;
@@ -56,8 +54,7 @@ class ProductController extends Controller
         Request $request,
         UploadService $uploadService,
         ProductService $productService
-    )
-    {
+    ) {
         $this->request = $request;
         $this->productService = $productService;
         $this->uploadService = $uploadService;
@@ -99,7 +96,7 @@ class ProductController extends Controller
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $types = ProductType::where('is_deleted', 0)->get();
         $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
-        return view('admin.pages.product.create',compact('categories','types','attributes'));
+        return view('admin.pages.product.create', compact('categories', 'types', 'attributes'));
     }
 
     /**
@@ -112,7 +109,8 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $product = New Product();
+            dd($request->all());
+            $product = new Product();
             $product->name = $request->name;
             $product->slug = $request->slug;
             $product->product_code = $request->product_code;
@@ -122,12 +120,12 @@ class ProductController extends Controller
             $product->content = $request->content;
             $product->thumbnail = $request->images;
             $product->stock = $request->stock;
-            if($request->type) {
+            if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
             }
             $product->save();
             # Create Seo Meta
-            $this->seoHelper($product,$request);
+            $this->seoHelper($product, $request);
             # Create Product Category
             $this->productService->storeProductCategory($request, $product);
             # Create Product Attribute
@@ -168,17 +166,6 @@ class ProductController extends Controller
         $types = ProductType::where('is_deleted', 0)->get();
         $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
-
-        // $curent = ProductAttributeMap::join('product_attributes as pa','product_attribute_map.product_attribute_id','=','pa.id')
-        //                             ->join('product_attribute_values as pav','pa.id','=','pav.attribute_id')
-        //                             ->where('product_id',$id)
-        //                             ->groupBy('pa.id')
-        //                             ->get();
-        //                             dd($curent);
-        // $product_attributes = ProductAttribute::with('attributeValues')
-        //                             ->whereIn('id',[1,2])
-        //                             ->get();
-        // dd($product_attributes);
 
         $product_attribute_map = ProductAttribute::with('attributeValues')
                                 ->join('product_attribute_map','product_attributes.id','=','product_attribute_map.product_attribute_id')
@@ -235,12 +222,12 @@ class ProductController extends Controller
             $product->content = $request->content;
             $product->thumbnail = $request->images;
             $product->stock = $request->stock;
-            if($request->type) {
+            if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
             }
             $product->save();
             # Create Seo Meta
-            $this->seoHelper($product,$request);
+            $this->seoHelper($product, $request);
             # Create Product Category
             $this->productService->storeProductCategory($request, $product);
             # Create Product Attribute
@@ -250,7 +237,7 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             /** Delete Product Image */
             $delete_images = $request->delete_images;
-            // $this->deleteImage($product,$delete_images);            
+            // $this->deleteImage($product,$delete_images);
             # Commit all data
             DB::commit();
             return back();
@@ -300,12 +287,12 @@ class ProductController extends Controller
     }
 
     /*
-    *--------------------------------------------------------------------------
-    * Product Save Image
-    * @param $product_images
-    * @return
-    *--------------------------------------------------------------------------
-    */
+     *--------------------------------------------------------------------------
+     * Product Save Image
+     * @param $product_images
+     * @return
+     *--------------------------------------------------------------------------
+     */
     protected function saveProductImage($product, $product_images = array())
     {
         if (!$product_images) {
@@ -317,20 +304,20 @@ class ProductController extends Controller
             Storage::makeDirectory($uploadPath);
         }
         foreach ($product_images as $index => $image) {
-            $sort_order = $index+1;
-            $temp_path = $tempPathImage.$image;
+            $sort_order = $index + 1;
+            $temp_path = $tempPathImage . $image;
             $full_path = $uploadPath . $image;
-            $productImage = ProductImage::where('product_id',$product->id)->where('image_file',$image)->first();
+            $productImage = ProductImage::where('product_id', $product->id)->where('image_file', $image)->first();
             if ($productImage) {
                 $productImage->sort_order = $sort_order;
                 $productImage->save();
-            } elseif( Storage::exists($temp_path)  ) {
+            } elseif (Storage::exists($temp_path)) {
                 $productImage = new ProductImage;
                 $productImage->product_id = $product->id;
                 $productImage->image_file = $full_path;
                 $productImage->sort_order = $sort_order;
                 $productImage->save();
-                Storage::move($temp_path,$full_path);
+                Storage::move($temp_path, $full_path);
             }
         }
         $this->deleteImageTemp();
@@ -338,24 +325,24 @@ class ProductController extends Controller
     }
 
     /*
-    *--------------------------------------------------------------------------
-    * Product Delete Image
-    * @param $product_images
-    * @return
-    *--------------------------------------------------------------------------
-    */
-    protected function deleteImage($product , $delete_images = [])
+     *--------------------------------------------------------------------------
+     * Product Delete Image
+     * @param $product_images
+     * @return
+     *--------------------------------------------------------------------------
+     */
+    protected function deleteImage($product, $delete_images = [])
     {
-        if(is_array($delete_images))  {
+        if (is_array($delete_images)) {
             foreach ($delete_images as $delete_image) {
-                $productImage = ProductImage::where('product_id',$product->id)->where('image_file',$delete_image)->first();
+                $productImage = ProductImage::where('product_id', $product->id)->where('image_file', $delete_image)->first();
                 if ($productImage) {
                     $productImage->delete();
                     // Remove file in folder upload
                     $uploadPath = self::UPLOAD_PRODUCT_IMAGE;
-                    $image_path = $uploadPath.$delete_image;
-                    if( Storage::exists($image_path) ) {
-                       Storage::delete($image_path);
+                    $image_path = $uploadPath . $delete_image;
+                    if (Storage::exists($image_path)) {
+                        Storage::delete($image_path);
                     }
                 }
             }
@@ -363,49 +350,49 @@ class ProductController extends Controller
     }
 
     /*
-    *--------------------------------------------------------------------------
-    * Delete Image From Temp Folder
-    * @param $product_images
-    * @return
-    *--------------------------------------------------------------------------
-    */
+     *--------------------------------------------------------------------------
+     * Delete Image From Temp Folder
+     * @param $product_images
+     * @return
+     *--------------------------------------------------------------------------
+     */
     protected function deleteImageTemp()
     {
         $directory = self::UPLOAD_TEMP_IMAGE;
         $files = Storage::allFiles($directory);
-        if($files) {
+        if ($files) {
             foreach ($files as $file) {
-                if( Storage::exists($file) ) {
-                   Storage::delete($file);
+                if (Storage::exists($file)) {
+                    Storage::delete($file);
                 }
             }
         }
     }
 
     /*
-    *--------------------------------------------------------------------------
-    * Product Upload Image
-    * @param ProductFormRequest $request
-    * @param Int $id
-    * @return Return \Illuminate\Support\Facades\View
-    *--------------------------------------------------------------------------
-    */
+     *--------------------------------------------------------------------------
+     * Product Upload Image
+     * @param ProductFormRequest $request
+     * @param Int $id
+     * @return Return \Illuminate\Support\Facades\View
+     *--------------------------------------------------------------------------
+     */
     protected function uploadImages()
     {
         $uploadPath = self::UPLOAD_TEMP_IMAGE;
         $image = $this->request->file('file');
         $save_name = $this->uploadService->handleUploaded($image, $uploadPath);
-        return $this->respond(['success' => true,'data'=>$save_name]);
+        return $this->respond(['success' => true, 'data' => $save_name]);
     }
 
     /*
-    *--------------------------------------------------------------------------
-    * Remove Upload Image
-    * @param ProductFormRequest $request
-    * @param Int $id
-    * @return Return \Illuminate\Support\Facades\View
-    *--------------------------------------------------------------------------
-    */
+     *--------------------------------------------------------------------------
+     * Remove Upload Image
+     * @param ProductFormRequest $request
+     * @param Int $id
+     * @return Return \Illuminate\Support\Facades\View
+     *--------------------------------------------------------------------------
+     */
     protected function removeImage()
     {
         $filename = $this->request->get('filename');
