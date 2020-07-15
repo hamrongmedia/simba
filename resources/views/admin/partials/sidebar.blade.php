@@ -141,10 +141,37 @@
           <i class="fa fa-image"></i> <span>Thư viện ảnh</span>
         </a>
       </li>
-      <li class="">
-        <a href="{{url('hrm/contacts')}}">
-          <i class="fa fa-envelope"></i> <span>Contacts</span>
+      <li class="treeview">
+        <a href="">
+          <i class="fa fa fa-clone"></i> <span>Liên hệ</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+
+        <ul class="treeview-menu">
+
+          <li class="nav-item has-treeview">
+            <a href="{{url('hrm/contacts')}}" class="nav-link">
+              <i class="fa fa-envelope"></i>
+              <span>Hộp thư</span></a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.product_reviews.index')}}" class="nav-link">
+              <i class="fa fa-commenting"></i>
+              <span>Đánh giá sản phẩm</span></a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.page.create')}}" class="nav-link">
+              <i class="fa fa-question-circle"></i>
+              <span>Hỏi đáp sản phẩm</span></a>
+          </li>
+
+          
+
+        </ul>
       </li>
       <li class="header">ADMIN SYSTEM</li>
 

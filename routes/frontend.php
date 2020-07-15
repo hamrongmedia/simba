@@ -10,7 +10,8 @@ Route::namespace ('Frontend')->group(function () {
     // Routes Sản Phẩm
     Route::get('/san-pham/{slug}', 'ProductController@getDetailProduct')->name('product.detail');
 
-	Route::get('/lien-he', function () {
-		return view('front-end.page.contact');
-	});
+    Route::get('/lien-he', function () {
+        return view('front-end.page.contact');
+    });
+
 });

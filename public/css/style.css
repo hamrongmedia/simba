@@ -3016,7 +3016,6 @@ span.pro-price-view {
     text-transform: uppercase;
     color: #333333;
     border: 1px solid #333333;
-    font-family: Mon2;
     background: #fff;
     margin-left: 10px;
 }
@@ -3027,7 +3026,6 @@ span.pro-price-view {
 
 .wp-tab-content-review > ul li a {
     border-radius: 0px;
-    font-family: Mon2;
     text-transform: uppercase;
 }
 

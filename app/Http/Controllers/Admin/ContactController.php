@@ -20,6 +20,7 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
+
         if (empty($request->all())) {
             $contacts = Contact::all()->sortBy('desc');
             $paginator = new PaginationHelper($contacts, 10);
