@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="dat-mua.html" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
+                            <a href="{{route('product.showOrderForm')}}" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
                         </td>
                     </tr>
                     <tr>

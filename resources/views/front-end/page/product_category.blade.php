@@ -1,4 +1,4 @@
-@extends('front-end.main.page_main')
+@extends('front-end.layout.main')
 
 @section('title')
 Chuyên mục sản phẩm
