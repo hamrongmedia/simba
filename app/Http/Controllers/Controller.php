@@ -46,6 +46,21 @@ class Controller extends BaseController
         return Response::json($data, $this->getStatusCode(), $headers);
     }
 
+
+    /**
+     * Return Response With Error
+     * @param $message
+     * @return json response
+     */
+    public function respondJsonData($msg,$data)
+    {
+        $response = [];
+        $response['status'] = true;
+        $response['msg'] = $msg;
+        $response['data'] = $data;
+        return $this->respond($response);
+    }
+
     /**
      * Return Response With Error
      * @param $message

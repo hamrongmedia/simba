@@ -19,8 +19,7 @@ class ProductController extends Controller
         // $product = Product::where('status',1)->where('slug', $slug)->first();
         $product = Product::where('slug', $slug)->first();
         $product_setting = ThemeOptions::where('key', 'product')->first();
-        $product_setting = json_decode($product_setting->value);
-
+        dd($product_setting);
         if($product == null) abort(404);
         return view('front-end.product.detail')->with([
             'product' =>$product,

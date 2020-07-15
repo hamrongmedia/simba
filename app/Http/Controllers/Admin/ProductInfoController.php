@@ -82,7 +82,7 @@ class ProductInfoController extends Controller
 		            	compact(
 		            	'data','product_attribute_map','product_info'
 		            ))->render();
-            return $view;
+            return $this->respondJsonData('Thêm biến thể thành công',$view);
 		} catch (\Exception $e) {
 			DB::rollBack();
 			return $this->respondWithError($e->getMessage());
