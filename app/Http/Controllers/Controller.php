@@ -47,6 +47,19 @@ class Controller extends BaseController
     }
 
     /**
+     * Return Response With Error
+     * @param $message
+     * @return json response
+     */
+    public function respondWithError($msg)
+    {
+        $response = [];
+        $response['status'] = false;
+        $response['msg'] = $msg;
+        return $this->respond($response);
+    }
+
+    /**
      * Creat Seo
      *
      * @param  Model $data

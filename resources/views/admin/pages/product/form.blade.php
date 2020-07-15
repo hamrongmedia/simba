@@ -83,6 +83,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <div class="assign-switch">
+                    <label class="switch-label">
+                        <input type="checkbox" class="switch-assign" name="type" @if(isset($data) && $data->type==2) checked @endif value="2">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="d-inline-block">Sản phẩm đa thuộc tính</label>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label">Nội dung</label>
                 <textarea class="form-control editor" name="content" rows="3"
                         placeholder="Nhập nội dung" id="editor">{!! isset($data) ? $data->content : old('content') !!}</textarea>
@@ -113,120 +122,115 @@
             </div>
         </div>
         <div class="box-body">
-            <div class="form-group">
-                <div class="assign-switch">
-                    <label class="switch-label">
-                        <input type="checkbox" class="switch-assign" name="type" @if(isset($data) && $data->type==2) checked @endif value="2">
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="d-inline-block">Sản phẩm đa thuộc tính</label>
-                </div>
-            </div>
-            <div class="list-product-attribute-values-wrap hidden">
-                <div class="product-select-attribute-item-template">
-                    <div class="product-attribute-set-item">
-                        <div class="row">
-                            <div class="col-md-5 col-sm-6">
-                                <div class="form-group">
-                                    <label class="text-title-field">Tên thuộc tính</label>
-                                    <select class="form-control next-input product-select-attribute-item">
-                                        @if( count($attributes) > 0 )
-                                            @foreach($attributes as $attribute)
-                                                <option value="{{ $attribute->id }}">
-                                                    {{ $attribute->name }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-5 col-sm-6">
-                                <div class="form-group">
-                                    <label class="text-title-field">Giá trị</label>
-                                    <div class="product-select-attribute-item-value-wrap">
-
+            @if(Route::currentRouteName() == 'admin.product.create' || $data->type == \App\Models\Product::PRODUCT_STANDARD)
+                <div class="list-product-attribute-values-wrap hidden">
+                    <div class="product-select-attribute-item-template">
+                        <div class="product-attribute-set-item">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="text-title-field">Tên thuộc tính</label>
+                                        <select class="form-control next-input product-select-attribute-item">
+                                            @if( count($attributes) > 0 )
+                                                @foreach($attributes as $attribute)
+                                                    <option value="{{ $attribute->id }}">
+                                                        {{ $attribute->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-md-5 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="text-title-field">Giá trị</label>
+                                        <div class="product-select-attribute-item-value-wrap">
 
-                            <div class="col-md-2 col-sm-6 product-set-item-delete-action hidden">
-                                <div class="form-group">
-                                    <label class="text-title-field">&nbsp;</label>
-                                    <div style="height: 36px;line-height: 33px;vertical-align: middle">
-                                        <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                                <div class="col-md-2 col-sm-6 product-set-item-delete-action hidden">
+                                    <div class="form-group">
+                                        <label class="text-title-field">&nbsp;</label>
+                                        <div style="height: 36px;line-height: 33px;vertical-align: middle">
+                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                @if( count($attributes) > 0 )
-                    @foreach($attributes as $attribute)
-                        <div class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attribute->id }}">
-                            <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attribute->id }}" data-set-id="{{ $attribute->id }}">
-                                @foreach($attribute->attributeValues as $atv)
-                                    <option value="{{ $atv->id }}">{{ $atv->value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-            <div class="list-product-attribute-wrap">
-                <div class="list-product-attribute-wrap-detail">
                     @if( count($attributes) > 0 )
                         @foreach($attributes as $attribute)
-                            @if($loop->first)
-                                <div class="product-attribute-set-item">
-                                    <div class="row">
-                                        <div class="col-md-5 col-sm-6">
-                                            <div class="form-group">
-                                                <label class="text-title-field">Tên thuộc tính</label>
-                                                <select class="form-control next-input product-select-attribute-item" aria-invalid="false">
-                                                    <option value="2">
-                                                        Size
-                                                    </option>
-                                                    <option value="1">
-                                                        Color
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 col-sm-6">
-                                            <div class="form-group">
-                                                <label class="text-title-field">Giá trị thuộc tính</label>
-                                                <div class="product-select-attribute-item-value-wrap">
-                                                    <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-2" name="added_attributes[2]" data-set-id="2">
-                                                        <option value="5">
-                                                            S
+                            <div class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attribute->id }}">
+                                <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attribute->id }}" data-set-id="{{ $attribute->id }}">
+                                    @foreach($attribute->attributeValues as $atv)
+                                        <option value="{{ $atv->id }}">{{ $atv->value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="list-product-attribute-wrap">
+                    <div class="list-product-attribute-wrap-detail">
+                        @if( count($attributes) > 0 )
+                            @foreach($attributes as $attribute)
+                                @if($loop->first)
+                                    <div class="product-attribute-set-item">
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="text-title-field">Tên thuộc tính</label>
+                                                    <select class="form-control next-input product-select-attribute-item" aria-invalid="false">
+                                                        <option value="2">
+                                                            Size
                                                         </option>
-                                                        <option value="6">
-                                                            M
-                                                        </option>
-                                                        <option value="7">
-                                                            L
-                                                        </option>
-                                                        <option value="8">
-                                                            XL
-                                                        </option>
-                                                        <option value="9">
-                                                            XXL
+                                                        <option value="1">
+                                                            Color
                                                         </option>
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-5 col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="text-title-field">Giá trị thuộc tính</label>
+                                                    <div class="product-select-attribute-item-value-wrap">
+                                                        <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-2" name="added_attributes[2]" data-set-id="2">
+                                                            <option value="5">
+                                                                S
+                                                            </option>
+                                                            <option value="6">
+                                                                M
+                                                            </option>
+                                                            <option value="7">
+                                                                L
+                                                            </option>
+                                                            <option value="8">
+                                                                XL
+                                                            </option>
+                                                            <option value="9">
+                                                                XXL
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-trigger-add-attribute-item">Thêm thuộc tính</a>
                 </div>
-                <a href="#" class="btn btn-secondary btn-trigger-add-attribute-item">Thêm thuộc tính</a>
-            </div>
+            @endif
             @if(Route::currentRouteName() == 'admin.product.edit')
-                @include('admin.pages.product.varition')
+                <div id="product-variations-wrapper">
+                    @include('admin.pages.product.varition')
+                </div>
             @endif
         </div>            
     </div>
