@@ -70,62 +70,19 @@ Cập nhật sản phẩm
         </div>
     </div>
     <!-- end Modal -->
-    <div id="edit-product-variation-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" style="display: none;" aria-hidden="true">
+    <div id="edit-product-variation-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h4 class="modal-title"><i class="til_img"></i><strong>Edit variation</strong></h4>
+                    <h4 class="modal-title"><i class="til_img"></i><strong>Chỉnh sửa biến thể</strong></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
 
                 <div class="modal-body with-padding">
-                    <div class="variation-form-wrapper">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label for="attribute-color" class="text-title-field required">Color</label>
-                                    <div class="ui-select-wrapper">
-                                        <select class="ui-select" id="attribute-color" name="attribute_sets[1]">
-                                            <option value="4">
-                                                Red
-                                            </option>
-                                            <option value="2">
-                                                Green
-                                            </option>
-                                            <option value="3">
-                                                Blue
-                                            </option>
-                                            <option value="10">
-                                                Black
-                                            </option>
-                                            <option value="11" selected="">
-                                                Brown
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="variation-images" style="position: relative; border: 1px dashed #ccc; padding: 10px;">
-                            <div class="product-images-wrapper">
-                                <a href="#" class="add-new-product-image js-btn-trigger-add-image" data-preview="image-holder">Add image
-                                </a>
-                                <div class="images-wrapper">
-                                    <div data-name="images[]" class="text-center cursor-pointer js-btn-trigger-add-image default-placeholder-product-image ">
-                                        <img src="{{ asset('admin/images/placeholder.png') }}" alt="Image" width="120">
-                                        <br>
-                                        <p style="color:#c3cfd8">Using button <strong>Select image</strong> to add more images.</p>
-                                    </div>
-                                    <ul class="list-unstyled list-gallery-media-images clearfix hidden ui-sortable" style="padding-top: 20px;">
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="variation-form-wrapper"></div>
                 </div>
-
                 <div class="modal-footer">
                     <button class="float-left btn btn-warning" data-dismiss="modal">Hủy bỏ</button>
                     <a class="float-right btn btn-info" id="update-product-variation-button" href="#">Lưu thay đổi</a>
@@ -284,7 +241,7 @@ Cập nhật sản phẩm
                 processData: false,
                 success: function (data) {
                     $('#form-add-variation p.error').remove();
-                    if(data.status) {
+                    if(data.status == true) {
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -299,7 +256,6 @@ Cập nhật sản phẩm
                         $("#product-variations-wrapper").html(data.data);
                         $('#add-new-product-variation-modal').modal('toggle');
                     } else {
-                        console.log(data);
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -343,27 +299,30 @@ Cập nhật sản phẩm
                 product_info_id: product_info_id,
             },
             success: function (data) {
-                $('.discount-form-edit').html(data);
+                $('#edit-product-variation-modal').modal('show');
+                $('#edit-product-variation-modal .variation-form-wrapper').html(data.data);
                 var url_update = '{{ route('admin.product.info.update') }}';
-                $('#edit-discount button[type="submit"]').click(function (e) {
+                var formData = new FormData(document.getElementById("form-edit-varition"));
+                $('#update-product-variation-button').click(function (e) {
                     jQuery.ajax({
                         headers: {
                             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                         },
                         type: "POST",
                         url: url_update,
-                        data: {
-                            product_info_id: product_info_id,
-                        },
+                        data: formData,
                         success: function (data) {
-                            console.log(data);
                             $('#form-edit-discount p.error').remove();
-                            swal({
-                                title: 'Thành công',
-                                text: 'Thêm chiết khấu thành công',
-                                type: 'success'
-                            });
-                            $('#edit-discount').modal('toggle');
+                            if(data.status == true) {
+                                Swal.fire({
+                                    title: 'Thành công',
+                                    text: 'Chỉnh sửa biến thể thành công',
+                                    type: 'success'
+                                });
+                                $('#edit-product-variation-modal').modal('toggle');
+                            } else {
+                                Swal.fire( 'Thất bại!','Không thể chỉnh sửa biến thể','error' );
+                            }
                         },
                         error: function (data) {
                             $('#form-edit-discount p.error').remove();
@@ -372,6 +331,7 @@ Cập nhật sản phẩm
                             $.each(errors.errors, function (key, value) {
                                 $('#form-edit-discount input[name="'+key+'"]').after('<p class="error">' + value[0] + '</p>');
                             });
+                             Swal.fire( 'Thất bại!','Không thể chỉnh sửa biến thể','error' );
                         }
                     });
                 });

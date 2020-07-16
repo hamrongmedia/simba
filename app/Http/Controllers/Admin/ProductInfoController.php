@@ -22,21 +22,21 @@ class ProductInfoController extends Controller
 	{
         $product_info_id = $request->product_info_id;
 		$data = ProductInfo::leftJoin('product_color','product_info.attribute_value1','=','product_color.color_id')
-					->where('id',$product_info_id)
+					->where('product_info.id',$product_info_id)
 					->first();
 		$product_attribute_map = ProductAttribute::with('attributeValues')
 		            ->join('product_attribute_map', 'product_attributes.id', '=', 'product_attribute_map.product_attribute_id')
-		            ->where('product_id', $id)
+		            ->where('product_id', $data->product_id)
 		            ->select('product_attributes.name', 'product_attributes.id')
 		            ->get();
-		if(!$data) return $this->respondNotFound('Lỗi! Không có dữ liệu');
+		if(!$data) return $this->respondWithError('Lỗi! Không có dữ liệu');
 		$view = view("admin.pages.product.edit_varition",compact('data','product_attribute_map'))->render();
-		return $view;		
+		return $this->respondJsonData('Chỉnh sửa biến thể thành công',$view);		
 	}
 
     /*
     *--------------------------------------------------------------------------
-    * Product Info Store
+    * Create Product Varition 
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
@@ -100,6 +100,91 @@ class ProductInfoController extends Controller
 		}
 	}
 
+    /*
+    *--------------------------------------------------------------------------
+    * Update Product Varition 
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+	public function update(Request $request)
+	{
+		dd($request->all());
+		$product_info_id = $request->product_info_id;
+		DB::beginTransaction();
+		try {
+			$product_info = ProductInfo::where('id',$product_info_id)->first();
+			if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
+			$attribute_sets = $request->attribute_sets;
+			dd($attribute_sets);
+			if(count($attribute_sets) == 2 ) {
+				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
+										->where('attribute_value1',$attribute_sets[0])
+										->where('attribute_value2',$attribute_sets[1])
+										->first();
+				if(!$check_exits) {
+					$product_info->attribute_value1 = $attribute_sets[0];
+					$product_info->attribute_value2 = $attribute_sets[1];
+					$product_info->save();
+					if($request->thumbnail) {
+						$thumbnail = Str::of($request->thumbnail)->replace(getenv('APP_URL').'/storage/', '');
+						$product_color = ProductColor::updateOrCreate(
+						    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
+						    ['image_path' => $thumbnail]
+						);
+					}
+				} else {
+					# Case This
+					if($product_info_id == $check_exits->id) {
+						if($request->thumbnail) {
+							$thumbnail = Str::of($request->thumbnail)->replace(getenv('APP_URL').'/storage/', '');
+							$product_color = ProductColor::updateOrCreate(
+							    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
+							    ['image_path' => $thumbnail]
+							);
+						}
+					} else {
+						return $this->respondWithError('Biến thể đã tồn tại');
+					}
+				}
+			}
+			DB::commit();
+			$data = Product::find($product_info->product_id);
+	        $product_attribute_map = ProductAttribute::with('attributeValues')
+	                                ->join('product_attribute_map','product_attributes.id','=','product_attribute_map.product_attribute_id')
+	                                ->where('product_id',$product_info->product_id)
+	                                ->select('product_attributes.name','product_attributes.id')
+	                                ->get();                  
+
+	        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
+	                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
+	                                    ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.id')
+	                                    ->where('product_info.product_id',$product_info->product_id)
+	                                    ->select(
+	                                        'product_info.id',
+	                                        'pav1.id as pav1_id',
+	                                        'pav1.value as pav1_value',
+	                                        'pav2.id as pav2_id',
+	                                        'pav2.value as pav2_value',
+	                                        'image_path'
+	                                    )
+	                                    ->get();
+            $view = view("admin.pages.product.varition",
+		            	compact(
+		            	'data','product_attribute_map','product_info'
+		            ))->render();
+			return $this->respondJsonData('Cập nhật biến thể thành công',$view);
+		} catch (\Exception $e) {
+			DB::rollBack();
+			return $this->respondWithError($e->getMessage());			
+		}
+	}
+
+    /*
+    *--------------------------------------------------------------------------
+    * Delete Product Varition 
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
 	public function delete(Request $request)
 	{
 		$id = $request->id;
