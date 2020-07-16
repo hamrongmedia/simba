@@ -232,7 +232,6 @@
     /* on change event */
         //var data = $('.dd').nestable('serialize');
         var data = $('.dd').nestable('serialize');
-        console.log(data);
         saveTree(data);
     });
     //Initialize Select2 Elements

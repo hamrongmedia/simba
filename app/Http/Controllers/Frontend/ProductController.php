@@ -14,7 +14,6 @@ class ProductController extends Controller
         // $product = Product::where('status',1)->where('slug', $slug)->first();
         $product = Product::where('slug', $slug)->first();
         $product_setting = ThemeOptions::where('key', 'product')->first();
-        dd($product_setting);
         if ($product == null) {
             abort(404);
         }

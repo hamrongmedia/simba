@@ -10,6 +10,50 @@
 @section('og:title', $product->meta_title ?? $product->name)
 @section('og:image',  isset($product->image) ?  $product->image : '')
 
+@section('css')
+@parent
+<style>
+    
+.stars {
+    display: inline-block;
+  }
+  .stars input.star {
+    display: none;
+  }
+  .stars label.star {
+    float: right;
+    padding: 2px;
+    font-size: 14px;
+    margin-bottom: 0;
+    line-height: 1;
+    color: #c3c3c3;
+    transition: all .2s;
+  }
+  .stars input.star:checked ~ label.star:before {
+    content: "\f005";
+    color: #FD4;
+    transition: all .25s;
+  }
+  .stars input.star-1:checked ~ label.star:before {
+    color: #F62;
+  }
+  .stars input.star-5:checked ~ label.star:before {
+    color: #FE7;
+  }
+  .stars label.star:hover:before {
+    content: "\f005";
+    color: #c3c3c3;
+    cursor: pointer;
+  }
+  .stars label.star:before {
+    content: "\f005";
+    color: #c3c3c3;
+    font-family: 'Font Awesome\ 5 Free';
+  }
+</style>
+@endsection
+
+
 @section('content')
     <section class="sec-main-page">
         <div class="container-fluid">
@@ -216,42 +260,34 @@
                                             <div class="wp-text-danhgia">
                 
                                                 <form id="rateform"
-                                                    action="https://venuscharm.com.vn/comments/ajax/comments/addcomment.html"
+                                                    action="{{route('admin.product_reviews.store')}}"
                                                     method="post">
+
                 
                                                     <div class="wpdg1 form-group">
                 
                                                         <p class="mb0">Đánh giá</p>
                 
-                                                        <span class="starRating">
-                
-                                                            <input id="rating5" type="radio" name="star" value="5" checked="">
-                
-                                                            <label class="full" data-value="5" for="rating5">5</label>
-                
-                                                            <input id="rating4" type="radio" name="star" value="4">
-                
-                                                            <label class="full" data-value="4" for="rating4">4</label>
-                
-                                                            <input id="rating3" type="radio" name="star" value="3">
-                
-                                                            <label class="full" data-value="3" for="rating3">3</label>
-                
-                                                            <input id="rating2" type="radio" name="star" value="2">
-                
-                                                            <label class="full" data-value="2" for="rating2">2</label>
-                
-                                                            <input id="rating1" type="radio" name="star" value="1">
-                
-                                                            <label class="full" data-value="1" for="rating1">1</label>
-                
+                                                        <span class="starRating stars">
+                                                            <input value="5" class="star star-5" id="star-4-5" type="radio" name="star" data-value="5"/>
+                                                            <label class="star star-5" for="star-4-5"></label>
+                                                            <input value="4" class="star star-4" id="star-4-4" type="radio" name="star" data-value="4"/>
+                                                            <label class="star star-4" for="star-4-4"></label>
+                                                            <input value="3" class="star star-3" id="star-4-3" type="radio" name="star" data-value="3"/>
+                                                            <label class="star star-3" for="star-4-3"></label>
+                                                            <input value="2" class="star star-2" id="star-4-2" type="radio" name="star" data-value="2"/>
+                                                            <label class="star star-2" for="star-4-2"></label>
+                                                            <input value="1" class="star star-1" id="star-4-1" type="radio" name="star" data-value="1"/>
+                                                            <label class="star star-1" for="star-4-1"></label>
                                                         </span>
                 
                                                     </div>
                 
                                                     <div class="wpdg2 form-group">
                 
-                                                        <div class="error mt20 alert" style="display: none;"></div>
+                                                        <div class="error mt20 alert" >
+                                                            
+                                                        </div>
             
                                                     </div>
                 
@@ -274,7 +310,6 @@
                 
                                                         <input title="Số điện thoại" name="phone" id="rate-phone" class="form-control"
                                                             placeholder="Số điện thoại *" value="" type="text">
-                
                                                     </div>
                 
                                                     <div class="wpdg3 form-group">
@@ -286,8 +321,7 @@
                 
                                                     </div>
                 
-                
-                
+
                                                     <div class="wpdg2 form-group">
                 
                                                         <p class="mb0">Nội dung</p>
@@ -295,139 +329,11 @@
                                                         <textarea rows="5" title="Nhập nội dung đánh giá / nhận xét" name="message"
                                                             id="rate-content" placeholder="Nhập nội dung đánh giá / nhận xét..."
                                                             class="form-control" aria-required="true"></textarea>
-                
-
                                                     </div>
-                
                                                     <button class="btn btn-danger" type="submit">Gửi đánh giá</button>
                 
                                                 </form>
                 
-                                                <script type="text/javascript">
-                
-                                                    $(function () {
-                
-                                                        $('.full').on('click', function () {
-                
-                                                            var star = $(this).attr('data-value');
-                
-                                                            $('#hidden_star').attr('value', star);
-                
-                                                        });
-                
-                                                        $('.error').hide();
-                
-                                                        var module = 'products';
-                
-                                                        var moduleid = '883';
-                
-                                                        listComment(module, moduleid, $('.comment-list').attr('data-page'));
-                
-                                                        var uri = $('#rateform').attr('action');
-                
-                                                        $('#rateform').on('submit', function () {
-                
-                                                            var postData = $(this).serializeArray();
-                
-                                                            var fullname = $('#rate-name').val();
-                
-                                                            var email = $('#rate-email').val();
-                
-                                                            var phone = $('#rate-phone').val();
-                
-                                                            var contents = $('#rate-content').val();
-                
-                                                            $.post(uri, {
-                
-                                                                post: postData, module: module, moduleid: moduleid, fullname: fullname, email: email, phone: phone, contents: contents, parentid: 0
-                                                            },
-                
-                                                                function (data) {
-                
-                                                                    var json = JSON.parse(data);
-                
-                                                                    $('.error').show();
-                
-                                                                    if (fullname == '') {
-                
-                                                                        $('#rate-name').addClass('required');
-                
-                                                                    }
-                
-                                                                    if (email == '') {
-                
-                                                                        $('#rate-email').addClass('required');
-                
-                                                                    }
-                
-                                                                    if (phone == '') {
-                
-                                                                        $('#rate-phone').addClass('required');
-                
-                                                                    }
-                
-                                                                    if (contents == '') {
-                
-                                                                        $('#rate-content').addClass('required');
-                
-                                                                    }
-                
-                                                                    if (json.error.length) {
-                
-                                                                        $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
-                
-                                                                        $('#rateform .error').html('').html(json.error);
-                
-                                                                    } else {
-                
-                                                                        $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
-                
-                                                                        $('#rateform .error').html('').html('Gửi đánh giá sản phẩm thành công!.');
-                
-                                                                        $('#rateform').trigger("reset");
-                
-                                                                        setTimeout(function () { window.location.href = 'https://venuscharm.vn/ao-203-p883.html'; }, 3000);
-                
-                                                                    }
-                
-                                                                });
-                
-                                                            return false;
-                
-                                                        });
-                
-                                                        $(document).on('click', '.ajax-pagination .uk-pagination li a', function () {
-                
-                                                            var page = $(this).attr('data-ci-pagination-page');
-                
-                                                            listComment(module, moduleid, page);
-                
-                                                            return false;
-                
-                                                        });
-                
-                                                    });
-                
-                                                    function listComment(module, moduleid, page) {
-                
-                                                        var uri = 'https://venuscharm.com.vn/comments/ajax/comments/listComment.html';
-                
-                                                        $.post(uri, {
-                
-                                                            module: module, moduleid: moduleid, page: page
-                                                        },
-                
-                                                            function (data) {
-                
-                                                                var json = JSON.parse(data);
-                
-                                                                $('.comment-list').html(json.html);
-                
-                                                                $('.count_comments').html(json.count_comments);
-                
-                                                            });
-                                                    }
-                                                </script>
                 
                                             </div>
                 
@@ -672,6 +578,167 @@
 @endsection
 
 @section('custom-js')
+
+<script type="text/javascript">
+                
+    $(function () {
+
+
+        $('.full').on('click', function () {
+
+            var star = $(this).attr('data-value');
+
+            $('#hidden_star').attr('value', star);
+
+        });
+
+        $('.error').hide();
+
+        var module = 'products';
+
+        var moduleid = '{{$product->id}}';
+
+        listComment(module, moduleid, $('.comment-list').attr('data-page'));
+
+        var uri = $('#rateform').attr('action');
+
+        $('#rateform').on('submit', function () {
+
+            var postData = $(this).serialize();
+
+            var fullname = $('#rate-name').val();
+
+            var email = $('#rate-email').val();
+
+            var phone = $('#rate-phone').val();
+
+            var contents = $('#rate-content').val();
+            
+            console.log($('input[name="star"]:checked').val());
+            $.ajax({
+                type: 'post',
+                url: uri,
+                data: {
+                    fullname: fullname,
+                    email: email,
+                    phone: phone,
+                    contents: contents,
+                    star: $('input[name="star"]:checked').val()
+                },
+
+            }).done(function(data){
+
+                $('.error').show();
+                $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
+                $('#rateform .error').html('Cảm ơn quý khách đã phản hồi!')
+
+
+            }).fail(function(errors){
+
+                $('.error').show();
+                error = JSON.parse(errors.responseText);
+                errList = Object.values(error.errors);
+                errString = errList.reduce(function(temp, item){
+                    return temp + item[0] + '| ';
+                }, '');
+
+                $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
+                $('#rateform .error').html('<strong>' + errString + '</strong>')
+            })
+
+
+            // $.post(uri, {
+            //     post: postData, module: module, moduleid: moduleid, fullname: fullname, email: email, phone: phone, contents: contents, parentid: 0
+            // },
+
+            //     function (data) {
+
+            //         var json = JSON.parse(data);
+
+            //         $('.error').show();
+
+            //         if (fullname == '') {
+
+            //             $('#rate-name').addClass('required');
+
+            //         }
+
+            //         if (email == '') {
+
+            //             $('#rate-email').addClass('required');
+
+            //         }
+
+            //         if (phone == '') {
+
+            //             $('#rate-phone').addClass('required');
+
+            //         }
+
+            //         if (contents == '') {
+
+            //             $('#rate-content').addClass('required');
+
+            //         }
+
+            //         if (json.error.length) {
+
+            //             $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
+
+            //             $('#rateform .error').html('').html(json.error);
+
+            //         } else {
+
+            //             $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
+
+            //             $('#rateform .error').html('').html('Gửi đánh giá sản phẩm thành công!.');
+
+            //             $('#rateform').trigger("reset");
+
+            //             setTimeout(function () { window.location.href = 'https://venuscharm.vn/ao-203-p883.html'; }, 3000);
+
+            //         }
+
+            //     });
+
+            return false;
+
+        });
+
+        $(document).on('click', '.ajax-pagination .uk-pagination li a', function () {
+
+            var page = $(this).attr('data-ci-pagination-page');
+
+            listComment(module, moduleid, page);
+
+            return false;
+
+        });
+
+    });
+
+    function listComment(module, moduleid, page) {
+
+        var uri = "{{route('admin.product_reviews.index')";
+
+        $.post(uri, {
+
+            module: module, moduleid: moduleid, page: page
+        },
+
+            function (data) {
+
+                var json = JSON.parse(data);
+
+                $('.comment-list').html(json.html);
+
+                $('.count_comments').html(json.count_comments);
+
+            });
+    }
+</script>
+
+
 <script>
     $('#tab-content-none').hide();
     $('.click_show_comment').click(function(){
