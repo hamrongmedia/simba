@@ -41,7 +41,7 @@
                             <td>{{ $pi->pav2_value }}</td>
                         @endif
                         <td style="width: 180px;" class="text-center">
-                            <a href="#" class="btn btn-info btn-trigger-edit-product-version" onclick="">Sửa</a>
+                            <a href="#" class="btn btn-info" onclick="editVarition({{ $pi->id }})">Sửa</a>
                             <a href="#" class="btn btn-danger" onclick="deleteVarition({{ $pi->id }}, {{ $data->id }})">Xóa</a>
                         </td>
                     </tr>
