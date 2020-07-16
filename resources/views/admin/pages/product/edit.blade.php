@@ -218,7 +218,12 @@ Cập nhật sản phẩm
               return false;
             });
         }
-         $('.js-btn-trigger-add-image').customfilemanager('image');
+        $('.js-btn-trigger-add-image').customfilemanager('image');
+
+        function boloa()
+        {
+           $('.js-btn-trigger-add-image').customfilemanager('image'); 
+        }
 
         $(document).on("click", ".btn-trigger-select-product-attributes", (function(e) {
             e.preventDefault();
@@ -285,6 +290,11 @@ Cập nhật sản phẩm
             $("#store-product-variation-button").data("target", $(e.currentTarget).data("target")), 
             $("#add-new-product-variation-modal").modal("show")
         }));
+        $(document).on("click", ".btn-trigger-generate-all-versions", (function(e) {
+            e.preventDefault(), 
+            console.log('vao day');
+        }));
+        
     }));
     function editVarition(product_info_id)
     {
@@ -302,7 +312,8 @@ Cập nhật sản phẩm
                 $('#edit-product-variation-modal').modal('show');
                 $('#edit-product-variation-modal .variation-form-wrapper').html(data.data);
                 var url_update = '{{ route('admin.product.info.update') }}';
-                var formData = new FormData(document.getElementById("form-edit-varition"));
+                // var formData = new FormData(document.getElementById("form-edit-varition"));
+                console.log($('#thumbnailedit').val());
                 $('#update-product-variation-button').click(function (e) {
                     jQuery.ajax({
                         headers: {
@@ -310,7 +321,7 @@ Cập nhật sản phẩm
                         },
                         type: "POST",
                         url: url_update,
-                        data: formData,
+                        // data: formData,
                         success: function (data) {
                             $('#form-edit-discount p.error').remove();
                             if(data.status == true) {
