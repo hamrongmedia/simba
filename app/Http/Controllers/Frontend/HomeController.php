@@ -29,6 +29,7 @@ class HomeController extends Controller
         $product_cat1 = ProductCategory::where('status', 1)->where('id', $content->home7_cat)->first();
         $product_cat2 = ProductCategory::where('status', 1)->where('id', $content->home9_cat)->first();
 
+
         //dd($hightline_cat->posts);
 
         return view('front-end.home')->with([
