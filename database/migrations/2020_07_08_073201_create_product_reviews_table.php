@@ -20,6 +20,9 @@ class CreateProductReviewsTable extends Migration
             $table->double('star', 8, 2)->default(0);
             $table->string('comment')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->string('customer_name')->nullable();
+            $table->string('customer_email')->nullable();
+            $table->string('customer_phone')->nullable();
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

@@ -24,20 +24,20 @@ class ProductReviewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email:rfc|max:30|required',
-            'fullname' => 'required|max:30',
-            'contents' => 'required|max:256',
+            'customer_email' => 'email:rfc|max:30|required',
+            'customer_name' => 'required|max:30',
+            'comment' => 'required|max:256',
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
-            'email.max' => 'Email tối đa 30 ký tự',
-            'email.rfc' => 'Email không đúng định dạng',
-            'email.required' => 'Email không được để trống',
-            'fullname.required' => 'Vui lòng nhập tên khách hàng',
-            'contents.required' => 'Vui lòng nhập nội dung comment',
+            'customer_email.max' => 'Email tối đa 30 ký tự',
+            'customer_email.rfc' => 'Email không đúng định dạng',
+            'customer_email.required' => 'Email không được để trống',
+            'customer_name.required' => 'Vui lòng nhập tên khách hàng',
+            'comment.required' => 'Vui lòng nhập nội dung comment',
         ];
     }
 

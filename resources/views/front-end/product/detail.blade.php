@@ -33,6 +33,7 @@
     content: "\f005";
     color: #FD4;
     transition: all .25s;
+    font-weight: 900
   }
   .stars input.star-1:checked ~ label.star:before {
     color: #F62;
@@ -619,10 +620,11 @@
                 type: 'post',
                 url: uri,
                 data: {
-                    fullname: fullname,
-                    email: email,
-                    phone: phone,
-                    contents: contents,
+                    product_id: moduleid,
+                    customer_name: fullname,
+                    customer_email: email,
+                    customer_phone: phone,
+                    comment: contents,
                     star: $('input[name="star"]:checked').val()
                 },
 
@@ -646,61 +648,6 @@
                 $('#rateform .error').html('<strong>' + errString + '</strong>')
             })
 
-
-            // $.post(uri, {
-            //     post: postData, module: module, moduleid: moduleid, fullname: fullname, email: email, phone: phone, contents: contents, parentid: 0
-            // },
-
-            //     function (data) {
-
-            //         var json = JSON.parse(data);
-
-            //         $('.error').show();
-
-            //         if (fullname == '') {
-
-            //             $('#rate-name').addClass('required');
-
-            //         }
-
-            //         if (email == '') {
-
-            //             $('#rate-email').addClass('required');
-
-            //         }
-
-            //         if (phone == '') {
-
-            //             $('#rate-phone').addClass('required');
-
-            //         }
-
-            //         if (contents == '') {
-
-            //             $('#rate-content').addClass('required');
-
-            //         }
-
-            //         if (json.error.length) {
-
-            //             $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
-
-            //             $('#rateform .error').html('').html(json.error);
-
-            //         } else {
-
-            //             $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
-
-            //             $('#rateform .error').html('').html('Gửi đánh giá sản phẩm thành công!.');
-
-            //             $('#rateform').trigger("reset");
-
-            //             setTimeout(function () { window.location.href = 'https://venuscharm.vn/ao-203-p883.html'; }, 3000);
-
-            //         }
-
-            //     });
-
             return false;
 
         });
@@ -719,7 +666,7 @@
 
     function listComment(module, moduleid, page) {
 
-        var uri = "{{route('admin.product_reviews.index')";
+        var uri = "{{route('admin.product_reviews.show')";
 
         $.post(uri, {
 

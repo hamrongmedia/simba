@@ -6,7 +6,10 @@ use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\ProductReviewsRequest;
+use App\Models\ProductReview;
+use App\Models\ProductReviewAnswer;
 use App\Repositories\ProductRepositories\ProductRviewsRepository;
+use Auth;
 use Illuminate\Http\Request;
 
 class ProductReviewsController extends Controller
@@ -63,7 +66,13 @@ class ProductReviewsController extends Controller
      */
     public function store(ProductReviewsRequest $request)
     {
-        return $request->all();
+        try {
+            $product_reviews = ProductReview::create($request->all());
+        } catch (Exception $err) {
+            return ['err' => $err];
+        }
+        return ['msg' => 'Lưu thành công'];
+
     }
 
     /**
@@ -74,7 +83,6 @@ class ProductReviewsController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -85,7 +93,10 @@ class ProductReviewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $review = ProductReview::find($id);
+
+        return view('admin.pages.product_reviews.detail', ['review' => $review]);
+
     }
 
     /**
@@ -102,12 +113,60 @@ class ProductReviewsController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        ProductReview::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reply(Request $request)
+    {
+        $request->validate([
+            'content' => 'required',
+        ], [
+            'content.required' => 'Câu trả lời không được để trống',
+        ]);
+
+        $admin = Auth::user();
+
+        $data = [
+            'author_id' => $admin->id,
+            'product_review_id' => $request->product_review_id,
+            'answer' => $request->content,
+        ];
+        //delete old ans
+        ProductReviewAnswer::where('product_review_id', '=', $request->product_review_id)->delete();
+        // create new one
+        ProductReviewAnswer::create($data);
+
+        return back()->with('success', 'Gửi trả lời thành công');
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $review = ProductReview::find($request->review_id);
+
+        $status = $request->status;
+        if ($review) {
+
+            if ($status == 'on') {
+                $review->status = 1;
+                $review->save();
+                return ['msg' => 'Đã công khai review này!'];
+            } else {
+                $review->status = 0;
+                $review->save();
+                return ['msg' => 'Đã ẩn review này!'];
+            }
+        }
     }
 }
