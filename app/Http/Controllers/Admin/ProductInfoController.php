@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\ProductAttributeValue;
+use App\Models\ProductAttributeMap;
 use App\Models\ProductCategory;
 use App\Models\ProductToCategory;
-use App\Models\ProductAttributeMap;
 use App\Models\ProductType;
 use App\Models\ProductImage;
 use App\Models\ProductInfo;
@@ -21,15 +21,20 @@ class ProductInfoController extends Controller
 	public function show(Request $request)
 	{
         $product_info_id = $request->product_info_id;
+        $product_info = ProductInfo::find($product_info_id);
+		if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
 		$data = ProductInfo::leftJoin('product_color','product_info.attribute_value1','=','product_color.color_id')
 					->where('product_info.id',$product_info_id)
+					->select('attribute_value1','attribute_value2','image_path')
 					->first();
+		$attribute_map = ProductAttributeMap::where('product_id',$product_info->product_id)
+									->distinct('product_attribute_id')
+									->get()
+									->pluck('product_attribute_id');
 		$product_attribute_map = ProductAttribute::with('attributeValues')
-		            ->join('product_attribute_map', 'product_attributes.id', '=', 'product_attribute_map.product_attribute_id')
-		            ->where('product_id', $data->product_id)
 		            ->select('product_attributes.name', 'product_attributes.id')
+		            ->whereIn('product_attributes.id',$attribute_map)
 		            ->get();
-		if(!$data) return $this->respondWithError('Lỗi! Không có dữ liệu');
 		$view = view("admin.pages.product.edit_varition",compact('data','product_attribute_map'))->render();
 		return $this->respondJsonData('Chỉnh sửa biến thể thành công',$view);		
 	}
