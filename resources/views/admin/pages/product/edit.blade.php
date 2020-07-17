@@ -95,19 +95,19 @@ Cập nhật sản phẩm
         <div class="modal-dialog    modal-xs  ">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h4 class="modal-title"><i class="til_img"></i><strong>Generate all variations</strong></h4>
+                    <h4 class="modal-title"><i class="til_img"></i><strong>Tạo tất cả các biến thể</strong></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
 
                 <div class="modal-body with-padding">
-                    Are you sure you want to generate all variations for this product?
+                    Bạn có chắc chắn muốn tạo tất cả các biến thể cho sản phẩm này?
                 </div>
 
                 <div class="modal-footer">
                     <button class="float-left btn btn-warning" data-dismiss="modal">Hủy bỏ</button>
-                    <a class="float-right btn btn-info" id="generate-all-versions-button" href="#">Continue</a>
+                    <a class="float-right btn btn-info" id="generate-all-versions-button" href="#">Tiếp tục</a>
                 </div>
             </div>
         </div>
@@ -292,9 +292,66 @@ Cập nhật sản phẩm
         }));
         $(document).on("click", ".btn-trigger-generate-all-versions", (function(e) {
             e.preventDefault(), 
-            console.log('vao day');
+            $('#generate-all-versions-modal').modal('show');
         }));
-        
+        $(document).on("click", "#generate-all-versions-button", (function(e) {
+            e.preventDefault();
+            var formData = new FormData(document.getElementById("form-add-variation"));
+            var url = '{{ route('admin.product.info.all',['id'=>$data->id]) }}';
+            jQuery.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: url,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#generate-all-versions-modal').modal('hide');
+                    if(data.status == true) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                        Toast.fire({
+                            type: 'success',
+                            title: 'Tạo tất cả các biến thể thành công'
+                        });
+                        $("#product-variations-wrapper").html(data.data);                        
+                    } else {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                        Toast.fire({
+                            type: 'warning',
+                            title: data.msg
+                        })
+                    }
+                },
+                error: function (data) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                      });
+
+                    Toast.fire({
+                        type: 'warning',
+                        title: 'Thất bại'
+                    })
+                }
+            });
+        }));        
     }));
     function editVarition(product_info_id)
     {
