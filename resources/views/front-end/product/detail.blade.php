@@ -322,7 +322,6 @@
                 
                                                         <input title="Số điện thoại" name="phone" id="rate-phone" class="form-control"
                                                             placeholder="Số điện thoại *" value="" type="text">
-                
                                                     </div>
                 
                                                     <div class="wpdg3 form-group">
@@ -334,8 +333,7 @@
                 
                                                     </div>
                 
-                
-                
+
                                                     <div class="wpdg2 form-group">
                 
                                                         <p class="mb0">Nội dung</p>
@@ -343,10 +341,7 @@
                                                         <textarea rows="5" title="Nhập nội dung đánh giá / nhận xét" name="message"
                                                             id="rate-content" placeholder="Nhập nội dung đánh giá / nhận xét..."
                                                             class="form-control" aria-required="true"></textarea>
-                
-
                                                     </div>
-                
                                                     <button class="btn btn-danger" type="submit">Gửi đánh giá</button>
                 
                                                 </form>
@@ -591,7 +586,6 @@
      <!-- modal-size -->
     @include('front-end.content.modal_size')
 
-
 @endsection
 
 @section('custom-js')
@@ -682,7 +676,7 @@
 
     function listComment(module, moduleid, page) {
 
-        var uri = "{{route('admin.product_reviews.show')";
+        var uri = "";
 
         $.post(uri, {
 

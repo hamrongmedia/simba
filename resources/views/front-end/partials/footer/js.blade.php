@@ -10,6 +10,11 @@
 
 
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     if($(window).width() > 768) {
 
         $(document).ready(function() {
@@ -19,6 +24,8 @@
         });
     }
 </script>
+
+
 
 
 @yield('custom-js')

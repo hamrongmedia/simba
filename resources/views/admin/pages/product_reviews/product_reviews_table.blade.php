@@ -15,15 +15,15 @@
         <tbody>
             @if ($productReviews->isNotEmpty())
                 @foreach ($productReviews as $productReview)
-                <tr  id="product_review-{{$productReview->id ?? 1}}">
+                <tr  id="product-review-{{$productReview->id ?? 1}}">
                     <td>
                         <input class="input" type="checkbox" class="grid-row-checkbox" data-id="{{ $productReview->id ?? '1' }}">
                     </td>
                     <td>{{$productReview->id ?? ''}}</td>
-                    <td>{{$productReview->customer_id ?? 'Khach la'}}</td>
-                    <td>{{$productReview->email ?? ''}}</td>
+                    <td>{{$productReview->customer_name?? 'Khách lạ'}}</td>
+                    <td>{{$productReview->customer_email ?? ''}}</td>
                     <td>
-                        {{$productReview->phone ?? ''}}
+                        {{$productReview->customer_phone ?? ''}}
                     </td>
                     <td>
                         {{$productReview->create_at ?? ''}}

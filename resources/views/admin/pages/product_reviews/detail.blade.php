@@ -15,17 +15,15 @@
             </div>
 
             <div class="box-body">
-                <p><strong>Ngày nhận: </strong>{{$contact->create_at}}</p> 
-                <p><strong>Người gửi: </strong>{{$contact->customer_name}}</p> 
-                <p><strong>Email: </strong><a href="mailto:{{$contact->email}}">{{$contact->email}}</a></p> 
-                <p><strong>Số điện thoại: </strong>{{$contact->phone}}</p> 
-                <p><strong>Địa chỉ: </strong>{{$contact->address}}</p>
-                <p><strong>Tiêu đề: </strong>{{$contact->title}}</p>
+                <p><strong>Ngày nhận: </strong>{{$review->create_at ?? ''}}</p> 
+                <p><strong>Người gửi: </strong>{{$review->customer_name ?? ''}}</p> 
+                <p><strong>Email: </strong><a href="mailto:{{$review->customer_email}}">{{$review->customer_email}}</a></p> 
+                <p><strong>Số điện thoại: </strong>{{$review->customer_phone}}</p> 
+                <p><strong>Đánh giá sản phẩm: </strong>{{$review->star}} <i style="color: yellow" class="fa fa-star" aria-hidden="true"></i></p>
                 <p><strong>Nội dung: </strong></p>
                 <div style="background: rgb(248,249,250); padding: 10px">
-                    {{$contact->content}}
+                    {{$review->comment}}
                 </div>
-
             </div>
             <!-- /.box-header -->
 
@@ -39,15 +37,23 @@
                 <!-- /.box-tools -->
             </div>
             <div class="box-body">
-                <form action="{{route('admin.contact.reply', $contact->id)}}" method="post">
+                <form action="{{route('admin.product_reviews.reply', $review->id)}}" method="post">
                     @csrf
                     <button class="btn btn-success" type="submit">Trả lời</button>
-
+                    <input type="hidden" name="product_review_id" value="{{$review->id}}">
                     <div class="box-body">
                         <textarea id="editor" class="editor" name="content" rows="10" cols="80">
+                            @if ($review->answer)
+                                {!!$review->answer->answer!!}
+                            @endif
                         </textarea>
+                        @error('content')
+                            <strong class="text-red">
+                                {{$message}}
+                            </strong>
+                        @enderror
                     </div>
-                </form>
+                </form> 
             </div>
             <!-- /.box-header -->
 
@@ -57,14 +63,18 @@
     <div class="col-md-3">
         <div class="box">
             <div class="box-header with-border">
-                    <strong>Trạng thái tin nhắn</strong>
-    
-                <!-- /.box-tools -->
+                    <strong>Trạng thái comment</strong>
+                    <div class="form-group" style="margin-top:20px">
+                        <div class="assign-switch">
+                            <label class="switch-label">
+                                <input type="checkbox" class="switch-assign" name="comment_status">
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="d-inline-block">Công khai / Ẩn</label>
+                        </div>
+                    </div>
             </div>
 
-            <!-- /.box-header -->
-
-            <!-- /.box-body -->
         </div>
     </div>
 </div>
@@ -75,11 +85,43 @@
 
 @include('admin.component.ckeditor_js');
 <script>
+
+    $('.switch-assign').on('change', function(){
+
+        if($('.switch-assign').is(':checked')){
+            var status = 'on';
+        }
+        else{
+            var status = 'off';
+        }
+
+        $.ajax({
+            url: "{{route('admin.product_reviews.status')}}",
+            type: 'POST',
+            data: {
+                status: status,
+                review_id: {{$review->id}},
+            } 
+        }).done(function(data){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            Toast.fire({
+                type: 'success',
+                title: data.msg,
+            })
+        })
+    })
+
+
     var type = 'sort';
 
     function deleteAjax(id) {
         $.ajax({
-            url: "{{route('admin.user.delete')}}",
+            url: "{{route('admin.product_reviews.delete')}}",
             type: 'POST',
             data: {
                 id: id
@@ -90,14 +132,14 @@
                 'Your file has been deleted.',
                 'success',
             );
-            $('#user-' + id).remove();
+            $('#product_reviews-' + id).remove();
         })
     }
 
     function searchAjax(page = 1){
         var input = $('#search_input').val();
         $.ajax({
-            url: '{{route("admin.user.search")}}' ,
+            url: '{{route("admin.product_reviews.search")}}' ,
             data:{
                 keyword: input,
                 current_page:page,
@@ -112,7 +154,7 @@
         var input = $('#order_sort option:selected').val().split('__');
 
         $.ajax({
-            url: "{{route('admin.user.index')}}",
+            url: "{{route('admin.product_reviews.index')}}",
             data: {
                 sort_by: input[0],
                 sort_type: input[1],
