@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+    
     @include('front-end.partials.header.head')
     
     <!-- yêu cầu người code chức năng để ý kỹ code html của các trang copy thiếu hay tự làm lỗi thì tự chỉnh 

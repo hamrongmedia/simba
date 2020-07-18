@@ -12,10 +12,13 @@ Route::namespace ('Frontend')->group(function () {
         return view('front-end.page.contact');
     });
 
+    Route::get('gio-hang','CartController@index')->name('cart.index');
+    Route::post('gio-hang','CartController@store')->name('cart.add');
+
     // Get product list by category.
     Route::get('/danh-muc/{product_cat_slug}', 'ProductController@getProductByCategory')->name('product.getProductByCat');
     //Get product detail by slug and id
-    Route::get('/san-pham/{slug}', 'ProductController@getDetailProduct')->name('product.detail');
+    Route::get('san-pham/{slug}', 'ProductController@show')->name('product.detail');
 
     // Order route
     Route::get('/dat-mua', 'OrderController@showOrderForm')->name('product.showOrderForm');

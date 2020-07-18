@@ -120,7 +120,6 @@ class ProductInfoController extends Controller
 			$product_info = ProductInfo::where('id',$product_info_id)->first();
 			if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
 			$attribute_sets = $request->attribute_sets;
-			dd($attribute_sets);
 			if(count($attribute_sets) == 2 ) {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
 										->where('attribute_value1',$attribute_sets[0])
