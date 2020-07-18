@@ -128,9 +128,7 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: params,
             success: (data) => {
-                if(data.status) {
-                    $('input[name="slug"]').val(data.data);
-                }
+                $("#site-cart").addClass("active");
             },
             error: (data) => {
                 alert(data.msg)
