@@ -56,33 +56,85 @@ jQuery(document).ready(function ($) {
     //     });
     // }
     // //end xóa cart
-    // //thêm vào giỏ hàng
-    // $(document).on('click', '.ajax-addtocart', function () {
-    //     var product = $(this);
-    //     $.post('products/ajax/cart/addtocartv', {
-    //         id : product.attr('data-id'),
-    //         quantity : product.attr('data-quantity'),
-    //         color : product.attr('data-color'),
-    //         size : product.attr('data-size'),
-    //         price : product.attr('data-price'),
-    //         sanpham : product.attr('data-sanpham'),
-    //     },function(data){
-    //         var json = JSON.parse(data);
-    //         if(json.error == 1){
-    //             $('.error_size').html('Vui lòng chọn size');
+    //
+    function getDetailGoodsParams(){
+        var goodsParams = {};
+        goodsParams.productId = $("#productId").val();
+        goodsParams.quantity = 1;
+        goodsParams.colorId = $(".add_bag_color .active").attr("data-color");
+        goodsParams.color = $(".add_bag_color .active").find("a").attr("title");
+        goodsParams.sizeId = $(".add_bag_size .active").attr("data-size");
+        goodsParams.size = $(".add_bag_size .active").text();
+        return goodsParams;
+    }
+    // Change Color
+    changeColor();
+    function changeColor(){
+        var _this = $('.add_bag_color li.active');
+        var hasActiveSize = false;
+        var sizeId = $('.add_bag_size li.active').data('size');
+        $('.add_bag_size li').each(function(index){
+            if($(_this).attr('data-sizeids') != undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") == -1){
+                $(this).css('display','none');
+                $(this).removeClass('active');
+            } else {
+                $(this).css('display','');
+            }
+            if ($(this).hasClass('active')) {
+                sizeId = $(this).attr("data-size");
+                hasActiveSize = true;
+            }
+        });
+    }
+    $('.wp-img-ctsp').on('click','.wp-text-right li',function(){
+        // changeColor();
+        var colorId;
+        var sizeId;
+        colorId = $(this).attr("data-color");
+        sizeId = $(this).attr("data-size");
+        $(".add_bag_size").find("li").each(function() {
+             if($(this).hasClass("active")){
+                 sizeId = $(this).attr("data-size");
+             }
+        });        
+        console.log('vao day');
+    });
 
-    //         }else{
-    //             $('#ajax-cart-form').html(json.html);
-    //             $('#total-view-cart').html(json.total);
-    //             $('#qtotalitems').html(json.item);
-    //             $("#site-cart").addClass("active");
-
-    //             //Gtag nút mua ngay
-    //             gtag_report_conversion(window.location.href);
-    //         }
-
-    //     });
-    // });
+    function validateChooseSize(sumGoods){
+        var sizeId = $('.add_bag_size li.active').data('size');
+        var colorId = $('.add_bag_color li.active').data('color');
+        var colorName = $(".add_bag_color li.active a").attr('title') ;
+        var sizeName = $('.add_bag_size li.active').html();        
+        var productId = $('#productId').val();
+        if(sizeId == undefined){
+             $('.sizeError').show();
+             $('.add_bag_size').addClass('errorAnimate');
+             setTimeout(function(){
+                 $('.add_bag_size').removeClass('errorAnimate');
+             },1000);
+            return false;
+        }
+        return true;
+    }
+    //thêm vào giỏ hàng
+    $(document).on('click', '.ajax-addtocart', function () {
+        var params = getDetailGoodsParams();
+        var url = $(this).data('href');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type: 'POST',
+            data: params,
+            success: (data) => {
+                $("#site-cart").addClass("active");
+            },
+            error: (data) => {
+                alert(data.msg)
+            }
+        });   
+    });
 
     $(".btn-click-dosize").click(function () {
         var value_chieucao = $("#value_chieucao").val();

@@ -67,31 +67,31 @@
                                 <div id="img-id4146" class="tab-pane fade row active in">
                                     <!-- ảnh cắt với kích thức 703x800 -->
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831433.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831440.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831446.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831453.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                 </div> <!-- end -->
 
                                 <div id="img-id4145" class="tab-pane fade row">
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831387.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831396.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831403.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                     <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="{{asset('images-demo/1590831409.jpg')}}">
+                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
                                     </div>
                                 </div><!--  end -->
                             </div>
@@ -111,31 +111,42 @@
                                 <p>Trạng thái: 
                                     @if($product->status == 1)
                                         Còn hàng
-                                        @else
+                                    @else
                                         Hết hàng
-                                    @endif</p>
+                                    @endif
+                                </p>
                             </div>
                             <!-- màu sản phẩm -->
-                            <div class="wp-chonmau">
-                                <ul class="nav nav-pills">
-                                    <li class="chose_attr_advanced_color active" data-title="Da"><a class="" data-toggle="pill" href="#img-id4146">
-                                        <span class="color color4" style="background: url('{{asset('images-demo/1590831427.jpg')}}')"></span></a>
-                                    </li>
-                                    <li class="chose_attr_advanced_color" data-title="Đen"><a class="" data-toggle="pill" href="#img-id4145">
-                                        <span class="color color4" style="background: url('{{asset('images-demo/1590831382.jpg')}}')"></span></a>
-                                    </li>
-                                </ul>
+                            <div class="wp-chonmau add_bag_color">
+                                @if($product->product_attributes)
+                                    <ul class="nav nav-pills">
+                                        @foreach($product->product_attributes as $pr_at)
+                                        <li class="chose_attr_advanced_color @if ($loop->first) active @endif" data-color="{{ $pr_at['pav1_id'] }}" data-sizeids="{{ $pr_at['sizeids'] }}|" data-title="{{ $pr_at['pav1_name'] }}">
+                                            <a class="" data-toggle="pill" href="#img-id4146">
+                                                <span class="color color4" style="background: url('{{asset('images-demo/1590831427.jpg')}}')"></span>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </div> <!-- end -->
-                            <div class="wp-chonsize">
-                                <ul class="ul-b list-size">                                        
-                                    <li><a href="javascript:void();" class="filtersize active" data-title="F" data-saleoff="70000" data-id="F ">F</a></li>                                        
-                                    <div class="error_size"></div>
+                            <div class="wp-chonsize add_bag_size">
+                                <ul class="ul-b list-size">  
+                                    @if($product->all_sizes)
+                                        @foreach($product->all_sizes as $k => $size)
+                                            <li data-size="{{ $k }}">{{ $size }}</li>
+                                        @endforeach  
+                                    @endif                                  
+                                    <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
                                 </ul>
                             </div>                            
                             <div class="huongdan-chonsize"><a href="#" data-toggle="modal" data-target="#modal-size">Hướng dẫn chọn size</a></div>
                             <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
                             <div class="wp-btn-mua">
-                                <button class="ajax-addtocart">Mua ngay<i class="fas fa-shopping-bag"></i></button>
+                                <input type="hidden" id="productId" value="{{ $product->id }}">
+                                <button class="ajax-addtocart" data-href="{{ route('cart.add') }}">
+                                    Mua ngay<i class="fas fa-shopping-bag"></i>
+                                </button>
                             </div>
 
                             <!-- ưu dãi -->
@@ -387,102 +398,7 @@
                                                     <button class="btn btn-danger" type="submit">Gửi câu hỏi</button>
                 
                                                 </form>
-                
-                                                <script type="text/javascript">
-                
-                                                    $(function () {
-                
-                                                        $('.errorcauhoi').hide();
-                
-                                                        var module = 'products';
-                
-                                                        var moduleid = '883';
-                
-                                                        listCauhoi(module, moduleid, $('.cauhoi-list').attr('data-page'));
-                
-                
-                
-                                                        var uri = $('#rateformCH').attr('action');
-                
-                                                        $('#rateformCH').on('submit', function () {
-                
-                                                            var postData = $(this).serializeArray();
-                
-                                                            var contents = $('#rate-contentcauhoir').val();
-                
-                                                            var fullname = $('#rate-namecauhoi').val();
-                
-                                                            $.post(uri, {
-                
-                                                                post: postData, fullname: fullname, module: module, moduleid: moduleid, contents: contents, parentid: 0
-                                                            },
-                
-                                                                function (data) {
-                
-                                                                    var json = JSON.parse(data);
-                
-                                                                    $('.errorcauhoi').show();
-                
-                                                                    if (json.error.length) {
-                
-                                                                        $('#rateformCH .errorcauhoi').removeClass('alert alert-success').addClass('alert alert-danger');
-                
-                                                                        $('#rateformCH .errorcauhoi').html('').html(json.error);
-                
-                                                                    } else {
-                
-                                                                        $('#rateformCH .errorcauhoi').removeClass('alert alert-danger').addClass('alert alert-success');
-                
-                                                                        $('#rateformCH .errorcauhoi').html('').html('Gửi câu hỏi thành công!.');
-                
-                                                                        $('#rateformCH').trigger("reset");
-                
-                                                                        setTimeout(function () { window.location.href = 'https://venuscharm.vn/ao-203-p883.html'; }, 3000);
-                
-                                                                    }
-                
-                                                                });
-                
-                                                            return false;
-                
-                                                        });
-                
-                                                        $(document).on('click', '.ajax-pagination-cauhoi .uk-pagination li a', function () {
-                
-                                                            var page = $(this).attr('data-ci-pagination-page');
-                
-                                                            listCauhoi(module, moduleid, page);
-                
-                                                            return false;
-                
-                                                        });
-                
-                
-                
-                                                    });
-                
-                                                    function listCauhoi(module, moduleid, page) {
-                
-                                                        var uri = 'https://venuscharm.com.vn/comments/ajax/comments/listQuestion.html';
-                
-                                                        $.post(uri, {
-                
-                                                            module: module, moduleid: moduleid, page: page
-                                                        },
-                
-                                                            function (data) {
-                
-                                                                var json = JSON.parse(data);
-                
-                                                                $('.cauhoi-list').html(json.html);
-                
-                                                                $('.count_cauhoi').html(json.count_comments);
-                
-                                                            });
-                
-                                                    }
-                                                </script>
-                
+
                                             </div>
                 
                                         </div>
@@ -575,122 +491,212 @@
      <!-- modal-size -->
     @include('front-end.content.modal_size')
 
-
 @endsection
 
 @section('custom-js')
-
-<script type="text/javascript">
-                
-    $(function () {
-
-
-        $('.full').on('click', function () {
-
-            var star = $(this).attr('data-value');
-
-            $('#hidden_star').attr('value', star);
-
-        });
-
-        $('.error').hide();
-
-        var module = 'products';
-
-        var moduleid = '{{$product->id}}';
-
-        listComment(module, moduleid, $('.comment-list').attr('data-page'));
-
-        var uri = $('#rateform').attr('action');
-
-        $('#rateform').on('submit', function () {
-
-            var postData = $(this).serialize();
-
-            var fullname = $('#rate-name').val();
-
-            var email = $('#rate-email').val();
-
-            var phone = $('#rate-phone').val();
-
-            var contents = $('#rate-content').val();
-            
-            console.log($('input[name="star"]:checked').val());
-            $.ajax({
-                type: 'post',
-                url: uri,
-                data: {
-                    product_id: moduleid,
-                    customer_name: fullname,
-                    customer_email: email,
-                    customer_phone: phone,
-                    comment: contents,
-                    star: $('input[name="star"]:checked').val()
-                },
-
-            }).done(function(data){
-
-                $('.error').show();
-                $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
-                $('#rateform .error').html('Cảm ơn quý khách đã phản hồi!')
+    <script type="text/javascript">
+                    
+        $(function () {
 
 
-            }).fail(function(errors){
+            $('.full').on('click', function () {
 
-                $('.error').show();
-                error = JSON.parse(errors.responseText);
-                errList = Object.values(error.errors);
-                errString = errList.reduce(function(temp, item){
-                    return temp + item[0] + '| ';
-                }, '');
+                var star = $(this).attr('data-value');
 
-                $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
-                $('#rateform .error').html('<strong>' + errString + '</strong>')
-            })
-
-            return false;
-
-        });
-
-        $(document).on('click', '.ajax-pagination .uk-pagination li a', function () {
-
-            var page = $(this).attr('data-ci-pagination-page');
-
-            listComment(module, moduleid, page);
-
-            return false;
-
-        });
-
-    });
-
-    function listComment(module, moduleid, page) {
-
-        var uri = "{{route('admin.product_reviews.show')";
-
-        $.post(uri, {
-
-            module: module, moduleid: moduleid, page: page
-        },
-
-            function (data) {
-
-                var json = JSON.parse(data);
-
-                $('.comment-list').html(json.html);
-
-                $('.count_comments').html(json.count_comments);
+                $('#hidden_star').attr('value', star);
 
             });
-    }
-</script>
+
+            $('.error').hide();
+
+            var module = 'products';
+
+            var moduleid = '{{$product->id}}';
+
+            // listComment(module, moduleid, $('.comment-list').attr('data-page'));
+
+            var uri = $('#rateform').attr('action');
+
+            $('#rateform').on('submit', function () {
+
+                var postData = $(this).serialize();
+
+                var fullname = $('#rate-name').val();
+
+                var email = $('#rate-email').val();
+
+                var phone = $('#rate-phone').val();
+
+                var contents = $('#rate-content').val();
+            
+                $.ajax({
+                    type: 'post',
+                    url: uri,
+                    data: {
+                        product_id: moduleid,
+                        customer_name: fullname,
+                        customer_email: email,
+                        customer_phone: phone,
+                        comment: contents,
+                        star: $('input[name="star"]:checked').val()
+                    },
+
+                }).done(function(data){
+
+                    $('.error').show();
+                    $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
+                    $('#rateform .error').html('Cảm ơn quý khách đã phản hồi!')
 
 
-<script>
-    $('#tab-content-none').hide();
-    $('.click_show_comment').click(function(){
-        $('#tab-content-none').show();
+                }).fail(function(errors){
 
-    });
-</script>
+                    $('.error').show();
+                    error = JSON.parse(errors.responseText);
+                    errList = Object.values(error.errors);
+                    errString = errList.reduce(function(temp, item){
+                        return temp + item[0] + '| ';
+                    }, '');
+
+                    $('#rateform .error').removeClass('alert alert-success').addClass('alert alert-danger');
+                    $('#rateform .error').html('<strong>' + errString + '</strong>')
+                })
+
+                return false;
+
+            });
+
+            $(document).on('click', '.ajax-pagination .uk-pagination li a', function () {
+
+                var page = $(this).attr('data-ci-pagination-page');
+
+                // listComment(module, moduleid, page);
+
+                return false;
+
+            });
+
+        });
+
+        // function listComment(module, moduleid, page) {
+
+        //     var uri = "#";
+
+        //     $.post(uri, {
+
+        //         module: module, moduleid: moduleid, page: page
+        //     },
+
+        //         function (data) {
+
+        //             var json = JSON.parse(data);
+
+        //             $('.comment-list').html(json.html);
+
+        //             $('.count_comments').html(json.count_comments);
+
+        //         });
+        // }
+    </script>
+    <script>
+        $('#tab-content-none').hide();
+        $('.click_show_comment').click(function(){
+            $('#tab-content-none').show();
+
+        });
+    </script>
+                
+{{--     <script type="text/javascript">
+
+        $(function () {
+
+            $('.errorcauhoi').hide();
+
+            var module = 'products';
+
+            var moduleid = '883';
+
+            listCauhoi(module, moduleid, $('.cauhoi-list').attr('data-page'));
+
+
+
+            var uri = $('#rateformCH').attr('action');
+
+            $('#rateformCH').on('submit', function () {
+
+                var postData = $(this).serializeArray();
+
+                var contents = $('#rate-contentcauhoir').val();
+
+                var fullname = $('#rate-namecauhoi').val();
+
+                $.post(uri, {
+
+                    post: postData, fullname: fullname, module: module, moduleid: moduleid, contents: contents, parentid: 0
+                },
+
+                    function (data) {
+
+                        var json = JSON.parse(data);
+
+                        $('.errorcauhoi').show();
+
+                        if (json.error.length) {
+
+                            $('#rateformCH .errorcauhoi').removeClass('alert alert-success').addClass('alert alert-danger');
+
+                            $('#rateformCH .errorcauhoi').html('').html(json.error);
+
+                        } else {
+
+                            $('#rateformCH .errorcauhoi').removeClass('alert alert-danger').addClass('alert alert-success');
+
+                            $('#rateformCH .errorcauhoi').html('').html('Gửi câu hỏi thành công!.');
+
+                            $('#rateformCH').trigger("reset");
+
+                            setTimeout(function () { window.location.href = 'https://venuscharm.vn/ao-203-p883.html'; }, 3000);
+
+                        }
+
+                    });
+
+                return false;
+
+            });
+
+            $(document).on('click', '.ajax-pagination-cauhoi .uk-pagination li a', function () {
+
+                var page = $(this).attr('data-ci-pagination-page');
+
+                listCauhoi(module, moduleid, page);
+
+                return false;
+
+            });
+
+
+
+        });
+
+        function listCauhoi(module, moduleid, page) {
+
+            var uri = '#';
+
+            $.post(uri, {
+
+                module: module, moduleid: moduleid, page: page
+            },
+
+                function (data) {
+
+                    var json = JSON.parse(data);
+
+                    $('.cauhoi-list').html(json.html);
+
+                    $('.count_cauhoi').html(json.count_comments);
+
+                });
+
+        }
+    </script> --}}
 @endsection

@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Session;
+use Str;
 
 class ProductController extends Controller
 {
@@ -93,9 +94,9 @@ class ProductController extends Controller
     {
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
-        $types = ProductType::where('is_deleted', 0)->get();
+        // $types = ProductType::where('is_deleted', 0)->get();
         $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
-        return view('admin.pages.product.create', compact('categories', 'types', 'attributes'));
+        return view('admin.pages.product.create', compact('categories',  'attributes'));
     }
 
     /**
@@ -108,7 +109,6 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            dd($request->all());
             $product = new Product();
             $product->name = $request->name;
             $product->slug = $request->slug;
@@ -117,10 +117,21 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
-            $product->thumbnail = $request->images;
+            if($request->images) {
+                $thumbnail = Str::of($request->images)->replace(getenv('APP_URL').'/storage/', '');
+                $product->thumbnail = $thumbnail;
+            }
+            $product->stock = $request->stock;
+            if($request->stock_unlimited) {
+                $product->stock_unlimited =  1;
+            } else {
+                $product->stock_unlimited =  0;
+            }
             $product->stock = $request->stock;
             if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
+            } else {
+                $product->type = Product::PRODUCT_STANDARD;
             }
             $product->save();
             # Create Seo Meta
@@ -162,7 +173,6 @@ class ProductController extends Controller
     {
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
-        $types = ProductType::where('is_deleted', 0)->get();
         $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
 
@@ -188,7 +198,6 @@ class ProductController extends Controller
         if (isset($data)) {
             return view('admin.pages.product.edit', compact(
                 'data',
-                'types',
                 'categories',
                 'product_attribute_map',
                 'product_info',
@@ -219,10 +228,20 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
-            $product->thumbnail = $request->images;
+            if($request->images) {
+                $thumbnail = Str::of($request->images)->replace(getenv('APP_URL').'/storage/', '');
+                $product->thumbnail = $thumbnail;
+            }
+            if($request->stock_unlimited) {
+                $product->stock_unlimited =  1;
+            } else {
+                $product->stock_unlimited =  0;
+            }
             $product->stock = $request->stock;
             if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
+            } else {
+                $product->type = Product::PRODUCT_STANDARD;
             }
             $product->save();
             # Create Seo Meta
@@ -236,7 +255,7 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             /** Delete Product Image */
             $delete_images = $request->delete_images;
-            // $this->deleteImage($product,$delete_images);
+            $this->deleteImage($product,$delete_images);
             # Commit all data
             DB::commit();
             return back();

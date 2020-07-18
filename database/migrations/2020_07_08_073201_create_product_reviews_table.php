@@ -15,7 +15,7 @@ class CreateProductReviewsTable extends Migration
     {
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned();
             $table->double('star', 8, 2)->default(0);
             $table->string('comment')->nullable();
@@ -25,7 +25,7 @@ class CreateProductReviewsTable extends Migration
             $table->string('customer_phone')->nullable();
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')

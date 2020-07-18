@@ -16,6 +16,7 @@ use App\Models\ProductInfo;
 use App\Models\ProductColor;
 use DB;
 use Illuminate\Support\Str;
+use Log;
 class ProductInfoController extends Controller
 {
 	public function show(Request $request)
@@ -113,14 +114,12 @@ class ProductInfoController extends Controller
     */
 	public function update(Request $request)
 	{
-		dd($request->all());
 		$product_info_id = $request->product_info_id;
 		DB::beginTransaction();
 		try {
 			$product_info = ProductInfo::where('id',$product_info_id)->first();
 			if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
 			$attribute_sets = $request->attribute_sets;
-			dd($attribute_sets);
 			if(count($attribute_sets) == 2 ) {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
 										->where('attribute_value1',$attribute_sets[0])
@@ -230,4 +229,80 @@ class ProductInfoController extends Controller
 
 		}
 	}
+
+    /*
+    *--------------------------------------------------------------------------
+    * Generate all variations
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+	public function postGenerateAllVersions(Request $request, $id)
+	{
+		$data = Product::find($id);
+		if(!$data) return $this->respondWithError('Không tồn tại sản phẩm'); 
+		if($data->type != Product::PRODUCT_ATTRIBUTE) return $this->respondWithError('Sản phẩm không phải sản phẩm có thuộc tính');
+		$attribute_map = ProductAttributeMap::where('product_id',$id)
+									->distinct('product_attribute_id')
+									->get()
+									->pluck('product_attribute_id');
+		# Case Only One Attribute
+		if( $attribute_map ) {
+			$this->createAllProductInfo($id, $attribute_map);
+		}
+
+        $product_attribute_map = ProductAttribute::with('attributeValues')
+                                ->join('product_attribute_map','product_attributes.id','=','product_attribute_map.product_attribute_id')
+                                ->where('product_id',$id)
+                                ->select('product_attributes.name','product_attributes.id')
+                                ->get();                  
+
+        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
+                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
+                                    ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.id')
+                                    ->where('product_info.product_id',$id)
+                                    ->select(
+                                        'product_info.id',
+                                        'pav1.id as pav1_id',
+                                        'pav1.value as pav1_value',
+                                        'pav2.id as pav2_id',
+                                        'pav2.value as pav2_value',
+                                        'image_path'
+                                    )
+                                    ->get();
+        $view = view("admin.pages.product.varition",
+	            	compact(
+	            	'data','product_attribute_map','product_info'
+	            ))->render();
+        return $this->respondJsonData('Tạo toàn bộ biến thể thành công',$view);
+
+
+	}
+
+    public static function createAllProductInfo($product_id,$attribute_map)
+    {
+        $attribute_values = [];
+        $attribute_values1 = ProductAttributeValue::where('attribute_id',$attribute_map[0])->get();
+        if( count($attribute_map) == 2 ) {
+            $attribute_values2 = ProductAttributeValue::where('attribute_id',$attribute_map[1])->get();
+        }
+        foreach ($attribute_values1 as $attribute_value1) {
+            // Case 1 : Only first attribute
+            if( count($attribute_map) == 1 ) {
+				ProductInfo::updateOrCreate(
+					['product_id' => $product_id, 'attribute_value1' => $attribute_value1->id],
+					[],
+				);
+                continue;
+            }
+            // Case 2 :
+            foreach ($attribute_values2 as $attribute_value2) {
+				ProductInfo::updateOrCreate(
+					['product_id' => $product_id, 'attribute_value1' => $attribute_value1->id,'attribute_value2'=>$attribute_value2->id],
+					[],
+				);
+            }
+        }
+        return true;
+    }
+
 }

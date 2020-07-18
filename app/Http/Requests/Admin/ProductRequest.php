@@ -23,15 +23,21 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [];
+        if($this->isMethod('POST')) {
+            $rules['slug'] = 'required|unique:products,slug';
+        } else {
+            $rules['slug'] = 'required';
+        }
+        $rules = [
             'name' => 'required',
-            'slug' => 'required|unique:products,slug',
             'product_code' => 'required',
             'price' => 'required|numeric',
             'sale_price' => 'nullable|numeric|max:'.(int)$this->price,
-            'stock' => 'required_if:stock_unlimited,off|numeric',
+            'stock' => 'required_if:stock_unlimited,null|numeric',
             'stock_unlimited' => 'required_if:stock,null',
         ];
+        return $rules;
     }
 
     /**
@@ -50,7 +56,7 @@ class ProductRequest extends FormRequest
             'price.numeric' => 'Giá sản phẩm chỉ được nhập số',
             'sale_price.numeric' => 'Giá sản phẩm chỉ được nhập số',
             'sale_price.max' => 'Giá khuyến mãi phải nhỏ hơn giá gốc',
-            'stock.required' => 'Vui lòng nhập số lượng',
+            'stock.required_if' => 'Vui lòng nhập số lượng',
             'stock.numeric' => 'Số lượng chỉ được nhập số',
         ];
 

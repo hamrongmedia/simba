@@ -15,14 +15,14 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('cart_key')->nullable();
             $table->integer('total_price');
             $table->integer('delivery_fee_total')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         /* Create Relationship Database Table Cart Items */

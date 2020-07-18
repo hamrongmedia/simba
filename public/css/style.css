@@ -3050,3 +3050,23 @@ span.pro-price-view {
     float: left;
     margin-right: 5%;
 }
+.add_bag_size li {
+    width: auto;
+    min-width: 40px;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 28px;
+    text-align: center;
+    position: relative;
+    font-size: 12px;
+    color: #333;
+    float: left;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+.add_bag_size li.active {
+    border: 1px solid #f15a24;
+    color: #f15a24;
+}
