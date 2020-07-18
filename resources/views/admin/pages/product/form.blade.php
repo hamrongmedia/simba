@@ -55,7 +55,7 @@
             <div class="form-group">
                 <div class="assign-switch">
                     <label class="switch-label">
-                        <input type="checkbox" class="switch-assign" name="stock_unlimited" @if(isset($data) && $data->type==2) checked @endif>
+                        <input type="checkbox" class="switch-assign" name="stock_unlimited" @if(isset($data) && $data->type==1) checked @endif>
                         <span class="slider round"></span>
                     </label>
                     <label class="d-inline-block">Sản phẩm không giới hạn</label>

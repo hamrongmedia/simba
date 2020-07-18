@@ -53,7 +53,7 @@
         <div class="modal-dialog    ">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h4 class="modal-title"><i class="til_img"></i><strong>Select attribute</strong></h4>
+                    <h4 class="modal-title"><i class="til_img"></i><strong>Chọn thuộc tính</strong></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span aria-hidden="true">×</span>
                     </button>

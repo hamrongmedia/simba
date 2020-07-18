@@ -108,7 +108,6 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            dd($request->all());
             $product = new Product();
             $product->name = $request->name;
             $product->slug = $request->slug;
@@ -119,8 +118,16 @@ class ProductController extends Controller
             $product->content = $request->content;
             $product->thumbnail = $request->images;
             $product->stock = $request->stock;
+            if($request->stock_unlimited) {
+                $product->stock_unlimited =  1;
+            } else {
+                $product->stock_unlimited =  0;
+            }
+            $product->stock = $request->stock;
             if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
+            } else {
+                $product->type = Product::PRODUCT_STANDARD;
             }
             $product->save();
             # Create Seo Meta
@@ -220,9 +227,16 @@ class ProductController extends Controller
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
             $product->thumbnail = $request->images;
+            if($request->stock_unlimited) {
+                $product->stock_unlimited =  1;
+            } else {
+                $product->stock_unlimited =  0;
+            }
             $product->stock = $request->stock;
             if ($request->type) {
                 $product->type = Product::PRODUCT_ATTRIBUTE;
+            } else {
+                $product->type = Product::PRODUCT_STANDARD;
             }
             $product->save();
             # Create Seo Meta
@@ -236,7 +250,7 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             /** Delete Product Image */
             $delete_images = $request->delete_images;
-            // $this->deleteImage($product,$delete_images);
+            $this->deleteImage($product,$delete_images);
             # Commit all data
             DB::commit();
             return back();

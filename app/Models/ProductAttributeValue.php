@@ -24,6 +24,16 @@ class ProductAttributeValue extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at'  => 'date:d/m/Y',
+        'updated_at'  => 'date:d/m/Y',
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      * @author Bao Do
      */

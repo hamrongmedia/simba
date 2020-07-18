@@ -29,7 +29,7 @@ Quản lý giá trị thuộc tính: {{$attribute->name}}
                         <tr>
                             <td>{{$value->id}}</td>
                             <td>{{$value->value}}</td>
-                            <td>{{$attribute->created_at->format('d/m/Y')}}</td>
+                            <td>{{$attribute->created_at}}</td>
                             <td>
                                 <a class="btn btn-flat btn-danger"
                                     href="{{route('deleteAttributeValue', $value->id) }}" type="button">

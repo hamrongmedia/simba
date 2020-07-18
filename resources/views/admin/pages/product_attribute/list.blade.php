@@ -37,7 +37,7 @@ Quản lý thuộc tính sản phẩm
                                 <span class="label label-danger">Ngừng sử dụng</span></a>
                                 @endif
                             </td>
-                            <td>{{$attr->created_at->format('d/m/Y')}}</td>
+                            <td>{{$attr->created_at}}</td>
                             <td>
                                 <a href="{{route('product-attribute.edit', ['product_attribute' => $attr->id])}}"><span title="Sửa"
                                         type="button" class="btn btn-flat btn-primary">
