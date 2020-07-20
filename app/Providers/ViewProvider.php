@@ -45,6 +45,14 @@ class ViewProvider extends ServiceProvider
             $view->with(['bottom_menu' => $bottom_menu]);
         });
 
+        View::composer('*', function($view)
+        {
+            if (Auth::guard('agency')->check()) {
+                $total_item_cart = CartService::getTotalQuantityCart();
+                View::share('total_item_cart', $total_item_cart);
+            }
+        });
+
         if (Schema::hasTable('mail_config')) {
             $this->mail = MailConfig::first();
             if (isset($this->mail)) {

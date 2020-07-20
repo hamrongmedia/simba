@@ -56,6 +56,7 @@ class CartController extends Controller
         $data = Product::where('id',$request->productId)->first();
         if(!$data) return $this->respondWithError('Không tồn tại sản phẩm');
         $cart = $this->cartService->addProductCart($data,$request);
-        return redirect()->route('cart.index');
+        $view = view("front-end.partials.header.gio_hang",compact('cart'))->render();
+        return $this->respondJsonData('Chỉnh sửa biến thể thành công',$view);   
 	}
 }

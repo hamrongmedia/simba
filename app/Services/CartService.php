@@ -107,8 +107,7 @@ class CartService
     public function getCustomerCarts()
     {
         $user_id = $this->guard()->id();
-        return false;
-        // return $this->cartRepository->findBy( 'user_id' , $user_id );
+        return $this->cartRepository->findBy( 'user_id' , $user_id );
     }
 
     /**

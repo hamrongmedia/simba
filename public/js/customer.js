@@ -85,9 +85,18 @@ jQuery(document).ready(function ($) {
                 hasActiveSize = true;
             }
         });
+        if (!hasActiveSize) {
+            $('.add_bag_size li').each(function(index){
+                if($(_this).attr('data-sizeids')!= undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") > -1){
+                    sizeId = $(this).attr("data-size");
+                    $(this).addClass('active');
+                    return false;
+                }
+            });
+        }
     }
     $('.wp-img-ctsp').on('click','.wp-text-right li',function(){
-        // changeColor();
+        changeColor();
         var colorId;
         var sizeId;
         colorId = $(this).attr("data-color");
@@ -97,7 +106,12 @@ jQuery(document).ready(function ($) {
                  sizeId = $(this).attr("data-size");
              }
         });        
-        console.log('vao day');
+    });
+
+    $('.wp-img-ctsp').on('hover','.add_bag_size li',function(){
+        $('.sizeError').hide();
+        var newIntro = $(this).attr('data-intro');
+        newIntro ? $('.sizeIntro').text(newIntro).show() : $('.sizeIntro').hide();
     });
 
     function validateChooseSize(sumGoods){
