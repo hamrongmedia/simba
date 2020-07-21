@@ -71,7 +71,7 @@ class ProductController extends Controller
         if (empty($request->all())) {
             $data = Product::all()->sortBy('desc');
             $paginator = new PaginationHelper($data, 1);
-            $items = $paginator->getItem(1);
+            $items = $paginator->getItem(self::TAKE);
             return view('admin.pages.product.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
         }
 

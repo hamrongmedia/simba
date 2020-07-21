@@ -7,8 +7,6 @@
 <script src="{{asset('js/sticky-kit.min.js')}}"></script>
 <script src="{{asset('js/slick.min.js')}}"></script>
 <script src="{{asset('js/customer.js')}}"></script>
-
-
 <script>
     $.ajaxSetup({
         headers: {

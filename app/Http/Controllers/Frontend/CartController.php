@@ -56,7 +56,27 @@ class CartController extends Controller
         $data = Product::where('id',$request->productId)->first();
         if(!$data) return $this->respondWithError('Không tồn tại sản phẩm');
         $cart = $this->cartService->addProductCart($data,$request);
-        $view = view("front-end.partials.header.gio_hang",compact('cart'))->render();
-        return $this->respondJsonData('Chỉnh sửa biến thể thành công',$view);   
+        $user = $this->guard()->user();
+        $cartItems = $this->cartRepository->getListItemCart($request, $cart['cart_key'], $user);
+        $view = view("front-end.cart.cart_mini",compact('cart','cartItems'))->render();
+        return $this->respondJsonData('Thêm mới giỏ hàng thành',$view);   
 	}
+
+    /*
+    *--------------------------------------------------------------------------
+    * Remove Product Cart Ajax
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+    public function removeCartAjax(Request $request)
+    {
+        $product_id = $request->input('product_id');
+        $data = $this->productRepository->getById($product_id);
+        $cart = $this->cartService->removeProductCart($data);
+        if($cart) {
+            return response()->json(array(
+                'status' => true
+            ));
+        }
+    }
 }

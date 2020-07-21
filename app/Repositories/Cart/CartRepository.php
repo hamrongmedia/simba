@@ -11,5 +11,5 @@ use App\Repositories\RepositoryInterface;
  */
 interface CartRepository extends RepositoryInterface {
 	
-	public function getListItemCart($request, $agency);
+	public function getListItemCart($request, $cart_key, $user);
 }

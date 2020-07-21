@@ -1,3 +1,31 @@
+// Trigger Cart
+function siteCloseHandle() {
+    $('#site-close-handle').removeClass("active");
+}
+// Remove Product From Cart
+function removeProductCart(product_id,url_delete)
+{
+    $('.delete_item').click(function(){
+        var current_target = $(this);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: url_delete,
+            data: {
+                product_id : product_id,
+            },
+            dataType: 'json',
+            success: function (data){
+                $(current_target).parents('tr.item-cart').remove();
+            },
+            error: function (data) {
+                
+            }
+        });
+    })
+}
 jQuery(document).ready(function ($) {
     $(document).ready(function () {
         var stickyTop = $("#sticky-wrapper").offset().top;
@@ -142,6 +170,7 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: params,
             success: (data) => {
+                $("#site-cart").html(data.data);
                 $("#site-cart").addClass("active");
             },
             error: (data) => {
