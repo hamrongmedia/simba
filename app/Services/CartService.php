@@ -95,7 +95,6 @@ class CartService
         } else {
             $this->carts = $this->getSessionCarts();
         }
-
         return $this->carts;
     }
 
@@ -117,7 +116,7 @@ class CartService
      */
     public function getSessionCarts()
     {
-        $cart_key = $this->request->session()->get('cart_key', []);
+        $cart_key = $this->request->session()->get('cart_key');
         if (empty($cart_key)) {
             return [];
         }
@@ -132,7 +131,7 @@ class CartService
             $cartKey = $random;
             $Cart = $this->cartRepository->findBy('cart_key',$cartKey);
         } while ($Cart);
-        $this->request->session()->push('cart_key', $cartKey);
+        $this->request->session()->put('cart_key', $cartKey);
         return $cartKey;
     }
 
@@ -149,7 +148,7 @@ class CartService
 
     protected function updateCart($user_id, $total_price)
     {
-        $cart = $this->getSessionCarts();
+        $cart = $this->getCarts();
         if($cart) {
             $cart->total_price = $total_price;
             $cart->save();
@@ -265,7 +264,7 @@ class CartService
     public function clearCart()
     {
         $user_id = $this->guard()->id();
-        $cart = $this->getCustomerCarts($user_id);
+        $cart = $this->getCarts();
         if (!$cart) {
             return false;
         }
