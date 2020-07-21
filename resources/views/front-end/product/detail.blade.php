@@ -481,7 +481,11 @@
                 <div class="wp-title-spqt"><h2 class="h2-title">Có thể bạn quan tâm</h2></div>
                 <div class="wp-list-sp-home">
                     <div class="row">
-                         @include('front-end.content.product_list')
+                        @if($datas)
+                            @foreach ($datas as $data)
+                                @include('front-end.content.product_list')
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

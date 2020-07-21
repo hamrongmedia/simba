@@ -16,6 +16,8 @@ Route::namespace ('Frontend')->group(function () {
 
     Route::post('ajax/cart/remove','CartController@removeCartAjax')->name('ajax.cart.remove');
 
+    Route::get('shop', 'ShopController@index')->name('shop.index');
+
     // Get product list by category.
     Route::get('/danh-muc/{product_cat_slug}', 'ProductController@getProductByCategory')->name('product.getProductByCat');
     //Get product detail by slug and id
@@ -23,8 +25,8 @@ Route::namespace ('Frontend')->group(function () {
 
     // Order route
     Route::get('dat-mua', 'CheckoutController@index')->name('checkout.index');
-    Route::post('/dat-mua', 'OrderController@storeOrder')->name('product.storeOrder');
+    Route::post('dat-mua', 'CheckoutController@store')->name('checkout.store');
 
-    Route::get('/dat-hang-thanh-cong', 'OrderController@orderSuccessNotify')->name('product.orderSuccess');
+    Route::get('dat-hang-thanh-cong/{order_code}', 'CheckoutController@success')->name('checkout.success');
 
 });

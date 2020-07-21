@@ -3,13 +3,37 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Models\ProductInfo;
 use App\Models\ThemeOptions;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use App\Models\Product;
+use App\Repositories\Product\ProductRepository;
 class ProductController extends Controller
 {
+    const TAKE = 15;
+    const ORDERBY = 'desc';
+    
+    /**
+     * @var request
+     */
+    protected $request;
+    
+    /**
+     * @var productRepository
+     */
+    protected $productRepository;
+
+    public function __construct(
+        Request $request,
+        ProductRepository $productRepository
+    )
+    {
+        $this->request = $request;
+        $this->productRepository = $productRepository;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -59,10 +83,8 @@ class ProductController extends Controller
             $product->product_attributes = $product_attributes;
         }
         $product_setting = ThemeOptions::where('key', 'product')->first();
-        return view('front-end.product.detail')->with([
-            'product' => $product,
-            'product_setting' => $product_setting,
-        ]);
+        $datas = $this->productRepository->getProductRelated($this->request, $product->id);
+        return view('front-end.product.detail',compact('product','product_setting','datas'));
     }
 
     /**

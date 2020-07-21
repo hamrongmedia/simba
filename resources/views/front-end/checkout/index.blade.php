@@ -4,7 +4,8 @@
 <body class="page-child">
     @include('front-end.partials.header.header')
     <!-- Nội dung conter -->
-    <form action="{{route('product.storeOrder')}}">
+    <form method="POST" action="{{route('checkout.store')}}">
+        @csrf
         <main id="main-thanhtoan">
             <div class="container">
                 <div class="wp-header-thanhtoan">
@@ -91,14 +92,25 @@
                             <h2 class="h2-title p-mon">Thông tin giao hàng</h2>
                             <div class="wp-form-tt">
                                 <div class="form-group">
-                                    <input type="text" name="fullname" class="text form-control" placeholder="Ví dụ: Nguyễn Văn A" value="">
+                                    <input type="text" name="fullname" class="text form-control" placeholder="Ví dụ: Nguyễn Văn A" value="{{ old('fullname') }}">
+                                    @if ($errors->first('fullname'))
+                                        <div class="error">{{ $errors->first('fullname') }}</div>
+                                    @endif
                                 </div>
                                 <div class="form-group group2">
-                                    <input type="text" name="email" class="text form-control input-to" placeholder="supportxyz@gmail.com" value="">
-                                    <input type="text" name="phone" class="text form-control input-nho" placeholder="Ví dụ: 0987654321" value="">
+                                    <input type="text" name="email" class="text form-control input-to" placeholder="supportxyz@gmail.com" value="{{ old('email') }}">
+                                    <input type="text" name="phone" class="text form-control input-nho" placeholder="Ví dụ: 0987654321" value="{{ old('phone') }}">
                                 </div>
+                                @if ($errors->first('email'))
+                                    <div class="error">{{ $errors->first('email') }}</div>
+                                @endif
+                                @if ($errors->first('phone'))
+                                    <div class="error">{{ $errors->first('phone') }}</div>
+                                @endif
                                 <div class="form-group">
-                                    <div class="col right"><input type="text" name="address" class="text form-control" placeholder="Ví dụ: Số 10, Ngõ 50, Đường ABC" value=""></div>
+                                    <div class="col right">
+                                        <input type="text" name="address" class="text form-control" placeholder="Ví dụ: Số 10, Ngõ 50, Đường ABC" value="{{ old('address') }}">
+                                    </div>
                                 </div>
                                 <div class="form-group group3">
                                     <select name="cityid" class="form-control" id="cityid">
@@ -123,7 +135,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="message" class="text form-control" placeholder="Ví dụ: Chuyển hàng ngoài giờ hành chính"></textarea>
+                                    <textarea name="message" class="text form-control" placeholder="Ví dụ: Chuyển hàng ngoài giờ hành chính">{{ old('message') }}</textarea>
                                 </div>
                                 <div class="wp-pt-thanhtoan" id="click_hidden" >
                                     <p class="p-mon">Phí vận chuyển</p>

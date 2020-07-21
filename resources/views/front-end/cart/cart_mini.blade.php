@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a href="javascript:void(0);" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ route('home') }}" class="linktocart button dark">Chọn thêm sản phẩm <i class="fa fa-arrow-right"></i></a>
                     </td>
                 </tr>
             </tbody>
