@@ -182,6 +182,7 @@ return [
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ViewProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\HelpersServiceProvider::class,
 
     ],
 

@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response as Res;
 use Response;
+use Auth;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -16,6 +17,11 @@ class Controller extends BaseController
      * @var int
      */
     protected $statusCode = Res::HTTP_OK;
+
+    protected function guard()
+    {
+        return Auth::guard();
+    }
 
     /**
      * @return mixed
