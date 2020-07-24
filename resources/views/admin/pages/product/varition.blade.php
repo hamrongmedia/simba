@@ -32,7 +32,7 @@
                                 @elseif($data->thumbnail)
                                   <img class="thumb" src="{{ $data->thumbnail }}" alt="{{ $data->name }}" width="50px;">
                                 @else
-                                  <img class="thumb" src="{{ asset('admin/images/placeholder.png') }}" alt="no photo" width="50px;">
+                                  <img class="thumb" src="{{ asset('template/images/placeholder.png') }}" alt="no photo" width="50px;">
                                 @endif
                             </div>
                         </td>

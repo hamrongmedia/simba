@@ -560,7 +560,7 @@
 
                 var page = $(this).attr('data-ci-pagination-page');
 
-                // listComment(module, moduleid, page);
+                //listComment(module, moduleid, page);
 
                 return false;
 

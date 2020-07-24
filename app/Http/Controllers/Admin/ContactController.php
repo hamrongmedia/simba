@@ -34,7 +34,7 @@ class ContactController extends Controller
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }
@@ -136,6 +136,6 @@ class ContactController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.contact_table', ['current_page' => $current_page, 'contacts' => $items, 'paginator' => $paginator]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
 use App\Helper\Sort\SortHelper;
@@ -22,7 +23,7 @@ class CategoryController extends Controller
             $data = PostCategory::all()->sortBy('desc');
             $paginator = new PaginationHelper($data, 1);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.category.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.category.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -31,7 +32,7 @@ class CategoryController extends Controller
             $paginator = new PaginationHelper($result, 1);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }
@@ -128,6 +129,6 @@ class CategoryController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

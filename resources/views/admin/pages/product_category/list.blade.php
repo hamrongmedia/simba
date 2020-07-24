@@ -6,7 +6,7 @@ Quản lý danh mục sản phẩm
 @section('css')
 <!-- DataTables -->
 <link rel="stylesheet"
-    href="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+    href="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 
 @section('main')
@@ -68,8 +68,8 @@ Quản lý danh mục sản phẩm
 
 @section('js')
 <!-- DataTables -->
-<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>
     $(function () {
         $('#hrm_list').DataTable({

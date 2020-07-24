@@ -1,17 +1,16 @@
 <?php
 namespace App\Services;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\Cart\CartRepository;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Order\OrderRepository;
-use App\Models\Product;
-use App\Models\Discount;
+
 use App\Models\Cart;
 use App\Models\CartItem;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
+use App\Models\Product;
+use App\Repositories\Cart\CartRepository;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Product\ProductRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CartService
 {
@@ -76,7 +75,7 @@ class CartService
      */
     protected function getCustomer()
     {
-        if ( $this->guard()->check() ) {
+        if ($this->guard()->check()) {
             return $this->guard()->user();
         }
         return false;
@@ -106,7 +105,7 @@ class CartService
     public function getCustomerCarts()
     {
         $user_id = $this->guard()->id();
-        return $this->cartRepository->findBy( 'user_id' , $user_id );
+        return $this->cartRepository->findBy('user_id', $user_id);
     }
 
     /**
@@ -129,7 +128,7 @@ class CartService
         do {
             $random = Str::random(32);
             $cartKey = $random;
-            $Cart = $this->cartRepository->findBy('cart_key',$cartKey);
+            $Cart = $this->cartRepository->findBy('cart_key', $cartKey);
         } while ($Cart);
         $this->request->session()->put('cart_key', $cartKey);
         return $cartKey;
@@ -138,7 +137,7 @@ class CartService
     protected function createCartByCustomer($user_id)
     {
         $cartKey = $this->createCartKey($user_id);
-        $cart = New Cart();
+        $cart = new Cart();
         $cart->user_id = $user_id;
         $cart->cart_key = $cartKey;
         $cart->total_price = 0;
@@ -149,7 +148,7 @@ class CartService
     protected function updateCart($user_id, $total_price)
     {
         $cart = $this->getCarts();
-        if($cart) {
+        if ($cart) {
             $cart->total_price = $total_price;
             $cart->save();
         }
@@ -158,23 +157,23 @@ class CartService
 
     public static function getTotalQuantityCart()
     {
-        $total_quantity_cart= 0;
+        $total_quantity_cart = 0;
         $user_id = $this->guard()->id();
-        $cart = Cart::where( 'agency_id' , $user_id )->first();
-        if($cart) {
-            $total_quantity_cart = CartItem::where('cart_id',$cart->id)->sum('quantity');
+        $cart = Cart::where('agency_id', $user_id)->first();
+        if ($cart) {
+            $total_quantity_cart = CartItem::where('cart_id', $cart->id)->sum('quantity');
         }
         return $total_quantity_cart;
     }
 
-    public function addProductCart($product,$request)
+    public function addProductCart($product, $request)
     {
         $quantity = $request->quantity;
         $attribute_value1 = $request->colorId;
         $attribute_value2 = $request->sizeId;
         $user_id = $this->guard()->id();
         $cart = $this->getCarts();
-        if(!$cart) {
+        if (!$cart) {
             $cart = $this->createCartByCustomer($user_id);
         }
         if (!$product) {
@@ -187,19 +186,19 @@ class CartService
             ['attribute_value2', $attribute_value2],
         ];
         $product_cart = CartItem::where($whereData)->first();
-        if($product_cart) {
+        if ($product_cart) {
             $quantity = $product_cart->quantity + 1;
         }
         $price = $product->price;
         $cartItem = CartItem::updateOrCreate(
-            [ 'cart_id' => $cart->id , 'product_id' => $product->id , 'attribute_value1' => $attribute_value1 , 'attribute_value2' => $attribute_value2 ],
-            [ 'price' => $price , 'quantity' => $quantity ]
+            ['cart_id' => $cart->id, 'product_id' => $product->id, 'attribute_value1' => $attribute_value1, 'attribute_value2' => $attribute_value2],
+            ['price' => $price, 'quantity' => $quantity]
         );
         $datas = [];
         # Sum Quantity Product
-        $total_quantity = CartItem::where('cart_id',$cart->id)->sum('quantity');
-        $total_price = CartItem::where('cart_id',$cart->id)->get()->sum(function($t){ 
-            return $t->price * $t->quantity; 
+        $total_quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
+            return $t->price * $t->quantity;
         });
         # Update Cart
         $cart = $this->updateCart($user_id, $total_price);
@@ -209,7 +208,7 @@ class CartService
         return $datas;
     }
 
-    public function updateQuantityProductCart($product,$quantity=1)
+    public function updateQuantityProductCart($product, $quantity = 1)
     {
         $user_id = $this->guard()->id();
         $cart = $this->getCarts();
@@ -225,14 +224,14 @@ class CartService
         # Get Price Discount
         $price = $product->price;
         $cartItem = CartItem::updateOrCreate(
-            [ 'cart_id' => $cart->id , 'product_id' => $product->id ],
-            [ 'price' => $price , 'quantity' => $quantity ]
+            ['cart_id' => $cart->id, 'product_id' => $product->id],
+            ['price' => $price, 'quantity' => $quantity]
         );
         $datas = [];
         # Sum Quantity Product
-        $total_quantity = CartItem::where('cart_id',$cart->id)->sum('quantity');
-        $total_price = CartItem::where('cart_id',$cart->id)->get()->sum(function($t){ 
-            return $t->price * $t->quantity; 
+        $total_quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
+            return $t->price * $t->quantity;
         });
         # Update Cart
         $cart = $this->updateCart($user_id, $total_price);
@@ -249,12 +248,12 @@ class CartService
         if (!$product) {
             return false;
         }
-        $cartItem =  CartItem::where('cart_id',$cart->id)
-                            ->where('product_id',$product->id)
-                            ->delete();
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $product->id)
+            ->delete();
         # Sum Quantity Product
-        $total_price = CartItem::where('cart_id',$cart->id)->get()->sum(function($t){ 
-            return $t->price * $t->quantity; 
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
+            return $t->price * $t->quantity;
         });
         # Update Cart
         $cart = $this->updateCart($user_id, $total_price);
@@ -268,7 +267,7 @@ class CartService
         if (!$cart) {
             return false;
         }
-        $cartItem =  CartItem::where('cart_id',$cart->id)->delete();  
+        $cartItem = CartItem::where('cart_id', $cart->id)->delete();
         $cart->delete();
         return true;
     }

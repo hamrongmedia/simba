@@ -13,7 +13,6 @@ use App\Models\ProductAttributeValue;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use App\Models\ProductInfo;
-use App\Models\ProductType;
 use App\Services\ProductService;
 use App\Services\UploadService;
 use DB;
@@ -97,7 +96,7 @@ class ProductController extends Controller
         $categories = ProductCategory::where('is_deleted', 0)->get();
         // $types = ProductType::where('is_deleted', 0)->get();
         $attributes = ProductAttribute::with('attributeValues')->where('is_deleted', 0)->get();
-        return view('admin.pages.product.create', compact('categories',  'attributes'));
+        return view('admin.pages.product.create', compact('categories', 'attributes'));
     }
 
     /**
@@ -122,10 +121,10 @@ class ProductController extends Controller
                 $product->thumbnail = $request->images;
             }
             $product->stock = $request->stock;
-            if($request->stock_unlimited) {
-                $product->stock_unlimited =  1;
+            if ($request->stock_unlimited) {
+                $product->stock_unlimited = 1;
             } else {
-                $product->stock_unlimited =  0;
+                $product->stock_unlimited = 0;
             }
             $product->stock = $request->stock;
             if ($request->type) {
@@ -236,10 +235,10 @@ class ProductController extends Controller
             if($request->images) {
                 $product->thumbnail = $request->images;
             }
-            if($request->stock_unlimited) {
-                $product->stock_unlimited =  1;
+            if ($request->stock_unlimited) {
+                $product->stock_unlimited = 1;
             } else {
-                $product->stock_unlimited =  0;
+                $product->stock_unlimited = 0;
             }
             $product->stock = $request->stock;
             if ($request->type) {
@@ -259,7 +258,7 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             /** Delete Product Image */
             $delete_images = $request->delete_images;
-            $this->deleteImage($product,$delete_images);
+            $this->deleteImage($product, $delete_images);
             # Commit all data
             DB::commit();
             return back();
@@ -305,7 +304,7 @@ class ProductController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 
     /*

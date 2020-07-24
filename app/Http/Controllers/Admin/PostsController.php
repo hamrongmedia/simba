@@ -8,7 +8,6 @@ use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
-Use App\Models\ProductAttribute;
 use DB;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class PostsController extends Controller
             $data = Posts::all()->sortBy('desc');
             $paginator = new PaginationHelper($data, 1);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -36,7 +35,7 @@ class PostsController extends Controller
             $paginator = new PaginationHelper($result, 1);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
 
@@ -177,6 +176,6 @@ class PostsController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

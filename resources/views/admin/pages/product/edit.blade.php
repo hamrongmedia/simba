@@ -51,7 +51,7 @@ Cập nhật sản phẩm
                                     <div class="images-wrapper">
                                         <input id="thumbnail" type="hidden" name="thumbnail" class="image-data">
                                         <div class="text-center">
-                                            <img width="120" id="holder" class="preview_image" src="{{ asset('admin/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
+                                            <img width="120" id="holder" class="preview_image" src="{{ asset('template/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
                                             <br>
                                             <p style="color:#c3cfd8">Chọn nút <strong>Chọn hình ảnh</strong> để thêm ảnh.</p>
                                         </div>

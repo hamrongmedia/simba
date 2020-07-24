@@ -5,7 +5,7 @@
 
 @section('css')
 <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 
 @section('main')
