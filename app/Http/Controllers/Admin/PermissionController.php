@@ -24,7 +24,7 @@ class PermissionController extends Controller
             $permissions = Permission::all()->sortBy('desc');
             $paginator = new PaginationHelper($permissions, 10);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.admin_manage.permission_list', ['current_page' => 1, 'permissions' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.admin_manage.permission_list', ['current_page' => 1, 'permissions' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -33,7 +33,7 @@ class PermissionController extends Controller
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.permission_table', ['current_page' => $current_page, 'permissions' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.permission_table', ['current_page' => $current_page, 'permissions' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }

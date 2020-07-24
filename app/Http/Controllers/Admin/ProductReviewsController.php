@@ -35,7 +35,7 @@ class ProductReviewsController extends Controller
         if (empty($request->all())) {
             $paginator = new PaginationHelper($productReviews, 10);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.product_reviews.list', ['current_page' => 1, 'productReviews' => $productReviews, 'paginator' => $paginator]);
+            return view('admin.pages.product_reviews.list', ['current_page' => 1, 'productReviews' => $productReviews, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -43,7 +43,7 @@ class ProductReviewsController extends Controller
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.product_reviews.product_reviews_table', ['current_page' => $current_page, 'productReviews' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.product_reviews.product_reviews_table', ['current_page' => $current_page, 'productReviews' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }
