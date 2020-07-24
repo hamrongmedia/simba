@@ -1,4 +1,4 @@
-<script src="{{ asset('admin/js/jquery.inputmask.min.js') }}"></script>
+<script src="{{ asset('template/js/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     $("#dropzone").dropzone({
