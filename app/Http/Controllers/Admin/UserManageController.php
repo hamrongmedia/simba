@@ -31,7 +31,7 @@ class UserManageController extends Controller
             $users = Admin::all()->sortBy('desc');
             $paginator = new PaginationHelper($users, 10);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.admin_manage.user_list', ['current_page' => 1, 'users' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.admin_manage.user_list', ['current_page' => 1, 'users' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -40,7 +40,7 @@ class UserManageController extends Controller
             $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
 
@@ -56,7 +56,7 @@ class UserManageController extends Controller
         if (Gate::allows('create-admin')) {
             $permissions = Permission::all()->sortBy('desc');
             $roles = Role::all()->sortBy('desc');
-            return view('Admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
+            return view('admin.pages.admin_manage.user_create', ['permissions' => $permissions, 'roles' => $roles]);
         }
         return redirect()->back()->with('error', 'Action denied');
     }
@@ -120,7 +120,7 @@ class UserManageController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
     }
 
     /**
@@ -135,7 +135,7 @@ class UserManageController extends Controller
         $permissions = Permission::all()->sortBy('desc');
         $roles = Role::all()->sortBy('desc');
 
-        return view('Admin.pages.admin_manage.user_edit', ['user' => $user, 'permissions' => $permissions, 'roles' => $roles]);
+        return view('admin.pages.admin_manage.user_edit', ['user' => $user, 'permissions' => $permissions, 'roles' => $roles]);
     }
 
     /**

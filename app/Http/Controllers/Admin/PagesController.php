@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
 use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Pages;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -22,7 +23,7 @@ class PagesController extends Controller
             $data = Pages::all()->sortBy('desc');
             $paginator = new PaginationHelper($data, 1);
             $items = $paginator->getItem(1);
-            return view('Admin.pages.pages.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.pages.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
         }
 
         if ($request->sort_by) {
@@ -31,7 +32,7 @@ class PagesController extends Controller
             $paginator = new PaginationHelper($result, 1);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
-            return view('Admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+            return view('admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
         }
         return abort(404);
     }
@@ -79,10 +80,10 @@ class PagesController extends Controller
     public function edit($id)
     {
         $obj = Pages::find($id);
-        if($obj == null){
-            return redirect()->route('admin.page.index');  
+        if ($obj == null) {
+            return redirect()->route('admin.page.index');
         }
-        return view('admin.pages.pages.edit_page',['obj'=>$obj]);
+        return view('admin.pages.pages.edit_page', ['obj' => $obj]);
     }
 
     /**
@@ -95,8 +96,8 @@ class PagesController extends Controller
     public function update(Request $request, $id)
     {
         $obj = Pages::find($id);
-        if($obj == null){
-            return redirect()->route('admin.page.index');  
+        if ($obj == null) {
+            return redirect()->route('admin.page.index');
         }
         $obj->update($request->all());
         return redirect()->route('admin.page.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
@@ -123,6 +124,6 @@ class PagesController extends Controller
         $current_page = $request->current_page ?? 1;
         $items = $paginator->getItem($current_page);
 
-        return view('Admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        return view('admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }
