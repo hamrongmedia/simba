@@ -15,7 +15,7 @@
   <!-- select2 -->
   <link rel="stylesheet" href="{{asset('template/adminLTE/bower_components/select2/dist/css/select2.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('template/AdminLTE/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('template/AdminLTE/dist/css/adminlte.min.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('template/AdminLTE/dist/css/skins/_all-skins.min.css')}}">
