@@ -14,7 +14,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('template/AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
   <!-- select2 -->
-  <link rel="stylesheet" href="{{asset('template/adminLTE/bower_components/select2/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('template/AdminLTE/bower_components/select2/dist/css/select2.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('template/AdminLTE/dist/css/adminlte.min.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins

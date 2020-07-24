@@ -11,7 +11,7 @@
 {{-- sweetalert2 --}}
 <script src="{{ asset('template/plugin/sweetalert2.all.min.js')}}"></script>
 <!-- Select2 -->
-<script src="{{asset('/template/adminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{asset('/template/AdminLTE/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
 <!-- iCheck -->
 <script src="{{ asset('template/AdminLTE/plugins/iCheck/icheck.min.js')}}"></script>
