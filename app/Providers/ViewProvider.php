@@ -53,7 +53,7 @@ class ViewProvider extends ServiceProvider
         //         View::share('total_item_cart', $total_item_cart);
         //     }
         // });
-
+        /*
         if (Schema::hasTable('mail_config')) {
             $this->mail = MailConfig::first();
             if (isset($this->mail)) {
@@ -67,6 +67,7 @@ class ViewProvider extends ServiceProvider
                 ]);
             }
         }
+        */
 
     }
 }
