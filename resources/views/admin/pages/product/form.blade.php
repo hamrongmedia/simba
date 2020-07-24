@@ -37,36 +37,6 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="control-label required">Giá</label>
-                        <input type="text" name="price" class="form-control inputmask" placeholder="Nhập giá sản phẩm" value="{{ isset($data) ? $data->price : old('price') }}">
-                        @if ($errors->first('price'))
-                            <div class="error">{{ $errors->first('price') }}</div>
-                        @endif
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label">Giá khuyến mãi</label>
-                        <input type="text" name="sale_price" class="form-control inputmask" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{ isset($data) ? $data->sale_price : old('sale_price') }}">
-                        @if ($errors->first('sale_price'))
-                            <div class="error">{{ $errors->first('sale_price') }}</div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="assign-switch">
-                    <label class="switch-label">
-                        <input type="checkbox" class="switch-assign" name="stock_unlimited" @if(isset($data) && $data->type==1) checked @endif>
-                        <span class="slider round"></span>
-                    </label>
-                    <label class="d-inline-block">Sản phẩm không giới hạn</label>
-                    @if ($errors->first('stock_unlimited'))
-                        <div class="error">{{ $errors->first('stock_unlimited') }}</div>
-                    @endif
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
                         <label class="control-label required">Mã sản phẩm</label>
                         <input type="text" name="product_code" class="form-control" placeholder="Nhập mã sản phẩm" value="{{ isset($data) ? $data->product_code : old('product_code') }}">
                         @if ($errors->first('product_code'))
@@ -74,12 +44,30 @@
                         @endif
                     </div>
                     <div class="col-md-6">
+                        <label class="control-label required">Giá</label>
+                        <input type="text" name="price" class="form-control inputmask" placeholder="Nhập giá sản phẩm" value="{{ isset($data) ? $data->price : old('price') }}">
+                        @if ($errors->first('price'))
+                            <div class="error">{{ $errors->first('price') }}</div>
+                        @endif
+                    </div>
+{{--                     <div class="col-md-6">
+                        <label class="control-label">Giá khuyến mãi</label>
+                        <input type="text" name="sale_price" class="form-control inputmask" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{ isset($data) ? $data->sale_price : old('sale_price') }}">
+                        @if ($errors->first('sale_price'))
+                            <div class="error">{{ $errors->first('sale_price') }}</div>
+                        @endif
+                    </div> --}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+{{--                     <div class="col-md-6">
                         <label class="control-label required">Số lượng</label>
                         <input type="number" name="stock" class="form-control" placeholder="Nhập số lượng" value="{{ isset($data) ? $data->stock : old('stock') }}">
                         @if ($errors->first('stock'))
                             <div class="error">{{ $errors->first('stock') }}</div>
                         @endif
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="form-group">
@@ -98,7 +86,7 @@
             </div>
         </div>
     </div>
-    <div class="box box-primary">
+    <div class="box box-primary" style="display: none;">
         <div class="box-header with-border">
             <label for="description" class="control-label ec-tooltip" data-toggle="tooltip"
                    data-placement="top" quantity="Hình ảnh sản phẩm">Hình ảnh sản phẩm <i
@@ -185,11 +173,8 @@
                                                 <div class="form-group">
                                                     <label class="text-title-field">Tên thuộc tính</label>
                                                     <select class="form-control next-input product-select-attribute-item" aria-invalid="false">
-                                                        <option value="2">
-                                                            Size
-                                                        </option>
-                                                        <option value="1">
-                                                            Color
+                                                        <option value="{{ $attribute->id }}">
+                                                            {{ $attribute->name }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -198,22 +183,10 @@
                                                 <div class="form-group">
                                                     <label class="text-title-field">Giá trị thuộc tính</label>
                                                     <div class="product-select-attribute-item-value-wrap">
-                                                        <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-2" name="added_attributes[2]" data-set-id="2">
-                                                            <option value="5">
-                                                                S
-                                                            </option>
-                                                            <option value="6">
-                                                                M
-                                                            </option>
-                                                            <option value="7">
-                                                                L
-                                                            </option>
-                                                            <option value="8">
-                                                                XL
-                                                            </option>
-                                                            <option value="9">
-                                                                XXL
-                                                            </option>
+                                                        <select class="form-control next-input product-select-attribute-item-value product-select-attribute-item-value-id-2" name="added_attributes[{{ $attribute->id }}]" data-set-id="{{ $attribute->id }}">
+                                                            @foreach($attribute->attributeValues as $atv)
+                                                                <option value="{{ $atv->id }}">{{ $atv->value }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -302,6 +275,9 @@
             @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
 
             </div>
+            @if ($errors->first('images'))
+                <div class="error">{{ $errors->first('images') }}</div>
+            @endif
         </div>
     </div> 
 </div>

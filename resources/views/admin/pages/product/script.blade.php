@@ -1,5 +1,6 @@
 <script src="{{ asset('admin/js/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
+    $('#lfm').filemanager('image');
     Dropzone.autoDiscover = false;
     $("#dropzone").dropzone({
         maxFilesize: 10,

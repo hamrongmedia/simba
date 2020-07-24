@@ -1,6 +1,10 @@
 <?php
 Route::namespace ('Frontend')->group(function () {
 
+    Route::get('ajax/ajaxShowProvinces','ProvinceController@getCities')->name('ajax.cities');
+    Route::get('ajax/ajaxShowDistricts','ProvinceController@getDistricts')->name('ajax.districts');
+    Route::get('ajax/ajaxShowWard','ProvinceController@getWards')->name('ajax.wards');
+
     Route::get('/bai-viet/{slug}', 'BlogController@getDetailPost')->name('post.detail');
     Route::get('/page/{slug}', 'BlogController@getDetailPage')->name('page.detail');
     Route::get('/chuyen-muc/{slug}', 'BlogController@getListPostOfCategory')->name('category.listpost');

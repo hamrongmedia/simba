@@ -68,7 +68,7 @@ class ProductInfoController extends Controller
 			}
 			$data->save();
 			if($request->thumbnail) {
-				$thumbnail = Str::of($request->thumbnail)->replace(getenv('APP_URL').'/storage/', '');
+				$thumbnail = $request->thumbnail;
 				$product_color = ProductColor::updateOrCreate(
 				    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
 				    ['image_path' => $thumbnail]
@@ -84,7 +84,12 @@ class ProductInfoController extends Controller
 
 	        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
 	                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
-	                                    ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.id')
+				                        ->leftJoin('product_color as pc', function($join)
+				                        {
+				                            $join->on('product_info.attribute_value1', '=', 'pc.color_id');
+				                            $join->on('product_info.product_id','=','pc.product_id');
+
+				                        })
 	                                    ->where('product_info.product_id',$id)
 	                                    ->select(
 	                                        'product_info.id',
@@ -130,7 +135,7 @@ class ProductInfoController extends Controller
 					$product_info->attribute_value2 = $attribute_sets[1];
 					$product_info->save();
 					if($request->thumbnail) {
-						$thumbnail = Str::of($request->thumbnail)->replace(getenv('APP_URL').'/storage/', '');
+						$thumbnail = $request->thumbnail;
 						$product_color = ProductColor::updateOrCreate(
 						    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
 						    ['image_path' => $thumbnail]
@@ -140,7 +145,7 @@ class ProductInfoController extends Controller
 					# Case This
 					if($product_info_id == $check_exits->id) {
 						if($request->thumbnail) {
-							$thumbnail = Str::of($request->thumbnail)->replace(getenv('APP_URL').'/storage/', '');
+							$thumbnail = $request->thumbnail;
 							$product_color = ProductColor::updateOrCreate(
 							    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
 							    ['image_path' => $thumbnail]

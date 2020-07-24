@@ -7,6 +7,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductToCategory;
 use App\Models\ProductAttributeMap;
 use App\Models\ProductInfo;
+use App\Models\ProductColor;
 use Log;
 class ProductService
 {
@@ -52,7 +53,15 @@ class ProductService
                 $product_info->attribute_value2 = $attribute_values[1];
             }
             $product_info->save();
+
+            # Save Product Color 
+            $product_color = new ProductColor;
+            $product_color->product_id = $product->id;
+            $product_color->color_id = $attribute_values[0];
+            $product_color->image_path = $product->thumbnail;
+            $product_color->save();
         }
+        return true;
     }
 
 }

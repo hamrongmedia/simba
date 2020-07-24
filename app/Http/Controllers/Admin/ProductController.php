@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Session;
 use Str;
+use Log;
 
 class ProductController extends Controller
 {
@@ -70,7 +71,7 @@ class ProductController extends Controller
         //
         if (empty($request->all())) {
             $data = Product::all()->sortBy('desc');
-            $paginator = new PaginationHelper($data, 1);
+            $paginator = new PaginationHelper($data, 10);
             $items = $paginator->getItem(self::TAKE);
             return view('admin.pages.product.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
         }
@@ -78,7 +79,7 @@ class ProductController extends Controller
         if ($request->sort_by) {
             $data = Product::all();
             $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-            $paginator = new PaginationHelper($result, 1);
+            $paginator = new PaginationHelper($result, 10);
             $current_page = $request->current_page ?? 1;
             $items = $paginator->getItem($current_page);
             return view('admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
@@ -118,8 +119,7 @@ class ProductController extends Controller
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
             if($request->images) {
-                $thumbnail = Str::of($request->images)->replace(getenv('APP_URL').'/storage/', '');
-                $product->thumbnail = $thumbnail;
+                $product->thumbnail = $request->images;
             }
             $product->stock = $request->stock;
             if($request->stock_unlimited) {
@@ -184,7 +184,12 @@ class ProductController extends Controller
 
         $product_info = ProductInfo::leftJoin('product_attribute_values as pav1', 'product_info.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
-            ->leftJoin('product_color as pc', 'product_info.attribute_value1', '=', 'pc.id')
+            ->leftJoin('product_color as pc', function($join)
+            {
+                $join->on('product_info.attribute_value1', '=', 'pc.color_id');
+                $join->on('product_info.product_id','=','pc.product_id');
+
+            })
             ->where('product_info.product_id', $id)
             ->select(
                 'product_info.id',
@@ -229,8 +234,7 @@ class ProductController extends Controller
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
             if($request->images) {
-                $thumbnail = Str::of($request->images)->replace(getenv('APP_URL').'/storage/', '');
-                $product->thumbnail = $thumbnail;
+                $product->thumbnail = $request->images;
             }
             if($request->stock_unlimited) {
                 $product->stock_unlimited =  1;

@@ -28,9 +28,9 @@
                         <td>
                             <div class="wrap-img-product">
                                 @if($pi->image_path)
-                                  <img class="thumb" src="{{ Storage::url($pi->image_path) }}" alt="{{ $data->name }}" width="50px;">
+                                  <img class="thumb" src="{{ $pi->image_path }}" alt="{{ $data->name }}" width="50px;">
                                 @elseif($data->thumbnail)
-                                  <img class="thumb" src="{{ Storage::url($data->thumbnail) }}" alt="{{ $data->name }}" width="50px;">
+                                  <img class="thumb" src="{{ $data->thumbnail }}" alt="{{ $data->name }}" width="50px;">
                                 @else
                                   <img class="thumb" src="{{ asset('admin/images/placeholder.png') }}" alt="no photo" width="50px;">
                                 @endif

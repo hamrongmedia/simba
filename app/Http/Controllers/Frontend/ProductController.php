@@ -47,7 +47,12 @@ class ProductController extends Controller
         if($product->type == Product::PRODUCT_ATTRIBUTE) {
             $attributes = ProductInfo::leftJoin('product_attribute_values as pav1', 'product_info.attribute_value1', '=', 'pav1.id')
                         ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
-                        ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.color_id')
+                        ->leftJoin('product_color as pc', function($join)
+                        {
+                            $join->on('product_info.attribute_value1', '=', 'pc.color_id');
+                            $join->on('product_info.product_id','=','pc.product_id');
+
+                        })
                         ->distinct('product_info.attribute_value1')
                         ->where('product_info.product_id',$product->id)
                         ->select(
@@ -57,7 +62,9 @@ class ProductController extends Controller
                             'pav2.value as pav2_value',
                             'image_path'
                         )
-                        ->get()->toArray();
+                        ->distinct()
+                        ->get()
+                        ->toArray();
             $product_attributes = [];
             $collection = new Collection($attributes);
             $genera = $collection->groupBy('pav1_id');

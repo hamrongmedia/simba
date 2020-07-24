@@ -13,7 +13,7 @@
                             <td class="img">
                                 <a href="{{ route('product.detail',['slug'=>$cartItem->product_slug]) }}" target="_blank" title="{{ $cartItem->name }}">
                                     @if($cartItem->thumbnail)
-                                        <img src="{{ Storage::url($cartItem->thumbnail) }}" alt="{{ $cartItem->name }}">
+                                        <img src="{{ $cartItem->thumbnail }}" alt="{{ $cartItem->name }}">
                                     @else
                                         <img src="{{asset('admin/images/placeholder.png')}}" alt="{{ $cartItem->name }}">
                                     @endif
