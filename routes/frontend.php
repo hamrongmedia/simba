@@ -14,15 +14,19 @@ Route::namespace ('Frontend')->group(function () {
     Route::get('gio-hang','CartController@index')->name('cart.index');
     Route::post('gio-hang','CartController@store')->name('cart.add');
 
+    Route::post('ajax/cart/remove','CartController@removeCartAjax')->name('ajax.cart.remove');
+
+    Route::get('shop', 'ShopController@index')->name('shop.index');
+
     // Get product list by category.
     Route::get('/danh-muc/{product_cat_slug}', 'ProductController@getProductByCategory')->name('product.getProductByCat');
     //Get product detail by slug and id
     Route::get('san-pham/{slug}', 'ProductController@show')->name('product.detail');
 
     // Order route
-    Route::get('/dat-mua', 'OrderController@showOrderForm')->name('product.showOrderForm');
-    Route::post('/dat-mua', 'OrderController@storeOrder')->name('product.storeOrder');
+    Route::get('dat-mua', 'CheckoutController@index')->name('checkout.index');
+    Route::post('dat-mua', 'CheckoutController@store')->name('checkout.store');
 
-    Route::get('/dat-hang-thanh-cong', 'OrderController@orderSuccessNotify')->name('product.orderSuccess');
+    Route::get('dat-hang-thanh-cong/{order_code}', 'CheckoutController@success')->name('checkout.success');
 
 });

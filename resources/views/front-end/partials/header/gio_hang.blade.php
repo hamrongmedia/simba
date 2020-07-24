@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <a href="{{route('product.showOrderForm')}}" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
+                            <a href="{{route('checkout.index')}}" class="checkLimitCart linktocheckout button dark">Đặt hàng</a>
                         </td>
                     </tr>
                     <tr>

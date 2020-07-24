@@ -38,6 +38,38 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
         $data = $this->model->with('user')->paginate(self::TAKE);
         return $data;
     }
+    /**
+     * Specify Model class name
+    *
+    * @return string
+    */
+    public function getListProduct($request)
+    {
+        $data = $this->model
+            ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
+            ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
+            ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')
+            ->leftJoin('product_color as pc', 'pi.attribute_value1', '=', 'pc.id')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.slug as product_slug',
+                'products.price',
+                'products.sale_price',
+                'products.thumbnail',
+                'pav1.id as pav1_id',
+                'pav1.value as pav1_value',
+                'pav2.id as pav2_id',
+                'pav2.value as pav2_value',
+                'image_path'
+            )
+            ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
+            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+            ->groupBy('products.id')
+            ->distinct()
+            ->paginate(self::TAKE);
+        return $data;        
+    }
 
     /**
      * Specify Model class name
@@ -50,14 +82,63 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             $catalog_id = [$catalog_id];
         }
         $data = $this->model
-            ->join('product_catalog','product_catalog.product_id','products.id')
-            ->join('catalogs','product_catalog.catalog_id','catalogs.id')
-            ->whereIn('product_catalog.catalog_id',$catalog_id)
-            ->select('products.*')
+            ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
+            ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
+            ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')
+            ->leftJoin('product_color as pc', 'pi.attribute_value1', '=', 'pc.id')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.slug as product_slug',
+                'products.price',
+                'products.sale_price',
+                'products.thumbnail',
+                'pav1.id as pav1_id',
+                'pav1.value as pav1_value',
+                'pav2.id as pav2_id',
+                'pav2.value as pav2_value',
+                'image_path'
+            )
+            ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
+            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+            ->groupBy('products.id')
             ->distinct()
-            ->orderBy('products.created_at', 'desc')
             ->paginate(self::TAKE);
-        return $data;
+        return $data; 
+    }
+
+    /**
+     * Specify Model class name
+    *
+    * @return string
+    */
+    public function getProductRelated($request, $product_id)
+    {
+        $data = $this->model
+            ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
+            ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
+            ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')
+            ->leftJoin('product_color as pc', 'pi.attribute_value1', '=', 'pc.id')
+            ->select(
+                'products.id',
+                'products.name',
+                'products.slug as product_slug',
+                'products.price',
+                'products.sale_price',
+                'products.thumbnail',
+                'pav1.id as pav1_id',
+                'pav1.value as pav1_value',
+                'pav2.id as pav2_id',
+                'pav2.value as pav2_value',
+                'image_path'
+            )
+            ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
+            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+            ->groupBy('products.id')
+            ->distinct()
+            ->where('products.id','!=',$product_id)
+            ->paginate(self::TAKE);
+        return $data; 
     }
 
     /**

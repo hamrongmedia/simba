@@ -3070,3 +3070,9 @@ span.pro-price-view {
     border: 1px solid #f15a24;
     color: #f15a24;
 }
+.error {
+    color: red;
+    margin-top: 5px;
+    font-style: italic;
+    font-size: 13px;
+}

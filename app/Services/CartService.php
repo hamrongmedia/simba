@@ -94,7 +94,6 @@ class CartService
         } else {
             $this->carts = $this->getSessionCarts();
         }
-
         return $this->carts;
     }
 
@@ -116,12 +115,12 @@ class CartService
      */
     public function getSessionCarts()
     {
-        $cartKeys = $this->request->session()->get('cart_keys', []);
-        if (empty($cartKeys)) {
+        $cart_key = $this->request->session()->get('cart_key');
+        if (empty($cart_key)) {
             return [];
         }
 
-        return $this->cartRepository->findBy(['cart_key' => $cartKeys], ['id' => 'DESC']);
+        return $this->cartRepository->findBy(['cart_key' => $cart_key], ['id' => 'DESC']);
     }
 
     protected function createCartKey($user_id = null)
@@ -131,7 +130,7 @@ class CartService
             $cartKey = $random;
             $Cart = $this->cartRepository->findBy('cart_key', $cartKey);
         } while ($Cart);
-        $this->request->session()->push('cart_keys', $cartKey);
+        $this->request->session()->put('cart_key', $cartKey);
         return $cartKey;
     }
 
@@ -148,9 +147,11 @@ class CartService
 
     protected function updateCart($user_id, $total_price)
     {
-        $cart = $this->getSessionCarts();
-        $cart->total_price = $total_price;
-        $cart->save();
+        $cart = $this->getCarts();
+        if ($cart) {
+            $cart->total_price = $total_price;
+            $cart->save();
+        }
         return $cart;
     }
 
@@ -171,7 +172,7 @@ class CartService
         $attribute_value1 = $request->colorId;
         $attribute_value2 = $request->sizeId;
         $user_id = $this->guard()->id();
-        $cart = $this->getSessionCarts();
+        $cart = $this->getCarts();
         if (!$cart) {
             $cart = $this->createCartByCustomer($user_id);
         }
@@ -196,11 +197,12 @@ class CartService
         $datas = [];
         # Sum Quantity Product
         $total_quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
-        $total_price = CartItem::all()->sum(function ($t) {
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
             return $t->price * $t->quantity;
         });
         # Update Cart
-        $this->updateCart($user_id, $total_price);
+        $cart = $this->updateCart($user_id, $total_price);
+        $datas['cart_key'] = $cart->cart_key;
         $datas['total_quantity'] = $total_quantity;
         $datas['total_price'] = $total_price;
         return $datas;
@@ -209,7 +211,7 @@ class CartService
     public function updateQuantityProductCart($product, $quantity = 1)
     {
         $user_id = $this->guard()->id();
-        $cart = $this->getSessionCarts();
+        $cart = $this->getCarts();
         if (!$product) {
             return false;
         }
@@ -228,11 +230,12 @@ class CartService
         $datas = [];
         # Sum Quantity Product
         $total_quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
-        $total_price = CartItem::all()->sum(function ($t) {
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
             return $t->price * $t->quantity;
         });
         # Update Cart
-        $this->updateCart($user_id, $total_price);
+        $cart = $this->updateCart($user_id, $total_price);
+        $datas['cart_key'] = $cart->cart_key;
         $datas['total_quantity'] = $total_quantity;
         $datas['total_price'] = $total_price;
         return $datas;
@@ -241,7 +244,7 @@ class CartService
     public function removeProductCart($product)
     {
         $user_id = $this->guard()->id();
-        $cart = $this->getCustomerCarts($user_id);
+        $cart = $this->getCarts($user_id);
         if (!$product) {
             return false;
         }
@@ -249,23 +252,22 @@ class CartService
             ->where('product_id', $product->id)
             ->delete();
         # Sum Quantity Product
-        $total_price = CartItem::all()->sum(function ($t) {
+        $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
             return $t->price * $t->quantity;
         });
         # Update Cart
-        $this->updateCart($user_id, $total_price);
+        $cart = $this->updateCart($user_id, $total_price);
         return true;
     }
 
     public function clearCart()
     {
         $user_id = $this->guard()->id();
-        $cart = $this->getCustomerCarts($user_id);
+        $cart = $this->getCarts();
         if (!$cart) {
             return false;
         }
-        $cartItem = CartItem::where('cart_id', $cart->id)
-            ->delete();
+        $cartItem = CartItem::where('cart_id', $cart->id)->delete();
         $cart->delete();
         return true;
     }

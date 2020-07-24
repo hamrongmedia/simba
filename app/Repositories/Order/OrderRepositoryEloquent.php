@@ -34,8 +34,22 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository 
 	{
 		$datas = Order::join('order_items','orders.id','=','order_items.order_id')
 					->join('products','order_items.product_id','=','products.id')
+					->leftJoin('product_attribute_values as pav1','order_items.attribute_value1','=','pav1.id')
+					->leftJoin('product_attribute_values as pav2','order_items.attribute_value2','=','pav2.id')
 					->where('order_code',$order_code)
-					->select('orders.*','products.thumbnail','products.name','order_items.quantity','order_items.price')
+					->select(
+						'orders.*',
+						'products.thumbnail',
+						'products.name',
+						'products.type',
+						'products.slug as product_slug',
+						'order_items.quantity',
+						'order_items.price',
+                        'pav1.id as pav1_id',
+                        'pav1.value as pav1_value',
+                        'pav2.id as pav2_id',
+                        'pav2.value as pav2_value'
+					)
 					->get();
 		return $datas;
 	}

@@ -7,41 +7,16 @@
                     <div class="slide-sp owl-carousel">
                         <div class="item">
                             <div class="wp-img-slide-sp">
-                                <a href="ao-6883-cao-cap-p847.html">
-                                    <img class="el_image" src="{{asset('images-demo/1590839584.jpg')}}">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="wp-img-slide-sp">
-                                <a href="ao-6883-cao-cap-p847.html">
-                                    <img class="el_image" src="{{asset('images-demo/1590839580.jpg')}}">
+                                <a href="{{ route('product.detail',['slug'=>$data ?? ''->product_slug]) }}" title="{{ $data ?? ''->name }}">
+                                    <img class="el_image" src="https://venuscharm.vn/uploads/products/1590309691.jpg">
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div> <!-- end slider 1 -->
-                <div class="wp-item-sp-main">
-                    <div class="slide-sp owl-carousel">
-                        <div class="item">
-                            <div class="wp-img-slide-sp">
-                                <a href="ao-6883-cao-cap-p847.html">
-                                    <img class="el_image" src="{{asset('images-demo/1590839561.jpg')}}">
-                                </a>
-                            </div>
-                        </div>
-                         <div class="item">
-                            <div class="wp-img-slide-sp">
-                                <a href="ao-6883-cao-cap-p847.html">
-                                    <img class="el_image" src="{{asset('images-demo/1590839561.jpg')}}">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end slider 2 -->
             </div>
             <div class="wp-add-to-cart">
-                <a href="">
+                <a href="{{ route('product.detail',['slug'=>$data ?? ''->product_slug]) }}" title="{{ $data ?? ''->name }}">
                     <span>Thêm vào giỏ</span>
                     <i class="fas fa-shopping-bag"></i>
                 </a>
@@ -50,11 +25,13 @@
         <!--end màu sắc-->
         <div class="wp-name-sp">
             <h3 class="h3-title">
-                <a href="">Áo 6883 Cao Cấp</a>
+                <a href="{{ route('product.detail',['slug'=>$data ?? ''->product_slug]) }}" title="{{ $data ?? ''->name }}">
+                    {{ $data ?? ''->name }}
+                </a>
             </h3>
         </div>
         <div class="wp-price-sp">
-            <span class="int">450.000đ</span>
+            <span class="int">{{ \App\Helpers\Common::priceFormat($data->price) }}đ</span>
         </div>
         <!--màu sắc đầu tiên-->
         <div class="wp-list-check-color">

@@ -17,4 +17,8 @@ interface ProductRepository extends RepositoryInterface {
 
     public function getProductCatalog($request, $catalog_id);
 
+    public function getListProduct($request);
+
+    public function getProductRelated($request, $product_id);
+
 }
