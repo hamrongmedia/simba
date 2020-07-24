@@ -83,7 +83,7 @@
                                                     @if($cartItem->thumbnail)
                                                         <img src="{{ Storage::url($cartItem->thumbnail) }}" alt="{{ $cartItem->name }}">
                                                     @else
-                                                        <img src="{{asset('admin/images/placeholder.png')}}" alt="{{ $cartItem->name }}">
+                                                        <img src="{{asset('template/images/placeholder.png')}}" alt="{{ $cartItem->name }}">
                                                     @endif
                                                 </a>
                                             </div>

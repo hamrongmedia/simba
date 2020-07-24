@@ -43,7 +43,7 @@
                     @if($data->image_path)
                         <img width="120" id="holderedit" class="preview_image" src="{{ Storage::url($data->image_path) }}" type="text" name="filepath" alt="preview image">
                     @else
-                        <img width="120" id="holderedit" class="preview_image" src="{{ asset('admin/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
+                        <img width="120" id="holderedit" class="preview_image" src="{{ asset('template/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
                     @endif
                     <br>
                     <p style="color:#c3cfd8">Chọn nút <strong>Chọn hình ảnh</strong> để thêm ảnh.</p>

@@ -12,8 +12,8 @@
 
 @section('css')
 
-<link rel="stylesheet" href="{{ asset('admin/plugin/iconpicker/fontawesome-iconpicker.min.css')}}">
-<link rel="stylesheet" href="{{asset('admin/plugin/nestable/jquery.nestable.min.css')}}">
+<link rel="stylesheet" href="{{ asset('template/plugin/iconpicker/fontawesome-iconpicker.min.css')}}">
+<link rel="stylesheet" href="{{asset('template/plugin/nestable/jquery.nestable.min.css')}}">
 
 <style>
 
@@ -178,8 +178,8 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('admin/plugin/nestable/jquery.nestable.min.js')}}"></script>
-<script src="{{ asset('admin/plugin/iconpicker/fontawesome-iconpicker.min.js')}}"></script>
+<script src="{{ asset('template/plugin/nestable/jquery.nestable.min.js')}}"></script>
+<script src="{{ asset('template/plugin/iconpicker/fontawesome-iconpicker.min.js')}}"></script>
 
 
 <script>
