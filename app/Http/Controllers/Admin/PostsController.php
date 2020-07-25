@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
-use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
+use DataTables;
 use DB;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
@@ -21,24 +21,54 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
+        return view('admin.pages.posts.list');
 
-        if (empty($request->all())) {
-            $data = Posts::all()->sortBy('desc');
-            $paginator = new PaginationHelper($data, 1);
-            $items = $paginator->getItem(1);
-            return view('admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
-        }
+        // if (empty($request->all())) {
+        //     // $data = Posts::all()->sortBy('desc');
+        //     // $paginator = new PaginationHelper($data, 1);
+        //     // $items = $paginator->getItem(1);
+        //     return view('admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        // }
 
-        if ($request->sort_by) {
-            $data = Posts::all();
-            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-            $paginator = new PaginationHelper($result, 1);
-            $current_page = $request->current_page ?? 1;
-            $items = $paginator->getItem($current_page);
-            return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
-        }
-        return abort(404);
+        // if ($request->sort_by) {
+        //     $data = Posts::all();
+        //     $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+        //     $paginator = new PaginationHelper($result, 1);
+        //     $current_page = $request->current_page ?? 1;
+        //     $items = $paginator->getItem($current_page);
+        //     return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        // }
+    }
 
+    public function listPost()
+    {
+        $posts = Posts::query();
+
+        return DataTables::eloquent($posts)
+            ->addColumn('action', function ($post) {
+                return '<a href="' . route("admin.post.edit", $post->id) . '">
+                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                <i class="fa fa-edit"></i></span></a>&nbsp;
+                <span onclick="deleteItem(' . $post->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+            })
+            ->editColumn('status', function ($post) {
+                if ($post->status == 1) {
+                    return '<span class="label label-success">Đang sử dụng</span>';
+                }
+                return '<span class="label label-danger">Ngừng sử dụng</span>';
+            })
+            ->addColumn('categories', function ($post) {
+                $result = '';
+                foreach ($post->category as $category) {
+                    $result = $result . '<br><span>' . $category->name . '</span>';
+                }
+                return $result;
+            })
+            ->editColumn('image', function ($post) {
+                return '<img src="' . $post->image . '" style="max-width: 200px;">';
+            })
+            ->rawColumns(['action', 'status', 'image', 'categories'])
+            ->make(true);
     }
 
     /**

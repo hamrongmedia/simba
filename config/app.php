@@ -178,6 +178,9 @@ return [
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        // Datatable
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
         // Composers
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ViewProvider::class,

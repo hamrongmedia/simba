@@ -27,14 +27,14 @@
                     </td>
                     <td>
                         @foreach ($post->category as $category)
-                        <span>{{$category->name}}  </span>
+                        <span>{{$category->name}}</span>
                         @endforeach
                     </td>
                     <td>
                         @if ($post->status == 1)
-                        <span class="label label-success">Đang sử dụng</span></a>
+                        <span class="label label-success">Đang sử dụng</span>
                         @else
-                        <span class="label label-danger">Ngừng sử dụng</span></a>
+                        <span class="label label-danger">Ngừng sử dụng</span>
                         @endif
                     </td>
                     <td>
