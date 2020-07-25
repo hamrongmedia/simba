@@ -11,6 +11,7 @@ use DataTables;
 use DB;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -22,22 +23,6 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         return view('admin.pages.posts.list');
-
-        // if (empty($request->all())) {
-        //     // $data = Posts::all()->sortBy('desc');
-        //     // $paginator = new PaginationHelper($data, 1);
-        //     // $items = $paginator->getItem(1);
-        //     return view('admin.pages.posts.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
-        // }
-
-        // if ($request->sort_by) {
-        //     $data = Posts::all();
-        //     $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-        //     $paginator = new PaginationHelper($result, 1);
-        //     $current_page = $request->current_page ?? 1;
-        //     $items = $paginator->getItem($current_page);
-        //     return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
-        // }
     }
 
     public function listPost()
@@ -102,6 +87,7 @@ class PostsController extends Controller
             ]
         );
 
+        $data = $request->all();
         $new_post = Posts::create($data);
         $cats = $request->cat_id;
 
@@ -207,5 +193,10 @@ class PostsController extends Controller
         $items = $paginator->getItem($current_page);
 
         return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+    }
+
+    public function createSlug($name)
+    {
+        return Str::of($name ?? '')->slug('-');
     }
 }
