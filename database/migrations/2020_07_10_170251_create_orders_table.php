@@ -47,11 +47,17 @@ class CreateOrdersTable extends Migration
             $table->integer('payment_total')->default(0);
             $table->tinyInteger('order_status_id')->unsigned();
             $table->integer('payment_method_id')->unsigned();
+            $table->integer('province_id')->unsigned();
+            $table->integer('district_id')->unsigned();
+            $table->integer('ward_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('cascade');
             $table->foreign('order_status_id')->references('id')->on('order_status')->onDelete('cascade');
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('ward_id')->references('id')->on('wards')->onDelete('cascade');
         });
 
         Schema::create('order_items', function (Blueprint $table) {

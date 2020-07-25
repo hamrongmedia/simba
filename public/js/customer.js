@@ -1,6 +1,107 @@
+
+$(function() {
+    changeColor();
+    $('.wp-img-ctsp').on('click', '.wp-chonmau li a', function() {
+        $(this).tab('show');
+    });
+    $('.wp-img-ctsp').on('click', '.wp-text-right li', function() {
+        $(this).addClass('active').siblings().removeClass('active');
+        var colorId;
+        var sizeId;
+        changeColor();
+        colorId = $(this).attr("data-color");
+        $(".add_bag_size").find("li").each(function() {
+            if ($(this).hasClass("active")) {
+                sizeId = $(this).attr("data-size");
+                $('.sizeError').hide();
+            }
+        });
+    });
+
+    siteCloseHandle();
+
+    // Add To Cart
+    $(document).on('click', '.ajax-addtocart', function () {
+        if (!validateChooseSize()) {
+            return;
+        }
+        var params = getDetailGoodsParams();
+        var url = $(this).data('href');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type: 'POST',
+            data: params,
+            success: (data) => {
+                $("#site-cart").html(data.data);
+                $("#site-cart").addClass("active");
+            },
+            error: (data) => {
+                alert(data.msg)
+            }
+        });   
+    });
+
+    function validateChooseSize(){
+        var sizeId = $('.add_bag_size li.active').data('size');
+        var colorId = $('.add_bag_color li.active').data('color');
+        var colorName = $(".add_bag_color li.active a").attr('title') ;
+        var sizeName = $('.add_bag_size li.active').html();        
+        var productId = $('#productId').val();
+        if(sizeId == undefined){
+             $('.sizeError').show();
+             $('.add_bag_size').addClass('errorAnimate');
+             setTimeout(function(){
+                 $('.add_bag_size').removeClass('errorAnimate');
+             },1000);
+            return false;
+        }
+        return true;
+    }
+
+});
+
+function getDetailGoodsParams(){
+    var goodsParams = {};
+    goodsParams.productId = $("#productId").val();
+    goodsParams.quantity = 1;
+    goodsParams.colorId = $(".add_bag_color .active").attr("data-color");
+    goodsParams.color = $(".add_bag_color .active").find("a").attr("title");
+    goodsParams.sizeId = $(".add_bag_size .active").attr("data-size");
+    goodsParams.size = $(".add_bag_size .active").text();
+    return goodsParams;
+}
+
+function changeColor() {
+    var _this = $('.add_bag_color li.active');
+    var hasActiveSize = false;
+    var sizeId = $('.add_bag_size li.active').data('size');
+    $('.add_bag_size li').each(function(index) {
+        if ($(_this).attr('data-sizeids') != undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") == -1) {
+            $(this).css('display', 'none');
+            $(this).removeClass('active');
+        } else {
+            $(this).css('display', '');
+        }
+        if ($(this).hasClass('active')) {
+            sizeId = $(this).attr("data-size");
+            hasActiveSize = true;
+        }
+    });
+    if (!hasActiveSize) {
+        $('.add_bag_size li').each(function(index) {
+            if ($(_this).attr('data-sizeids') != undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") > -1) {
+                sizeId = $(this).attr("data-size");
+            }
+        });
+    }
+}
+
 // Trigger Cart
 function siteCloseHandle() {
-    $('#site-close-handle').removeClass("active");
+    $('#site-cart').removeClass("active");
 }
 // Remove Product From Cart
 function removeProductCart(product_id,url_delete)
@@ -85,56 +186,6 @@ jQuery(document).ready(function ($) {
     // }
     // //end xóa cart
     //
-    function getDetailGoodsParams(){
-        var goodsParams = {};
-        goodsParams.productId = $("#productId").val();
-        goodsParams.quantity = 1;
-        goodsParams.colorId = $(".add_bag_color .active").attr("data-color");
-        goodsParams.color = $(".add_bag_color .active").find("a").attr("title");
-        goodsParams.sizeId = $(".add_bag_size .active").attr("data-size");
-        goodsParams.size = $(".add_bag_size .active").text();
-        return goodsParams;
-    }
-    // Change Color
-    changeColor();
-    function changeColor(){
-        var _this = $('.add_bag_color li.active');
-        var hasActiveSize = false;
-        var sizeId = $('.add_bag_size li.active').data('size');
-        $('.add_bag_size li').each(function(index){
-            if($(_this).attr('data-sizeids') != undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") == -1){
-                $(this).css('display','none');
-                $(this).removeClass('active');
-            } else {
-                $(this).css('display','');
-            }
-            if ($(this).hasClass('active')) {
-                sizeId = $(this).attr("data-size");
-                hasActiveSize = true;
-            }
-        });
-        if (!hasActiveSize) {
-            $('.add_bag_size li').each(function(index){
-                if($(_this).attr('data-sizeids')!= undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") > -1){
-                    sizeId = $(this).attr("data-size");
-                    $(this).addClass('active');
-                    return false;
-                }
-            });
-        }
-    }
-    $('.wp-img-ctsp').on('click','.wp-text-right li',function(){
-        changeColor();
-        var colorId;
-        var sizeId;
-        colorId = $(this).attr("data-color");
-        sizeId = $(this).attr("data-size");
-        $(".add_bag_size").find("li").each(function() {
-             if($(this).hasClass("active")){
-                 sizeId = $(this).attr("data-size");
-             }
-        });        
-    });
 
     $('.wp-img-ctsp').on('hover','.add_bag_size li',function(){
         $('.sizeError').hide();
@@ -142,42 +193,6 @@ jQuery(document).ready(function ($) {
         newIntro ? $('.sizeIntro').text(newIntro).show() : $('.sizeIntro').hide();
     });
 
-    function validateChooseSize(sumGoods){
-        var sizeId = $('.add_bag_size li.active').data('size');
-        var colorId = $('.add_bag_color li.active').data('color');
-        var colorName = $(".add_bag_color li.active a").attr('title') ;
-        var sizeName = $('.add_bag_size li.active').html();        
-        var productId = $('#productId').val();
-        if(sizeId == undefined){
-             $('.sizeError').show();
-             $('.add_bag_size').addClass('errorAnimate');
-             setTimeout(function(){
-                 $('.add_bag_size').removeClass('errorAnimate');
-             },1000);
-            return false;
-        }
-        return true;
-    }
-    //thêm vào giỏ hàng
-    $(document).on('click', '.ajax-addtocart', function () {
-        var params = getDetailGoodsParams();
-        var url = $(this).data('href');
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            },
-            url: url,
-            type: 'POST',
-            data: params,
-            success: (data) => {
-                $("#site-cart").html(data.data);
-                $("#site-cart").addClass("active");
-            },
-            error: (data) => {
-                alert(data.msg)
-            }
-        });   
-    });
 
     $(".btn-click-dosize").click(function () {
         var value_chieucao = $("#value_chieucao").val();
@@ -188,8 +203,6 @@ jQuery(document).ready(function ($) {
     });
 
     function test_size(value_chieucao, value_cannang, value_vong1) {
-        //var json = JSON.parse(data);
-        //$("#form-view-2").html(json.html);
         $(".wp-list-form-dosize").find(".form-1").addClass("hidden");
         $(".wp-list-form-dosize").find(".form-2").addClass("active");
     }

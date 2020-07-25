@@ -18,4 +18,5 @@
     </body>
     <!-- js -->
     @include('front-end.partials.footer.js')
+    @yield('addJs')
 </html>

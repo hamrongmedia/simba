@@ -27,6 +27,9 @@ class CheckoutRequest extends FormRequest
             'fullname' => 'required|max:255',
             'phone' => 'required|regex:/^0\d{9}$/',
             'email' =>'required|email',
+            'province' =>'required',
+            'district_id' =>'required',
+            'war_id' =>'required',
         ];
         return $rules;
     }
