@@ -87,10 +87,10 @@ $(function () {
             { "data": "id" },
             { "data": "title" },
             { "data": "slug" },
-            { "data": "categories" },
+            { "data": "categories", "name" : "categories" },
             { "data" :"image"},
-            { "data" :"status"},
-            { "data" :"action"},
+            { "data" :"status", "name" : "status"},
+            { "data" :"action", "name" : "action"},
 
         ]
         });
