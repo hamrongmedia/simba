@@ -64,36 +64,23 @@
                     <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="wp-img-left">
                             <div class="tab-content">
-                                <div id="img-id4146" class="tab-pane fade row active in">
-                                    <!-- ảnh cắt với kích thức 703x800 -->
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                </div> <!-- end -->
-
-                                <div id="img-id4145" class="tab-pane fade row">
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                        <img src="https://venuscharm.vn/uploads/products/1579060673.jpg">
-                                    </div>
-                                </div><!--  end -->
+                                @if($product->product_attributes)
+                                    @foreach($product->product_attributes as $pr_at)
+                                        <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}" class="tab-pane fade row @if($loop->first) active in @endif">
+                                            @for($i=0;$i<4;$i++)
+                                                <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                                    <img src="{{$pr_at['image_path']}}">
+                                                </div>
+                                            @endfor
+                                        </div> <!-- end -->
+                                    @endforeach
+                                @else
+                                    @for($i=0;$i<4;$i++)
+                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                            <img src="{{ $product->thumbnail }}">
+                                        </div>
+                                    @endfor
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -107,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="wpmaxx">
-                                <p>Mã sản phẩm: 002697</p>
+                                <p>Mã sản phẩm: {{ $product->product_code }}</p>
                                 <p>Trạng thái: 
                                     @if($product->status == 1)
                                         Còn hàng
@@ -122,8 +109,8 @@
                                     <ul class="nav nav-pills">
                                         @foreach($product->product_attributes as $pr_at)
                                         <li class="chose_attr_advanced_color @if ($loop->first) active @endif" data-color="{{ $pr_at['pav1_id'] }}" data-sizeids="{{ $pr_at['sizeids'] }}|" data-title="{{ $pr_at['pav1_name'] }}">
-                                            <a class="" data-toggle="pill" href="#img-id4146">
-                                                <span class="color color4" style="background: url('{{asset('images-demo/1590831427.jpg')}}')"></span>
+                                            <a class="" data-toggle="pill" href="#img-id{{$product->id}}{{$pr_at['pav1_id']}}">
+                                                <img class="imgAuto" src="{{$pr_at['image_path']}}">
                                             </a>
                                         </li>
                                         @endforeach
@@ -137,8 +124,8 @@
                                             <li data-size="{{ $k }}">{{ $size }}</li>
                                         @endforeach  
                                     @endif                                  
-                                    <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
                                 </ul>
+                                <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
                             </div>                            
                             <div class="huongdan-chonsize"><a href="#" data-toggle="modal" data-target="#modal-size">Hướng dẫn chọn size</a></div>
                             <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
