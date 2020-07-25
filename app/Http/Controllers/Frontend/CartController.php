@@ -70,9 +70,8 @@ class CartController extends Controller
     */
     public function removeCartAjax(Request $request)
     {
-        $product_id = $request->input('product_id');
-        $data = $this->productRepository->getById($product_id);
-        $cart = $this->cartService->removeProductCart($data);
+        $cart_item_id = $request->input('cart_item_id');
+        $cart = $this->cartService->removeCartItem($cart_item_id);
         if($cart) {
             return response()->json(array(
                 'status' => true

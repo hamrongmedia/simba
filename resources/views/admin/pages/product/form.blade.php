@@ -71,6 +71,11 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label">Nội dung</label>
+                <textarea class="form-control editor" name="content" rows="3"
+                        placeholder="Nhập nội dung" id="editor">{!! isset($data) ? $data->content : old('content') !!}</textarea>
+            </div>
+            <div class="form-group">
                 <div class="assign-switch">
                     <label class="switch-label">
                         <input type="checkbox" class="switch-assign" name="type" @if(isset($data) && $data->type==2) checked @endif value="2">
@@ -78,11 +83,6 @@
                     </label>
                     <label class="d-inline-block">Sản phẩm đa thuộc tính</label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Nội dung</label>
-                <textarea class="form-control editor" name="content" rows="3"
-                        placeholder="Nhập nội dung" id="editor">{!! isset($data) ? $data->content : old('content') !!}</textarea>
             </div>
         </div>
     </div>
@@ -200,7 +200,7 @@
                     <a href="#" class="btn btn-secondary btn-trigger-add-attribute-item">Thêm thuộc tính</a>
                 </div>
             @endif
-            @if(Route::currentRouteName() == 'admin.product.edit')
+            @if(Route::currentRouteName() == 'admin.product.edit' && $data->type == \App\Models\Product::PRODUCT_ATTRIBUTE)
                 <div id="product-variations-wrapper">
                     @include('admin.pages.product.varition')
                 </div>

@@ -44,18 +44,43 @@ Cập nhật sản phẩm
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="variation-images" style="position: relative; border: 1px dashed #ccc; padding: 10px;">
-                                <div class="product-images-wrapper">
-                                    <a href="#" class="add-new-product-image js-btn-trigger-add-image" data-input="thumbnail" data-preview="holder">Chọn hình ảnh
+                            <div class="form-group">
+                                <label for="attribute-icon" class="text-title-field required" aria-required="true">
+                                    Icon đại diện
+                                </label>
+                                <div class="variation-images clearfix">
+                                    <div class="product-images-wrapper">
+                                        <a href="#" class="add-new-product-image js-thumbnail-add-image" data-input="thumbnailedit" data-preview="holderedit">Chọn hình ảnh
+                                        </a>
+                                        <div class="images-wrapper">
+                                            <input id="thumbnailedit" type="hidden" name="thumbnail" class="image-data" value="{{ $data->image_path }}">
+                                            <div class="text-center">
+                                                @if($data->image_path)
+                                                    <img width="120" id="holderedit" class="preview_image" src="" type="text" name="filepath" alt="preview image">
+                                                @else
+                                                    <img width="120" id="holderedit" class="preview_image" src="{{ asset('template/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
+                                                @endif
+                                                <br>
+                                                <p style="color:#c3cfd8">Chọn nút <strong>Chọn hình ảnh</strong> để thêm ảnh.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="variation-images clearfix">
+                                <label for="attribute-images" class="required">
+                                    Hình ảnh
+                                </label>
+                                <div class="product-images-wrapper clearfix">
+                                    <a href="#" class="add-new-product-image js-btn-trigger-add-image">
+                                        Chọn hình ảnh
                                     </a>
                                     <div class="images-wrapper">
-                                        <input id="thumbnail" type="hidden" name="thumbnail" class="image-data">
                                         <div class="text-center">
-                                            <img width="120" id="holder" class="preview_image" src="{{ asset('template/images/placeholder.png') }}" type="text" name="filepath" alt="preview image">
-                                            <br>
                                             <p style="color:#c3cfd8">Chọn nút <strong>Chọn hình ảnh</strong> để thêm ảnh.</p>
                                         </div>
                                     </div>
+                                    <div class="images-show"></div>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +212,42 @@ Cập nhật sản phẩm
             $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
         });
     });
+    function removeAtrImage() {
+        $(this).parents('.item-prev').remove();
+    }
     $(window).on("load", (function() {
+        $.fn.customthumbnailfilemanager = function(type, options) {
+            type = type || 'file';
+
+            this.on('click', function(e) {
+              var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
+              var target_input = $('#' + $(this).data('input'));
+              var target_preview = $('#' + $(this).data('preview'));
+              window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
+              window.SetUrl = function (items) {
+                var file_path = items.map(function (item) {
+                  return item.url;
+                }).join(',');
+
+                // set the value of the desired input to image url
+                target_input.val('').val(file_path).trigger('change');
+
+                // clear previous preview
+                target_preview.html('');
+
+                // set or change the preview image src
+                items.forEach(function (item) {
+                   $(target_preview).attr('src', item.thumb_url);
+                });
+
+                // trigger change event
+                target_preview.trigger('change');
+              };
+              return false;
+            });
+        }
+        $('.js-thumbnail-add-image').customthumbnailfilemanager('image');
+
         $.fn.customfilemanager = function(type, options) {
             type = type || 'file';
 
@@ -209,7 +269,8 @@ Cập nhật sản phẩm
 
                 // set or change the preview image src
                 items.forEach(function (item) {
-                    $(target_preview).attr('src', item.thumb_url);
+                    $('.images-show').append('<div class="item-prev"><div class="atr-image"><img src="'+item.url+'"/></div><div class="atr-elm"><input type="hidden" name="product_images[]" value="'+item.url+'"><a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a></div></div>');
+                    // $(target_preview).attr('src', item.thumb_url);
                 });
 
                 // trigger change event

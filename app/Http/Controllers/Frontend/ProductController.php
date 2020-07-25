@@ -53,6 +53,13 @@ class ProductController extends Controller
                             $join->on('product_info.product_id','=','pc.product_id');
 
                         })
+                        ->leftJoin('products', 'products.id', '=', 'product_info.product_id')
+                        ->leftJoin('product_images as pim', function($join)
+                        {
+                            $join->on('products.id', '=', 'pim.product_id');
+                            $join->on('pav1.id','=','pim.attribute_value1');
+
+                        })
                         ->distinct('product_info.attribute_value1')
                         ->where('product_info.product_id',$product->id)
                         ->select(
@@ -60,7 +67,8 @@ class ProductController extends Controller
                             'pav1.value as pav1_value',
                             'pav2.id as pav2_id',
                             'pav2.value as pav2_value',
-                            'image_path'
+                            'image_path',
+                            'image_file'
                         )
                         ->distinct()
                         ->get()
@@ -68,23 +76,27 @@ class ProductController extends Controller
             $product_attributes = [];
             $collection = new Collection($attributes);
             $genera = $collection->groupBy('pav1_id');
+
             $all_sizes = [];
             foreach ($genera as $key => $value) {
                 $group_pav2 = [];
+                $image_files = [];
                 $sizeids = '';
                 foreach ($value as $k => $v) {
+                    $image_files[$k] = $v['image_file'];
                     if($v['pav2_id']) {
                         $group_pav2[$k]['id'] = $v['pav2_id'];
                         $group_pav2[$k]['name'] = $v['pav2_value'];
+                        $sizeids.='|'.$v['pav2_id'];
+                        $all_sizes[$v['pav2_id']] =  $v['pav2_value'];
                     }
-                    $sizeids.='|'.$v['pav2_id'];
-                    $all_sizes[$v['pav2_id']] =  $v['pav2_value'];
                 }
                 $product_attributes[$key]['pav1_id'] = $key;
                 $product_attributes[$key]['pav1_name'] = $value[0]['pav1_value'];
                 $product_attributes[$key]['image_path'] = $value[0]['image_path'];
                 $product_attributes[$key]['sizeids'] = $sizeids;
                 $product_attributes[$key]['group_pav2'] = $group_pav2;
+                $product_attributes[$key]['image_files'] = $image_files;
             }
             $product->all_sizes = $this->array_unique_multidimensional($all_sizes);
             $product->product_attributes = $product_attributes;

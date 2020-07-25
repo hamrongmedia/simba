@@ -67,11 +67,15 @@
                                 @if($product->product_attributes)
                                     @foreach($product->product_attributes as $pr_at)
                                         <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}" class="tab-pane fade row @if($loop->first) active in @endif">
-                                            @for($i=0;$i<4;$i++)
-                                                <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                    <img src="{{$pr_at['image_path']}}">
-                                                </div>
-                                            @endfor
+                                            @if(count($pr_at['image_files']) > 0)
+                                                @foreach($pr_at['image_files'] as $img)
+                                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                                        @if($img)
+                                                            <img src="{{ $img }}">
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div> <!-- end -->
                                     @endforeach
                                 @else
@@ -117,16 +121,16 @@
                                     </ul>
                                 @endif
                             </div> <!-- end -->
-                            <div class="wp-chonsize add_bag_size">
-                                <ul class="ul-b list-size">  
-                                    @if($product->all_sizes)
+                            @if($product->all_sizes)
+                                <div class="wp-chonsize add_bag_size">
+                                    <ul class="ul-b list-size">  
                                         @foreach($product->all_sizes as $k => $size)
                                             <li data-size="{{ $k }}">{{ $size }}</li>
                                         @endforeach  
-                                    @endif                                  
-                                </ul>
-                                <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
-                            </div>                            
+                                    </ul>
+                                    <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
+                                </div>   
+                            @endif                             
                             <div class="huongdan-chonsize"><a href="#" data-toggle="modal" data-target="#modal-size">Hướng dẫn chọn size</a></div>
                             <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
                             <div class="wp-btn-mua">

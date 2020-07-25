@@ -27,15 +27,15 @@
                                 @if($cartItem->type == \App\Models\Product::PRODUCT_ATTRIBUTE)
                                     <div class="variant">
                                         @if($cartItem->pav1_id)
-                                            <span>Size : {{ $cartItem->pav1_value }}</span>
+                                            <span>Màu sắc : {{ $cartItem->pav1_value }}</span>
                                         @endif
                                         @if($cartItem->pav2_id)
-                                            <span>Màu sắc : {{ $cartItem->pav2_value }}</span>
+                                            <span>Size : {{ $cartItem->pav2_value }}</span>
                                         @endif
                                     </div>
                                 @endif
                                 <div class="remove_link remove-cart delete_item">
-                                    <a href="javascript:void(0);" class="quantity" onclick="removeProductCart({{ $cartItem->product_id }},'{{ route('ajax.cart.remove') }}')">Xóa</a>
+                                    <a href="javascript:void(0);" class="quantity" onclick="removeCartItem({{ $cartItem->id }},'{{ route('ajax.cart.remove') }}')">Xóa</a>
                                 </div>
                             </td>
                         </tr>
