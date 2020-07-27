@@ -25,6 +25,7 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id',
         'image_file',
+        'attribute_value1',
         'sort_order'
     ];
 
@@ -35,6 +36,6 @@ class ProductImage extends Model
      */
     public function product()
     {
-        return $this->hasOne(Product::class,'id','product_id');
+        return $this->hasOne(Product::class);
     }
 }

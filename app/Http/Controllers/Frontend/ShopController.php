@@ -33,6 +33,13 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         $datas = $this->productRepository->getListProduct($request);
+        dd($datas);
+        if($datas) {
+            foreach ($datas as $data) {
+                # Get Product Images 
+                
+            }
+        }
         return view('front-end.shop.index',compact('datas'));
     }
 }

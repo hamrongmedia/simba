@@ -17,6 +17,7 @@ use App\Models\ProductColor;
 use DB;
 use Illuminate\Support\Str;
 use Log;
+use App\Http\Requests\Admin\ProductInfoRequest;
 class ProductInfoController extends Controller
 {
 	public function show(Request $request)
@@ -46,11 +47,12 @@ class ProductInfoController extends Controller
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
-	public function store(Request $request, $id)
+	public function store(ProductInfoRequest $request, $id)
 	{
 		# Check exit;
 		$attribute_sets = $request->attribute_sets;
-		$check_condition = ProductInfo::where('product_id',$id)->where('attribute_value1',$attribute_sets[0]);
+		$check_condition = ProductInfo::where('product_id',$id)
+							->where('attribute_value1',$attribute_sets[0]);
 		if ( count($attribute_sets) == 2 ) {
 			$check_condition->where('attribute_value2',$attribute_sets[1]);
 		}
@@ -74,6 +76,7 @@ class ProductInfoController extends Controller
 				    ['image_path' => $thumbnail]
 				);
 			}
+			$this->storeProductImage($request, $id, $attribute_sets[0]);
 			DB::commit();
 			$data = Product::find($id);
 	        $product_attribute_map = ProductAttribute::with('attributeValues')
@@ -187,6 +190,30 @@ class ProductInfoController extends Controller
 			return $this->respondWithError($e->getMessage());			
 		}
 	}
+
+    /*
+    *--------------------------------------------------------------------------
+    * Save Product Image
+    * @param Int : $product_id
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+   public function storeProductImage($request,$product_id, $attribute_value1)
+   {
+   		$product_images = $request->product_images;
+   		if(!is_array($product_images)) {
+   			return fasle;
+   		}
+   		foreach ($product_images as $image) {
+   			$productImage =  new ProductImage();
+   			$productImage->product_id = $product_id;
+   			$productImage->attribute_value1 = $attribute_value1;
+   			$productImage->image_file = $image;
+   			$productImage->save();
+   			Log::info($image);
+   		}
+   		return true;
+   }
 
     /*
     *--------------------------------------------------------------------------

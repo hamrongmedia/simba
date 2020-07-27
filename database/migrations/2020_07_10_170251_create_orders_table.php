@@ -47,9 +47,9 @@ class CreateOrdersTable extends Migration
             $table->integer('payment_total')->default(0);
             $table->tinyInteger('order_status_id')->unsigned();
             $table->integer('payment_method_id')->unsigned();
-            $table->integer('province_id')->unsigned();
-            $table->integer('district_id')->unsigned();
-            $table->integer('ward_id')->unsigned();
+            $table->bigInteger('province_id')->unsigned();
+            $table->bigInteger('district_id')->unsigned();
+            $table->bigInteger('ward_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -103,6 +103,30 @@ function changeColor() {
 function siteCloseHandle() {
     $('#site-cart').removeClass("active");
 }
+// Remove Product From Cart Item
+function removeCartItem(cart_item_id,url_delete)
+{
+    $('.delete_item').click(function(){
+        var current_target = $(this);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: url_delete,
+            data: {
+                cart_item_id : cart_item_id,
+            },
+            dataType: 'json',
+            success: function (data){
+                $(current_target).parents('tr.item-cart').remove();
+            },
+            error: function (data) {
+                
+            }
+        });
+    })
+}
 // Remove Product From Cart
 function removeProductCart(product_id,url_delete)
 {

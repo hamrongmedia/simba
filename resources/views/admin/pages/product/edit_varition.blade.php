@@ -33,7 +33,7 @@
             @endforeach
         @endif
     </div>
-    <div class="variation-images" style="position: relative; border: 1px dashed #ccc; padding: 10px;">
+    <div class="variation-images clearfix" style="position: relative; border: 1px dashed #ccc; padding: 10px;">
         <div class="product-images-wrapper">
             <a href="#" class="add-new-product-image js-btn-trigger-add-image" data-input="thumbnailedit" data-preview="holderedit">Chọn hình ảnh
             </a>
