@@ -7,7 +7,7 @@
                     <div class="slide-sp owl-carousel">
                         <div class="item">
                             <div class="wp-img-slide-sp">
-                                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                                     <img class="el_image" src="https://venuscharm.vn/uploads/products/1590309691.jpg">
                                 </a>
                             </div>
@@ -16,7 +16,7 @@
                 </div> <!-- end slider 1 -->
             </div>
             <div class="wp-add-to-cart">
-                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                     <span>Thêm vào giỏ</span>
                     <i class="fas fa-shopping-bag"></i>
                 </a>
@@ -25,7 +25,7 @@
         <!--end màu sắc-->
         <div class="wp-name-sp">
             <h3 class="h3-title">
-                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                     {{ $data->name }}
                 </a>
             </h3>

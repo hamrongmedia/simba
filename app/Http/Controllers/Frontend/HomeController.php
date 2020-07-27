@@ -36,8 +36,10 @@ class HomeController extends Controller
             'homepageOption' => $content,
             'list_hightline_post' => $hightline_cat->posts ?? [],
             'product_cat1' => $product_cat1 ?? null,
+            'single_product_cat1' => $product_cat1->products ?? [],
             'child_product_cat1' => $product_cat1->subCategory ?? [],
             'product_cat2' => $product_cat2 ?? null,
+            'single_product_cat2' => $product_cat2->products ?? [],
             'child_product_cat2' => $product_cat2->subCategory ?? [],
         ]);
     }
