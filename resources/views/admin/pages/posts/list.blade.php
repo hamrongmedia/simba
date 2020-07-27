@@ -71,30 +71,28 @@
 @section('js')
 <script src="{{ asset('template/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-
 <script>
-
 $(function () {
     $("#posts-table").dataTable({
-        processing: true,
-        serverSide: true,
-        responsive:true,
-        autoWidth:false,
-        scrollX: true,
+    processing: true,
+    serverSide: true,
+    responsive:true,
+    autoWidth:false,
+    scrollX: true,
 
-        ajax: "{{route('admin.post.list_post')}}",
-        columns: [
-            { "data": "id" },
-            { "data": "title" },
-            { "data": "slug" },
-            { "data": "categories", "name" : "categories" },
-            { "data" :"image"},
-            { "data" :"status", "name" : "status"},
-            { "data" :"action", "name" : "action"},
+    ajax: "{{route('admin.post.list_post')}}",
+    columns: [
+        { "data": "id" },
+        { "data": "title" },
+        { "data": "slug" },
+        { "data": "categories" },
+        { "data" :"image"},
+        { "data" :"status"},
+        { "data" :"action"},
 
-        ]
-        });
+    ]
     });
+});
 
     
   var type = 'sort';

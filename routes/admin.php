@@ -23,6 +23,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('/post-category/edit/{id}', 'CategoryController@update')->name('admin.category.update');
     Route::post('/post-category/destroy', 'CategoryController@destroy')->name('admin.category.destroy');
     Route::get('/post-category/search', 'CategoryController@search')->name('admin.category.search');
+    Route::get('/post-category/list-categories', 'CategoryController@listCategories')->name('admin.category.list_categories');
 
     // Pages
     Route::get('/pages', 'PagesController@index')->name('admin.page.index');

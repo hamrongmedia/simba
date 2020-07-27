@@ -31,7 +31,7 @@
                         <span class="label label-success">{{$permission->name}}</span> 
                     @endforeach
                 </td>
-                <td>2020-03-23 22:39:57</td>
+                <td></td>
                 <td>
                     <a href="{{route('admin.user.edit', $user->id)}}"><span title="Edit"
                             type="button" class="btn btn-flat btn-primary"><i
