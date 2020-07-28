@@ -9,6 +9,7 @@ use App\Models\ThemeOptions;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Repositories\Product\ProductRepository;
 class ProductController extends Controller
 {
@@ -113,8 +114,21 @@ class ProductController extends Controller
      */
     public function getProductByCategory($product_cat_slug)
     {
-        $slug = $product_cat_slug;
-        return view('front-end.page.product_category', );
+        $catalog = ProductCategory::where('slug',$product_cat_slug)->firstOrFail();
+        $datas = $this->productRepository->getProductCatalog($request,$catalog->id);
+        if($datas) {
+            foreach ($datas as $data) {
+                # Get Product Images 
+                $img_attr = [];
+                if($data->productImage) {
+                    foreach ($data->productImage as $pim) {
+                        $img_attr[$pim->attribute_value1][] = $pim->image_file;
+                    }
+                    $data->img_attr = $img_attr;
+                }
+            }
+        }
+        return view('front-end.page.product_category', compact('datas'));
     }
 
     public function array_unique_multidimensional($input)
