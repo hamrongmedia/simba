@@ -11,74 +11,16 @@
             <div class="box-header with-border">
                 <div class="pull-right">
                     <div class="menu-right">
-                        <form action="{{route('admin.user.search')}}" id="button_search">
-                            <div onclick="searchAjax()" class="btn-group pull-right">
-                                <a class="btn btn-flat btn-primary" title="Refresh">
-                                    <i class="fa  fa-search"></i>
-                                </a>
-                            </div>
-                            <div class="btn-group pull-right">
-                                <div class="form-group">
-                                    <input type="text" id="search_input" name="query" class="form-control"
-                                        placeholder="Search Name, ID or Email" value="">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="pull-left">
-                </div>
-                <!-- /.box-tools -->
-            </div>
-
-            <div class="box-header with-border">
-                <div class="pull-right">
-                    <div class="menu-right">
                             <a href="{{route('admin.user.create')}}" class="btn  btn-success  btn-flat"
                             title="New" id="button_create_new">
                             <i class="fa fa-plus" title="Add new"></i>
                         </a>
                     </div>
                 </div>
-
-
-                <div class="pull-left">
-                    <div class="menu-left">
-                        <button type="button" class="btn btn-default grid-select-all"><i
-                                class="fa fa-square-o"></i></button>
-                    </div>
-                    <div class="menu-left">
-                        <a class="btn btn-flat btn-danger grid-trash" title="Delete"><i class="fa fa-trash-o"></i></a>
-                    </div>
-
-                    <div class="menu-left">
-                        <a class="btn btn-flat btn-primary grid-refresh" title="Refresh"><i
-                                class="fa fa-refresh"></i></a>
-                    </div>
-
-                    <div class="menu-left">
-                        <div class="btn-group">
-                            <select class="form-control" id="order_sort">
-                                <option value="id__desc">ID desc</option>
-                                <option value="id__asc">ID asc</option>
-                                <option value="username__desc">Name login desc</option>
-                                <option value="username__asc">Name login asc</option>
-                                <option value="name__desc">Name desc</option>
-                                <option value="name__asc">Name asc</option>
-                            </select>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                                <i class="fa fa-sort-amount-asc"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                @include('admin.pages.ajax_components.user_table')
-
+                @include('admin.pages.admin_manage.user_table')
             </section>
             <!-- /.box-body -->
         </div>

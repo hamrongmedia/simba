@@ -1,7 +1,7 @@
 <?php
 Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(function () {
 
-    Route::post('slug/creat','SlugController@store')->name('slug.create');
+    Route::post('slug/creat', 'SlugController@store')->name('slug.create');
 
     Route::get('/', 'AdminController@index')->name('admin.index');
 
@@ -13,6 +13,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('/post/edit/{id}', 'PostsController@update')->name('admin.post.update');
     Route::post('/post/delete', 'PostsController@delete')->name('admin.post.delete');
     Route::get('/post/search', 'PostsController@search')->name('admin.post.search');
+    Route::get('/posts/list-post', 'PostsController@listPost')->name('admin.post.list_post');
 
     // Category
     Route::get('/post-category', 'CategoryController@index')->name('admin.category.index');
@@ -22,6 +23,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('/post-category/edit/{id}', 'CategoryController@update')->name('admin.category.update');
     Route::post('/post-category/destroy', 'CategoryController@destroy')->name('admin.category.destroy');
     Route::get('/post-category/search', 'CategoryController@search')->name('admin.category.search');
+    Route::get('/post-category/list-categories', 'CategoryController@listCategories')->name('admin.category.list_categories');
 
     // Pages
     Route::get('/pages', 'PagesController@index')->name('admin.page.index');

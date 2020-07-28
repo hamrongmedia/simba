@@ -36,9 +36,9 @@
               <div class="form-group">
               <label for="">Nhập ảnh </label>
                 @if($value != null && isset($value->home2_background1))
-                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn3', 'value' => $value->home2_background1, 'holder' => 'home2_background2_holder','holder_img' => $value->home2_background1])
+                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'home2_background1', 'value' => $value->home2_background1, 'holder' => 'home2_background1_holder','holder_img' => $value->home2_background1])
                 @else
-                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'logo-btn3', 'value' => '', 'holder' => 'home2_background1_holder'])
+                  @include('admin.component.image_button', ['name' => 'home2_background1', 'id' => 'home2_background1', 'value' => '', 'holder' => 'home2_background1_holder'])
                 @endif
             </div>
             <div class="form-group">
@@ -61,9 +61,9 @@
             <div class="form-group">
                 <label for="">Nhập ảnh </label>
                 @if($value != null && isset($value->home2_background2))
-                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn3', 'value' => $value->home2_background2, 'holder' => 'home2_background2_holder','holder_img' => $value->home2_background2])
+                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'home2_background2', 'value' => $value->home2_background2, 'holder' => 'home2_background2_holder','holder_img' => $value->home2_background2])
                 @else
-                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'logo-btn3', 'value' => '', 'holder' => 'home2_background2_holder'])
+                  @include('admin.component.image_button', ['name' => 'home2_background2', 'id' => 'home2_background2', 'value' => '', 'holder' => 'home2_background2_holder'])
                 @endif
             </div>
             <div class="form-group">
@@ -80,9 +80,9 @@
             <div class="form-group">
                 <label for="">Nhập ảnh background </label>
                 @if($value != null && isset($value->home3_background))
-                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn4', 'value' => $value->home3_background, 'holder' => 'home3_background_holder','holder_img' => $value->home3_background])
+                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'home3_background', 'value' => $value->home3_background, 'holder' => 'home3_background_holder','holder_img' => $value->home3_background])
                 @else
-                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'logo-btn4', 'value' => '', 'holder' => 'home3_background_holder'])
+                  @include('admin.component.image_button', ['name' => 'home3_background', 'id' => 'home3_background', 'value' => '', 'holder' => 'home3_background_holder'])
                 @endif
             </div>
             <div class="form-group">
@@ -196,9 +196,9 @@
           <div class="form-group">
             <label for="">Nhập ảnh 1</label>
             @if($value != null && isset($value->home7_icon1))
-              @include('admin.component.image_button', ['name' => 'home7_icon1', 'id' => 'logo-btn2', 'value' => $value->home7_icon1, 'holder' => 'home7_icon1_holder','holder_img' => $value->home7_icon1])
+              @include('admin.component.image_button', ['name' => 'home7_icon1', 'id' => 'home7_icon1', 'value' => $value->home7_icon1, 'holder' => 'home7_icon1_holder','holder_img' => $value->home7_icon1])
             @else
-              @include('admin.component.image_button', ['name' => 'home7_icon1_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon1'])
+              @include('admin.component.image_button', ['name' => 'home7_icon1_holder', 'id' => 'home7_icon1', 'value' => '', 'holder' => 'home7_icon1'])
             @endif
           </div>
           <hr>
@@ -213,9 +213,9 @@
           <div class="form-group">
             <label for="">Nhập ảnh 2</label>
             @if($value != null && isset($value->home7_icon2))
-              @include('admin.component.image_button', ['name' => 'home7_icon2', 'id' => 'logo-btn2', 'value' => $value->home7_icon2, 'holder' => 'home7_icon2_holder','holder_img' => $value->home7_icon2])
+              @include('admin.component.image_button', ['name' => 'home7_icon2', 'id' => 'home7_icon2', 'value' => $value->home7_icon2, 'holder' => 'home7_icon2_holder','holder_img' => $value->home7_icon2])
             @else
-              @include('admin.component.image_button', ['name' => 'home7_icon2_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon2'])
+              @include('admin.component.image_button', ['name' => 'home7_icon2_holder', 'id' => 'home7_icon2', 'value' => '', 'holder' => 'home7_icon2'])
             @endif
           </div>
           <hr>
@@ -230,9 +230,9 @@
           <div class="form-group">
             <label for="">Nhập ảnh 3</label>
             @if($value != null && isset($value->home7_icon3))
-              @include('admin.component.image_button', ['name' => 'home7_icon3', 'id' => 'logo-btn2', 'value' => $value->home7_icon3, 'holder' => 'home7_icon3_holder','holder_img' => $value->home7_icon3])
+              @include('admin.component.image_button', ['name' => 'home7_icon3', 'id' => 'home7_icon3', 'value' => $value->home7_icon3, 'holder' => 'home7_icon3_holder','holder_img' => $value->home7_icon3])
             @else
-              @include('admin.component.image_button', ['name' => 'home7_icon3_holder', 'id' => 'logo-btn2', 'value' => '', 'holder' => 'home7_icon3'])
+              @include('admin.component.image_button', ['name' => 'home7_icon3_holder', 'id' => 'home7_icon3', 'value' => '', 'holder' => 'home7_icon3'])
             @endif
           </div>
         </div>

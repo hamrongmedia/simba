@@ -134,17 +134,14 @@ Trang chủ
 
             <div class="wp-list-sp-home">
                 <div class="row">
-                      @include('front-end.content.product_list')
+                    @foreach($single_product_cat1 as $product)
+                        @include('front-end.content.product_list',['data'=>$product])
+                    @endforeach   
                 </div>
             </div>
         </div>
     </section> <!-- end sec-home-06 -->
 
-    <section class="sec-home-07 hidden-xs hidden-sm">
-        <div class="container-fluid">
-            @include('front-end.content.list_term_product')
-        </div>
-    </section> <!-- end sec-home-07 -->
     <section class="sec-home-08 mb-20">
         <div class="container-fluid">
             <div class="wp-dichvu">
@@ -210,17 +207,14 @@ Trang chủ
             </div>
             <div class="wp-list-sp-home">
                 <div class="row">
-                      @include('front-end.content.product_list')
+                    @foreach($single_product_cat2 as $product)
+                        @include('front-end.content.product_list',['data'=>$product])
+                    @endforeach  
                   
                 </div>
             </div>
         </div>
     </section> <!-- end sec-home-06 -->
-    <section class="sec-home-10 hidden-xs hidden-sm ">
-        <div class="container-fluid">
-             @include('front-end.content.list_term_product')
-        </div>
-    </section> <!-- end sec-home-07 -->
     <section class="sec-home-11 mb-80 hidden-xs">
         <div class="container-fluid pd-0">
             <div class="sec-instagam">

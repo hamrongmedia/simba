@@ -178,6 +178,9 @@ return [
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+        // Datatable
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
         // Composers
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ViewProvider::class,
@@ -236,6 +239,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
     ],
 
 ];

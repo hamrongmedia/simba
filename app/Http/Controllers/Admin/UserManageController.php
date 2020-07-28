@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Admin;
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
-use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -26,24 +26,41 @@ class UserManageController extends Controller
      */
     public function index(Request $request)
     {
+        return view('admin.pages.admin_manage.user_list');
+    }
 
-        if (empty($request->all())) {
-            $users = Admin::all()->sortBy('desc');
-            $paginator = new PaginationHelper($users, 10);
-            $items = $paginator->getItem(1);
-            return view('admin.pages.admin_manage.user_list', ['current_page' => 1, 'users' => $items, 'paginator' => $paginator]);
-        }
+    public function listUsers()
+    {
+        $users = Admin::query();
 
-        if ($request->sort_by) {
-            $users = Admin::all();
-            $result = SortHelper::sort($users, $request->sort_by, $request->sort_type);
-            $paginator = new PaginationHelper($result, 10);
-            $current_page = $request->current_page ?? 1;
-            $items = $paginator->getItem($current_page);
-            return view('admin.pages.ajax_components.user_table', ['current_page' => $current_page, 'users' => $items, 'paginator' => $paginator]);
-        }
-        return abort(404);
+        return DataTables::eloquent($users)
+            ->addColumn('action', function ($user) {
+                return '<a href="' . route("admin.user.edit", $user->id) . '">
+                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                <i class="fa fa-edit"></i></span></a>&nbsp;
+                <span onclick="deleteItem(' . $user->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+            })
+            ->addColumn('roles', function ($user) {
+                $result = '';
+                if ($user->roles) {
+                    foreach ($user->roles as $role) {
+                        $result = $result . '<span class="label label-success">' . $role->name . '</span>';
+                    }
+                }
+                return $result;
+            })
 
+            ->addColumn('permissions', function ($user) {
+                $result = '';
+                if ($user->permissions) {
+                    foreach ($user->permissions as $permission) {
+                        $result = $result . '<span class="label label-success">' . $permission->name . '</span>';
+                    }
+                }
+                return $result;
+            })
+            ->rawColumns(['action', 'roles', 'permissions'])
+            ->make(true);
     }
 
     /**

@@ -49,7 +49,7 @@
                 @endif
             </div>
             <div class="wp-add-to-cart">
-                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                     <span>Thêm vào giỏ</span>
                     <i class="fas fa-shopping-bag"></i>
                 </a>
@@ -58,7 +58,7 @@
         <!--end màu sắc-->
         <div class="wp-name-sp">
             <h3 class="h3-title">
-                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                     {{ $data->name }}
                 </a>
             </h3>
