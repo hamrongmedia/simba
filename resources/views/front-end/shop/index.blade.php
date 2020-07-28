@@ -138,13 +138,7 @@ Chuyên mục sản phẩm
 
                     <div id="ajax-product-pagination" style="text-align: center">
                         <div class="phantrang text-center">
-                            <ul class="pagination">
-                                <li><a href="#" rel="prev"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="active"><a>1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#" rel="next"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
+                            {{ $datas->links() }}
                         </div>
                     </div>
                 </div>
