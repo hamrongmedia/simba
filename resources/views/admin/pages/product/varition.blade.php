@@ -1,7 +1,7 @@
     <div class="variation-actions">
-        <a href="javascript:void(0)" class="btn-trigger-select-product-attributes">
+{{--         <a href="javascript:void(0)" class="btn-trigger-select-product-attributes">
             Chỉnh thuộc tính
-        </a>
+        </a> --}}
         <a href="javascript:void(0)" class="btn-trigger-add-new-product-variation">
             Thêm biến thể mới
         </a>
@@ -41,7 +41,7 @@
                             <td>{{ $pi->pav2_value }}</td>
                         @endif
                         <td style="width: 180px;" class="text-center">
-                            <a href="#" class="btn btn-info" onclick="editVarition({{ $pi->id }})">Sửa</a>
+                            {{-- <a href="#" class="btn btn-info" onclick="editVarition({{ $pi->id }})">Sửa</a> --}}
                             <a href="#" class="btn btn-danger" onclick="deleteVarition({{ $pi->id }}, {{ $data->id }})">Xóa</a>
                         </td>
                     </tr>

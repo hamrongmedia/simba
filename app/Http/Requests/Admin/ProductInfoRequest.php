@@ -24,7 +24,21 @@ class ProductInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'thumbnail' => 'required',
+            'product_images' => 'required',
         ];
+    }
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        $messages = array(
+            'thumbnail.required' => 'Vui lòng chọn ảnh',
+            'product_images.required' => 'Vui lòng chọn ảnh',
+        );
+        return $messages;
     }
 }

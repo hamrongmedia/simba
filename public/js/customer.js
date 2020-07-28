@@ -22,8 +22,12 @@ $(function() {
 
     // Add To Cart
     $(document).on('click', '.ajax-addtocart', function () {
-        if (!validateChooseSize()) {
-            return;
+        var product_type = $(this).data('product-type');
+        // Case When Product Attribute
+        if(product_type == 2) {
+            if (!validateChooseSize()) {
+                return;
+            }            
         }
         var params = getDetailGoodsParams();
         var url = $(this).data('href');
@@ -50,6 +54,7 @@ $(function() {
         var colorName = $(".add_bag_color li.active a").attr('title') ;
         var sizeName = $('.add_bag_size li.active').html();        
         var productId = $('#productId').val();
+        var productType = $('.ajax-addtocart').data('product-type');
         if(sizeId == undefined){
              $('.sizeError').show();
              $('.add_bag_size').addClass('errorAnimate');

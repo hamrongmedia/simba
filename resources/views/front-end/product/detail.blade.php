@@ -135,7 +135,7 @@
                             <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
                             <div class="wp-btn-mua">
                                 <input type="hidden" id="productId" value="{{ $product->id }}">
-                                <button class="ajax-addtocart" data-href="{{ route('cart.add') }}">
+                                <button class="ajax-addtocart" data-href="{{ route('cart.add') }}" data-product-type={{ $product->type }}>
                                     Mua ngay<i class="fas fa-shopping-bag"></i>
                                 </button>
                             </div>
@@ -465,7 +465,7 @@
                     <p> Sản phẩm đặc biệt dành cho:</p>
                 </div>
                 <div class="wp-btn col-md-2 col-xs-12 col-sm-3" style="text-align: center">
-                    <a href="javascript:void()" class="ajax-addtocart">ĐẶT MUA</a>
+                    <a href="javascript:void()" class="ajax-addtocart" data-href="{{ route('cart.add') }}" data-product-type={{ $product->type }}>ĐẶT MUA</a>
                 </div>
             </div>
             <div class="sp-quantam">
