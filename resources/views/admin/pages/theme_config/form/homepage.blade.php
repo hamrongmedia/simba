@@ -122,6 +122,22 @@
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="tab_5">
+          <div class="form-group col-xs-6">
+            <label for="">Chọn link chuyên mục</label>
+              @if($value != null && isset($value->home5_product1))
+                <input type="text" name="home5_cat_product" class="form-control" id="" value="{{$value->home5_cat_product}}">
+              @else
+                <input type="text" name="home5_cat_product" class="form-control" id="" placeholder="">
+              @endif 
+          </div>
+          <div class="form-group col-xs-6">
+                <label for="">Nhập ảnh background </label>
+                @if($value != null && isset($value->home5_background))
+                  @include('admin.component.image_button', ['name' => 'home5_background', 'id' => 'home5_background', 'value' => $value->home5_background, 'holder' => 'home5_background_holder','holder_img' => $value->home5_background])
+                @else
+                  @include('admin.component.image_button', ['name' => 'home5_background', 'id' => 'home5_background', 'value' => '', 'holder' => 'home5_background_holder'])
+                @endif
+          </div>
           <div class="form-group col-xs-3">
             <label for="">Chọn ID sản phẩm</label>
               @if($value != null && isset($value->home5_product1))
@@ -130,7 +146,6 @@
                 <input type="text" name="home5_product1" class="form-control" id="" placeholder="">
               @endif 
           </div>
-
           <div class="form-group col-xs-3">
             <label for="">Chọn ID sản phẩm</label>
               @if($value != null && isset($value->home5_product2))
@@ -153,14 +168,6 @@
                 <input type="text" name="home5_product4" class="form-control" id="" value="{{$value->home5_product4}}">
               @else
                 <input type="text" name="home5_product4" class="form-control" id="" placeholder="">
-              @endif 
-          </div>
-          <div class="form-group col-xs-3">
-            <label for="">Chọn ID sản phẩm nổi bật</label>
-              @if($value != null && isset($value->home5_product5))
-                <input type="text" name="home5_product5" class="form-control" id="" value="{{$value->home5_product5}}">
-              @else
-                <input type="text" name="home5_product5" class="form-control" id="" placeholder="">
               @endif 
           </div>
         </div>

@@ -14,7 +14,7 @@
                                     <div class="slide-sp owl-carousel">
                                         <div class="item">
                                             <div class="wp-img-slide-sp">
-                                                <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                                                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                                                     <img class="el_image" src="{{ $img }}">
                                                 </a>
                                             </div>
@@ -25,7 +25,7 @@
                                 <div class="slide-sp owl-carousel">
                                     <div class="item">
                                         <div class="wp-img-slide-sp">
-                                            <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                                            <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                                                 <img class="el_image" src="{{ $data->thumbnail }}"/>
                                             </a>
                                         </div>
@@ -39,7 +39,7 @@
                         <div class="slide-sp owl-carousel">
                             <div class="item">
                                 <div class="wp-img-slide-sp">
-                                    <a href="{{ route('product.detail',['slug'=>$data->product_slug]) }}" title="{{ $data->name }}">
+                                    <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
                                         <img class="el_image" src="{{ $data->thumbnail }}">
                                     </a>
                                 </div>

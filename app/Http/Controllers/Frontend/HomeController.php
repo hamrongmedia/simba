@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ThemeOptions;
 
@@ -29,8 +30,10 @@ class HomeController extends Controller
         $product_cat1 = ProductCategory::where('status', 1)->where('id', $content->home7_cat)->first();
         $product_cat2 = ProductCategory::where('status', 1)->where('id', $content->home9_cat)->first();
 
-
-        //dd($hightline_cat->posts);
+        $hot_products1 = Product::where('status', 1)->where('id',$content->home5_product1)->first();
+        $hot_products2 = Product::where('status', 1)->where('id',$content->home5_product2)->first();
+        $hot_products3 = Product::where('status', 1)->where('id',$content->home5_product3)->first();
+        $hot_products4 = Product::where('status', 1)->where('id',$content->home5_product4)->first();
 
         return view('front-end.home')->with([
             'homepageOption' => $content,
