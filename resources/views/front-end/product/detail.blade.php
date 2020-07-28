@@ -473,9 +473,8 @@
                 <div class="wp-list-sp-home">
                     <div class="row">
                         @if($datas)
-                            @foreach ($datas as $data)
-                                @include('front-end.content.product_list',['data'=>$data])
-                            @endforeach
+                        <?php dd($data)?>
+                           
                         @endif
                     </div>
                 </div>

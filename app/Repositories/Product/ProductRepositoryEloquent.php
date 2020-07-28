@@ -17,22 +17,22 @@ use App\Models\AttributeValue;
  */
 class ProductRepositoryEloquent extends BaseRepository implements ProductRepository {
 
-	const TAKE = 12;
+    const TAKE = 12;
   /**
-	* Specify Model class name
-	*
-	* @return string
-	*/
+    * Specify Model class name
+    *
+    * @return string
+    */
   public function getModel()
   {
     return Product::class;
   }
 
   /**
-	* Specify Model class name
-	*
-	* @return string
-	*/
+    * Specify Model class name
+    *
+    * @return string
+    */
     public function index($request)
     {
         $data = $this->model->with('user')->paginate(self::TAKE);
@@ -55,7 +55,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
                 'products.id',
                 'products.name',
                 'products.type',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
@@ -93,7 +93,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->select(
                 'products.id',
                 'products.name',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
@@ -126,7 +126,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->select(
                 'products.id',
                 'products.name',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
