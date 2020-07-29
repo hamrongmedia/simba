@@ -33,7 +33,7 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order" class="nav-link">
+              <a href="{{route('admin.order.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý đơn hàng</span></a>
             </li>

@@ -20,7 +20,7 @@
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                @include('admin.pages.admin_manage.user_table')
+                @include('admin.pages.order.table')
             </section>
             <!-- /.box-body -->
         </div>
@@ -32,9 +32,6 @@
 @section('js')
 
 <script>
-    var type = 'sort';
-
-
     function deleteItem(id) {
         Swal.fire({
             title: 'Are you sure?',

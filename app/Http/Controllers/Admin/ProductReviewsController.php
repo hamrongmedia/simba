@@ -8,18 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\ProductReviewsRequest;
 use App\Models\ProductReview;
 use App\Models\ProductReviewAnswer;
-use App\Repositories\ProductRepositories\ProductRviewsRepository;
 use Auth;
 use Illuminate\Http\Request;
 
 class ProductReviewsController extends Controller
 {
 
-    protected $productReviewsRepo;
-
-    public function __construct(ProductRviewsRepository $productReviewsRepo)
+    public function __construct()
     {
-        $this->productReviewsRepo = $productReviewsRepo;
     }
 
     /**
