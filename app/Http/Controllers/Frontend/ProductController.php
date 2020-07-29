@@ -101,7 +101,9 @@ class ProductController extends Controller
             $product->all_sizes = $this->array_unique_multidimensional($all_sizes);
             $product->product_attributes = $product_attributes;
         }
-        $product_setting = ThemeOptions::where('key', 'product')->first();
+
+        $data_product_setting = ThemeOptions::where('key', 'product')->first();
+        $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
         return view('front-end.product.detail',compact('product','product_setting','datas'));
     }

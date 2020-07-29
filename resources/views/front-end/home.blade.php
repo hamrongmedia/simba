@@ -148,36 +148,21 @@ Trang chủ
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb1">
                            <!--  ảnh cắt 820x920 -->
-                            <a href="ao-lot.html"><img class="el_image" src="{{asset('images-demo/venus-charm-banner-ao-lot-noi-bat-1-.jpg')}}" alt="ÁO LÓT"></a>
+                            <a href="{{isset($homepageOption->home5_cat_product) ? $homepageOption->home5_cat_product : ''}}"><img class="el_image" src="{{isset($homepageOption->home5_background) ? $homepageOption->home5_background : ''}}"></a>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb2">
                             <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div class="wp-item-spnb2">
-                                       <!--  anh cắt 468x586 -->
-                                        <a href=""><img class="el_image" src="{{asset('images-demo/1589008493.jpg')}}" alt="Áo Bầu 2195"></a>
+                                @foreach( $hot_products as $product )
+                                    @isset($product)
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="wp-item-spnb2">
+                                            <a href="{{ route('product.detail',['slug'=>$product->slug]) }}"><img class="el_image" src="{{$product->thumbnail}}" alt="{{$product->name}}"></a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div class="wp-item-spnb2">
-                                        <!--  anh cắt 468x586 -->
-                                        <a href=""><img class="el_image" src="{{asset('images-demo/1588986851.jpg')}}" alt="Áo 8038"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div class="wp-item-spnb2">
-                                        <!--  anh cắt 468x586 -->
-                                        <a href=""><img class="el_image" src="{{asset('images-demo/1582979383.jpg')}}" alt="Áo JM Siêu Đẩy"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <div class="wp-item-spnb2">
-                                        <!--  anh cắt 468x586 -->
-                                        <a href=""><img class="el_image" src="{{asset('images-demo/1578627910.jpg')}}" alt="ÁO LÓT 8055"></a>
-                                    </div>
-                                </div>
+                                    @endisset 
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -257,7 +242,36 @@ Trang chủ
                 </div>
             </div>
         </div>
-    </section> <!-- end sec-home-06 -->
+        </section> <!-- end sec-home-06 -->
+        <section class="sec-home-07 hidden-xs hidden-sm">
+            <div class="container-fluid">
+                <div class="wp-spnb-b">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="wp-sp-nb sp-nb2">
+                                <div class="row">
+                                    @foreach( $hot_products1 as $product )
+                                        @isset($product)
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="wp-item-spnb2">
+                                                <a href="{{ route('product.detail',['slug'=>$product->slug]) }}"><img class="el_image" src="{{$product->thumbnail}}" alt="{{$product->name}}"></a>
+                                            </div>
+                                        </div>
+                                        @endisset 
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="wp-sp-nb sp-nb1">
+                               <!--  ảnh cắt 820x920 -->
+                                <a href="{{isset($homepageOption->home10_cat_product) ? $homepageOption->home10_cat_product : ''}}"><img class="el_image" src="{{isset($homepageOption->home10_background) ? $homepageOption->home10_background : ''}}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- end sec-home-07 -->
     <section class="sec-home-11 mb-80 hidden-xs">
         <div class="container-fluid pd-0">
             <div class="sec-instagam">
