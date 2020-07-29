@@ -17,22 +17,22 @@ use App\Models\AttributeValue;
  */
 class ProductRepositoryEloquent extends BaseRepository implements ProductRepository {
 
-	const TAKE = 12;
+    const TAKE = 12;
   /**
-	* Specify Model class name
-	*
-	* @return string
-	*/
+    * Specify Model class name
+    *
+    * @return string
+    */
   public function getModel()
   {
     return Product::class;
   }
 
   /**
-	* Specify Model class name
-	*
-	* @return string
-	*/
+    * Specify Model class name
+    *
+    * @return string
+    */
     public function index($request)
     {
         $data = $this->model->with('user')->paginate(self::TAKE);

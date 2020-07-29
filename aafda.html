@@ -1,24 +1,274 @@
-<script>
+<script type="text/javascript">
 
-    $(function () {
-        $("#posts-table").dataTable({
-            processing: true,
-            serverSide: true,
-            responsive: true,
-            autoWidth: false,
-            scrollX: true,
+    $(document).ready(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    });
 
-            ajax: "{{route('admin.post.list_post')}}",
-            columns: [
-                { "data": "id" },
-                { "data": "title" },
-                { "data": "slug" },
-                { "data": "categories" },
-                { "data": "image" },
-                { "data": "status" },
-                { "data": "action" },
+    function update_total(e) {
+        node = e.closest('tr');
+        var qty = node.find('.add_qty').eq(0).val();
+        var price = node.find('.add_price').eq(0).val();
+        node.find('.add_total').eq(0).val(qty * price);
+    }
 
-            ]
+
+    //Add item
+    function selectProduct(element) {
+        node = element.closest('tr');
+        var id = parseInt(node.find('option:selected').eq(0).val());
+        if (id == 0) {
+            node.find('.add_sku').val('');
+            node.find('.add_qty').eq(0).val('');
+            node.find('.add_price').eq(0).val('');
+            node.find('.add_attr').html('');
+            node.find('.add_tax').html('');
+        } else {
+            $.ajax({
+                url: 'https://demo.s-cart.org/sc_admin/order/product_info',
+                type: "get",
+                dateType: "application/json; charset=utf-8",
+                data: {
+                    id: id,
+                    order_id: 300,
+                },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (returnedData) {
+                    node.find('.add_sku').val(returnedData.sku);
+                    node.find('.add_qty').eq(0).val(1);
+                    node.find('.add_price').eq(0).val(returnedData.price_final * 1);
+                    node.find('.add_total').eq(0).val(returnedData.price_final * 1);
+                    node.find('.add_attr').eq(0).html(returnedData.renderAttDetails);
+                    node.find('.add_tax').eq(0).html(returnedData.tax);
+                    $('#loading').hide();
+                }
+            });
+        }
+
+    }
+
+    $('#add-item-button-save').click(function (event) {
+        $('#add-item-button').prop('disabled', true);
+        $('#add-item-button-save').button('loading');
+        $.ajax({
+            url: 'https://demo.s-cart.org/sc_admin/order/add_item',
+            type: 'post',
+            dataType: 'json',
+            data: $('form#form-add-item').serialize(),
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (result) {
+                $('#loading').hide();
+                if (parseInt(result.error) == 0) {
+                    location.reload();
+                } else {
+                    alertJs('error', result.msg);
+                }
+            }
         });
     });
+
+    //End add item
+    //
+
+    $(document).ready(function () {
+        all_editable();
+    });
+
+    function all_editable() {
+        $.fn.editable.defaults.params = function (params) {
+            params._token = "foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20";
+            return params;
+        };
+
+        $('.updateInfo').editable({
+            success: function (response) {
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+        $(".updatePrice").on("shown", function (e, editable) {
+            var value = $(this).text().replace(/,/g, "");
+            editable.input.$input.val(parseInt(value));
+        });
+
+        $('.updateStatus').editable({
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+            },
+            success: function (response) {
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+        $('.updateInfoRequired').editable({
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+            },
+            success: function (response, newValue) {
+                console.log(response.msg);
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+
+        $('.edit-item-detail').editable({
+            ajaxOptions: {
+                type: 'post',
+                dataType: 'json'
+            },
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+                if (!$.isNumeric(value)) {
+                    return 'Please input numeric!';
+                }
+            },
+            success: function (response, newValue) {
+                if (response.error == 0) {
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-received').html(response.detail.received);
+                    $('.data-subtotal').html(response.detail.subtotal);
+                    $('.data-tax').html(response.detail.tax);
+                    $('.data-total').html(response.detail.total);
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-discount').html(response.detail.discount);
+                    $('.item_id_' + response.detail.item_id).html(response.detail.item_total_price);
+                    var objblance = $('.data-balance').eq(0);
+                    objblance.before(response.detail.balance);
+                    objblance.remove();
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+
+        });
+
+        $('.updatePrice').editable({
+            ajaxOptions: {
+                type: 'post',
+                dataType: 'json'
+            },
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+                if (!$.isNumeric(value)) {
+                    return 'Please input numeric!';
+                }
+            },
+
+            success: function (response, newValue) {
+                if (response.error == 0) {
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-received').html(response.detail.received);
+                    $('.data-subtotal').html(response.detail.subtotal);
+                    $('.data-tax').html(response.detail.tax);
+                    $('.data-total').html(response.detail.total);
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-discount').html(response.detail.discount);
+                    var objblance = $('.data-balance').eq(0);
+                    objblance.before(response.detail.balance);
+                    objblance.remove();
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+    }
+
+
+
+    function deleteItem(id) {
+        Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true,
+        }).fire({
+            title: 'Are you sure to delete this item?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        method: 'POST',
+                        url: 'https://demo.s-cart.org/sc_admin/order/delete_item',
+                        data: {
+                            'pId': id,
+                            _token: 'foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20',
+                        },
+                        success: function (response) {
+                            if (response.error == 0) {
+                                location.reload();
+                                alertJs('success', response.msg);
+                            } else {
+                                alertJs('error', response.msg);
+                            }
+
+                        }
+                    });
+                });
+            }
+
+        }).then((result) => {
+            if (result.value) {
+                alertMsg('success', 'Item has been deleted.', 'Deleted!');
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                // swalWithBootstrapButtons.fire(
+                //   'Cancelled',
+                //   'Your imaginary file is safe :)',
+                //   'error'
+                // )
+            }
+        })
+    }
+
+
+
+    $(document).ready(function () {
+        // does current browser support PJAX
+        if ($.support.pjax) {
+            $.pjax.defaults.timeout = 2000; // time in milliseconds
+        }
+
+    });
+
+    function order_print() {
+        $('.not-print').hide();
+        window.print();
+        $('.not-print').show();
+    }
 </script>

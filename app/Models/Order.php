@@ -41,7 +41,7 @@ class Order extends Model
      */
     public function orderStatus()
     {
-        return $this->hasOne('App\Models\OrderStatus','id','order_status_id');
+        return $this->hasOne('App\Models\OrderStatus', 'id', 'order_status_id');
     }
 
     /**
@@ -50,6 +50,6 @@ class Order extends Model
      */
     public function paymentMethod()
     {
-        return $this->hasOne('App\Models\PaymentMethod','id','payment_method_id');
+        return $this->hasOne('App\Models\PaymentMethod', 'id', 'payment_method_id');
     }
 }

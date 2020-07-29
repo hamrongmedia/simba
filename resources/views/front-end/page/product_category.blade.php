@@ -129,7 +129,7 @@ Chuyên mục sản phẩm
                     <div class="wp-list-sp-home list-danhmyc-spsp">
                         <div class="row row-eidt-0" style="margin-left: 0px;margin-right: 0px;" id="ajax-product-list">
                             <!--   bắt bầu vòng lặp sản phẩm -->
-                             @include('front-end.content.product_list')
+                            {{--  @include('front-end.content.product_list') --}}
                         </div>
                     </div>
 

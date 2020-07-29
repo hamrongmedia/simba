@@ -14,7 +14,7 @@ Trang chủ
                             <?php //dd($homepageOption);?>
                             <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
                            <!--  banner mobile -->
-                            <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{asset('images-demo/venus-charm-grand-opening-112c1-pham-ngoc-thach.png')}}" alt="banner1">
+                            <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
                         </div>
                         <div class="text-banner">
                             <div style="z-index: 9; font-size: 50px;color: #c73550;" class="hidden">
@@ -141,7 +141,35 @@ Trang chủ
             </div>
         </div>
     </section> <!-- end sec-home-06 -->
-
+    <section class="sec-home-07 hidden-xs hidden-sm">
+        <div class="container-fluid">
+            <div class="wp-spnb-b">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="wp-sp-nb sp-nb1">
+                           <!--  ảnh cắt 820x920 -->
+                            <a href="{{isset($homepageOption->home5_cat_product) ? $homepageOption->home5_cat_product : ''}}"><img class="el_image" src="{{isset($homepageOption->home5_background) ? $homepageOption->home5_background : ''}}"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="wp-sp-nb sp-nb2">
+                            <div class="row">
+                                @foreach( $hot_products as $product )
+                                    @isset($product)
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="wp-item-spnb2">
+                                            <a href="{{ route('product.detail',['slug'=>$product->slug]) }}"><img class="el_image" src="{{$product->thumbnail}}" alt="{{$product->name}}"></a>
+                                        </div>
+                                    </div>
+                                    @endisset 
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- end sec-home-07 -->
     <section class="sec-home-08 mb-20">
         <div class="container-fluid">
             <div class="wp-dichvu">
@@ -214,7 +242,36 @@ Trang chủ
                 </div>
             </div>
         </div>
-    </section> <!-- end sec-home-06 -->
+        </section> <!-- end sec-home-06 -->
+        <section class="sec-home-07 hidden-xs hidden-sm">
+            <div class="container-fluid">
+                <div class="wp-spnb-b">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="wp-sp-nb sp-nb2">
+                                <div class="row">
+                                    @foreach( $hot_products1 as $product )
+                                        @isset($product)
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="wp-item-spnb2">
+                                                <a href="{{ route('product.detail',['slug'=>$product->slug]) }}"><img class="el_image" src="{{$product->thumbnail}}" alt="{{$product->name}}"></a>
+                                            </div>
+                                        </div>
+                                        @endisset 
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="wp-sp-nb sp-nb1">
+                               <!--  ảnh cắt 820x920 -->
+                                <a href="{{isset($homepageOption->home10_cat_product) ? $homepageOption->home10_cat_product : ''}}"><img class="el_image" src="{{isset($homepageOption->home10_background) ? $homepageOption->home10_background : ''}}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- end sec-home-07 -->
     <section class="sec-home-11 mb-80 hidden-xs">
         <div class="container-fluid pd-0">
             <div class="sec-instagam">
