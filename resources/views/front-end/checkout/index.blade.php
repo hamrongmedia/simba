@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="wp-header-thanhtoan">
                     <div class="wp-logo-fft">
-                        <a href=""><img src="{{asset('images/logo.png')}}" alt="Venus Charm"></a>
+                        <a href="{{ route('home') }}"><img src="{{asset('images/logo.png')}}" alt="Venus Charm"></a>
                     </div>
                     <p><i class="fas fa-question-circle"></i><span> Thông tin khách hàng tuyệt đối bảo mật</span></p>
                 </div>
@@ -201,6 +201,78 @@
 </style>
 @include('front-end.partials.footer.js')
 <script type="text/javascript">
+    function number_format (number, decimals, dec_point, thousands_sep) {
+        number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function (n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + Math.round(n * k) / k;
+            };
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '').length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1).join('0');
+        }
+        return s.join(dec);
+    }
+    $('#province').change(function () {
+        var city_id = $('#province').val();
+        $('#click_hidden').hide();
+
+        $('#wp-pt-thanhtoan').show();
+        $('#phuongthuc-ttt').show();
+
+        $('#phi_shop').attr('data-value','0');
+        $('#phi_inner').attr('data-value','0');
+        $('#phi_ship').html(number_format('0', 0, '.', '.')+' đ');
+        $('#phi_vanchuyen').html(number_format('0', 0, '.', '.')+' đ');
+        $('#shipcode_value').find('input').attr('value', 0);
+
+
+        if(city_id == parseFloat(1)){
+            $('#phi_shop').attr('data-value','22000');
+            $('#phi_inner').attr('data-value','22000');
+            $('#phi_ship').html(number_format('22000', 0, '.', '.')+' đ');
+            $('#phi_vanchuyen').html(number_format('22000', 0, '.', '.')+' đ');
+            $('#shipcode_value').find('input').attr('value', '22000');
+
+        }else{
+            $('#phi_shop').attr('data-value','33000');
+            $('#phi_inner').attr('data-value','33000');
+            $('#phi_ship').html(number_format('33000', 0, '.', '.')+' đ');
+            $('#phi_vanchuyen').html(number_format('33000', 0, '.', '.')+' đ');
+            $('#shipcode_value').find('input').attr('value', '33000');
+
+        }
+        
+
+        $( "#phi_shop" ).prop( "checked", true );
+        $( "#phi_inner" ).prop( "checked", false );
+        $( "#cod-thanhtoan" ).prop( "checked", true );
+        $( "#online-thanhtoan" ).prop( "checked", false );
+
+
+        var phi_shop = $('#phi_shop').attr('data-value');
+        $('#shipcode_value').attr('data-price', phi_shop);
+        $('#shipcode_value').find('input').attr('value', phi_shop);
+        $('#shipcode-uppercase').html(number_format(phi_shop, 0, '.', '.')+' đ');
+        var salesoluong = 0;
+        var saleKGVPT = 0;
+        var shipcode = parseInt($('input[name="shipcode_value"]').val());
+        var giftcode = parseInt($('input[name="giftcode_value"]').val());
+        var total = parseInt($('#total_cart_money').val());
+        $('#price_tt').html(number_format(( total + shipcode - giftcode - salesoluong - saleKGVPT), 0, '.', '.'+' đ'));
+        $('#total_total').attr('data-price', (total + shipcode - giftcode - salesoluong - saleKGVPT));
+        $('#total_total').find('input').attr('value', (total + shipcode - giftcode - salesoluong - saleKGVPT));
+    });
+
     $('#wp-pt-thanhtoan').hide();
     $('#phuongthuc-ttt').hide();
     $("#hiddenshow" ).hide( );

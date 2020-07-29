@@ -56,6 +56,7 @@ $(function() {
         var productId = $('#productId').val();
         var productType = $('.ajax-addtocart').data('product-type');
         if(sizeId == undefined){
+            alert($('.sizeError').text());
              $('.sizeError').show();
              $('.add_bag_size').addClass('errorAnimate');
              setTimeout(function(){
