@@ -55,7 +55,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
                 'products.id',
                 'products.name',
                 'products.type',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
@@ -93,7 +93,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->select(
                 'products.id',
                 'products.name',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
@@ -126,7 +126,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->select(
                 'products.id',
                 'products.name',
-                'products.slug as product_slug',
+                'products.slug as slug',
                 'products.price',
                 'products.sale_price',
                 'products.thumbnail',
