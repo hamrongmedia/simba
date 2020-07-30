@@ -116,8 +116,8 @@ class CheckoutController extends Controller
             $dataSendEmail['user'] = $user;
             $dataSendEmail['order'] = $order;
             $dataSendEmail['data_order_detail'] = $data_order_detail;
-            // dispatch(new \App\Jobs\JobSendEmailOrderToUser($dataSendEmail));
-            // dispatch(new \App\Jobs\JobSendEmailOrderToSystem($dataSendEmail));
+            dispatch(new \App\Jobs\JobSendEmailOrderToUser($dataSendEmail));
+            dispatch(new \App\Jobs\JobSendEmailOrderToSystem($dataSendEmail));
 
             return redirect()->route('checkout.success',['order_code'=>$order->order_code]);
         } catch (\Exception $e) {
@@ -134,7 +134,17 @@ class CheckoutController extends Controller
     */
     public function success($order_code)
     {
-        $order = Order::where('order_code',$order_code)->firstOrFail();
+        $order = Order::with(['province'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->with(['district'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->with(['ward'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->where('order_code',$order_code)
+                    ->firstOrFail();
         $datas = $this->orderRepository->getOrderByOrderCode($order_code);
         $user = $this->guard()->user();
         return view('front-end.checkout.success',compact('order','user','datas'));

@@ -35,6 +35,12 @@ class OrderService
         $order->address = $request->address;
         $order->message = $request->message;
         $order->order_code = $order_code;
+        $order->subtotal = $request->total_cart_money;
+        $order->delivery_fee_total = $request->shipcode_value;
+        $order->payment_total = $request->total_cart_money + $request->shipcode_value;
+        $order->province_id = $request->province_id;
+        $order->district_id = $request->district_id;
+        $order->ward_id = $request->war_id;
         $order->payment_method_id = 1;
         $order->order_status_id = OrderStatus::STATUS_PENDING;
         $order->save();

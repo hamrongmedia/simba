@@ -6,9 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use DataTables;
 use Illuminate\Http\Request;
-
+use App\Repositories\Order\OrderRepository;
 class OrderController extends Controller
 {
+    /**
+     * @var orderRepository
+     */
+    protected $orderRepository;
+
+    /**
+     * @var cartService;
+     */
+    protected $cartService;
+
+    /**
+     * @var orderService;
+     */
+    protected $orderService;
+
+    public function __construct(
+        Request $request,
+        OrderRepository $orderRepository
+    )
+    {
+        $this->request = $request;
+        $this->orderRepository = $orderRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -96,7 +119,23 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.order.detail');
+        $order = Order::with(['province'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->with(['district'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->with(['ward'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->with(['orderStatus'=>function($query){
+                        $query->select('id','name');
+                    }])
+                    ->where('id',$id)
+                    ->firstOrFail();
+        $datas = $this->orderRepository->getDetailOrder($id);
+        $user = $this->guard()->user();        
+        return view('admin.pages.order.detail',compact('order','user','datas'));
     }
 
     /**

@@ -64,18 +64,22 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository 
 		$current_date = Carbon::now(config('app.timezone'))->toDateString();
 		$datas = Order::join('order_items','orders.id','=','order_items.order_id')
 					->join('products','order_items.product_id','=','products.id')
-					->join('agencies','orders.agency_id','=','agencies.id')
-					->select('orders.*',
+					->leftJoin('product_attribute_values as pav1','order_items.attribute_value1','=','pav1.id')
+					->leftJoin('product_attribute_values as pav2','order_items.attribute_value2','=','pav2.id')
+					->where('orders.id',$order_id)
+					->select(
+						'orders.*',
 						'products.thumbnail',
 						'products.name',
-						'products.product_code',
-						'products.unit',
+						'products.type',
+						'products.slug as product_slug',
 						'order_items.quantity',
 						'order_items.price',
-						'agencies.agency_code',
-						'agencies.fullname as agency_name'
+                        'pav1.id as pav1_id',
+                        'pav1.value as pav1_value',
+                        'pav2.id as pav2_id',
+                        'pav2.value as pav2_value'
 					)
-					->where('orders.id',$order_id)
 					->get();
 		return $datas;
 	}
