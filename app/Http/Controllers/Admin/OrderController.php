@@ -72,7 +72,9 @@ class OrderController extends Controller
                 return '';
             })
             ->editColumn('payment_method', function (Order $order) {
-                return $order->paymentMethod->name;
+                if ($order->paymentMethod) {
+                    return $order->paymentMethod->name;
+                }
             })
             ->rawColumns(['action', 'status'])
             ->make(true);
