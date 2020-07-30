@@ -41,7 +41,7 @@ class Order extends Model
      */
     public function orderStatus()
     {
-        return $this->hasOne('App\Models\OrderStatus', 'id', 'order_status_id');
+        return $this->hasOne(OrderStatus::class, 'id', 'order_status_id');
     }
 
     /**
@@ -51,5 +51,32 @@ class Order extends Model
     public function paymentMethod()
     {
         return $this->hasOne('App\Models\PaymentMethod', 'id', 'payment_method_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @author Bao Do
+     */
+    public function province()
+    {
+        return $this->hasOne(Province::class, 'id', 'province_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @author Bao Do
+     */
+    public function district()
+    {
+        return $this->hasOne(District::class, 'id', 'district_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @author Bao Do
+     */
+    public function ward()
+    {
+        return $this->hasOne(Ward::class, 'id', 'ward_id');
     }
 }

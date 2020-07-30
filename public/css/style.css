@@ -3102,3 +3102,9 @@ p.sizeError {
     font-style: italic;
     font-size: 12px;
 }
+.group-city .row {
+    margin: 0px -5px;
+}
+.group-city .col-md-4 {
+    padding: 0px 5px;
+}

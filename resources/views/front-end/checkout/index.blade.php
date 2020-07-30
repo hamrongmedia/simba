@@ -19,8 +19,12 @@
                         <div class="wp-right-tt">
                             <div class="wp-list-sp">
                                 <ul class="ul-b list-sp-tt">
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
                                     @if($cartItems)
                                         @foreach ($cartItems as $cartItem)
+                                            @php $subtotal += $cartItem->price * $cartItem->quantity; @endphp
                                             <li class="item-sp-tt">
                                                 <div class="img-sp-tt">
                                                     <a href="{{ route('product.detail',['slug'=>$cartItem->product_slug]) }}" target="_blank" title="{{ $cartItem->name }}">
@@ -53,36 +57,28 @@
                                     @endif
                                 </ul>
                             </div>
-{{--                             <div class="box-ma-gg">
-                                <div class="error uk-alert"></div>
-                                <div class="magg">
-                                    <input type="text" name="discount_code" value="" class="text form-control" placeholder="Nhập mã giảm giá">
-                                    <input type="submit" class="btn btn-default button" value="Áp dụng" id="apply_gift_code">
-                                </div>
-                            </div> --}}
                             <div class="list-thanhtien">
                                 <ul class="ul-b list-da">
                                     <li>
                                         <span>Tạm tính</span>
-                                        <span class="sp2">259.000đ</span>
+                                        <span class="sp2">{{ \App\Helpers\Common::priceFormat($subtotal) }}đ</span>
                                     </li>
                                     <li>
                                         <span>Phí vận chuyển</span>
                                         <input type="hidden" name="shipcode">
-                                        <div class="price_tt sp2" id="shipcode_value" data-price=""><input type="hidden" name="shipcode_value" value="0"><span id="shipcode-uppercase">259.000đ</span></div>
-                                    </li>
-                                    <li>
-                                        <span>Giảm giá</span>
-                                        <div class="price_tt sp2" id="giftcode_value" data-price=""><input type="hidden" name="giftcode_value" value="0"><strong id="giftcode-uppercase">-</strong></div>
+                                        <div class="price_tt sp2" id="shipcode_value" data-price="">
+                                            <input type="hidden" name="shipcode_value" value="0">
+                                            <span id="shipcode-uppercase"></span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
                             <div class="tongtien">
                                 <div class="">
                                     <input type="hidden" name="userid" value="">
-                                    <input type="hidden" name="total_cart_money" id="total_cart_money" value="259000">
+                                    <input type="hidden" name="total_cart_money" id="total_cart_money" value="{{ $subtotal }}">
                                     <span>Tổng cộng</span>
-                                    <span id="price_tt" class="sp2">259.000 đ</span>
+                                    <span id="price_tt" class="sp2">{{ \App\Helpers\Common::priceFormat($subtotal) }} đ</span>
                                 </div>
                             </div>
                         </div>
@@ -120,16 +116,33 @@
                                         <input type="text" name="address" class="text form-control" placeholder="Ví dụ: Số 10, Ngõ 50, Đường ABC" value="{{ old('address') }}">
                                     </div>
                                 </div>
-                                <div class="form-group group3">
-                                    <select name="province_id" class="form-control" id="province" >
-                                        <option value="-1" rel='-1' slug=''>-- Tỉnh/Thành Phố --</option>
-                                    </select>
-                                    <select class="form-control" name="district_id" id="district_id">
-                                        <option value="-1" rel='-1'>-- Quận/Huyện --</option>
-                                    </select>
-                                    <select class="form-control" name="war_id" id="war_id">
-                                        <option value="-1">-- Phường/Xã --</option>
-                                  </select>
+                                <div class="form-group group-city">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select name="province_id" class="form-control" id="province" >
+                                                <option value="">-- Tỉnh/Thành Phố --</option>
+                                            </select>
+                                            @if ($errors->first('province_id'))
+                                                <div class="error">{{ $errors->first('province_id') }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" name="district_id" id="district_id">
+                                                <option value="">-- Quận/Huyện --</option>
+                                            </select>
+                                            @if ($errors->first('district_id'))
+                                                <div class="error">{{ $errors->first('district_id') }}</div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control" name="war_id" id="war_id">
+                                                <option value="">-- Phường/Xã --</option>
+                                            </select>
+                                            @if ($errors->first('war_id'))
+                                                <div class="error">{{ $errors->first('war_id') }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <textarea name="message" class="text form-control" placeholder="Ví dụ: Chuyển hàng ngoài giờ hành chính">{{ old('message') }}</textarea>
@@ -222,6 +235,30 @@
         }
         return s.join(dec);
     }
+    $(document).ready(function(){
+        load_total_price_cart();
+        <!--tính phí vận chuyển-->
+        $('#phi_shop').change(function() {
+
+            $("#province > option:selected").each(function() {
+                var phi_shop = $('#phi_shop').attr('data-value');
+                $('#shipcode_value').attr('data-price', phi_shop);
+                $('#shipcode_value').find('input').attr('value', phi_shop);
+                $('#shipcode-uppercase').html(number_format(phi_shop, 0, '.', '.')+' đ');
+                load_total_price_cart();
+            });
+        });
+        $('#phi_inner').change(function() {
+            $("#province > option:selected").each(function() {
+                var phi_inner = $('#phi_inner').attr('data-value');
+                $('#shipcode_value').attr('data-price', phi_inner);
+                $('#shipcode_value').find('input').attr('value', phi_inner);
+                $('#shipcode-uppercase').html(number_format(phi_inner, 0, '.', '.')+' đ');
+                load_total_price_cart();
+            });
+
+        });
+    });
     $('#province').change(function () {
         var city_id = $('#province').val();
         $('#click_hidden').hide();
@@ -266,12 +303,21 @@
         var salesoluong = 0;
         var saleKGVPT = 0;
         var shipcode = parseInt($('input[name="shipcode_value"]').val());
-        var giftcode = parseInt($('input[name="giftcode_value"]').val());
         var total = parseInt($('#total_cart_money').val());
-        $('#price_tt').html(number_format(( total + shipcode - giftcode - salesoluong - saleKGVPT), 0, '.', '.'+' đ'));
-        $('#total_total').attr('data-price', (total + shipcode - giftcode - salesoluong - saleKGVPT));
-        $('#total_total').find('input').attr('value', (total + shipcode - giftcode - salesoluong - saleKGVPT));
+        $('#price_tt').html(number_format(( total + shipcode - salesoluong - saleKGVPT), 0, '.', '.'+' đ'));
+        $('#total_total').attr('data-price', (total + shipcode - salesoluong - saleKGVPT));
+        $('#total_total').find('input').attr('value', (total + shipcode - salesoluong - saleKGVPT));
     });
+
+    function load_total_price_cart(){
+        var salesoluong = 0;
+        var saleKGVPT = 0;
+        var shipcode = parseInt($('input[name="shipcode_value"]').val());
+        var total = parseInt($('#total_cart_money').val());
+        $('#price_tt').html(number_format(( total + shipcode - salesoluong - saleKGVPT), 0, '.', '.')+' đ');
+        $('#total_total').attr('data-price', (total + shipcode - salesoluong - saleKGVPT));
+        $('#total_total').find('input').attr('value', (total + shipcode - salesoluong - saleKGVPT));
+    }
 
     $('#wp-pt-thanhtoan').hide();
     $('#phuongthuc-ttt').hide();
@@ -281,12 +327,14 @@
         $( "#cod-thanhtoan" ).prop( "checked", true );
         $( "#offline" ).show( );
         $( "#hiddenshow" ).hide( );
+        load_total_price_cart();
     });
     $('#phi_inner').click(function(){
         $( "#cod-thanhtoan" ).prop( "checked", false );
         $( "#online-thanhtoan" ).prop( "checked", true );
         $( "#offline" ).hide();
         $( "#hiddenshow" ).show();
+        load_total_price_cart();
     });
     $(document).ready(function() {
         LoadCity();
@@ -326,7 +374,7 @@
         return false;
     }
     function LoadDistrict(province_id){
-        if (province_id != -1){
+        if (province_id != null){
             actionUrl = '{{ route('ajax.districts') }}';
             $.ajax({
                 headers: {
@@ -341,7 +389,7 @@
             })
             .done(function(data){
                 $("select#district_id").html('');
-                $("select#district_id").html('<option value="-1" rel="-1">--- Quận/huyện ---</option>');
+                $("select#district_id").html('<option value="">--- Quận/huyện ---</option>');
                 $.each(data, function(n, t)
                 {
                     $("select#district_id").append('<option value="'+t.id+'">'+ t.name +'</option>');
@@ -353,7 +401,7 @@
         }
     }
     function LoadWard(district_id){
-        if (district_id != 1) {
+        if (district_id != null) {
             actionUrl = '{{ route('ajax.wards') }}';
             $.ajax({
                 headers: {
@@ -367,7 +415,7 @@
             })
             .done(function(r){
                 $("select#war_id").html('');
-                $("select#war_id").append('<option value="-1">--- Phường/xã ---</option>');
+                $("select#war_id").append('<option value="">--- Phường/xã ---</option>');
                 $.each(r, function(i, v)
                 {
                     $("select#war_id").append('<option value="'+ v.id+'" rel='+v.pre+'>' + v.name + '</option>');
