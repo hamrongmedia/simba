@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Repositories\Order\OrderRepository;
 use DataTables;
 use Illuminate\Http\Request;
-use App\Repositories\Order\OrderRepository;
+
 class OrderController extends Controller
 {
     /**
@@ -27,8 +28,7 @@ class OrderController extends Controller
     public function __construct(
         Request $request,
         OrderRepository $orderRepository
-    )
-    {
+    ) {
         $this->request = $request;
         $this->orderRepository = $orderRepository;
     }
@@ -54,20 +54,20 @@ class OrderController extends Controller
             <span onclick="deleteItem(' . $order->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
             })
             ->editColumn('status', function (Order $order) {
-                switch ($order->status) {
-                    case 1:
-                        return '<span class="label label-success">' . $order->status->name . '</span>';
-                    case 2:
-                        return '<span class="label label-info">' . $order->status->name . '</span>';
-                    case 3:
-                        return '<span class="label label-primary">' . $order->status->name . '</span>';
-                    case 4:
-                        return '<span class="label label-danger">' . $order->status->name . '</span>';
-                    default:
-                        return '<span class="label label-default">' . 'Không rõ' . '</span>';}
 
                 if ($order->orderStatus) {
-                    return $order->orderStatus->name;
+                    switch ($order->orderStatus) {
+                        case 1:
+                            return '<span class="label label-success">' . $order->orderStatus->name . '</span>';
+                        case 2:
+                            return '<span class="label label-info">' . $order->orderStatus->name . '</span>';
+                        case 3:
+                            return '<span class="label label-primary">' . $order->orderStatus->name . '</span>';
+                        case 4:
+                            return '<span class="label label-danger">' . $order->orderStatus->name . '</span>';
+                        default:
+                            return '<span class="label label-default">' . 'Không rõ' . '</span>';}
+
                 }
                 return '';
             })
@@ -119,23 +119,23 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::with(['province'=>function($query){
-                        $query->select('id','name');
-                    }])
-                    ->with(['district'=>function($query){
-                        $query->select('id','name');
-                    }])
-                    ->with(['ward'=>function($query){
-                        $query->select('id','name');
-                    }])
-                    ->with(['orderStatus'=>function($query){
-                        $query->select('id','name');
-                    }])
-                    ->where('id',$id)
-                    ->firstOrFail();
+        $order = Order::with(['province' => function ($query) {
+            $query->select('id', 'name');
+        }])
+            ->with(['district' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->with(['ward' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->with(['orderStatus' => function ($query) {
+                $query->select('id', 'name');
+            }])
+            ->where('id', $id)
+            ->firstOrFail();
         $datas = $this->orderRepository->getDetailOrder($id);
-        $user = $this->guard()->user();        
-        return view('admin.pages.order.detail',compact('order','user','datas'));
+        $user = $this->guard()->user();
+        return view('admin.pages.order.detail', compact('order', 'user', 'datas'));
     }
 
     /**
