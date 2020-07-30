@@ -27,7 +27,7 @@ class CheckoutRequest extends FormRequest
             'fullname' => 'required|max:255',
             'phone' => 'required|regex:/^0\d{9}$/',
             'email' =>'required|email',
-            'province' =>'required',
+            'province_id' =>'required',
             'district_id' =>'required',
             'war_id' =>'required',
         ];
@@ -48,6 +48,9 @@ class CheckoutRequest extends FormRequest
             'phone.regex'=> 'Vui lòng nhập đúng định dạng số điện thoại',
             'email.required' => 'Vui lòng nhập email',
             'email.email' => 'Vui lòng nhập đúng định dạng email',
+            'province_id.required' => 'Vui lòng chọn tỉnh',
+            'district_id.required' => 'Vui lòng chọn quận/huyện',
+            'war_id.required' => 'Vui lòng chọn phường/xã',
         ];
 
         return $messages;

@@ -113,21 +113,21 @@
                             <ul class="ul-b list-da">
                                 <li>
                                     <span>Tạm tính</span>
-                                    <span class="sp2">259.000đ</span>
+                                    <span class="sp2">{{ \App\Helpers\Common::priceFormat($order->subtotal) }}đ</span>
                                 </li>
                                 <li>
                                     <span>Phí vận chuyển</span>
                                     <input type="hidden" name="shipcode">
-                                    <div class="price_tt sp2" id="shipcode_value" data-price=""><input type="hidden" name="shipcode_value" value="0"><span id="shipcode-uppercase">259.000đ</span></div>
+                                    <div class="price_tt sp2" id="shipcode_value" data-price="">
+                                        <span id="shipcode-uppercase">{{ \App\Helpers\Common::priceFormat($order->delivery_fee_total) }}đ</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="tongtien">
                             <div class="">
-                                <input type="hidden" name="userid" value="">
-                                <input type="hidden" name="total_cart_money" id="total_cart_money" value="259000">
                                 <span>Tổng cộng</span>
-                                <span id="price_tt" class="sp2">259.000 đ</span>
+                                <span id="price_tt" class="sp2">{{ \App\Helpers\Common::priceFormat($order->payment_total) }} đ</span>
                             </div>
                         </div>
                     </div>
@@ -139,14 +139,14 @@
                             <p class=""><strong>Họ và tên:</strong> {{ $order->fullname }}</p>
                             <p class=""><strong>Số điện thoại:</strong> {{ $order->phone }}</p>
                             <p class=""><strong>Email:</strong> {{ $order->email }}</p>
-                            <p class=""><strong>Tỉnh/Thành phố:</strong> Thanh Hóa</p>
-                            <p class=""><strong>Quận/Huyện:</strong> Hai Bà Trưng</p>
-                            <p class=""><strong>Phường/Xã:</strong> Ngọc mai</p>
+                            <p class=""><strong>Tỉnh/Thành phố:</strong> {{ $order->province->name }}</p>
+                            <p class=""><strong>Quận/Huyện:</strong> {{ $order->district->name }}</p>
+                            <p class=""><strong>Phường/Xã:</strong> {{ $order->ward->name }}</p>
                             <p class=""><strong>Địa chỉ:</strong> {{ $order->address }}</p>
                             <p class=""><strong>Nội dung:</strong> {{ $order->message }}</p>
                             <p class=""><strong>Tổng tiền:</strong> {{ \App\Helpers\Common::priceFormat($order->payment_total) }}đ</p>
                             <div class="btn-thanhtoan">
-                                <a href="{{ route('home') }}" onclick="goBack()"><i class="fas fa-arrow-left"></i>&nbsp;Tiếp tục mua hàng</a>
+                                <a href="{{ route('home') }}"><i class="fas fa-arrow-left"></i>&nbsp;Tiếp tục mua hàng</a>
                                 <button type="submit" name="create" value="create" class="uk-button btn btn-default" style="border: 0px">
                                     Đặt hàng thành công
                                 </button>
