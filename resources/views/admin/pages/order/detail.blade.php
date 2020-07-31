@@ -90,7 +90,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td class="td-title">Trạng thái đơn hàng:</td>
-                                    <td>{{ $order->orderStatus->name }}</td>
+                                    <td>{{ $order->orderStatus->name ?? ''}}</td>
                                 </tr>
                             </table>
                             <table class="table table-bordered">
@@ -399,27 +399,27 @@
 
     }
 
-    $('#add-item-button-save').click(function (event) {
-        $('#add-item-button').prop('disabled', true);
-        $('#add-item-button-save').button('loading');
-        $.ajax({
-            url: 'https://demo.s-cart.org/sc_admin/order/add_item',
-            type: 'post',
-            dataType: 'json',
-            data: $('form#form-add-item').serialize(),
-            beforeSend: function () {
-                $('#loading').show();
-            },
-            success: function (result) {
-                $('#loading').hide();
-                if (parseInt(result.error) == 0) {
-                    location.reload();
-                } else {
-                    alertJs('error', result.msg);
-                }
-            }
-        });
-    });
+    // $('#add-item-button-save').click(function (event) {
+    //     $('#add-item-button').prop('disabled', true);
+    //     $('#add-item-button-save').button('loading');
+    //     $.ajax({
+    //         url: 'https://demo.s-cart.org/sc_admin/order/add_item',
+    //         type: 'post',
+    //         dataType: 'json',
+    //         data: $('form#form-add-item').serialize(),
+    //         beforeSend: function () {
+    //             $('#loading').show();
+    //         },
+    //         success: function (result) {
+    //             $('#loading').hide();
+    //             if (parseInt(result.error) == 0) {
+    //                 location.reload();
+    //             } else {
+    //                 alertJs('error', result.msg);
+    //             }
+    //         }
+    //     });
+    // });
 
     //End add item
     //

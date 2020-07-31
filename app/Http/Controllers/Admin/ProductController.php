@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
-use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Product;
@@ -15,13 +14,12 @@ use App\Models\ProductImage;
 use App\Models\ProductInfo;
 use App\Services\ProductService;
 use App\Services\UploadService;
+use DataTables;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Session;
-use Str;
-use Log;
 
 class ProductController extends Controller
 {
@@ -68,21 +66,36 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //
-        if (empty($request->all())) {
-            $data = Product::all()->sortBy('desc');
-            $paginator = new PaginationHelper($data, 10);
-            $items = $paginator->getItem(self::TAKE);
-            return view('admin.pages.product.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
-        }
 
-        if ($request->sort_by) {
-            $data = Product::all();
-            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-            $paginator = new PaginationHelper($result, 10);
-            $current_page = $request->current_page ?? 1;
-            $items = $paginator->getItem($current_page);
-            return view('admin.pages.ajax_components.product_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
-        }
+        return view('admin.pages.product.list');
+    }
+
+    public function getTableProduct()
+    {
+        $products = Product::query()->with('categories');
+
+        return DataTables::eloquent($products)
+            ->addColumn('image', function (Product $product) {
+                $link = $product->thumbnail;
+                $pos = strrpos($link, '/');
+                $newstr = substr_replace($link, 'thumbs/', $pos, 0);
+                return "<img style='width:100px' src='{$link}' alt='image'>";
+            })
+            ->addColumn('action', function (Product $product) {
+                return '<a href="' . route("admin.product.edit", $product->id) . '">
+                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                <i class="fa fa-edit"></i></span></a>&nbsp;
+                <span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+            })
+            ->editColumn('categories', function (Product $product) {
+                $result = '';
+                foreach ($product->categories as $item) {
+                    $result = $result . $item->name;
+                }
+                return $result;
+            })
+            ->rawColumns(['image', 'action'])
+            ->make(true);
     }
 
     /**
@@ -117,7 +130,7 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
-            if($request->images) {
+            if ($request->images) {
                 $product->thumbnail = $request->images;
             }
             $product->stock = $request->stock;
@@ -144,8 +157,8 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             # Commit all data
             DB::commit();
-            if($product->type = Product::PRODUCT_ATTRIBUTE) {
-                return redirect()->route('admin.product.edit',['id'=>$product->id]);
+            if ($product->type = Product::PRODUCT_ATTRIBUTE) {
+                return redirect()->route('admin.product.edit', ['id' => $product->id]);
             }
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
@@ -186,10 +199,9 @@ class ProductController extends Controller
 
         $product_info = ProductInfo::leftJoin('product_attribute_values as pav1', 'product_info.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
-            ->leftJoin('product_color as pc', function($join)
-            {
+            ->leftJoin('product_color as pc', function ($join) {
                 $join->on('product_info.attribute_value1', '=', 'pc.color_id');
-                $join->on('product_info.product_id','=','pc.product_id');
+                $join->on('product_info.product_id', '=', 'pc.product_id');
 
             })
             ->where('product_info.product_id', $id)
@@ -235,7 +247,7 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
-            if($request->images) {
+            if ($request->images) {
                 $product->thumbnail = $request->images;
             }
             if ($request->stock_unlimited) {

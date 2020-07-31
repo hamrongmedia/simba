@@ -49,7 +49,6 @@ class UserManageController extends Controller
                 }
                 return $result;
             })
-
             ->addColumn('permissions', function ($user) {
                 $result = '';
                 if ($user->permissions) {
@@ -59,6 +58,7 @@ class UserManageController extends Controller
                 }
                 return $result;
             })
+
             ->rawColumns(['action', 'roles', 'permissions'])
             ->make(true);
     }

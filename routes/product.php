@@ -12,6 +12,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
 
     Route::get('product', 'ProductController@index')->name('admin.product.index');
     Route::get('product/create', 'ProductController@create')->name('admin.product.create');
+    Route::get('product/table-ajax', 'ProductController@getTableProduct')->name('admin.product.table_ajax');
     Route::post('product/create', 'ProductController@store')->name('admin.product.store');
     Route::get('product/{id}', 'ProductController@edit')->name('admin.product.edit');
     Route::put('product/{id}', 'ProductController@update')->name('admin.product.update');

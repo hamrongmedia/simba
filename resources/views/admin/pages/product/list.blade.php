@@ -9,28 +9,10 @@
     <div class="box">
       <div class="box-body">
         <div class="box-header with-border">
-          <div class="pull-right">
-              <div class="menu-right">
-                  <form action="{{route('admin.product.search')}}" id="button_search">
-                      <div onclick="searchAjax()" class="btn-group pull-right">
-                          <a class="btn btn-flat btn-primary" title="Refresh">
-                              <i class="fa  fa-search"></i>
-                          </a>
-                      </div>
-                      <div class="btn-group pull-right">
-                          <div class="form-group">
-                              <input type="text" id="search_input" name="query" class="form-control"
-                                  placeholder="Search Name, ID or Email" value="">
-                          </div>
-                      </div>
-                  </form>
-              </div>
-          </div>
           <div class="pull-left">
           </div>
           <!-- /.box-tools -->
       </div>
-
       <div class="box-header with-border">
           <div class="pull-right">
               <div class="menu-right">
@@ -40,42 +22,10 @@
                   </a>
               </div>
           </div>
-          <div class="pull-left">
-              <div class="menu-left">
-                  <button type="button" class="btn btn-default grid-select-all"><i
-                          class="fa fa-square-o"></i></button>
-              </div>
-              <div class="menu-left">
-                  <a class="btn btn-flat btn-danger grid-trash"  onclick="multipleDelete()" title="Delete"><i class="fa fa-trash-o"></i></a>
-              </div>
-
-              <div class="menu-left">
-                  <a class="btn btn-flat btn-primary grid-refresh" title="Refresh"><i
-                          class="fa fa-refresh"></i></a>
-              </div>
-
-              <div class="menu-left">
-                  <div class="btn-group">
-                      <select class="form-control" id="order_sort">
-                          <option value="id__desc">ID desc</option>
-                          <option value="id__asc">ID asc</option>
-                          <option value="title__desc">Tiêu đề giảm dần</option>
-                          <option value="title__asc">Tiêu đề tăng đân</option>
-                          <option value="slug__desc">Name desc</option>
-                          <option value="slug__asc">Name asc</option>
-                      </select>
-                  </div>
-                  <div class="btn-group">
-                      <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                          <i class="fa fa-sort-amount-asc"></i>
-                      </a>
-                  </div>
-              </div>
-          </div>
- 
       </div>
-      <section id="pjax-container" class="table-list">
-        @include('admin.pages.ajax_components.product_table')
+        <section id="pjax-container" class="table-list">
+        
+        @include('admin.pages.product.list_product');
 
       </section>
       </div>
@@ -107,68 +57,22 @@
       })
   }
 
-  function searchAjax(page = 1){
-      var input = $('#search_input').val();
-      $.ajax({
-          url: '' ,
-          data:{
-              keyword: input,
-              current_page:page,
-          }
-      }).done(function (result) {
-          type = 'search';
-          $('.table-list').html(result);
-      })
-  }   
-
-  function sortAjax(current_page = 1) {
-      var input = $('#order_sort option:selected').val().split('__');
-
-      $.ajax({
-          url: "{{route('admin.product.index')}}",
-          data: {
-              sort_by: input[0],
-              sort_type: input[1],
-              current_page: current_page,
-          }
-      })
-          .done(function (result) {
-              type = 'sort';
-              $('.table-list').html(result);
-          })
-  }
-
-
   function deleteItem(id) {
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-      })
-          .then((result) => {
-              if (result.value) {
-                  deleteAjax(id);
-              }
-          })
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    })
+    .then((result) => {
+        if (result.value) {
+            deleteAjax(id);
+        }
+    })
   }
-
-  $('#button_sort').on('click', function (e) {
-      sortAjax(1);
-  });
-
-  function getDataPaginate(item, type) {
-      let nextPage = item.textContent;
-      if (type == 'sort') {
-          sortAjax(nextPage);
-      }
-      if (type == 'search') {
-          searchAjax(nextPage);
-      }
-  };
 
   function multipleDelete() {
       let idList = [];
