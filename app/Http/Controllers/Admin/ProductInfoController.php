@@ -37,8 +37,10 @@ class ProductInfoController extends Controller
 		            ->select('product_attributes.name', 'product_attributes.id')
 		            ->whereIn('product_attributes.id',$attribute_map)
 		            ->get();
-		$view = view("admin.pages.product.edit_varition",compact('data','product_attribute_map'))->render();
-		return $this->respondJsonData('Chỉnh sửa biến thể thành công',$view);		
+		$product_image = ProductImage::where('product_id',$product_info->product_id)
+									->where('attribute_value1',$product_info->attribute_value1)
+									->get();
+		return view('admin.pages.product.edit_varition', compact('data','product_attribute_map','product_info_id','product_image'));		
 	}
 
     /*
@@ -120,45 +122,50 @@ class ProductInfoController extends Controller
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
-	public function update(Request $request)
+	public function update(Request $request, $id)
 	{
-		$product_info_id = $request->product_info_id;
+		$product_info_id = $id;
 		DB::beginTransaction();
 		try {
-			$product_info = ProductInfo::where('id',$product_info_id)->first();
-			if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
 			$attribute_sets = $request->attribute_sets;
+			$product_info = ProductInfo::where('id',$product_info_id)->firstOrFail();
 			if(count($attribute_sets) == 2 ) {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
-										->where('attribute_value1',$attribute_sets[0])
-										->where('attribute_value2',$attribute_sets[1])
-										->first();
-				if(!$check_exits) {
-					$product_info->attribute_value1 = $attribute_sets[0];
-					$product_info->attribute_value2 = $attribute_sets[1];
-					$product_info->save();
+							->where('attribute_value1',$attribute_sets[0])
+							->where('attribute_value2',$attribute_sets[1])
+							->first();
+			} else {
+				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
+							->where('attribute_value1',$attribute_sets[0])
+							->where('attribute_value2',$attribute_sets[1])
+							->first();
+			}
+			if(!$check_exits) {
+				$product_info->attribute_value1 = $attribute_sets[0];
+				$product_info->attribute_value2 = $attribute_sets[1];
+				$product_info->save();
+				if($request->thumbnail) {
+					$thumbnail = $request->thumbnail;
+					$product_color = ProductColor::updateOrCreate(
+					    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
+					    ['image_path' => $thumbnail]
+					);
+				}				
+			} else {
+				# Case This
+				if($product_info_id == $check_exits->id) {
 					if($request->thumbnail) {
-						$thumbnail = $request->thumbnail;
-						$product_color = ProductColor::updateOrCreate(
-						    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
-						    ['image_path' => $thumbnail]
-						);
+					$thumbnail = $request->thumbnail;
+					$product_color = ProductColor::updateOrCreate(
+					    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
+					    ['image_path' => $thumbnail]
+					);
 					}
 				} else {
-					# Case This
-					if($product_info_id == $check_exits->id) {
-						if($request->thumbnail) {
-							$thumbnail = $request->thumbnail;
-							$product_color = ProductColor::updateOrCreate(
-							    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
-							    ['image_path' => $thumbnail]
-							);
-						}
-					} else {
-						return $this->respondWithError('Biến thể đã tồn tại');
-					}
-				}
+					return back()->with('msg','Biến thể đã tồn tại');
+				}				
 			}
+			$this->storeProductImage($request, $product_info->product_id, $attribute_sets[0]);
 			DB::commit();
 			$data = Product::find($product_info->product_id);
 	        $product_attribute_map = ProductAttribute::with('attributeValues')
@@ -279,7 +286,7 @@ class ProductInfoController extends Controller
 									->pluck('product_attribute_id');
 		# Case Only One Attribute
 		if( $attribute_map ) {
-			$this->createAllProductInfo($id, $attribute_map);
+			$this->createAllProductInfo($id, $attribute_map,$data);
 		}
 
         $product_attribute_map = ProductAttribute::with('attributeValues')
@@ -310,7 +317,16 @@ class ProductInfoController extends Controller
 
 	}
 
-    public static function createAllProductInfo($product_id,$attribute_map)
+    /*
+    *--------------------------------------------------------------------------
+    * Generate all variations
+    * @param $product_id
+    * @param $attribute_map
+    * @param $product
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+    public static function createAllProductInfo($product_id,$attribute_map, $product)
     {
         $attribute_values = [];
         $attribute_values1 = ProductAttributeValue::where('attribute_id',$attribute_map[0])->get();
@@ -318,6 +334,10 @@ class ProductInfoController extends Controller
             $attribute_values2 = ProductAttributeValue::where('attribute_id',$attribute_map[1])->get();
         }
         foreach ($attribute_values1 as $attribute_value1) {
+			ProductColor::updateOrCreate(
+			    ['product_id' => $product_id, 'color_id' => $attribute_value1->id],
+			    ['image_path' => $product->thumbnail]
+			);
             // Case 1 : Only first attribute
             if( count($attribute_map) == 1 ) {
 				ProductInfo::updateOrCreate(

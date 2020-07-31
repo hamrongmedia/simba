@@ -78,7 +78,7 @@
             <div class="form-group">
                 <div class="assign-switch">
                     <label class="switch-label">
-                        <input type="checkbox" class="switch-assign" name="type" @if(isset($data) && $data->type==2) checked @endif value="2">
+                        <input type="checkbox" class="switch-assign" name="type" @if( ( isset($data) && $data->type==2 ) || old('type') == 2 ) checked @endif value="2">
                         <span class="slider round"></span>
                     </label>
                     <label class="d-inline-block">Sản phẩm đa thuộc tính</label>

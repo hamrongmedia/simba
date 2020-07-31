@@ -414,58 +414,13 @@ Cập nhật sản phẩm
             });
         }));        
     }));
-    function editVarition(product_info_id)
-    {
-        var url = '{{ route('admin.product.info.show') }}';
-        jQuery.ajax({
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            url: url,
-            data: {
-                product_info_id: product_info_id,
-            },
-            success: function (data) {
-                $('#edit-product-variation-modal').modal('show');
-                $('#edit-product-variation-modal .variation-form-wrapper').html(data.data);
-                var url_update = '{{ route('admin.product.info.update') }}';
-                // var formData = new FormData(document.getElementById("form-edit-varition"));
-                console.log($('#thumbnailedit').val());
-                $('#update-product-variation-button').click(function (e) {
-                    jQuery.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: "POST",
-                        url: url_update,
-                        // data: formData,
-                        success: function (data) {
-                            $('#form-edit-discount p.error').remove();
-                            if(data.status == true) {
-                                Swal.fire({
-                                    title: 'Thành công',
-                                    text: 'Chỉnh sửa biến thể thành công',
-                                    type: 'success'
-                                });
-                                $('#edit-product-variation-modal').modal('toggle');
-                            } else {
-                                Swal.fire( 'Thất bại!','Không thể chỉnh sửa biến thể','error' );
-                            }
-                        },
-                        error: function (data) {
-                            $('#form-edit-discount p.error').remove();
-                            var errors = data.responseText;
-                            errors = JSON.parse(errors);
-                            $.each(errors.errors, function (key, value) {
-                                $('#form-edit-discount input[name="'+key+'"]').after('<p class="error">' + value[0] + '</p>');
-                            });
-                             Swal.fire( 'Thất bại!','Không thể chỉnh sửa biến thể','error' );
-                        }
-                    });
-                });
-            }
-        });
+    function OpenWindow(query, w, h, scroll) {
+        var l = (screen.width - w) / 2;
+        var t = (screen.height - h) / 2;
+
+        winprops = 'resizable=1, height=' + h + ',width=' + w + ',top=' + t + ',left=' + l + 'w';
+        if (scroll) winprops += ',scrollbars=1';
+        var f = window.open(query, "_blank", winprops);
     }
     function deleteVarition(id , product_id)
     {

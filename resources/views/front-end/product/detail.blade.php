@@ -75,6 +75,12 @@
                                                         @endif
                                                     </div>
                                                 @endforeach
+                                            @else
+                                                @for($i=0;$i<4;$i++)
+                                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                                        <img src="{{ $product->thumbnail }}">
+                                                    </div>
+                                                @endfor
                                             @endif
                                         </div> <!-- end -->
                                     @endforeach

@@ -84,7 +84,9 @@ class ProductController extends Controller
                 $image_files = [];
                 $sizeids = '';
                 foreach ($value as $k => $v) {
-                    $image_files[$k] = $v['image_file'];
+                    if($v['image_file']) {
+                        $image_files[$k] = $v['image_file'];
+                    }
                     if($v['pav2_id']) {
                         $group_pav2[$k]['id'] = $v['pav2_id'];
                         $group_pav2[$k]['name'] = $v['pav2_value'];
@@ -102,7 +104,7 @@ class ProductController extends Controller
             $product->all_sizes = $this->array_unique_multidimensional($all_sizes);
             $product->product_attributes = $product_attributes;
         }
-
+        // dd($product);
         $data_product_setting = ThemeOptions::where('key', 'product')->first();
         $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
