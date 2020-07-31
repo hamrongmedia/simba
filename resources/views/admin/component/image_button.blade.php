@@ -32,7 +32,7 @@
 
 <script>
       // custom unisharp
-  $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "{{config('app.url') .  '/filemanager'}}" });
+  $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "/filemanager" });
 </script>
 @endsection
 
