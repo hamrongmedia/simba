@@ -144,7 +144,10 @@ class ProductController extends Controller
             $this->saveProductImage($product, $product_images);
             # Commit all data
             DB::commit();
-            return back();
+            if($product->type = Product::PRODUCT_ATTRIBUTE) {
+                return redirect()->route('admin.product.edit',['id'=>$product->id]);
+            }
+            return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

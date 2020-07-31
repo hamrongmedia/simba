@@ -83,7 +83,6 @@ Tạo sản phẩm
             let name = $('input[name="name"]').val();
             let model = 'product';
             if (name !== null && name !== '') {
-                console.log('vao day');
                 createSlug(name, model);
             }
         });

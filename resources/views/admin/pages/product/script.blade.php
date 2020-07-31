@@ -75,12 +75,10 @@
             return (fileRef = file.previewElement) != null ? fileRef.parentNode.removeChild(file.previewElement) : void 0;
         },
         success: function (file, response) {
-            console.log('vao day');
             var element_add = file.previewElement;
             $(element_add).append('<input type="hidden" name="product_images[]" value="' + response.data + '">');
         },
         error: function (file, response) {
-            console.log('vao day 2');
             return false;
         }
     });
