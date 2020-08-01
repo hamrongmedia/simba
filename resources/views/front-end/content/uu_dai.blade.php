@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="text-uudai text-center hidden-xs">
-                <h3 class="h3-title" style="">{{$post->title}}</h3>
+                <h3 class="h3-title" style=""><a href="{{route('post.detail', $post->slug)}}">{{$post->title}}</a></h3>
 
                 <div class="wp-shopnow">
                     <a href="{{route('post.detail', $post->slug)}}" class="btn btn-default btn-now btn-hover" style="border: 0px">Xem
