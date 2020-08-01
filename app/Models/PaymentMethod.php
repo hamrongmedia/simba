@@ -20,6 +20,16 @@ class PaymentMethod extends Model
     protected $table = 'payment_methods';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description' 
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      * @author Bao Do
      */
