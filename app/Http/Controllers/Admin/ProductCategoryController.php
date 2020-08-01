@@ -63,7 +63,7 @@ class ProductCategoryController extends Controller
                 'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
                 'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
                 'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
-                'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
+                'status' => isset($request->status) && $request->status == '1' ? 1 : 0,
                 'is_deleted' => 0,
                 'view' => 0,
             ];
