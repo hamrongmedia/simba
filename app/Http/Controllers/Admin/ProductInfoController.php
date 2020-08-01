@@ -14,10 +14,10 @@ use App\Models\ProductType;
 use App\Models\ProductImage;
 use App\Models\ProductInfo;
 use App\Models\ProductColor;
-use DB;
-use Illuminate\Support\Str;
-use Log;
 use App\Http\Requests\Admin\ProductInfoRequest;
+use Illuminate\Support\Str;
+use DB;
+use Log;
 class ProductInfoController extends Controller
 {
 	public function show(Request $request)
@@ -40,7 +40,7 @@ class ProductInfoController extends Controller
 		$product_image = ProductImage::where('product_id',$product_info->product_id)
 									->where('attribute_value1',$product_info->attribute_value1)
 									->get();
-		return view('admin.pages.product.edit_varition', compact('data','product_attribute_map','product_info_id','product_image'));		
+		return view('admin.pages.product.edit_varition', compact('data','product_attribute_map','product_info','product_image'));		
 	}
 
     /*
@@ -166,10 +166,16 @@ class ProductInfoController extends Controller
 				}				
 			}
 			$this->storeProductImage($request, $product_info->product_id, $attribute_sets[0]);
+            /** Delete Product Image */
+            $delete_images = $request->delete_images;
+            Log::info($delete_images);
+            $this->deleteImage($product_info->product_id, $delete_images);
+
 			DB::commit();
-            return back();
+            return back()->with('close','Đóng');
 		} catch (\Exception $e) {
 			DB::rollBack();
+			Log::info($e->getMessage());
 			return $this->respondWithError($e->getMessage());			
 		}
 	}
@@ -364,4 +370,23 @@ class ProductInfoController extends Controller
         return true;
     }
 
+
+    /*
+     *--------------------------------------------------------------------------
+     * Product Delete Image
+     * @param $product_images
+     * @return
+     *--------------------------------------------------------------------------
+     */
+    protected function deleteImage($product_id, $delete_images = [])
+    {
+        if (is_array($delete_images)) {
+            foreach ($delete_images as $delete_image) {
+                $productImage = ProductImage::where('product_id', $product_id)->where('image_file', $delete_image)->first();
+                if ($productImage) {
+                    $productImage->delete();
+                }
+            }
+        }
+    }
 }
