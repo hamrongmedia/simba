@@ -55,8 +55,8 @@ class OrderController extends Controller
             })
             ->editColumn('status', function (Order $order) {
 
-                if ($order->orderStatus) {
-                    switch ($order->orderStatus) {
+                if ( $order->orderStatus ) {
+                    switch ($order->orderStatus->id) {
                         case 1:
                             return '<span class="label label-success">' . $order->orderStatus->name . '</span>';
                         case 2:
