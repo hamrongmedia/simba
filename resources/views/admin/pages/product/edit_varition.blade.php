@@ -4,12 +4,12 @@
 @yield('css')
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="main-content-edit-varition">
-    <form action="{{ route('admin.product.info.edit',['id'=>$product_info_id]) }}" method="POST" id="form-edit-varition">
+    <form action="{{ route('admin.product.info.edit',['id'=>$product_info->product_id]) }}" method="POST" id="form-edit-varition">
         {{ csrf_field() }}
         <div class="content-header clearfix">
             <h1 class="pull-left">Chỉnh sửa biến thể</h1>
             <div class="pull-right">
-                <button type="submit" name="save" class="btn bg-blue" onclick="closeSelf();">
+                <button type="submit" name="save" class="btn bg-blue">
                     <i class="fa fa-floppy-o"></i> Cập nhật
                 </button>
             </div>
@@ -106,6 +106,7 @@
                             @endforeach
                         @endif
                     </div>
+                    <div class="images-delete"></div>
                 </div>
             </div>
         </div>
@@ -170,7 +171,6 @@
                 // set or change the preview image src
                 items.forEach(function (item) {
                     $('.images-show').append('<div class="item-prev"><div class="atr-image"><img src="'+item.url+'"/></div><div class="atr-elm"><input type="hidden" name="product_images[]" value="'+item.url+'"><a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a></div></div>');
-                    // $(target_preview).attr('src', item.thumb_url);
                 });
 
                 // trigger change event
@@ -180,23 +180,17 @@
             });
         }
         $('.js-btn-trigger-add-image').customfilemanager('image');
-        window.opener.popupCallback(); //Call callback function 
     }));
     function removeAtrImage() {
-        console.log($(this).parents('.item-prev'));
-        $(this).parents('.item-prev').remove();
-    }
-    function closeSelf(){
-        // do something
-
-        if(condition satisfied){
-           alert("conditions satisfied, submiting the form.");
-           document.forms['form-edit-varition'].submit();
-           window.close();
-        }else{
-           alert("conditions not satisfied, returning to form");    
+        var el_delete = $(event.target).parents('.atr-elm').find('input').val();
+        if(el_delete) {
+            $('.images-delete').append('<input type="hidden" name="delete_images[]" value="' + el_delete + '">');
         }
+        $(event.target).parents('.item-prev').remove();
     }
+    @if(session('close'))
+        window.close();
+    @endif
 </script>
 </body>
 </html>
