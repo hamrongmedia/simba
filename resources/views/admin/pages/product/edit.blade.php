@@ -72,7 +72,7 @@ Cập nhật sản phẩm
                                     Hình ảnh
                                 </label>
                                 <div class="product-images-wrapper clearfix">
-                                    <a href="#" class="add-new-product-image js-btn-trigger-add-image">
+                                    <a href="#" class="multi-image-variation add-new-product-image js-btn-trigger-add-image">
                                         Chọn hình ảnh
                                     </a>
                                     <div class="images-wrapper">
@@ -340,7 +340,11 @@ Cập nhật sản phẩm
                     var errors = data.responseText;
                         errors = JSON.parse(errors);
                     $.each(errors.errors, function (key, value) {
-                        $('#form-add-variation input[name="'+key+'"]').after('<p class="error">' + value[0] + '</p>');
+                        if( key == 'product_images') {
+                            $('.multi-image-variation').after('<p class="error">' + value[0] + '</p>');
+                        } else {
+                            $('#form-add-variation input[name="'+key+'"]').after('<p class="error">' + value[0] + '</p>');
+                        }
                     });
                 }
             });
@@ -421,6 +425,35 @@ Cập nhật sản phẩm
         winprops = 'resizable=1, height=' + h + ',width=' + w + ',top=' + t + ',left=' + l + 'w';
         if (scroll) winprops += ',scrollbars=1';
         var f = window.open(query, "_blank", winprops);
+        f.window.focus();
+    }
+    function popupCallback(){
+        var product_id = {{ $data->id }};
+        url_reload = '{{ route('admin.product.info.reload') }}';
+        jQuery.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "GET",
+            url: url_reload,
+            data: {
+                product_id : product_id
+            },
+            dataType: 'json',
+            success: function (data){
+                Toast.fire({
+                    type: 'success',
+                    title: 'Chỉnh sửa biến thể thành công'
+                });
+                $("#product-variations-wrapper").html(data.data);
+            },
+            error: function (data) {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Không thể chỉnh sửa biến thể'
+                });
+            }
+        });
     }
     function deleteVarition(id , product_id)
     {

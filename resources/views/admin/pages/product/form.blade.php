@@ -272,7 +272,7 @@
         </div>
         <div class="box-body">
             <div class="image-box">
-            @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
+            @include('admin.component.image_button', ['name' => 'images', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px','value'=> isset($data) ? $data->thumbnail :  ''])
 
             </div>
             @if ($errors->first('images'))

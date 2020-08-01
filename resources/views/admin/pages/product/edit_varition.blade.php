@@ -9,7 +9,7 @@
         <div class="content-header clearfix">
             <h1 class="pull-left">Chỉnh sửa biến thể</h1>
             <div class="pull-right">
-                <button type="submit" name="save" class="btn bg-blue">
+                <button type="submit" name="save" class="btn bg-blue" onclick="closeSelf();">
                     <i class="fa fa-floppy-o"></i> Cập nhật
                 </button>
             </div>
@@ -54,7 +54,11 @@
                 </label>
                 <div class="variation-images clearfix">
                     <div class="product-images-wrapper">
-                        <a href="#" class="add-new-product-image js-thumbnail-add-image" data-input="thumbnailedit" data-preview="holderedit">Chọn hình ảnh
+                        <a href="#" class="add-new-product-image js-thumbnail-add-image" data-input="thumbnailedit" data-preview="holderedit">
+                            Chọn hình ảnh
+                            @if ($errors->first('thumbnail'))
+                                <div class="error">{{ $errors->first('thumbnail') }}</div>
+                            @endif
                         </a>
                         <div class="images-wrapper">
                             <input id="thumbnailedit" type="hidden" name="thumbnail" class="image-data" value="{{ $data->image_path }}">
@@ -76,8 +80,11 @@
                     Hình ảnh
                 </label>
                 <div class="product-images-wrapper clearfix">
-                    <a href="#" class="add-new-product-image js-btn-trigger-add-image">
+                    <a href="#" class="multi-image-variation add-new-product-image js-btn-trigger-add-image">
                         Chọn hình ảnh
+                        @if ($errors->first('product_images'))
+                            <div class="error">{{ $errors->first('product_images') }}</div>
+                        @endif
                     </a>
                     <div class="images-wrapper">
                         <div class="text-center">
@@ -92,7 +99,7 @@
                                         <img src="{{ $pri->image_file }}"/>
                                     </div>
                                     <div class="atr-elm">
-                                        <input type="hidden" name="product_images[]" value="'+item.url+'">
+                                        <input type="hidden" name="product_images[]" value="{{ $pri->image_file }}">
                                         <a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a>
                                     </div>
                                 </div>
@@ -109,9 +116,6 @@
 @include('admin.partials.alert')
 <script type="text/javascript">
     $('#lfm').filemanager('image');
-    function removeAtrImage() {
-        $(this).parents('.item-prev').remove();
-    }
     $(window).on("load", (function() {
         $.fn.customthumbnailfilemanager = function(type, options) {
             type = type || 'file';
@@ -176,7 +180,23 @@
             });
         }
         $('.js-btn-trigger-add-image').customfilemanager('image');
+        window.opener.popupCallback(); //Call callback function 
     }));
+    function removeAtrImage() {
+        console.log($(this).parents('.item-prev'));
+        $(this).parents('.item-prev').remove();
+    }
+    function closeSelf(){
+        // do something
+
+        if(condition satisfied){
+           alert("conditions satisfied, submiting the form.");
+           document.forms['form-edit-varition'].submit();
+           window.close();
+        }else{
+           alert("conditions not satisfied, returning to form");    
+        }
+    }
 </script>
 </body>
 </html>
