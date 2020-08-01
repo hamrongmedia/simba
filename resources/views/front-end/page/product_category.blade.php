@@ -126,12 +126,13 @@ Chuyên mục sản phẩm
                             </div> <!-- end -->
                         </div>
 
-                        <!-- phần sản phẩm -->
-                        <div class="wp-list-sp-home list-danhmyc-spsp">
-                            <div class="row row-eidt-0" style="margin-left: 0px;margin-right: 0px;" id="ajax-product-list">
-                                <!--   bắt bầu vòng lặp sản phẩm -->
-                                {{--  @include('front-end.content.product_list') --}}
-                            </div>
+                    <!-- phần sản phẩm -->
+                    <div class="wp-list-sp-home list-danhmyc-spsp">
+                        <div class="row row-eidt-0" style="margin-left: 0px;margin-right: 0px;" id="ajax-product-list">
+                            <!--   bắt bầu vòng lặp sản phẩm -->
+                            @foreach($datas as $product)
+                                @include('front-end.content.product_list',['data'=>$product])
+                            @endforeach  
                         </div>
 
                         <div id="ajax-product-pagination" style="text-align: center">

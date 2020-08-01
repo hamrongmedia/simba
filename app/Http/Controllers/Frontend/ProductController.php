@@ -119,7 +119,7 @@ class ProductController extends Controller
     public function getProductByCategory($product_cat_slug)
     {
         $catalog = ProductCategory::where('slug',$product_cat_slug)->firstOrFail();
-        $datas = $this->productRepository->getProductCatalog($request,$catalog->id);
+        $datas = $this->productRepository->getProductCatalog($this->request,$catalog->id);
         if($datas) {
             foreach ($datas as $data) {
                 # Get Product Images 
