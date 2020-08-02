@@ -55,7 +55,6 @@ class ProductCategoryController extends Controller
                 Session::flash('error', $validator->errors()->first());
                 return redirect()->back();
             }
-            dd($request->all());
             $data = [
                 'name' => $request->name,
                 'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),

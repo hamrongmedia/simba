@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper\Pagination\PaginationHelper;
-use App\Helper\Search\SearchHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Product;
@@ -82,6 +80,13 @@ class ProductController extends Controller
                 $link2 = htmlspecialchars($link);
                 return "<img style='width:100px' src='{$link2}' alt='image'>";
             })
+            ->editColumn('name', function (Product $product) {
+                if ($product->slug) {
+                    $link = route('product.detail', $product->slug);
+                    return "<a href='{$link}'>{$product->name}</a>";
+                }
+                return '';
+            })
             ->addColumn('action', function (Product $product) {
                 return '<a href="' . route("admin.product.edit", $product->id) . '">
                 <span title="Edit" type="button" class="btn btn-flat btn-primary">
@@ -95,7 +100,7 @@ class ProductController extends Controller
                 }
                 return $result;
             })
-            ->rawColumns(['image', 'action'])
+            ->rawColumns(['image', 'action', 'name'])
             ->make(true);
     }
 

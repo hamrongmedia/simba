@@ -2,37 +2,34 @@
 
 namespace App\Repositories\Product;
 
+use App\Models\Product;
 use App\Repositories\BaseRepository;
 use App\Repositories\Product\ProductRepository;
-use App\Models\Product;
-use App\Models\ProductCatalog;
-use App\Models\ProductAttribute;
-use App\Models\Attribute;
-use App\Models\AttributeValue;
 
 /**
  * Class ProductRepositoryEloquent.
  *
  * @package namespace App\Repositories\Product;
  */
-class ProductRepositoryEloquent extends BaseRepository implements ProductRepository {
+class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
+{
 
     const TAKE = 12;
-  /**
-    * Specify Model class name
-    *
-    * @return string
-    */
-  public function getModel()
-  {
-    return Product::class;
-  }
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return Product::class;
+    }
 
-  /**
-    * Specify Model class name
-    *
-    * @return string
-    */
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
     public function index($request)
     {
         $data = $this->model->with('user')->paginate(self::TAKE);
@@ -40,9 +37,9 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     }
     /**
      * Specify Model class name
-    *
-    * @return string
-    */
+     *
+     * @return string
+     */
     public function getListProduct($request)
     {
         $data = $this->model
@@ -72,14 +69,14 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->orderBy('id', 'DESC')
             ->distinct()
             ->paginate(self::TAKE);
-        return $data;        
+        return $data;
     }
 
     /**
      * Specify Model class name
-    *
-    * @return string
-    */
+     *
+     * @return string
+     */
     public function getProductCatalog($request, $catalog_id)
     {
         if (!is_array($catalog_id)) {
@@ -103,19 +100,21 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
                 'pav2.value as pav2_value',
                 'image_path'
             )
-            ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
-            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
-            ->groupBy('products.id')
-            ->distinct()
-            ->paginate(self::TAKE);
-        return $data; 
+            ->get();
+        // ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
+        // ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+        // ->groupBy('products.name')
+        // ->distinct()
+        //->paginate(self::TAKE);
+        dd($data);
+        return $data;
     }
 
     /**
      * Specify Model class name
-    *
-    * @return string
-    */
+     *
+     * @return string
+     */
     public function getProductRelated($request, $product_id)
     {
         $data = $this->model
@@ -140,20 +139,20 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->selectRaw('GROUP_CONCAT(image_path) as images_path')
             ->groupBy('products.id')
             ->distinct()
-            ->where('products.id','!=',$product_id)
+            ->where('products.id', '!=', $product_id)
             ->paginate(self::TAKE);
-        return $data; 
+        return $data;
     }
 
     /**
      * Specify Model class name
-    *
-    * @return string
-    */
-    public function show($request,$id)
+     *
+     * @return string
+     */
+    public function show($request, $id)
     {
         $data = $this->model
-            ->where('products.id',$id)
+            ->where('products.id', $id)
             ->first();
         return $data;
     }

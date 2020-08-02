@@ -1,9 +1,9 @@
 <?php
 Route::namespace ('Frontend')->group(function () {
 
-    Route::get('ajax/ajaxShowProvinces','ProvinceController@getCities')->name('ajax.cities');
-    Route::get('ajax/ajaxShowDistricts','ProvinceController@getDistricts')->name('ajax.districts');
-    Route::get('ajax/ajaxShowWard','ProvinceController@getWards')->name('ajax.wards');
+    Route::get('ajax/ajaxShowProvinces', 'ProvinceController@getCities')->name('ajax.cities');
+    Route::get('ajax/ajaxShowDistricts', 'ProvinceController@getDistricts')->name('ajax.districts');
+    Route::get('ajax/ajaxShowWard', 'ProvinceController@getWards')->name('ajax.wards');
 
     Route::get('/bai-viet/{slug}', 'BlogController@getDetailPost')->name('post.detail');
     Route::get('/page/{slug}', 'BlogController@getDetailPage')->name('page.detail');
@@ -15,10 +15,10 @@ Route::namespace ('Frontend')->group(function () {
         return view('front-end.page.contact');
     });
 
-    Route::get('gio-hang','CartController@index')->name('cart.index');
-    Route::post('gio-hang','CartController@store')->name('cart.add');
+    Route::get('gio-hang', 'CartController@index')->name('cart.index');
+    Route::post('gio-hang', 'CartController@store')->name('cart.add');
 
-    Route::post('ajax/cart/remove','CartController@removeCartAjax')->name('ajax.cart.remove');
+    Route::post('ajax/cart/remove', 'CartController@removeCartAjax')->name('ajax.cart.remove');
 
     Route::get('shop', 'ShopController@index')->name('shop.index');
 

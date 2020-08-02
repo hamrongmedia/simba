@@ -30,7 +30,7 @@ Quản lý danh mục sản phẩm
                         @foreach($categories as $category)
                         <tr>
                             <td>{{$category->id}}</td>
-                            <td>{{$category->name}}</td>
+                            <td><a href="{{route('product.getProductByCat', $category->slug)}}">{{$category->name}}</a>   </td>
                             <td>{{$category->slug}}</td>
                             <td>{{isset($category->parent_category) ? $category->parentCategory->name : 'Không có'}}</td>
                             <td>

@@ -42,6 +42,13 @@ class PostsController extends Controller
                 }
                 return '<span class="label label-danger">Ngừng sử dụng</span>';
             })
+            ->editColumn('title', function ($post) {
+                if ($post->slug) {
+                    $link = route('post.detail', $post->slug);
+                    return "<a href='{$link}'>{$post->title}</a>";
+                }
+                return '';
+            })
             ->addColumn('categories', function ($post) {
                 $result = '';
                 foreach ($post->category as $category) {
@@ -52,7 +59,7 @@ class PostsController extends Controller
             ->editColumn('image', function ($post) {
                 return '<img src="' . $post->image . '" style="max-width: 200px;">';
             })
-            ->rawColumns(['action', 'status', 'image', 'categories'])
+            ->rawColumns(['action', 'status', 'image', 'categories', 'title'])
             ->make(true);
     }
 
