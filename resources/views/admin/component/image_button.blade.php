@@ -7,23 +7,24 @@
 
     </style>
 @endsection
-
 <div class="input-group">
     <span class="input-group-btn">
       <a id="{{$id ?? 'lfm'}}" data-input="{{$name ?? ''}}" data-preview="{{$holder ?? ''}}" class="btn btn-primary">
         <i class="fa fa-picture-o"></i> Duyệt ảnh
       </a>
     </span>
-    <input id="{{$name ?? ''}}" value="{{$value ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}">
+    <input id="{{$name ?? ''}}" value="{{$value ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}" >
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:{{$height ?? '100px'}};">
-  @if (isset($holder_img))
-  @php
-      $holder_list = explode(',', $holder_img);
-  @endphp
-  @foreach ($holder_list as $item)
-  <img src="{{$item}}" style="height: 7rem;">
-  @endforeach
+  @if($value)
+    <img src="{{$value}}" style="height: 7rem;">
+  @elseif (isset($holder_img))
+    @php
+        $holder_list = explode(',', $holder_img);
+    @endphp
+    @foreach ($holder_list as $item)
+      <img src="{{$item}}" style="height: 7rem;">
+    @endforeach
   @endif
 </div>
 

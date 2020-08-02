@@ -4,7 +4,7 @@
 @yield('css')
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="main-content-edit-varition">
-    <form action="{{ route('admin.product.info.edit',['id'=>$product_info_id]) }}" method="POST" id="form-edit-varition">
+    <form action="{{ route('admin.product.info.edit',['id'=>$product_info->product_id]) }}" method="POST" id="form-edit-varition">
         {{ csrf_field() }}
         <div class="content-header clearfix">
             <h1 class="pull-left">Chỉnh sửa biến thể</h1>
@@ -54,7 +54,11 @@
                 </label>
                 <div class="variation-images clearfix">
                     <div class="product-images-wrapper">
-                        <a href="#" class="add-new-product-image js-thumbnail-add-image" data-input="thumbnailedit" data-preview="holderedit">Chọn hình ảnh
+                        <a href="#" class="add-new-product-image js-thumbnail-add-image" data-input="thumbnailedit" data-preview="holderedit">
+                            Chọn hình ảnh
+                            @if ($errors->first('thumbnail'))
+                                <div class="error">{{ $errors->first('thumbnail') }}</div>
+                            @endif
                         </a>
                         <div class="images-wrapper">
                             <input id="thumbnailedit" type="hidden" name="thumbnail" class="image-data" value="{{ $data->image_path }}">
@@ -76,8 +80,11 @@
                     Hình ảnh
                 </label>
                 <div class="product-images-wrapper clearfix">
-                    <a href="#" class="add-new-product-image js-btn-trigger-add-image">
+                    <a href="#" class="multi-image-variation add-new-product-image js-btn-trigger-add-image">
                         Chọn hình ảnh
+                        @if ($errors->first('product_images'))
+                            <div class="error">{{ $errors->first('product_images') }}</div>
+                        @endif
                     </a>
                     <div class="images-wrapper">
                         <div class="text-center">
@@ -92,13 +99,14 @@
                                         <img src="{{ $pri->image_file }}"/>
                                     </div>
                                     <div class="atr-elm">
-                                        <input type="hidden" name="product_images[]" value="'+item.url+'">
+                                        <input type="hidden" name="product_images[]" value="{{ $pri->image_file }}">
                                         <a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a>
                                     </div>
                                 </div>
                             @endforeach
                         @endif
                     </div>
+                    <div class="images-delete"></div>
                 </div>
             </div>
         </div>
@@ -109,9 +117,6 @@
 @include('admin.partials.alert')
 <script type="text/javascript">
     $('#lfm').filemanager('image');
-    function removeAtrImage() {
-        $(this).parents('.item-prev').remove();
-    }
     $(window).on("load", (function() {
         $.fn.customthumbnailfilemanager = function(type, options) {
             type = type || 'file';
@@ -166,7 +171,6 @@
                 // set or change the preview image src
                 items.forEach(function (item) {
                     $('.images-show').append('<div class="item-prev"><div class="atr-image"><img src="'+item.url+'"/></div><div class="atr-elm"><input type="hidden" name="product_images[]" value="'+item.url+'"><a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a></div></div>');
-                    // $(target_preview).attr('src', item.thumb_url);
                 });
 
                 // trigger change event
@@ -177,6 +181,16 @@
         }
         $('.js-btn-trigger-add-image').customfilemanager('image');
     }));
+    function removeAtrImage() {
+        var el_delete = $(event.target).parents('.atr-elm').find('input').val();
+        if(el_delete) {
+            $('.images-delete').append('<input type="hidden" name="delete_images[]" value="' + el_delete + '">');
+        }
+        $(event.target).parents('.item-prev').remove();
+    }
+    @if(session('close'))
+        window.close();
+    @endif
 </script>
 </body>
 </html>

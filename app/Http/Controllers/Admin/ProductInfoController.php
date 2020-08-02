@@ -14,10 +14,10 @@ use App\Models\ProductType;
 use App\Models\ProductImage;
 use App\Models\ProductInfo;
 use App\Models\ProductColor;
-use DB;
-use Illuminate\Support\Str;
-use Log;
 use App\Http\Requests\Admin\ProductInfoRequest;
+use Illuminate\Support\Str;
+use DB;
+use Log;
 class ProductInfoController extends Controller
 {
 	public function show(Request $request)
@@ -40,7 +40,7 @@ class ProductInfoController extends Controller
 		$product_image = ProductImage::where('product_id',$product_info->product_id)
 									->where('attribute_value1',$product_info->attribute_value1)
 									->get();
-		return view('admin.pages.product.edit_varition', compact('data','product_attribute_map','product_info_id','product_image'));		
+		return view('admin.pages.product.edit_varition', compact('data','product_attribute_map','product_info','product_image'));		
 	}
 
     /*
@@ -122,13 +122,14 @@ class ProductInfoController extends Controller
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
-	public function update(Request $request, $id)
+	public function update(ProductInfoRequest $request, $id)
 	{
 		$product_info_id = $id;
 		DB::beginTransaction();
 		try {
 			$attribute_sets = $request->attribute_sets;
 			$product_info = ProductInfo::where('id',$product_info_id)->firstOrFail();
+
 			if(count($attribute_sets) == 2 ) {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
 							->where('attribute_value1',$attribute_sets[0])
@@ -137,7 +138,6 @@ class ProductInfoController extends Controller
 			} else {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
 							->where('attribute_value1',$attribute_sets[0])
-							->where('attribute_value2',$attribute_sets[1])
 							->first();
 			}
 			if(!$check_exits) {
@@ -166,36 +166,53 @@ class ProductInfoController extends Controller
 				}				
 			}
 			$this->storeProductImage($request, $product_info->product_id, $attribute_sets[0]);
-			DB::commit();
-			$data = Product::find($product_info->product_id);
-	        $product_attribute_map = ProductAttribute::with('attributeValues')
-	                                ->join('product_attribute_map','product_attributes.id','=','product_attribute_map.product_attribute_id')
-	                                ->where('product_id',$product_info->product_id)
-	                                ->select('product_attributes.name','product_attributes.id')
-	                                ->get();                  
+            /** Delete Product Image */
+            $delete_images = $request->delete_images;
+            Log::info($delete_images);
+            $this->deleteImage($product_info->product_id, $delete_images);
 
-	        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
-	                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
-	                                    ->leftJoin('product_color as pc','product_info.attribute_value1','=','pc.id')
-	                                    ->where('product_info.product_id',$product_info->product_id)
-	                                    ->select(
-	                                        'product_info.id',
-	                                        'pav1.id as pav1_id',
-	                                        'pav1.value as pav1_value',
-	                                        'pav2.id as pav2_id',
-	                                        'pav2.value as pav2_value',
-	                                        'image_path'
-	                                    )
-	                                    ->get();
-            $view = view("admin.pages.product.varition",
-		            	compact(
-		            	'data','product_attribute_map','product_info'
-		            ))->render();
-			return $this->respondJsonData('Cập nhật biến thể thành công',$view);
+			DB::commit();
+            return back()->with('close','Đóng');
 		} catch (\Exception $e) {
 			DB::rollBack();
+			Log::info($e->getMessage());
 			return $this->respondWithError($e->getMessage());			
 		}
+	}
+
+	public function reload(Request $request)
+	{
+		$id = $request->product_id;
+		$data = Product::find($id);
+        $product_attribute_map = ProductAttribute::with('attributeValues')
+                                ->join('product_attribute_map','product_attributes.id','=','product_attribute_map.product_attribute_id')
+                                ->where('product_id',$id)
+                                ->select('product_attributes.name','product_attributes.id')
+                                ->get();                  
+
+        $product_info = ProductInfo::leftJoin('product_attribute_values as pav1','product_info.attribute_value1','=','pav1.id')
+                                    ->leftJoin('product_attribute_values as pav2','product_info.attribute_value2','=','pav2.id')
+			                        ->leftJoin('product_color as pc', function($join)
+			                        {
+			                            $join->on('product_info.attribute_value1', '=', 'pc.color_id');
+			                            $join->on('product_info.product_id','=','pc.product_id');
+
+			                        })
+                                    ->where('product_info.product_id',$id)
+                                    ->select(
+                                        'product_info.id',
+                                        'pav1.id as pav1_id',
+                                        'pav1.value as pav1_value',
+                                        'pav2.id as pav2_id',
+                                        'pav2.value as pav2_value',
+                                        'image_path'
+                                    )
+                                    ->get();
+        $view = view("admin.pages.product.varition",
+	            	compact(
+	            	'data','product_attribute_map','product_info'
+	            ))->render();	
+	    return $this->respondJsonData('Thêm biến thể thành công',$view);	
 	}
 
     /*
@@ -208,18 +225,14 @@ class ProductInfoController extends Controller
    public function storeProductImage($request,$product_id, $attribute_value1)
    {
    		$product_images = $request->product_images;
-   		if(!is_array($product_images)) {
-   			return fasle;
+   		if(is_array($product_images)) {
+	   		foreach ($product_images as $image) {
+	   			ProductImage::updateOrCreate(
+				    ['product_id' => $product_id, 'attribute_value1' => $attribute_value1, 'image_file'=>$image],
+				    []
+				);
+	   		}
    		}
-   		foreach ($product_images as $image) {
-   			$productImage =  new ProductImage();
-   			$productImage->product_id = $product_id;
-   			$productImage->attribute_value1 = $attribute_value1;
-   			$productImage->image_file = $image;
-   			$productImage->save();
-   			Log::info($image);
-   		}
-   		return true;
    }
 
     /*
@@ -357,4 +370,23 @@ class ProductInfoController extends Controller
         return true;
     }
 
+
+    /*
+     *--------------------------------------------------------------------------
+     * Product Delete Image
+     * @param $product_images
+     * @return
+     *--------------------------------------------------------------------------
+     */
+    protected function deleteImage($product_id, $delete_images = [])
+    {
+        if (is_array($delete_images)) {
+            foreach ($delete_images as $delete_image) {
+                $productImage = ProductImage::where('product_id', $product_id)->where('image_file', $delete_image)->first();
+                if ($productImage) {
+                    $productImage->delete();
+                }
+            }
+        }
+    }
 }

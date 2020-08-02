@@ -109,7 +109,7 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="{{$product_cat1->name ?? ''}}">{{$product_cat1->name ?? ''}}</a>
+                    <a href="{{route('product.getProductByCat', $product_cat1->slug)}}">{{$product_cat1->name ?? ''}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">
@@ -211,7 +211,7 @@ Trang chủ
         <div class="container-fluid">
             <div class="wp-title-sec-sp clearfix">
                 <h2 class="h2-title">
-                    <a href="{{$product_cat2->name ?? ''}}">{{$product_cat2->name ?? ''}}</a>
+                    <a href="{{$product_cat2->slug ?? ''}}">{{$product_cat2->name ?? ''}}</a>
                 </h2>
                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
                 <ul class="ul-b list-link-title hidden-xs hidden-sm">

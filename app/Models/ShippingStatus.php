@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderStatus extends Model
+class ShippingStatus extends Model
 {
     const STATUS_PENDING = 1;
     const STATUS_DELIVERY = 2;
@@ -15,7 +15,7 @@ class OrderStatus extends Model
      *
      * @var string
      */
-    protected $table = 'order_status';
+    protected $table = 'shipping_status';
     /**
      * @var bool
      */

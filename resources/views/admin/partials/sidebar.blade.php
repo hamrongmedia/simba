@@ -37,19 +37,9 @@
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý đơn hàng</span></a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
-                <i class="fa fa-circle-o"></i>
-                <span>Trạng thái đơn hàng</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Trạng thái thanh toán</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Trạng thái vận chuyển</span></a>
-            </li>
+            @include('admin.pages.order_status.aside')
+            @include('admin.pages.payment_status.aside')
+            @include('admin.pages.shipping_status.aside')
         </ul>
       </li>
       <li class="treeview">
@@ -70,11 +60,11 @@
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý danh mục</span></a>
             </li>
-            <li class="nav-item has-treeview">
+{{--             <li class="nav-item has-treeview">
               <a href="{{route('product-type.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý loại sản phẩm</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item has-treeview">
               <a href="{{route('product-attribute.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Nhóm thuộc tính</span></a>
