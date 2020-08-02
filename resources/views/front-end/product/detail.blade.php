@@ -100,12 +100,32 @@
                                 <h1 class="h1-title-ctsp">{{$product->name}}</h1>
                                 <div class="price-ctsp">
                                     <div class="price-ctsp">
-                                        <span class="int" style="margin-right: 10px">
-                                            @if($product->price) {{$product->price}} đ @endif
-                                        </span>
+                                        
+                                        @if($product->promotion_price && $product->price) 
+                                            <span class="int" style="margin-right: 10px">
+                                                 {{number_format($product->promotion_price,0,',',',')}} đ
+                                            </span>
+                                            <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
+                                               {{--  {{$product->price}} đ --}}
+                                                {{number_format($product->price,0,',',',')}} đ
+                                            </span> 
+                                         @else
+                                            <span class="int" style="margin-right: 10px">
+                                                  {{--  {{$product->price}} đ --}}
+                                                    {{number_format($product->price,0,',',',')}} đ
+                                            </span>
+                                         @endif
+                                         @if(! $product->price)
+                                              <span class="int" style="margin-right: 10px">
+                                                 Liên hệ
+                                            </span>
+                                         @endif
+                                         {{--  <span class="int" style="margin-right: 10px">
+                                                  @if($product->price)  {{$product->price}} đ @endif
+                                            </span>
                                         <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
                                             @if($product->promotion_price){{$product->promotion_price}} đ @endif
-                                        </span>                               
+                                        </span>             --}}                   
                                     </div>
                                 </div>
                                 <div class="wpmaxx">
@@ -209,12 +229,25 @@
                                             </div>
                                             <h2 class="h1-title-ctsp" style="margin: 10px 0">{{$product->name}}</h2>
                                             <div class="price-ctsp">
-                                                <span class="int" style="margin-right: 10px">
-                                                    @if($product->price) {{$product->price}} đ @endif
-                                                </span>
-                                                <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
-                                                    @if($product->promotion_price){{$product->promotion_price}} đ @endif
-                                                </span>                   
+                                                @if($product->promotion_price) 
+                                                    <span class="int" style="margin-right: 10px">
+                                                         {{number_format($product->promotion_price,0,',',',')}} đ
+                                                    </span>
+                                                     <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
+                                                       {{--  {{$product->price}} đ --}}
+                                                        {{number_format($product->price,0,',',',')}} đ
+                                                    </span> 
+                                                @else
+                                                    <span class="int" style="margin-right: 10px">
+                                                          {{--  {{$product->price}} đ --}}
+                                                            {{number_format($product->price,0,',',',')}} đ
+                                                    </span>
+                                                @endif
+                                                @if(! $product->price)
+                                                      <span class="int" style="margin-right: 10px">
+                                                         Liên hệ
+                                                    </span>
+                                                @endif               
                                             </div>
                                             <div class="wp-chonmau">
                                                 @if($product->product_attributes)
