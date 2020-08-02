@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\ProductInfo;
-use App\Models\ThemeOptions;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductInfo;
+use App\Models\ThemeOptions;
 use App\Repositories\Product\ProductRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+
 class ProductController extends Controller
 {
     const TAKE = 15;
     const ORDERBY = 'desc';
-    
+
     /**
      * @var request
      */
     protected $request;
-    
+
     /**
      * @var productRepository
      */
@@ -29,8 +30,7 @@ class ProductController extends Controller
     public function __construct(
         Request $request,
         ProductRepository $productRepository
-    )
-    {
+    ) {
         $this->request = $request;
         $this->productRepository = $productRepository;
     }
@@ -45,35 +45,33 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->firstOrFail();
         # Case Product Attribute
-        if($product->type == Product::PRODUCT_ATTRIBUTE) {
+        if ($product->type == Product::PRODUCT_ATTRIBUTE) {
             $attributes = ProductInfo::leftJoin('product_attribute_values as pav1', 'product_info.attribute_value1', '=', 'pav1.id')
-                        ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
-                        ->leftJoin('product_color as pc', function($join)
-                        {
-                            $join->on('product_info.attribute_value1', '=', 'pc.color_id');
-                            $join->on('product_info.product_id','=','pc.product_id');
+                ->leftJoin('product_attribute_values as pav2', 'product_info.attribute_value2', '=', 'pav2.id')
+                ->leftJoin('product_color as pc', function ($join) {
+                    $join->on('product_info.attribute_value1', '=', 'pc.color_id');
+                    $join->on('product_info.product_id', '=', 'pc.product_id');
 
-                        })
-                        ->leftJoin('products', 'products.id', '=', 'product_info.product_id')
-                        ->leftJoin('product_images as pim', function($join)
-                        {
-                            $join->on('products.id', '=', 'pim.product_id');
-                            $join->on('pav1.id','=','pim.attribute_value1');
+                })
+                ->leftJoin('products', 'products.id', '=', 'product_info.product_id')
+                ->leftJoin('product_images as pim', function ($join) {
+                    $join->on('products.id', '=', 'pim.product_id');
+                    $join->on('pav1.id', '=', 'pim.attribute_value1');
 
-                        })
-                        ->distinct('product_info.attribute_value1')
-                        ->where('product_info.product_id',$product->id)
-                        ->select(
-                            'pav1.id as pav1_id',
-                            'pav1.value as pav1_value',
-                            'pav2.id as pav2_id',
-                            'pav2.value as pav2_value',
-                            'image_path',
-                            'image_file'
-                        )
-                        ->distinct()
-                        ->get()
-                        ->toArray();
+                })
+                ->distinct('product_info.attribute_value1')
+                ->where('product_info.product_id', $product->id)
+                ->select(
+                    'pav1.id as pav1_id',
+                    'pav1.value as pav1_value',
+                    'pav2.id as pav2_id',
+                    'pav2.value as pav2_value',
+                    'image_path',
+                    'image_file'
+                )
+                ->distinct()
+                ->get()
+                ->toArray();
             $product_attributes = [];
             $collection = new Collection($attributes);
             $genera = $collection->groupBy('pav1_id');
@@ -84,14 +82,14 @@ class ProductController extends Controller
                 $image_files = [];
                 $sizeids = '';
                 foreach ($value as $k => $v) {
-                    if($v['image_file']) {
+                    if ($v['image_file']) {
                         $image_files[$k] = $v['image_file'];
                     }
-                    if($v['pav2_id']) {
+                    if ($v['pav2_id']) {
                         $group_pav2[$k]['id'] = $v['pav2_id'];
                         $group_pav2[$k]['name'] = $v['pav2_value'];
-                        $sizeids.='|'.$v['pav2_id'];
-                        $all_sizes[$v['pav2_id']] =  $v['pav2_value'];
+                        $sizeids .= '|' . $v['pav2_id'];
+                        $all_sizes[$v['pav2_id']] = $v['pav2_value'];
                     }
                 }
                 $product_attributes[$key]['pav1_id'] = $key;
@@ -104,11 +102,10 @@ class ProductController extends Controller
             $product->all_sizes = $this->array_unique_multidimensional($all_sizes);
             $product->product_attributes = $product_attributes;
         }
-        // dd($product);
         $data_product_setting = ThemeOptions::where('key', 'product')->first();
         $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
-        return view('front-end.product.detail',compact('product','product_setting','datas'));
+        return view('front-end.product.detail', compact('product', 'product_setting', 'datas'));
     }
 
     /**
@@ -118,13 +115,13 @@ class ProductController extends Controller
      */
     public function getProductByCategory($product_cat_slug)
     {
-        $catalog = ProductCategory::where('slug',$product_cat_slug)->firstOrFail();
-        $datas = $this->productRepository->getProductCatalog($this->request,$catalog->id);
-        if($datas) {
+        $catalog = ProductCategory::where('slug', $product_cat_slug)->firstOrFail();
+        $datas = $this->productRepository->getProductCatalog($this->request, $catalog->id);
+        if ($datas) {
             foreach ($datas as $data) {
-                # Get Product Images 
+                # Get Product Images
                 $img_attr = [];
-                if($data->productImage) {
+                if ($data->productImage) {
                     foreach ($data->productImage as $pim) {
                         $img_attr[$pim->attribute_value1][] = $pim->image_file;
                     }

@@ -47,7 +47,6 @@ class ThemeOptionsController extends Controller
         $_route = route('admin.themeoptions.updatehomepage');
         $_form = 'homepage';
         $value = ThemeOptions::get('homepage');
-        //dd($value);
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
 
@@ -65,7 +64,6 @@ class ThemeOptionsController extends Controller
         $_route = route('admin.themeoptions.updateproduct');
         $_form = 'product';
         $value = ThemeOptions::get('product');
-        //dd($value);
         return view('admin.pages.theme_config.theme_options', ['page_name' => $page_name, '_route' => $_route, '_form' => $_form, 'value' => $value]);
     }
 

@@ -100,13 +100,11 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
                 'pav2.value as pav2_value',
                 'image_path'
             )
-            ->get();
-        // ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
-        // ->selectRaw('GROUP_CONCAT(image_path) as images_path')
-        // ->groupBy('products.name')
-        // ->distinct()
-        //->paginate(self::TAKE);
-        dd($data);
+            ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
+            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+            ->groupBy('products.id')
+            ->distinct()
+            ->paginate(self::TAKE);
         return $data;
     }
 

@@ -37,7 +37,16 @@ class BlogController extends Controller
         if ($cat == null) {
             return abort(404);
         }
-        $posts = $cat->posts()->paginate(6);
+        $posts = Posts::join('post_has_categories as phc', 'phc.post_id', '=', 'posts.id')
+            ->join('post_category', 'post_category.id', '=', 'phc.category_id')
+            ->where('post_category.id', '=', $cat->id)
+            ->select([
+                'posts.*',
+                'post_category.id as cat_id',
+                'post_category.name',
+            ])
+            ->groupBy('posts.id')
+            ->paginate(3);
 
         return view('front-end.category.detail', ['posts' => $posts, 'cat' => $cat]);
     }

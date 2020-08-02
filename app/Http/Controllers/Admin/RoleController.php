@@ -110,7 +110,6 @@ class RoleController extends Controller
     {
         $permissions = Permission::all()->sortBy('desc');
         $role = Role::find($id);
-        //dd($permission->actions->contains('id', 1));
         return view('admin.pages.admin_manage.role_edit', ['role' => $role, 'permissions' => $permissions]);
     }
 
