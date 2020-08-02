@@ -79,7 +79,8 @@ class ProductController extends Controller
                 $link = $product->thumbnail;
                 $pos = strrpos($link, '/');
                 $newstr = substr_replace($link, 'thumbs/', $pos, 0);
-                return "<img style='width:100px' src='{$link}' alt='image'>";
+                $link2 = htmlspecialchars($link);
+                return "<img style='width:100px' src='{$link2}' alt='image'>";
             })
             ->addColumn('action', function (Product $product) {
                 return '<a href="' . route("admin.product.edit", $product->id) . '">

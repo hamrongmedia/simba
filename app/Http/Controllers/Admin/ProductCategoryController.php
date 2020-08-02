@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\ProductCategory;
-use Session;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Session;
 
 class ProductCategoryController extends Controller
 {
@@ -44,32 +44,37 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên danh mục',
             ]);
-    
+
             if ($validator->fails()) {
                 Session::flash('error', $validator->errors()->first());
                 return redirect()->back();
             }
+            dd($request->all());
             $data = [
                 'name' => $request->name,
-                'slug' => isset($request->slug) ? $request->slug :  Str::slug($request->name, '-'),
-                'description' => isset($request->description) ? $request->description :  '',
-                'parent_category' => isset($request->parent_category) ? $request->parent_category :  null,
-                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword :  '',
-                'meta_title' => isset($request->meta_title) ? $request->meta_title :  '',
-                'meta_description' => isset($request->meta_description) ? $request->meta_description :  '',
-                'status' => isset($request->status) && $request->status == 'on' ? 1 : 0,
+                'slug' => isset($request->slug) ? $request->slug : Str::slug($request->name, '-'),
+                'description' => isset($request->description) ? $request->description : '',
+                'parent_category' => isset($request->parent_category) ? $request->parent_category : null,
+                'meta_keyword' => isset($request->meta_keyword) ? $request->meta_keyword : '',
+                'meta_title' => isset($request->meta_title) ? $request->meta_title : '',
+                'meta_description' => isset($request->meta_description) ? $request->meta_description : '',
+                'status' => isset($request->status) && $request->status == '1' ? 1 : 0,
                 'is_deleted' => 0,
                 'view' => 0,
             ];
             $result = ProductCategory::create($data);
-            if($result) Session::flash('success', 'Thêm danh mục sản phẩm thành công');
-            else Session::flash('error', 'Thêm danh mục sản phẩm không thành công');
+            if ($result) {
+                Session::flash('success', 'Thêm danh mục sản phẩm thành công');
+            } else {
+                Session::flash('error', 'Thêm danh mục sản phẩm không thành công');
+            }
+
             return redirect()->back();
         }
     }
@@ -96,8 +101,9 @@ class ProductCategoryController extends Controller
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
         $category = ProductCategory::where(['is_deleted' => 0, 'id' => $id])->first();
-        if(isset($category))return view('admin.pages.product_category.edit', ['category' => $category, 'categories' => $categories]);
-        else {
+        if (isset($category)) {
+            return view('admin.pages.product_category.edit', ['category' => $category, 'categories' => $categories]);
+        } else {
             Session::flash('error', 'Không tìm thấy danh mục sản phẩm');
             return redirect()->back();
         }
@@ -113,13 +119,13 @@ class ProductCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if($request->isMethod('put')){
+        if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-            ],[
+            ], [
                 'name.required' => 'Vui lòng nhập tên danh mục',
             ]);
-    
+
             if ($validator->fails()) {
                 Session::flash('error', $validator->errors()->first());
                 return redirect()->back();
@@ -146,7 +152,11 @@ class ProductCategoryController extends Controller
     {
         //
         $result = ProductCategory::where(['id' => $id])->update(['is_deleted' => 1]);
-        if($result) return response(['status' => 1, 'msg' => "Xóa danh mục sản phẩm thành công"]);
-        else return response(['status' => 0, 'msg' => "Xóa danh mục sản phẩm không thành công"]);
+        if ($result) {
+            return response(['status' => 1, 'msg' => "Xóa danh mục sản phẩm thành công"]);
+        } else {
+            return response(['status' => 0, 'msg' => "Xóa danh mục sản phẩm không thành công"]);
+        }
+
     }
 }
