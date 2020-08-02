@@ -1,5 +1,8 @@
 <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+{{-- <script src="{{asset('js/jquery.min.js')}}"></script> --}}
+{{-- <script src="{{asset('js/popper.min.js')}}"></script> --}}
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+
 <script src="{{asset('js/owl.carousel.js')}}"></script>
 <script src="{{asset('js/rangeslider.js')}}"></script>
 <script src="{{asset('js/fontawesome.min.js')}}"></script>
@@ -16,9 +19,9 @@
     if($(window).width() > 768) {
 
         $(document).ready(function() {
-            $('.wp-footer-main').click(function() {
-                $('.list-ft-main').slideToggle("fast");
-            });
+            // $('.wp-footer-main').click(function() {
+            //     $('.list-ft-main').slideToggle("fast");
+            // });
         });
     }
 </script>

@@ -3,22 +3,25 @@
 @section('title', 'Liên hệ')
 
 @section('content')
-
      <section class="sec-main-page">
         <div class="wp-list-tin" style="margin-bottom: 50px ">
             <div class="container">
                 <div class="map-lh wp-title-danhmuc-s">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d251637.95196238213!2d105.6189045!3d9.779349!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1593675945127!5m2!1svi!2s" width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                  
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2672.5871158658224!2d105.68250400417146!3d18.681536231220818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139ce745db1d48d%3A0x71cde7f8a9174428!2zMjU5IE5ndXnhu4VuIFbEg24gQ-G7qywgSMawbmcgQsOsbmgsIFRow6BuaCBwaOG7kSBWaW5oLCBOZ2jhu4cgQW4sIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1596273880773!5m2!1svi!2s"  width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <h1 class="texts" style="font-size: 20px;">Venus Charm</h1>
+                        <h1 class="texts" style="font-size: 20px;">Sam Underwear -  Đồ Lót & Đồ Ngủ Cao Cấp</h1>
                         <div class="contnet-lienhe">
                             <div class="wp-left-lh">
                                 <p>Cám ơn quý khách đã ghé thăm website chúng tôi.</p>
-                                
-                                <p><strong>Địa chỉ:</strong>
-                                    Số 01 Đại Cồ Việt, Quận Hai Bà Trưng, Hà Nội<br>
+                                <p>
+                                    <strong>Add 1:</strong> Lô 19 Lê Hoàn ( Đối Diện Dạ Lan Sự Kiện) - Tp. Thanh Hoá<br>
+                                    <br>
+                                    <strong>Add 2:</strong> 259 Nguyễn Văn Cừ- Tp. Vinh<br>
+                                    <br>
+                                    <strong>Add 3:</strong> 368A Hoàng Diệu - Đà Nẵng<br>
                                     <br>
                                     <strong>Điện thoại:</strong> <a>0989.935.818</a><br>
                                     <br>

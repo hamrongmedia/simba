@@ -149,6 +149,8 @@ template {
 a {
     background-color: transparent;
     text-decoration: none;
+    color: unset;
+    font-weight: 500;
 }
 
 a:active,
@@ -230,7 +232,7 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
     border: 1px solid #cdcdcd;
-    background: #c73550;
+    background: #dba289;
     padding: 5px 10px;
     -webkit-appearance: button;
     cursor: pointer;
@@ -239,7 +241,7 @@ input[type="submit"] {
     border: 0;
     line-height: 1.5;
     font-size: 15px;
-    background-color: #c73550;
+    background-color: #dba289;
     color: #fff;
 }
 button:hover,
@@ -252,7 +254,7 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-    border-color: #c73550;
+    border-color: #dba289;
 }
 button:active,
 button:focus,
@@ -262,7 +264,7 @@ input[type="reset"]:active,
 input[type="reset"]:focus,
 input[type="submit"]:active,
 input[type="submit"]:focus {
-    border-color: #c73550;
+    border-color: #dba289;
 }
 button[disabled],
 html input[disabled] {
@@ -325,6 +327,13 @@ th {
 p {
     margin-bottom: 10px;
 }
+
+.btn-default.focus,
+.btn-default:focus{
+    background-color: transparent;
+    outline: none;
+
+}
 dfn,
 cite,
 em,
@@ -363,11 +372,16 @@ a:hover {
 .mb-20 {
     margin-bottom: 20px;
 }
+
 label {
     display: block;
     font-weight: 400;
     margin-bottom: 1.5em;
     margin-top: 2.5em;
+
+}
+.wp-spnb-margin{
+    margin:0 6%;
 }
 .hidden {
     display: none !important;
@@ -378,7 +392,7 @@ label {
     flex-wrap: wrap;
 }
 .btn-hover:hover {
-    color: #c73550;
+    color: #dba289;
     background: transparent;
     border-color: #fff;
     text-decoration: underline;
@@ -394,6 +408,7 @@ label {
     padding-top: 15px;
     padding-bottom: 10px;
     box-shadow: 0px 0px 12px #afafaf;
+        border-bottom: 1px solid #ccc;
     background: #fff;
 }
 .wp-main-header {
@@ -424,15 +439,32 @@ label {
 }
 .wp-header-mobile img {
     width: 95px;
-    margin: auto;
 }
 .wp-main-header-right {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+        margin-top: 6px;
 }
 .wp-main-header-right > div {
     position: relative;
+}
+.wp-main-header-right > div.wp-search{
+    width: 60%;
+    margin-right: 30px;
+}
+.wp-main-header-right > div.wp-cart a{
+    display: inline-block;
+}
+.wp-main-header-right > div.wp-cart .cout-cart{
+    background-color: red;
+    padding: 0px 3px;
+    border-radius: 15px;
+    position: absolute;
+    top: -4px;
+    font-size: 11px;
+    color: #fff;
+    right: -14px;
 }
 .wp-main-header-right .wp-sub-menu {
     display: none;
@@ -459,8 +491,8 @@ label {
     background: none !important;
     border: none;
     position: absolute;
-    top: 5px;
-    left: -30px;
+    top: 3px;
+    right: 12px;
     padding: 0px;
 }
 .wp-search button i {
@@ -478,10 +510,13 @@ label {
 }
 .wp-search input {
     border: none;
-    border-bottom: 1px solid #333333;
-    border-radius: 0px;
+/*    border-bottom: 1px solid #333333;
+    border-radius: 0px;*/
     box-shadow: none !important;
     background: transparent;
+    padding: 10px 50px 10px 30px;
+    border-radius: 30px;
+    background-color: #f4f4f4;
 }
 .wp-user i.fa-user {
     opacity: 1;
@@ -503,12 +538,13 @@ label {
     cursor: pointer;
 }
 .wp-cart i.fa-shopping-cart {
-    width: 20px;
+       width: 31px;
     display: inline-block;
-    height: 22px;
-    background-image: url(../images/icon-cart.png);
-    background-size: 20px 22px;
+    height: 29px;
+    background-image: url(../images/cartx2.png);
+       background-size: 27px 28px;
     background-repeat: no-repeat;
+
 }
 .wp-cart i.fa-shopping-cart::before {
     opacity: 0;
@@ -670,12 +706,24 @@ span.pro-price-view {
     border: none;
     margin-bottom: 0px;
 }
+.wp-main-menu .navbar-default .navbar-nav > li{
+    padding:0;
+    margin-right: 30px;     
+}
+.wp-main-menu .navbar-default .navbar-nav > li:last-child{
+    margin-right: 0;
+}
 .wp-main-menu .navbar-default .navbar-nav > li > a {
     border-bottom: 2px solid transparent;
     font-size: 16px;
     color: #333333;
-    font-weight: 600;
+    font-weight: 400;
+    padding-right: 0;
+    padding-left: 0;
     text-transform: uppercase;
+}
+.wp-main-menu .navbar-default .navbar-nav > li:hover > a{
+    color: #e9aea0;
 }
 .wp-main-menu .navbar-default .navbar-nav > li .dropdown-menu {
     margin-top: 0;
@@ -726,6 +774,7 @@ span.pro-price-view {
     padding: 3px 20px;
     clear: both;
     font-weight: 400;
+        border-radius: 20px;
     line-height: 1.42857143;
     color: #333;
     white-space: nowrap;
@@ -883,9 +932,9 @@ span.pro-price-view {
     width: 140px;
 }
 .text-banner .btn-xem:hover {
-    background-color: #c73550 !important;
+    background-color: #dba289 !important;
     color: #fff;
-    border-color: #c73550 !important;
+    border-color: #dba289 !important;
 }
 #main-site .modal-header {
     padding: 0;
@@ -1107,6 +1156,10 @@ span.pro-price-view {
 .text-uudai .wp-shopnow {
     position: relative;
 }
+.text-uudai .wp-shopnow a{
+    background-color: transparent;
+    outline: none;
+}
 .wp-title-sec-sp {
     margin-bottom: 20px;
     position: relative;
@@ -1141,7 +1194,7 @@ span.pro-price-view {
     font-size: 13px;
 }
 .list-link-title li:hover a {
-    color: #c73550;
+    color: #dba289;
     text-decoration: underline;
 }
 .list-link-title li a {
@@ -1151,9 +1204,9 @@ span.pro-price-view {
     font-weight: 500;
     -webkit-box-orient: vertical;
 }
-.wp-list-sp-home .col-md-3 {
+/*.wp-list-sp-home .col-md-3 {
     padding: 0px 1px;
-}
+}*/
 .wp-item-sp {
     position: relative;
     margin-bottom: 30px;
@@ -1183,6 +1236,7 @@ span.pro-price-view {
     margin: 0px;
     width: 90%;
     opacity: 0;
+/*    display: inline-block !important;*/
     transition: all 0.3s ease-in-out;
 }
 .slide-sp .owl-nav .owl-prev,
@@ -1249,7 +1303,7 @@ span.pro-price-view {
     background: rgba(255, 255, 255, 0.8);
 }
 .wp-add-to-cart:hover a {
-    color: #c73550;
+    color: #dba289;
 }
 .wp-name-sp {
     padding-top: 10px;
@@ -1263,7 +1317,7 @@ span.pro-price-view {
 }
 .wp-price-sp .int {
     font-size: 16px;
-    color: #c73550;
+    color: #dba289;
     font-weight: 600;
     margin-right: 5px;
 }
@@ -1326,7 +1380,7 @@ span.pro-price-view {
 }
 .wp-item-dv {
     padding: 15px 50px;
-    border: 1px solid #c73550;
+    border: 1px solid #dba289;
     height: 110px;
     cursor: pointer;
     display: flex;
@@ -1334,7 +1388,7 @@ span.pro-price-view {
     justify-content: flex-start;
 }
 .wp-item-dv:hover {
-    background-color: #c73550;
+    background-color: #dba289;
 }
 .wp-item-dv:hover img {
     filter: brightness(0) invert(1);
@@ -1367,7 +1421,7 @@ span.pro-price-view {
     font-weight: 700;
 }
 .sec-home-11 h4 {
-    color: #c73550;
+    color: #dba289;
     font-size: 18px;
     font-weight: 700;
 }
@@ -1666,8 +1720,8 @@ span.pro-price-view {
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #c73550;
-    border-color: #c73550;
+    background-color: #dba289;
+    border-color: #dba289;
 }
 #ajax-product-pagination .pagination > li:first-child a,
 #ajax-product-pagination .pagination > li:first-child span {
@@ -1746,24 +1800,18 @@ span.pro-price-view {
     list-style: none;
 }
 .wp-chonmau ul li {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    float: left;
-    margin: 0 10px 10px 0;
-    cursor: pointer;
-    border: 1px solid #aaa;
+    border: 1px solid #ccc;
     position: relative;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    margin-right: 10px;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
 }
 .wp-chonmau ul li.active {
     border: 1px solid #f15a24;
     color: #f15a24;
 }
-.wp-chonmau ul li.active::after {
+/*.wp-chonmau ul li.active::after {
     content: '';
     position: absolute;
     display: block;
@@ -1775,17 +1823,32 @@ span.pro-price-view {
     right: -4px;
     bottom: -4px;
     top: inherit;
+}*/
+.wp-chonmau  .nav-pills>li.active>a, 
+.wp-chonmau .nav-pills>li.active>a:focus, 
+.wp-chonmau .nav-pills>li.active>a:hover{
+        background-color: #e9e9e9;
 }
 .wp-chonmau ul li a {
+    width: 28px;
+    height: 28px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    border: 2px solid #fff;
+    background: none;
+    padding: 0px;
+}
+.wp-chonmau ul li a span {
+    display: block;
     width: 100%;
     height: 100%;
-    display: block;
-    overflow: hidden;
-    font-size: 12px;
-    position: relative;
-    color: #333;
+    border-radius: 100%;
 }
-.wp-chonmau ul li a img {
+/*.wp-chonmau ul li a img {
     position: absolute;
     left: 0;
     top: 0;
@@ -1794,7 +1857,7 @@ span.pro-price-view {
     margin: auto;
     width: auto;
     max-width: 100%;
-}
+}*/
 .wp-chonsize ul {
     padding-left: 0;
     list-style: none;
@@ -1822,13 +1885,16 @@ span.pro-price-view {
 }
 .wp-btn-mua button {
     width: 100%;
-    background: #333333;
+    background: #e51b24;
     color: #fff;
     padding: 8px 0px;
     border: none;
     margin-bottom: 30px;
     font-size: 18px;
     text-transform: uppercase;
+}
+.wp-btn-mua button:hover{
+    background: #ad0008;
 }
 .lits-dv2 {
     margin-bottom: 50px;
@@ -1860,20 +1926,29 @@ span.pro-price-view {
 .lits-dv2 li .text-dv2 span {
     font-size: 10px;
 }
+
+.wp-list-sp-home .col-md-3:nth-child(4n+1){
+    clear:left;
+}
 .wp-tab-mota ul {
-    background: #333333;
-    color: #fff;
-    padding: 10px;
+   /* background: #333333;
+    color: #fff;*/
+    /*padding: 10px;*/
+    background: #f4f4f4;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+.wp-tab-mota ul li{
+    width: 33.33%;
+}
 .wp-tab-mota ul li a {
-    color: #fff;
+    color: #333333;
     background: none;
     font-size: 14px;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 10px 10px;
+    text-align: center;
 }
 .wp-tab-mota ul li a:hover {
     background: none;
@@ -1881,8 +1956,8 @@ span.pro-price-view {
 .wp-tab-mota ul li.active a:focus,
 .wp-tab-mota ul li.active a:hover,
 .wp-tab-mota ul li.active a {
-    text-decoration: underline;
-    background-color: transparent;
+    text-decoration: none;
+    background-color: #e51b24;
 }
 .wp-form-sdt button {
     background: #fcdcda;
@@ -1892,7 +1967,7 @@ span.pro-price-view {
     width: 100%;
 }
 .wp-form-sdt button:hover {
-    color: #c73550;
+    color: #dba289;
     background: #fcdcda;
     border: 1px solid #fcdcda;
     text-decoration: underline;
@@ -2186,15 +2261,34 @@ span.pro-price-view {
     padding-top: 15px;
     margin-top: 15px;
     clear: both;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e0e0e0;
+    background: #f1f1f1;
+}
+.footer-content-s{
+    padding-top: 40px;
+    border-top: 1px solid #e0e0e0;
 }
 .wp-footer-top {
-    padding: 0 50px;
+    padding: 0 6%;
+    margin: 20px 0px 0px;
 }
 .wp-ft-top .h3-title-ft {
     font-size: 14px;
     margin-bottom: 20px;
     font-weight: 600;
+        text-transform: uppercase;
+    padding-bottom: 12px;
+    position: relative;
+}
+.wp-ft-top .h3-title-ft:after{
+    content: " ";
+    width: 25%;
+    height: 2px;
+    background-color: #e9aea0;
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 0;
 }
 .wp-ft-top .p-phone {
     display: flex;
@@ -2235,7 +2329,7 @@ span.pro-price-view {
     background: #fcdcda !important;
     border: 1px solid #fcdcda !important;
     text-transform: uppercase;
-    color: #c73550;
+    color: #dba289;
 }
 .wp-ft-top .wp-form-dk label {
     margin-top: 0;
@@ -2251,42 +2345,61 @@ span.pro-price-view {
     float: left;
     margin-right: 20px;
 }
+.wp-ft-top .list-mxh li a{
+    width: 40px;
+    height: 40px;
+    display: block;
+    background: #fff;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 16px;
+    border: 1px solid #a9a9a9;
+}
 .wp-ft-top .list-mxh li i {
-    font-size: 30px;
-    color: #666;
+    font-size: 16px;
 }
 .wp-ft-top .list-mxh li .fa-zalo img {
-    width: 35px;
-    height: 35px;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+    width: 23px;
+    height: 22px;
+
 }
-.wp-ft-top .list-mxh li .fa-zalo:hover img {
-    -webkit-filter: grayscale(0%);
-    filter: grayscale(0%);
-}
-.wp-ft-top .list-mxh li:hover i.fa-facebook-f {
+
+.wp-ft-top .list-mxh li i.fa-facebook-f {
     color: #3b5998;
 }
-.wp-ft-top .list-mxh li:hover i.fa-instagram {
+.wp-ft-top .list-mxh li i.fa-instagram {
     color: #7b472c;
 }
-.wp-ft-top .list-mxh li:hover i.fa-youtube {
+.wp-ft-top .list-mxh li i.fa-youtube {
     color: #cc181e;
 }
 .wp-footer-main {
     background: #f1f1f1;
-    margin: 20px 0px 0px;
-    padding: 20px 50px;
+        padding: 20px 6%;
+
 }
 #footer-site a {
     color: #333;
 }
 .wp-footer-main .h3-title-ft {
-    font-size: 14px;
-    margin-bottom: 0px;
+       font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 600;
     text-transform: uppercase;
+    padding-bottom: 12px;
+    position: relative;
 }
+/*.wp-footer-main .h3-title-ft:after {
+    content: " ";
+    width: 25%;
+    height: 2px;
+    background-color: #e9aea0;
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}*/
 .wp-ft-main .list-ft-main {
     margin-top: 20px;
 }
@@ -2301,16 +2414,23 @@ span.pro-price-view {
     font-weight: 300;
 }
 .list-ft-main li:hover a {
-    color: #c73550;
+    color: #dba289;
     padding-left: 5px;
 }
 .wp-footer-bottom .row {
-    padding: 0px 50px;
+    padding: 0px 6%;
     line-height: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     font-weight: 300;
+}
+.wp-footer-bottom{
+    margin-top: 10px;
+        border-top: 1px solid #e0e0e0;
+}
+.wp-footer-bottom .left-ft-bt{
+    text-align: center;
 }
 .box-datmua .wp-btn button,
 .box-datmua .wp-btn a {
@@ -2339,7 +2459,7 @@ span.pro-price-view {
     position: fixed;
     right: 0px;
     bottom: 20%;
-    background-color: #c73550;
+    background-color: #dba289;
     width: 30px;
     height: 90px;
     border-radius: 7px 0px 0px 7px;
@@ -2518,6 +2638,31 @@ span.pro-price-view {
     .wp-boloc h1.h1-title-danhmuc {
         font-size: 18px;
     }
+    .wp-header-mobile img{
+        margin:auto;
+    }
+    .footer-content-s > .row{
+        margin:0;
+    }
+
+    .wp-spnb-margin{
+        margin:0px 20px;
+    }
+
+/*    .sec-main-page  .wp-spnb-margin{
+        margin:0px 0px;
+    }*/
+    .wp-footer-top,
+    .wp-footer-main{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .wp-list-sp-home .col-md-3:nth-child(4n+1) {
+        clear: none;
+    }
+     .wp-list-sp-home .col-md-3:nth-child(3n+1) {
+        clear: left;
+    }
 }
 @media (max-width: 767px) {
     .wp-suport-1 .row .col-xs-6:nth-child(n + 3),
@@ -2593,9 +2738,10 @@ span.pro-price-view {
     }
     .wp-ft-main .h3-title-ft {
         text-align: left;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         font-weight: 400;
         position: relative;
+        border-bottom: 1px solid #ccc;
         cursor: pointer;
     }
     .wp-footer-main {
@@ -2607,6 +2753,7 @@ span.pro-price-view {
     .wp-ft-main .list-ft-main {
         margin-bottom: 22px;
         padding-left: 20px;
+        display: none;
     }
     .wp-ft-main.open .h3-title-ft::after {
         transform: rotate(-180deg);
@@ -2673,14 +2820,14 @@ span.pro-price-view {
         transition: all 0.5s ease-in-out;
     }
     .wp-text-slide-sp-22.active {
-        position: absolute;
+       /* position: absolute;*/
         top: 30px;
         left: 0;
         width: 100%;
         background: #fff;
-        height: calc(100vh - 15px);
+/*        height: calc(100vh - 15px);
         height: -moz-calc(100vh - 15px);
-        height: -webkit-calc(100vh - 15px);
+        height: -webkit-calc(100vh - 15px);*/
     }
     .wp-titlle-tin-page .row {
         margin-left: -10px;
@@ -2692,7 +2839,7 @@ span.pro-price-view {
     }
     .wp-bottom-text-sp-22 {
         max-height: 100%;
-        overflow-y: scroll;
+       /* overflow-y: scroll;*/
         background: #fff;
     }
     .wp-bottom-text-sp-22::-webkit-scrollbar-track {
@@ -2706,9 +2853,7 @@ span.pro-price-view {
         background-color: #979797;
         border-radius: 5px;
     }
-    #chitietsanphammobile.active {
-        margin-bottom: 212px;
-    }
+
     .wp-icon {
         background: #feeae8;
         padding: 10px;
@@ -2744,6 +2889,19 @@ span.pro-price-view {
     .wp-boloc h1.h1-title-danhmuc {
         font-size: 14px;
     }
+
+    .wp-ft-top .h3-title-ft:after{
+        display: none;
+    }
+    .wp-list-sp-home .col-md-3:nth-child(3n+1) {
+        clear: none;
+    }
+     .wp-list-sp-home .col-md-3:nth-child(2n+1) {
+        clear: left;
+    }
+    .wp-sautab {
+        padding: 1px;
+    }
 }
 @media (max-width: 600px) {
     .wp-item-dv {
@@ -2778,9 +2936,7 @@ span.pro-price-view {
         padding: 10px 20px;
         margin: 0px 10px;
     }
-    #chitietsanphammobile.active {
-        margin-bottom: 298px;
-    }
+
     .form-group.group3 select {
         width: 100%;
         margin-bottom: 15px;
@@ -2999,7 +3155,7 @@ span.pro-price-view {
         height: 455px;
     }
     .wp-list-sp-slide {
-        height: 593.19px;
+            height: 485px;
         overflow: hidden;
     }
 }

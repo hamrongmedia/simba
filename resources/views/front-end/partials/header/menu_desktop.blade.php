@@ -11,7 +11,7 @@
                             <ul class="dropdown-menu">
                             @foreach ($item->child as $child)
                                     <li>
-                                        <a href="{{$item->link ?? '#'}}" title="Bộ đồ lót đệm dày">{{$child->title ?? ''}}</a>
+                                        <a href="{{$item->link ?? '#'}}">{{$child->title ?? ''}}</a>
                                     </li>
                             @endforeach
                             </ul>

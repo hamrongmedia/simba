@@ -158,15 +158,13 @@ function removeProductCart(product_id,url_delete)
     })
 }
 jQuery(document).ready(function ($) {
-    $(document).ready(function () {
-        var stickyTop = $("#sticky-wrapper").offset().top;
-        jQuery(window).scroll(function () {
-            if (jQuery(window).scrollTop() > stickyTop) {
-                jQuery(".sticky-wrapper").addClass("header-sticky");
-            } else {
-                jQuery(".sticky-wrapper").removeClass("header-sticky");
-            }
-        });
+    var stickyTop = $("#sticky-wrapper").offset().top;
+    jQuery(window).scroll(function () {
+        if (jQuery(window).scrollTop() > stickyTop) {
+            jQuery(".sticky-wrapper").addClass("header-sticky");
+        } else {
+            jQuery(".sticky-wrapper").removeClass("header-sticky");
+        }
     });
     $(".btn-click-cart").click(function () {
         $("#site-cart").addClass("active");
@@ -335,6 +333,20 @@ jQuery(document).ready(function ($) {
         $(this).parent().find(".wp-bo-loc-1").removeClass("open");
     });
 
+
+
+    $('.wp-tab-mota > ul > li > a').click(function(){
+        var jsid = $(this).data('tabsd');
+        $(this).closest('.wp-tab-mota').find('.tab-contets').removeClass('active in');
+        $(jsid).addClass('active in');
+    });
+
+    $('.wp-chonmau > ul > li > a').click(function(){
+        var jsid = $(this).data('tabsd');
+        $(this).closest('.wp-img-ctsp').find('.tab-images').removeClass('active in');
+        $(jsid).addClass('active in');
+    });
+
     $(".regular").slick({
         dots: false,
         infinite: true,
@@ -345,25 +357,29 @@ jQuery(document).ready(function ($) {
 
     $(".slide-uudai").owlCarousel({
         loop: true,
-        margin: 1,
+        margin:30,
         dots: false,
         nav: false,
         autoplay: true,
-        autoplayTimeout: 5000,
+        autoplayTimeout: 7000,
         autoplaySpeed: 1200,
         smartSpeed: 1200,
         responsive: {
             0: {
                 items: 2,
+                margin:20,
             },
             320: {
                 items: 2,
+                margin:20,
             },
             767: {
                 items: 3,
+                 margin:20,
             },
             1000: {
                 items: 3,
+                 margin:30,
             },
         },
     });
@@ -481,7 +497,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(".slide-sp").owlCarousel({
-        loop: true,
+        loop: false,
         margin: 0,
         dots: false,
         nav: true,
