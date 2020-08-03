@@ -404,7 +404,7 @@
                                             <div class="modal-body">
                                                 <div class="wp-cauhoi">
                                                     <h4>Hỏi đáp</h4>
-                                                    <form action="https://venuscharm.com.vn/comments/ajax/comments/addquestion.html"
+                                                    <form action="#"
                                                         method="post" id="rateformCH">
                                                         <div class="wpdg2 form-group">
                                                             <div class="errorcauhoi mt20 alert" style="display: none;"></div>
@@ -510,7 +510,6 @@
                     
         $(function () {
 
-
             $('.full').on('click', function () {
 
                 var star = $(this).attr('data-value');
@@ -525,7 +524,7 @@
 
             var moduleid = '{{$product->id}}';
 
-            // listComment(module, moduleid, $('.comment-list').attr('data-page'));
+            listComment(module, moduleid, $('.comment-list').attr('data-page'));
 
             var uri = $('#rateform').attr('action');
 
@@ -559,7 +558,6 @@
                     $('#rateform .error').removeClass('alert alert-danger').addClass('alert alert-success');
                     $('#rateform .error').html('Cảm ơn quý khách đã phản hồi!')
 
-
                 }).fail(function(errors){
 
                     $('.error').show();
@@ -581,7 +579,7 @@
 
                 var page = $(this).attr('data-ci-pagination-page');
 
-                //listComment(module, moduleid, page);
+                listComment(module, moduleid, page);
 
                 return false;
 
@@ -589,31 +587,30 @@
 
         });
 
-        // function listComment(module, moduleid, page) {
+        function listComment(module, moduleid, page) {
 
-        //     var uri = "#";
+            var uri = "{{route('admin.product_reviews.show_review')}}";
 
-        //     $.post(uri, {
+            $.post(uri, {
 
-        //         module: module, moduleid: moduleid, page: page
-        //     },
+                module: module, moduleid: moduleid, page: page
+            },
 
-        //         function (data) {
+                function (data) {
 
-        //             var json = JSON.parse(data);
+                    var json = JSON.parse(data);
 
-        //             $('.comment-list').html(json.html);
+                    $('.comment-list').html(json.html);
 
-        //             $('.count_comments').html(json.count_comments);
+                    $('.count_comments').html(json.count_comments);
 
-        //         });
-        // }
+                });
+        }
     </script>
     <script>
         $('#tab-content-none').hide();
         $('.click_show_comment').click(function(){
             $('#tab-content-none').show();
-
         });
     </script>
                 

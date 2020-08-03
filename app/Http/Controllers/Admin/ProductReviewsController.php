@@ -27,7 +27,7 @@ class ProductReviewsController extends Controller
     public function index(Request $request)
     {
 
-        $productReviews = $this->productReviewsRepo->getAll();
+        $productReviews = ProductReview::all();
         if (empty($request->all())) {
             $paginator = new PaginationHelper($productReviews, 10);
             $items = $paginator->getItem(1);
@@ -165,4 +165,5 @@ class ProductReviewsController extends Controller
             }
         }
     }
+
 }

@@ -104,7 +104,6 @@ class PermissionController extends Controller
     {
         $actions = Action::all()->sortBy('desc');
         $permission = Permission::find($id);
-        //dd($permission->actions->contains('id', 1));
         return view('admin.pages.admin_manage.permission_edit', ['permission' => $permission, 'actions' => $actions]);
     }
 

@@ -11,4 +11,5 @@ Route::group(['prefix' => 'hrm', 'middleware' => 'auth:admin', 'namespace' => 'A
 
 Route::group(['prefix' => 'product-reviews'], function () {
     Route::post('product-reviews/create', 'Admin\ProductReviewsController@store')->name('admin.product_reviews.store');
+    Route::post('product-reviews/create', 'Admin\ProductReviewsController@showReview')->name('admin.product_reviews.show_review');
 });

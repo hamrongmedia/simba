@@ -10,7 +10,6 @@
         <div class="box">
             <div class="box-header with-border">
                 <strong>Nội dung tin nhắn</strong>
-
                 <!-- /.box-tools -->
             </div>
 
@@ -67,7 +66,7 @@
                     <div class="form-group" style="margin-top:20px">
                         <div class="assign-switch">
                             <label class="switch-label">
-                                <input type="checkbox" class="switch-assign" name="comment_status">
+                                <input type="checkbox" class="switch-assign" {{$review->status == 1? 'checked' : '' }} name="comment_status">
                                 <span class="slider round"></span>
                             </label>
                             <label class="d-inline-block">Công khai / Ẩn</label>
