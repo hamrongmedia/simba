@@ -109,41 +109,42 @@ Trang chủ
     </section> <!-- end sec-home-05 -->
     <!-- list sản phẩm -->
     <section class="sec-home-06">
-        <div class="container-fluid">
-            <div class="wp-title-sec-sp clearfix">
-                <h2 class="h2-title">
-                    <a href="{{route('product.getProductByCat', $product_cat1->slug)}}">{{$product_cat1->name ?? ''}}</a>
-                </h2>
-                <!-- để danh mục sản phẩm con không vượt quá 10 -->
-                <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    @if ($child_product_cat1)
-                        @foreach($child_product_cat1 as $subcat)
-                        <li class="item"><a href="">{{$subcat->name}}</a></li>
-                        @endforeach
-                    @endif
-                    
-                </ul>
-                <!-- trên mobile -->
-                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
-                <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    @if ($child_product_cat1)
-                        @foreach($child_product_cat1 as $subcat)
-                        <li class="item"><a href="">{{$subcat->name}}</a></li>
-                        @endforeach
-                    @endif
-                    
-                </ul>
-            </div>
+        <div class="wp-spnb-margin">
+            <div class="container-fluid">
+                <div class="wp-title-sec-sp clearfix">
+                    <h2 class="h2-title">
+                        <a href="{{route('product.getProductByCat', $product_cat1->slug)}}">{{$product_cat1->name ?? ''}}</a>
+                    </h2>
+                    <!-- để danh mục sản phẩm con không vượt quá 10 -->
+                    <ul class="ul-b list-link-title hidden-xs hidden-sm">
+                        @if ($child_product_cat1)
+                            @foreach($child_product_cat1 as $subcat)
+                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            @endforeach
+                        @endif
+                        
+                    </ul>
+                    <!-- trên mobile -->
+                     <!-- để danh mục sản phẩm con không vượt quá 10 -->
+                    <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
+                        @if ($child_product_cat1)
+                            @foreach($child_product_cat1 as $subcat)
+                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            @endforeach
+                        @endif
+                        
+                    </ul>
+                </div>
 
-            <div class="wp-list-sp-home">
-                <div class="row">
-                    @foreach($single_product_cat1 as $product)
-                        @include('front-end.content.product_list',['data'=>$product])
-                    @endforeach   
+                <div class="wp-list-sp-home">
+                    <div class="row">
+                        @foreach($single_product_cat1 as $product)
+                            @include('front-end.content.product_list',['data'=>$product])
+                        @endforeach   
+                    </div>
                 </div>
             </div>
         </div>
-
     </section> <!-- end sec-home-06 -->
     <section class="sec-home-07 hidden-xs hidden-sm">
         <div class="container-fluid">
@@ -212,37 +213,38 @@ Trang chủ
         </div>
     </section> <!-- end sec-home-08 -->
     <section class="sec-home-06 mb-20">
-        <div class="container-fluid">
-            <div class="wp-title-sec-sp clearfix">
-                <h2 class="h2-title">
-                    <a href="{{$product_cat2->slug ?? ''}}">{{$product_cat2->name ?? ''}}</a>
-                </h2>
-                <!-- để danh mục sản phẩm con không vượt quá 10 -->
-                <ul class="ul-b list-link-title hidden-xs hidden-sm">
-                    @if ($child_product_cat2)
-                        @foreach($child_product_cat2 as $subcat)
-                        <li class="item"><a href="">{{$subcat->name}}</a></li>
-                        @endforeach
-                    @endif
-                    
-                </ul>
-                <!-- trên mobile -->
-                 <!-- để danh mục sản phẩm con không vượt quá 10 -->
-                <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
-                    @if ($child_product_cat2)
-                        @foreach($child_product_cat2 as $subcat)
-                        <li class="item"><a href="">{{$subcat->name}}</a></li>
-                        @endforeach
-                    @endif
-                    
-                </ul>
-            </div>
-            <div class="wp-list-sp-home">
-                <div class="row">
-                    @foreach($single_product_cat2 as $product)
-                        @include('front-end.content.product_list',['data'=>$product])
-                    @endforeach  
-                  
+        <div class="wp-spnb-margin">
+            <div class="container-fluid">
+                <div class="wp-title-sec-sp clearfix">
+                    <h2 class="h2-title">
+                        <a href="{{$product_cat2->slug ?? ''}}">{{$product_cat2->name ?? ''}}</a>
+                    </h2>
+                    <!-- để danh mục sản phẩm con không vượt quá 10 -->
+                    <ul class="ul-b list-link-title hidden-xs hidden-sm">
+                        @if ($child_product_cat2)
+                            @foreach($child_product_cat2 as $subcat)
+                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                    <!-- trên mobile -->
+                     <!-- để danh mục sản phẩm con không vượt quá 10 -->
+                    <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
+                        @if ($child_product_cat2)
+                            @foreach($child_product_cat2 as $subcat)
+                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            @endforeach
+                        @endif
+                        
+                    </ul>
+                </div>
+                <div class="wp-list-sp-home">
+                    <div class="row">
+                        @foreach($single_product_cat2 as $product)
+                            @include('front-end.content.product_list',['data'=>$product])
+                        @endforeach  
+                      
+                    </div>
                 </div>
             </div>
         </div>
