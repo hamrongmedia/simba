@@ -4,7 +4,7 @@
             <div class="row">
                 @if (isset($bottom_menu))
                     @foreach ($bottom_menu->child as $item)
-                    <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-3 col-sm-6 col-xs-12 menu-tops">
                         <div class="wp-ft-main">
                             <h3 class="h3-title-ft">{{$item->title}}</h3>
                             @if ($item->child)
