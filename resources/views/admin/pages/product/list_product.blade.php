@@ -11,6 +11,7 @@
             <th>Tên sản phẩm</th>
             <th>Danh mục</th>
             <th>Giá</th>
+            <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>
     </thead>
@@ -36,6 +37,7 @@
                     { "data": "name" },
                     { "data": "categories", "name": "categories.name" },
                     { "data": "price" },
+                    { "data": "delete_flag" },
                     { "data": "action" },
                 ],
                 

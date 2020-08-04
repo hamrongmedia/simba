@@ -42,15 +42,17 @@
 
   function deleteAjax(id) {
       $.ajax({
-          url: "{{ route("admin.product.destroy", ":id") }}",
+          url: "{{ route("admin.ajax.destroy") }}",
           type: 'POST',
           data: {
-              id: id
+              id: id,
+              model: 'product',
+              _method: 'delete',
           }
       }).done(function () {
           Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
+              'Xóa sản phẩm!',
+              'Bạn đã xóa sản phẩm thành công.',
               'success',
           );
           $('#product-' + id).remove();
@@ -60,12 +62,13 @@
   function deleteItem(id) {
     Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "Bạn muốn xóa sản phẩm này!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy bỏ'
     })
     .then((result) => {
         if (result.value) {
@@ -73,6 +76,45 @@
         }
     })
   }
+
+  function restoreItem( id, model, url, title= 'Are You Sure?') {
+    swal({
+      title: title,
+      text: text,
+      type: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      closeOnConfirm: false,
+      confirmButtonText: "Ok",
+      showLoaderOnConfirm: false,
+      cancelButtonText: "Cancel",
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+          setTimeout(function () {
+            $.ajax({
+              method: 'post',
+              url: url,
+              data: {
+                id: id,
+                model: model,
+                _token: $('meta[name="csrf-token"]').attr('content')
+              },
+              dataType: 'json',
+              success: function (data) {
+                if(data.status) {
+                  swal( 'Success!',data.msg,'success' );
+                  location.reload();
+                }
+              }
+            });
+          }, 2000);
+        });
+      }
+    }).then(function(result) {
+          swal( 'Error!',data.msg,'error' );
+    });
+  }
+
 
   function multipleDelete() {
       let idList = [];

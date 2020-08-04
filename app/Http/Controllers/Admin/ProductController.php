@@ -88,10 +88,19 @@ class ProductController extends Controller
                 return '';
             })
             ->addColumn('action', function (Product $product) {
-                return '<a href="' . route("admin.product.edit", $product->id) . '">
-                <span title="Edit" type="button" class="btn btn-flat btn-primary">
-                <i class="fa fa-edit"></i></span></a>&nbsp;
-                <span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+                $html = '<a href="' . route("admin.product.edit", $product->id) . '">
+                        <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                        <i class="fa fa-edit"></i></span></a>&nbsp;
+                        <span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
+                        <i class="fa fa-trash"></i></span>';
+                if($product->delete_flag==true) {
+                    $html.='&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success" onclick="restoreItem(' . $product->id . ',"product","' . route("admin.product.edit", $product->id) . '")"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
+                }
+                $html.='</td>';
+                return $html;
+            })
+            ->addColumn('delete_flag', function (Product $product) {
+                return \App\Helpers\Common::deleteFlag($product->delete_flag);
             })
             ->editColumn('categories', function (Product $product) {
                 $result = '';
@@ -100,7 +109,7 @@ class ProductController extends Controller
                 }
                 return $result;
             })
-            ->rawColumns(['image', 'action', 'name'])
+            ->rawColumns(['image', 'action', 'name','delete_flag'])
             ->make(true);
     }
 
