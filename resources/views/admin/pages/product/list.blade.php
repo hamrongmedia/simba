@@ -55,6 +55,7 @@
               'Bạn đã xóa sản phẩm thành công.',
               'success',
           );
+          window.location.reload();
           $('#product-' + id).remove();
       })
   }
@@ -77,42 +78,42 @@
     })
   }
 
-  function restoreItem( id, model, url, title= 'Are You Sure?') {
-    swal({
-      title: title,
-      text: text,
-      type: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      closeOnConfirm: false,
-      confirmButtonText: "Ok",
-      showLoaderOnConfirm: false,
-      cancelButtonText: "Cancel",
-      preConfirm: function() {
-        return new Promise(function(resolve) {
-          setTimeout(function () {
-            $.ajax({
-              method: 'post',
+  $('.haha').on('click',function(){
+    console.log('vao day');
+  });
+
+  function restoreItem( id, title= 'Are You Sure?') {
+      var model = 'product';
+      url = '{{ route("admin.ajax.restore") }}';
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "Bạn muốn xóa sản phẩm này!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Đồng ý',
+          cancelButtonText: 'Hủy bỏ'
+      })
+      .then((result) => {
+        if (result.value) {
+          $.ajax({
               url: url,
+              type: 'POST',
               data: {
                 id: id,
                 model: model,
-                _token: $('meta[name="csrf-token"]').attr('content')
-              },
-              dataType: 'json',
-              success: function (data) {
-                if(data.status) {
-                  swal( 'Success!',data.msg,'success' );
-                  location.reload();
-                }
               }
-            });
-          }, 2000);
-        });
-      }
-    }).then(function(result) {
-          swal( 'Error!',data.msg,'error' );
-    });
+          }).done(function () {
+              Swal.fire(
+                  'Thành công!',
+                  'Bạn đã khôi phục sản phẩm thành công.',
+                  'success',
+              );
+              window.location.reload();
+          })
+        }
+      });
   }
 
 

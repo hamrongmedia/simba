@@ -94,7 +94,7 @@ class ProductController extends Controller
                         <span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
                         <i class="fa fa-trash"></i></span>';
                 if($product->delete_flag==true) {
-                    $html.='&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success" onclick="restoreItem(' . $product->id . ',"product","' . route("admin.product.edit", $product->id) . '")"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
+                    $html.='&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success haha" onclick="restoreItem('.$product->id.')"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
                 }
                 $html.='</td>';
                 return $html;

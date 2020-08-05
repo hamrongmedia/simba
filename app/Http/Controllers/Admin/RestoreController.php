@@ -58,7 +58,7 @@ class RestoreController extends Controller
    public function restoreModel($id,$model)
    {
 		try {
-            $data = $model::whereIn('id', $id)->select('id','delete_flag')->first();
+            $data = $model::where('id', $id)->select('id','delete_flag')->first();
             $data->delete_flag = false;
             $data->save();
             $msg = 'Thành công';
