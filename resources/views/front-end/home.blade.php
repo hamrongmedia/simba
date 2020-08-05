@@ -119,7 +119,7 @@ Trang chủ
                     <ul class="ul-b list-link-title hidden-xs hidden-sm">
                         @if ($child_product_cat1)
                             @foreach($child_product_cat1 as $subcat)
-                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
                             @endforeach
                         @endif
                         
@@ -129,7 +129,7 @@ Trang chủ
                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
                         @if ($child_product_cat1)
                             @foreach($child_product_cat1 as $subcat)
-                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
                             @endforeach
                         @endif
                         
@@ -223,7 +223,7 @@ Trang chủ
                     <ul class="ul-b list-link-title hidden-xs hidden-sm">
                         @if ($child_product_cat2)
                             @foreach($child_product_cat2 as $subcat)
-                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
                             @endforeach
                         @endif
                     </ul>
@@ -232,7 +232,7 @@ Trang chủ
                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
                         @if ($child_product_cat2)
                             @foreach($child_product_cat2 as $subcat)
-                            <li class="item"><a href="">{{$subcat->name}}</a></li>
+                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
                             @endforeach
                         @endif
                         

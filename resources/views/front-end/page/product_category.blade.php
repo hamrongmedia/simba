@@ -15,34 +15,26 @@ Chuyên mục sản phẩm
                         <div class="wp-boloc" style="position: relative">
                             <div class="col-xs-12">
                                 <div class="wp-title">
-                                    <h1 class="h1-title-danhmuc">ÁO LÓT</h1>
+                                    <h1 class="h1-title-danhmuc">{{$catalog->name}}</h1>
                                     <ul class="ul-b list-link-title hidden-xs hidden-sm" style="bottom: 3px">
-                                        <li><a href="">ĐỆM DÀY</a></li>
-                                        <li><a href="">ĐỆM VỪA</a></li>
-                                        <li><a href="">ĐỆM MỎNG</a></li>
-                                        <li><a href="">KHÔNG GỌNG</a></li>
-                                        <li><a href="">CÓ GỌNG</a></li>
-                                        <li><a href="">BRALETTE</a></li>
-                                        <li><a href="">QUÂY NGANG</a></li>
-                                        <li><a href="">PHỤ KIỆN</a></li>
-                                        <li><a href="">ÁO LÓT TẠO KIỂU</a></li>
+                                        @if ($child_product_cat)
+                                            @foreach($child_product_cat as $subcat)
+                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg" >
-                                        <li class="item"><a href="">ĐỆM DÀY</a></li>
-                                        <li class="item"><a href="">ĐỆM VỪA</a></li>
-                                        <li class="item"><a href="">ĐỆM MỎNG</a></li>
-                                        <li class="item"><a href="">KHÔNG GỌNG</a></li>
-                                        <li class="item"><a href="">CÓ GỌNG</a></li>
-                                        <li class="item"><a href="">BRALETTE</a></li>
-                                        <li class="item"><a href="">QUÂY NGANG</a></li>
-                                        <li class="item"><a href="">PHỤ KIỆN</a></li>
-                                        <li class="item"><a href="">ÁO LÓT TẠO KIỂU</a></li>
+                                        @if ($child_product_cat)
+                                            @foreach($child_product_cat as $subcat)
+                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                                 <!-- bộ lọc -->
                                 <div class="filter">
                                     <div class="boloc-a">
-                                        <button class="btn-click-boloc">Bộ lọc</button>
+                                        {{-- <button class="btn-click-boloc">Bộ lọc</button> --}}
                                         <button class="btn btn-danger close-fil"><i class="fas fa-times"></i></button>
                                         <div class="wp-bo-loc-1">
                                             <h2 class="h2-title">Bộ lọc nâng cao</h2>

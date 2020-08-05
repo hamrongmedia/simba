@@ -116,6 +116,7 @@ class ProductController extends Controller
     public function getProductByCategory($product_cat_slug)
     {
         $catalog = ProductCategory::where('slug', $product_cat_slug)->firstOrFail();
+        $child_product_cat = $catalog->subCategory;
         $datas = $this->productRepository->getProductCatalog($this->request, $catalog->id);
         if ($datas) {
             foreach ($datas as $data) {
@@ -129,7 +130,7 @@ class ProductController extends Controller
                 }
             }
         }
-        return view('front-end.page.product_category', compact('datas'));
+        return view('front-end.page.product_category', compact('datas', 'catalog', 'child_product_cat'));
     }
 
     public function array_unique_multidimensional($input)
