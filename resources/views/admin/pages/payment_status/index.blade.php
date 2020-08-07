@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title','Trạng thái thanh toán')
+@section('title','Phương thức thanh toán')
 @section('main')
 <div class="row">
   <div class="col-xs-12">
@@ -27,6 +27,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên trạng thái</th>
+                            <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
@@ -37,13 +38,10 @@
                                     <td>{{$data->id}}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>
-                                        <a href="{{ route('admin.payment_status.edit',['id'=>$data->id]) }}">
-                                            <span title="Edit" type="button" class="btn btn-flat btn-primary">
-                                                <i class="fa fa-edit"></i></span>
-                                        </a>&nbsp;
-                                        <span onclick="deleteItem({{$data->id}});" title="Delete" class="btn btn-flat btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </span>
+                                        {!! \App\Helpers\Common::deleteFlag($data->is_deleted) !!}
+                                    </td>
+                                    <td>
+                                        {!! \App\Helpers\Common::showDataAction($data,route('admin.payment_status.edit',['id'=>$data->id])) !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -70,38 +68,79 @@
 @endsection
 @section('js')
 <script>
-    function deleteItem(id) {
+    function deleteItem( id) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Warning',
+            text: "Bạn có chắc muốn xóa phương thức thanh toán này?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Vâng, xóa trạng thái!'
         })
         .then((result) => {
-            url_delete = '{{ route('admin.payment_status.destroy') }}';
-            jQuery.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                },
-                type: "POST",
-                url: url_delete,
-                data: {
-                    id : id,
-                    _method : 'delete',
-                },
-                dataType: 'json',
-                success: function (data){
-                    Swal.fire( 'Thành công!','Bạn đã xóa biến thể thành công','success' );
-                    $("#product-variations-wrapper").html(data.data);
-                },
-                error: function (data) {
-                    Swal.fire( 'Thất bại!','Không thể xóa biến thể','error' );
-                }
-            });
+            if (result.value) {
+                var url =  "{{ route("admin.ajax.destroy") }}";
+                $.ajax({
+                    method: 'delete',
+                    url: url,
+                    data: {
+                        id: id,
+                        model: 'payment_method',
+                        _method: 'delete',
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (result) {
+                        Swal.fire(
+                            'Xóa phương thức thanh toán!',
+                            'Bạn đã xóa phương thức thanh toán thành công.',
+                            'success'
+                        );
+                        window.location.reload();
+                    }
+                })
+            }
         })
     }
+    function restoreItem( id, title= 'Are You Sure?') {
+      url = '{{ route("admin.ajax.restore") }}';
+      Swal.fire({
+          title: 'Bạn có chắc chắn không?',
+          text: "Bạn muốn khôi phục phương thức thanh toán này!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Đồng ý',
+          cancelButtonText: 'Hủy bỏ'
+      })
+      .then((result) => {
+        if (result.value) {
+          $.ajax({
+              url: url,
+              type: 'POST',
+              data: {
+                id: id,
+                model: "payment_method",
+              }
+          }).done(function () {
+              Swal.fire(
+                  'Thành công!',
+                  'Bạn đã khôi phục phương thức thanh toán thành công.',
+                  'success',
+              );
+              window.location.reload();
+          })
+        }
+      });
+    }
+    $('.deleteDialog').click(function(){
+        var id = $(this).data('id');
+        deleteItem(id);
+    });
+    $('.restoreDialog').click(function(){
+        var id = $(this).data('id');
+        restoreItem(id);
+    });
 </script>
 @endsection

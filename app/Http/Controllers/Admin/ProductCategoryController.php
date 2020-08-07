@@ -19,7 +19,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-        $categories = ProductCategory::where('is_deleted', 0)->get();
+        $categories = ProductCategory::all();
         return view('admin.pages.product_category.list', ['categories' => $categories]);
     }
 
@@ -31,7 +31,7 @@ class ProductCategoryController extends Controller
     public function create()
     {
         //
-        $categories = ProductCategory::where('is_deleted', 0)->get();
+        $categories = ProductCategory::where('delete_flag', 0)->get();
         return view('admin.pages.product_category.create', ['categories' => $categories]);
     }
 

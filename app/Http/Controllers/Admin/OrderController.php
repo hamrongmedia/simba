@@ -7,7 +7,7 @@ use App\Models\Order;
 use App\Repositories\Order\OrderRepository;
 use DataTables;
 use Illuminate\Http\Request;
-
+use DB;
 class OrderController extends Controller
 {
     /**
@@ -149,7 +149,29 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::where('id', $id)->first();
+        $name = $request->name;
+        switch ($name) {
+            case 'last_name':
+                $this->updateFullname($request, $order);
+                break;
+            default:
+                # code...
+                break;
+        }
+        return response()->json([
+            'status' => true,
+            'msg'    => 'Thành công'
+        ]);
+    }
+
+    private function updateFullname($request, $order)
+    {
+        DB::transaction(function () use ($request , $order) {
+            $name = $request->name;
+            $order->$name = $request->value;
+            $order->save();
+        });
     }
 
     /**

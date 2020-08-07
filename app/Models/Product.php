@@ -42,7 +42,7 @@ class Product extends Model
         'thumbnail',
         'type',
         'status',
-        'delete_flag',
+        'is_deleted',
     ];
 
     /**

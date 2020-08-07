@@ -79,10 +79,11 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
      */
     public function getProductCatalog($request, $catalog_id)
     {
-        if (!is_array($catalog_id)) {
-            $catalog_id = [$catalog_id];
-        }
         $data = $this->model
+             ->whereHas('categories', function($q) use ($catalog_id)
+             {
+                 $q->where('product_categories.id',$catalog_id);
+             })
             ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
             ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')

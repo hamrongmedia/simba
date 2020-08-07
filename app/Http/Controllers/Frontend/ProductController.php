@@ -115,7 +115,10 @@ class ProductController extends Controller
      */
     public function getProductByCategory($product_cat_slug)
     {
-        $catalog = ProductCategory::where('slug', $product_cat_slug)->firstOrFail();
+        $catalog = ProductCategory::where([
+                        [ 'slug', $product_cat_slug ],
+                        [ 'is_deleted', false ]
+                    ])->firstOrFail();
         $child_product_cat = $catalog->subCategory;
         $datas = $this->productRepository->getProductCatalog($this->request, $catalog->id);
         if ($datas) {
