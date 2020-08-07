@@ -37,7 +37,7 @@
                     { "data": "name" },
                     { "data": "categories", "name": "categories.name" },
                     { "data": "price" },
-                    { "data": "delete_flag" },
+                    { "data": "is_deleted" },
                     { "data": "action" },
                 ],
                 

@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Product;
-
+use App\Models\ProductCategory;
+use App\Models\OrderStatus;
+use App\Models\PaymentMethod;
+use App\Models\ShippingStatus;
+use Log;
 class RestoreController extends Controller
 {
     /**
@@ -39,8 +43,22 @@ class RestoreController extends Controller
 				break;
 			case 'post':
 				$model = Post::class;
+                break;
             case 'product':
                 $model = Product::class;
+                break;            
+            case 'product_category':
+                $model = ProductCategory::class;
+                break;
+            case 'order_status':
+                $model = OrderStatus::class;
+                break;
+            case 'payment_method':
+                $model = PaymentMethod::class;
+                break;
+            case 'shipping_status':
+                $model = ShippingStatus::class;
+                break;
 			default:
 				# code...
 				break;
@@ -58,8 +76,8 @@ class RestoreController extends Controller
    public function restoreModel($id,$model)
    {
 		try {
-            $data = $model::where('id', $id)->select('id','delete_flag')->first();
-            $data->delete_flag = false;
+            $data = $model::where('id', $id)->select('id','is_deleted')->first();
+            $data->is_deleted = false;
             $data->save();
             $msg = 'Thành công';
 			return response()->json(array('status' => true, 'msg'=>$msg));

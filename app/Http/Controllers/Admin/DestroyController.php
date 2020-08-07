@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Page;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\OrderStatus;
+use App\Models\PaymentMethod;
+use App\Models\ShippingStatus;
 
 class DestroyController extends Controller
 {
@@ -38,8 +43,22 @@ class DestroyController extends Controller
 				break;
 			case 'post':
 				$model = Post::class;
+                break;
             case 'product':
-                $model = Product::class;
+                $model = Product::class;   
+                break;         
+            case 'product_category':
+                $model = ProductCategory::class;
+                break;
+            case 'order_status':
+                $model = OrderStatus::class;
+                break;
+            case 'payment_method':
+                $model = PaymentMethod::class;
+                break;
+            case 'shipping_status':
+                $model = ShippingStatus::class;
+                break;
 			default:
 				# code...
 				break;
@@ -59,9 +78,9 @@ class DestroyController extends Controller
 		try {
 			$data = $model::where('id', $id)->select('id')->first();
 			if(!$data) return $this->respondWithError('Không tồn tại bản ghi');
-			$data->delete_flag = true;
+            $data->is_deleted = true;
 			$data->save();
-            $msg = 'Xóa sản phẩm thành công';
+            $msg = 'Xóa thành công';
 			return response()->json(array('status' => true, 'msg'=>$msg));
 		} catch (\Exception $e) {
 			return $this->renderJsonResponse( $e->getMessage() );

@@ -13,7 +13,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-
                     <div class="box-header with-border">
                         <h3 class="box-title">Order detail #{{ $order->order_code }}</h3>
                         <div class="box-tools not-print">
@@ -23,7 +22,7 @@
                                         class="fa fa-list"></i>&nbsp;List</a>
                             </div>
                             <div class="btn-group pull-right" style="margin-right: 10px">
-                                <a href="https://demo.s-cart.org/sc_admin/order/export_detail?order_id=300&amp;type=invoice"
+                                <a href=""
                                     class="btn btn-sm btn-flat btn-twitter" title="Export"><i
                                         class="fa fa-file-excel-o"></i><span class="hidden-xs">
                                         Excel</span></a>
@@ -44,15 +43,15 @@
                                     <td class="td-title">Họ tên:</td>
                                     <td><a href="#" class="updateInfoRequired" data-name="last_name"
                                             data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update')}}"
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                             data-title="Last name">{{ $order->fullname }}</a></td>
-                                </tr>
+                                </tr>                                
 
                                 <tr>
                                     <td class="td-title">Số điện thoại:</td>
                                     <td><a href="#" class="updateInfoRequired" data-name="phone"
                                             data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update')}}"
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                             data-title="Phone">{{ $order->phone }}</a></td>
                                 </tr>
 
@@ -67,7 +66,7 @@
                                     <td class="td-title">Tỉnh thành:</td>
                                     <td><a href="#" class="updateInfoRequired" data-name="address1"
                                             data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update')}}"
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                             data-title="Address 1">{{ $order->province->name }}</a></td>
                                 </tr>
 
@@ -75,7 +74,7 @@
                                     <td class="td-title">Quận huyện:</td>
                                     <td><a href="#" class="updateInfoRequired" data-name="address2"
                                             data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update')}}"
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                             data-title="Address 2">{{ $order->district->name }}</a></td>
                                 </tr>
 
@@ -209,7 +208,7 @@
                                         <td style="text-align:right"><a href="#"
                                                 class="updatePrice data-shipping" data-name="shipping"
                                                 data-type="text" data-pk="1738"
-                                                data-url="{{route('admin.order.update')}}"
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                                 data-title="Shipping price">20000</a></td>
                                     </tr>
 
@@ -221,7 +220,7 @@
                                         <td style="text-align:right"><a href="#"
                                                 class="updatePrice data-discount" data-name="discount"
                                                 data-type="text" data-pk="1739"
-                                                data-url="{{route('admin.order.update')}}"
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                                 data-title="Discount">0</a></td>
                                     </tr>
                                     <tr style="background:#f5f3f3;font-weight: bold;">
@@ -233,7 +232,7 @@
                                         <td style="text-align:right"><a href="#"
                                                 class="updatePrice data-received" data-name="received"
                                                 data-type="text" data-pk="1741"
-                                                data-url="{{route('admin.order.update')}}"
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                                 data-title="Received">0</a></td>
                                     </tr>
                                     <tr style="font-weight:bold;" class="data-balance">
@@ -255,7 +254,7 @@
                                         <td>
                                             <a href="#" class="updateInfo" data-name="comment" data-type="text"
                                                 data-pk="300"
-                                                data-url="{{route('admin.order.update')}}"
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                                 data-title="">
                                             </a>
                                         </td>
@@ -299,7 +298,7 @@
 @endsection
 
 @section('js')
-<script src="{{asset('js/bootstrap-editable.min.js')}}"></script>
+<script src="{{asset('template/js/bootstrap-editable.min.js')}}"></script>
 <script>
     
     function deleteItem(id) {
@@ -429,18 +428,14 @@
     });
 
     function all_editable() {
-        $.fn.editable.defaults.params = function (params) {
-            params._token = {{csrf_token()}};
-            return params;
-        };
-
         $('.updateInfo').editable({
             success: function (response) {
-                if (response.error == 0) {
-                    alertJs('success', response.msg);
-                } else {
-                    alertJs('error', response.msg);
-                }
+                console.log('vao day');
+                Swal.fire(
+                    'Thành công!',
+                    'Bạn đã khôi phục sản phẩm thành công.',
+                    'success',
+                );
             }
         });
 
@@ -464,19 +459,23 @@
             }
         });
 
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
         $('.updateInfoRequired').editable({
             validate: function (value) {
                 if (value == '') {
-                    return 'Data not empty!';
+                    return 'Giá trị bắt buộc!';
                 }
             },
             success: function (response, newValue) {
-                console.log(response.msg);
-                if (response.error == 0) {
-                    alertJs('success', response.msg);
-                } else {
-                    alertJs('error', response.msg);
-                }
+                Toast.fire({
+                    type: 'success',
+                    title: response.msg
+                });
             }
         });
 

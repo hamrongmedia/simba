@@ -27,7 +27,8 @@ class OrderStatus extends Model
      * @var array
      */
     protected $fillable = [
-        'name' 
+        'name' ,
+        'is_deleted'
     ];
 
     /**

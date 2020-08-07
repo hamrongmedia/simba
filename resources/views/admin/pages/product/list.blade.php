@@ -78,16 +78,12 @@
     })
   }
 
-  $('.haha').on('click',function(){
-    console.log('vao day');
-  });
-
   function restoreItem( id, title= 'Are You Sure?') {
       var model = 'product';
       url = '{{ route("admin.ajax.restore") }}';
       Swal.fire({
           title: 'Are you sure?',
-          text: "Bạn muốn xóa sản phẩm này!",
+          text: "Bạn muốn khôi phục sản phẩm này!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

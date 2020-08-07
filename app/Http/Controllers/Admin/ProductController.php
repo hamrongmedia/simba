@@ -90,17 +90,19 @@ class ProductController extends Controller
             ->addColumn('action', function (Product $product) {
                 $html = '<a href="' . route("admin.product.edit", $product->id) . '">
                         <span title="Edit" type="button" class="btn btn-flat btn-primary">
-                        <i class="fa fa-edit"></i></span></a>&nbsp;
-                        <span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
-                        <i class="fa fa-trash"></i></span>';
-                if($product->delete_flag==true) {
+                        <i class="fa fa-edit"></i></span></a>&nbsp';
+                if($product->is_deleted==false) {
+                    $html.='<span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
+                            <i class="fa fa-trash"></i></span>';
+                }
+                if($product->is_deleted==true) {
                     $html.='&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success haha" onclick="restoreItem('.$product->id.')"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
                 }
                 $html.='</td>';
                 return $html;
             })
-            ->addColumn('delete_flag', function (Product $product) {
-                return \App\Helpers\Common::deleteFlag($product->delete_flag);
+            ->addColumn('is_deleted', function (Product $product) {
+                return \App\Helpers\Common::deleteFlag($product->is_deleted);
             })
             ->editColumn('categories', function (Product $product) {
                 $result = '';
@@ -109,7 +111,7 @@ class ProductController extends Controller
                 }
                 return $result;
             })
-            ->rawColumns(['image', 'action', 'name','delete_flag'])
+            ->rawColumns(['image', 'action', 'name','is_deleted'])
             ->make(true);
     }
 
@@ -203,7 +205,7 @@ class ProductController extends Controller
     {
         //
         $categories = ProductCategory::where('is_deleted', 0)->get();
-        $data = Product::where(['delete_flag' => 0, 'id' => $id])->first();
+        $data = Product::where(['id' => $id])->first();
         $attributes = ProductAttribute::where('is_deleted', 0)->get();
 
         $product_attribute_map = ProductAttribute::with('attributeValues')

@@ -63,9 +63,7 @@
                 </a>
             </h3>
         </div>
-        <div class="wp-price-sp">
-            <span class="int">{{ \App\Helpers\Common::priceFormat($data->price) }}đ</span>
-        </div>
+        {!! \App\Helpers\Common::priceProduct($data) !!}
         <!--màu sắc đầu tiên-->
         @if($data->type == \App\Models\Product::PRODUCT_ATTRIBUTE)
             <div class="wp-list-check-color">

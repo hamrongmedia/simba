@@ -32,7 +32,7 @@ class CreateProductTable extends Migration
             $table->string('meta_description')->nullable();
             $table->tinyInteger('type')->comment('1:Default, 2:Attribute')->default(1);
             $table->tinyInteger('status')->default(1);
-            $table->boolean('delete_flag')->default(0);
+            $table->boolean('is_deleted')->default(0);
             $table->timestamps();
         });
 

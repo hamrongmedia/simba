@@ -154,13 +154,12 @@ class ProductInfoController extends Controller
 			} else {
 				# Case This
 				if($product_info_id == $check_exits->id) {
-					if($request->thumbnail) {
 					$thumbnail = $request->thumbnail;
+					Log::info($thumbnail);
 					$product_color = ProductColor::updateOrCreate(
 					    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
 					    ['image_path' => $thumbnail]
 					);
-					}
 				} else {
 					return back()->with('msg','Biến thể đã tồn tại');
 				}				
