@@ -14,18 +14,12 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Order detail #{{ $order->order_code }}</h3>
+                        <h3 class="box-title">Chi tiết đơn hàng #{{ $order->order_code }}</h3>
                         <div class="box-tools not-print">
                             <div class="btn-group pull-right" style="margin-right: 0px">
                                 <a href="https://demo.s-cart.org/sc_admin/order"
                                     class="btn btn-sm btn-flat btn-default"><i
                                         class="fa fa-list"></i>&nbsp;List</a>
-                            </div>
-                            <div class="btn-group pull-right" style="margin-right: 10px">
-                                <a href=""
-                                    class="btn btn-sm btn-flat btn-twitter" title="Export"><i
-                                        class="fa fa-file-excel-o"></i><span class="hidden-xs">
-                                        Excel</span></a>
                             </div>
 
                             <div class="btn-group pull-right"
@@ -41,7 +35,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td class="td-title">Họ tên:</td>
-                                    <td><a href="#" class="updateInfoRequired" data-name="last_name"
+                                    <td><a href="#" class="updateInfoRequired" data-name="fullname"
                                             data-type="text" data-pk="300"
                                             data-url="{{route('admin.order.update',['id'=>$order->id])}}"
                                             data-title="Last name">{{ $order->fullname }}</a></td>
@@ -59,51 +53,107 @@
                                     <td class="td-title">Email:</td>
                                     <td>{{ $order->email }}</td>
                                 </tr>
-
-
-
                                 <tr>
                                     <td class="td-title">Tỉnh thành:</td>
-                                    <td><a href="#" class="updateInfoRequired" data-name="address1"
-                                            data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                            data-title="Address 1">{{ $order->province->name }}</a></td>
+                                    <td>{{ $order->province->name }}</td>
                                 </tr>
-
                                 <tr>
                                     <td class="td-title">Quận huyện:</td>
-                                    <td><a href="#" class="updateInfoRequired" data-name="address2"
-                                            data-type="text" data-pk="300"
-                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                            data-title="Address 2">{{ $order->district->name }}</a></td>
+                                    <td>{{ $order->district->name }}</td>
                                 </tr>
-
                                 <tr>
                                     <td class="td-title">Phường xã:</td>
                                     <td>{{ $order->ward->name }}</td>
                                 </tr>
-
+                                <tr>
+                                    <td class="td-title">Địa chỉ:</td>
+                                    <td>
+                                        <a href="#" class="updateInfoRequired" 
+                                            data-name="address"
+                                            data-type="text" 
+                                            data-pk="300"
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}"
+                                            data-title="Address">{{ $order->address }}
+                                        </a>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         <div class="col-sm-6">
                             <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="td-title">Trạng thái đơn hàng:</td>
+                                        <td>
+                                            <a href="#" class="updateStatus editable editable-click" 
+                                                data-name="order_status_id" 
+                                                data-type="select" 
+                                                data-source="{{ $order_statuss }}" 
+                                                data-pk="322" 
+                                                data-value="{{ $order->orderStatus->id ?? ''}}" 
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}" 
+                                                data-title="Trạng thái đơn hàng">
+                                                {{ $order->orderStatus->name ?? ''}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trạng thái vận chuyển:</td>
+                                        <td>
+                                            <a href="#" class="updateStatus editable editable-click" 
+                                                data-name="shipping_status_id" 
+                                                data-type="select" 
+                                                data-source="{{ $shipping_statuss }}" 
+                                                data-pk="322" 
+                                                data-value="{{ $order->shippingStatus->id ?? ''}}" 
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}" 
+                                                data-title="Trạng thái vận chuyển">{{ $order->shippingStatus->name ?? ''}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phương thức thanh toán:</td>
+                                        <td>
+                                            <a href="#" class="updateStatus editable editable-click" 
+                                                data-name="payment_method_id" 
+                                                data-type="select" 
+                                                data-source="{{ $payment_methods }}" 
+                                                data-pk="322" 
+                                                data-value="{{ $order->paymentMethod->id ?? ''}}" 
+                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}" 
+                                                data-title="Phương thức thanh toán">{{ $order->paymentMethod->name ?? ''}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
                                 <tr>
-                                    <td class="td-title">Trạng thái đơn hàng:</td>
-                                    <td>{{ $order->orderStatus->name ?? ''}}</td>
+                                    <td class="td-title">Ghi chú:</td>
+                                    <td>
+                                        <a href="#" class="updateInfoRequired editable editable-click" 
+                                            data-name="message" 
+                                            data-type="text" 
+                                            data-pk="322" 
+                                            data-value="{{ $order->message ?? ''}}" 
+                                            data-url="{{route('admin.order.update',['id'=>$order->id])}}" 
+                                            data-title="Ghi chú">{{ $order->message ?? ''}}
+                                        </a>
+                                    </td>
                                 </tr>
                             </table>
                             <table class="table table-bordered">
                                 <tr>
-                                    <td class="td-title">Tổng phụ:</td>
-                                    <td>{{ \App\Helpers\Common::priceFormat($order->subtotal) }} đ</td>
+                                    <td class="td-title"><b>Tổng phụ</b>:</td>
+                                    <td><b>{{ \App\Helpers\Common::priceFormat($order->subtotal) }} đ</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="td-title">Phí vận chuyển:</td>
-                                    <td>{{ \App\Helpers\Common::priceFormat($order->delivery_fee_total) }}đ</td>
+                                    <td class="td-title"><b>Phí vận chuyển:</b></td>
+                                    <td><b>{{ \App\Helpers\Common::priceFormat($order->delivery_fee_total) }} đ</b></td>
                                 </tr>
                                 <tr>
-                                    <td class="td-title">Tổng tiền:</td>
-                                    <td>{{ \App\Helpers\Common::priceFormat($order->payment_total) }}đ</td>
+                                    <td class="td-title"><b>Tổng tiền:</td>
+                                    <td><b>{{ \App\Helpers\Common::priceFormat($order->payment_total) }} đ</b></td>
                                 </tr>
                             </table>
                         </div>
@@ -112,7 +162,7 @@
 
 
                     <form id="form-add-item" action="" method="">
-                        <input type="hidden" name="_token" value="foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20">
+                        @csrf
                         <input type="hidden" name="order_id" value="300">
                         <div class="row">
                             <div class="col-sm-12">
@@ -130,41 +180,52 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if($datas)
+                                                @if($datas->count()>0)
                                                     @foreach ($datas as $cartItem)
                                                         <tr>
                                                             <td>{{ $cartItem->name }}</td>
                                                             <td>{{ $cartItem->product_code }}</td>
                                                             <td class="product_price">
                                                                 <a href="#"
-                                                                    class="edit-item-detail" data-value="{{ $cartItem->price }}"
-                                                                    data-name="price" data-type="number" min=0
+                                                                    class="edit-item-detail" 
+                                                                    data-value="{{ $cartItem->price }}"
+                                                                    data-name="price" 
+                                                                    data-type="number" 
+                                                                    min=0
                                                                     data-pk="376"
                                                                     data-url="https://demo.s-cart.org/sc_admin/order/edit_item"
                                                                     data-title="Price">
-                                                                    {{ \App\Helpers\Common::priceFormat($cartItem->price) }}
+                                                                    {{ \App\Helpers\Common::priceFormat($cartItem->price) }} đ
                                                                 </a>
                                                             </td>
                                                             <td class="product_qty">x 
-                                                                <a href="#" class="edit-item-detail" data-value="{{ $cartItem->quantity }}">{{ $cartItem->quantity }}</a></td>
-                                                            <td class="product_total item_id_376">$4,000</td>
+                                                                <a href="#" class="edit-item-detail" data-value="{{ $cartItem->quantity }}">
+                                                                    {{ $cartItem->quantity }}
+                                                                </a>
+                                                            </td>
+                                                            <td class="product_total item_id_376">{{ \App\Helpers\Common::priceFormat($cartItem->price*$cartItem->quantity) }} đ</td>
                                                             <td>
-                                                                <span onclick="deleteItem({{ $cartItem->product_id }});"
-                                                                    class="btn btn-danger btn-xs" data-title="Delete"><i
-                                                                        class="fa fa-trash"
-                                                                        aria-hidden="true"></i></span>
+                                                                <span onclick="deleteItem({{ $cartItem->id }});" class="btn btn-danger btn-xs" data-title="Delete">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                     @endforeach
+                                                @else
+                                                    <td style="padding: 25px 0px;color: red;" colspan="6" class="text-center">Đơn hàng không có sản phẩm</td>
                                                 @endif
 
                                                 <tr id="add-item" class="not-print">
                                                     <td colspan="6">
                                                         <button type="button"
                                                             class="btn btn-sm btn-flat btn-success"
-                                                            id="add-item-button" title="Add product"><i
-                                                                class="fa fa-plus"></i> Add product</button>
-                                                        &nbsp;&nbsp;&nbsp;<button
+                                                            id="add-item-button" 
+                                                            title="Add product">
+                                                            <i class="fa fa-plus"></i> 
+                                                            Thêm sản phẩm
+                                                        </button>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <button
                                                             style="display: none; margin-right: 50px"
                                                             type="button"
                                                             class="btn btn-sm btn-flat btn-warning"
@@ -180,118 +241,6 @@
 
                         </div>
                     </form>
-
-                    <div class="row">
-
-                        <div class="col-sm-6">
-                            <div class="box collapsed-box">
-                                <table class="table table-bordered">
-                                    <tr>
-                                        <td class="td-title-normal">Sub Total:</td>
-                                        <td style="text-align:right" class="data-subtotal">4,000</td>
-                                    </tr>
-
-
-
-
-                                    <tr>
-                                        <td class="td-title-normal">Tax:</td>
-                                        <td style="text-align:right" class="data-tax">400</td>
-                                    </tr>
-
-
-
-
-
-                                    <tr>
-                                        <td>Shipping Standard:</td>
-                                        <td style="text-align:right"><a href="#"
-                                                class="updatePrice data-shipping" data-name="shipping"
-                                                data-type="text" data-pk="1738"
-                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                                data-title="Shipping price">20000</a></td>
-                                    </tr>
-
-
-
-
-                                    <tr>
-                                        <td>Discount(-):</td>
-                                        <td style="text-align:right"><a href="#"
-                                                class="updatePrice data-discount" data-name="discount"
-                                                data-type="text" data-pk="1739"
-                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                                data-title="Discount">0</a></td>
-                                    </tr>
-                                    <tr style="background:#f5f3f3;font-weight: bold;">
-                                        <td>Total:</td>
-                                        <td style="text-align:right" class="data-total">24,400</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Received(-):</td>
-                                        <td style="text-align:right"><a href="#"
-                                                class="updatePrice data-received" data-name="received"
-                                                data-type="text" data-pk="1741"
-                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                                data-title="Received">0</a></td>
-                                    </tr>
-                                    <tr style="font-weight:bold;" class="data-balance">
-                                        <td>Balance:</td>
-                                        <td style="text-align:right">24,400</td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="col-sm-6">
-                            <div class="box collapsed-box">
-                                <table class="table box table-bordered">
-                                    <tr>
-                                        <td class="td-title">Order note:</td>
-                                        <td>
-                                            <a href="#" class="updateInfo" data-name="comment" data-type="text"
-                                                data-pk="300"
-                                                data-url="{{route('admin.order.update',['id'=>$order->id])}}"
-                                                data-title="">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <div class="box collapsed-box">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Order history</h3>
-
-                                    <div class="box-tools pull-right">
-                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                                class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="box-body table-responsive no-padding box-primary">
-                                    <table class="table table-bordered" id="history">
-                                        <tr>
-                                            <th>Staff</th>
-                                            <th>Content</th>
-                                            <th>Time</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Test</td>
-                                            <td>
-                                                <div class="history">New order</div>
-                                            </td>
-                                            <td>2020-07-27 18:48:12</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -300,24 +249,6 @@
 @section('js')
 <script src="{{asset('template/js/bootstrap-editable.min.js')}}"></script>
 <script>
-    
-    function deleteItem(id) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        })
-            .then((result) => {
-                if (result.value) {
-                    deleteAjax(id);
-                }
-            })
-    }
-
     function multipleDelete() {
         let idList = [];
         console.log(document.querySelectorAll('.table-checkbox'));
@@ -348,9 +279,7 @@
 
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        //Initialize Select2 Elements
         $('.select2').select2();
     });
 
@@ -398,27 +327,43 @@
 
     }
 
-    // $('#add-item-button-save').click(function (event) {
-    //     $('#add-item-button').prop('disabled', true);
-    //     $('#add-item-button-save').button('loading');
-    //     $.ajax({
-    //         url: 'https://demo.s-cart.org/sc_admin/order/add_item',
-    //         type: 'post',
-    //         dataType: 'json',
-    //         data: $('form#form-add-item').serialize(),
-    //         beforeSend: function () {
-    //             $('#loading').show();
-    //         },
-    //         success: function (result) {
-    //             $('#loading').hide();
-    //             if (parseInt(result.error) == 0) {
-    //                 location.reload();
-    //             } else {
-    //                 alertJs('error', result.msg);
-    //             }
-    //         }
-    //     });
-    // });
+    $('#add-item-button').click(function() {
+        $.ajax({
+            url: '{{ route('admin.order.item.new') }}',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (result) {
+                var html = result.data;
+                $('#add-item').before(html);
+                $('.select2').select2();
+                $('#add-item-button-save').show();
+            }
+        });
+    });
+
+    $('#add-item-button-save').click(function (event) {
+        $('#add-item-button').prop('disabled', true);
+        $('#add-item-button-save').button('loading');
+        $.ajax({
+            url: 'https://demo.s-cart.org/sc_admin/order/add_item',
+            type: 'post',
+            dataType: 'json',
+            data: $('form#form-add-item').serialize(),
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (result) {
+                $('#loading').hide();
+                if (parseInt(result.error) == 0) {
+                    location.reload();
+                } else {
+                    alertJs('error', result.msg);
+                }
+            }
+        });
+    });
 
     //End add item
     //
@@ -430,7 +375,6 @@
     function all_editable() {
         $('.updateInfo').editable({
             success: function (response) {
-                console.log('vao day');
                 Swal.fire(
                     'Thành công!',
                     'Bạn đã khôi phục sản phẩm thành công.',
@@ -451,10 +395,16 @@
                 }
             },
             success: function (response) {
-                if (response.error == 0) {
-                    alertJs('success', response.msg);
+                if (response.status == false) {
+                    Toast.fire({
+                        type: 'error',
+                        title: response.msg
+                    });
                 } else {
-                    alertJs('error', response.msg);
+                    Toast.fire({
+                        type: 'success',
+                        title: response.msg
+                    });
                 }
             }
         });
@@ -548,8 +498,6 @@
         });
     }
 
-
-
     function deleteItem(id) {
         Swal.mixin({
             customClass: {
@@ -558,32 +506,40 @@
             },
             buttonsStyling: true,
         }).fire({
-            title: 'Are you sure to delete this item?',
+            title: 'Bạn chắc chắn xóa sản phẩm này khỏi đơn hàng?',
             text: "",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonText: 'Đồng ý!',
             confirmButtonColor: "#DD6B55",
-            cancelButtonText: 'No, cancel!',
+            cancelButtonText: 'Hủy bỏ!',
             reverseButtons: true,
-
             preConfirm: function () {
                 return new Promise(function (resolve) {
                     $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        },
                         method: 'POST',
-                        url: 'https://demo.s-cart.org/sc_admin/order/delete_item',
+                        url: '{{ route('admin.order.item.destroy') }}',
                         data: {
-                            'pId': id,
-                            _token: 'foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20',
+                            'id': id
                         },
                         success: function (response) {
-                            if (response.error == 0) {
+                            if (response.status == true) {
+                                Swal.fire(
+                                    'Thành công!',
+                                    response.msg,
+                                    'success'
+                                )
                                 location.reload();
-                                alertJs('success', response.msg);
                             } else {
-                                alertJs('error', response.msg);
+                                Swal.fire(
+                                    'Thất bại!',
+                                    response.msg,
+                                    'error'
+                                )
                             }
-
                         }
                     });
                 });
@@ -593,14 +549,8 @@
             if (result.value) {
                 alertMsg('success', 'Item has been deleted.', 'Deleted!');
             } else if (
-                // Read more about handling dismissals
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                // swalWithBootstrapButtons.fire(
-                //   'Cancelled',
-                //   'Your imaginary file is safe :)',
-                //   'error'
-                // )
             }
         })
     }

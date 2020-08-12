@@ -166,4 +166,9 @@ class ProductReviewsController extends Controller
         }
     }
 
+    public function showReview()
+    {
+        
+    }
+
 }

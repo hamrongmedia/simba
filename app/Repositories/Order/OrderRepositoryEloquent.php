@@ -72,6 +72,7 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository 
 						'products.thumbnail',
 						'products.name',
 						'products.type',
+						'products.product_code',
 						'products.slug as product_slug',
 						'order_items.quantity',
 						'order_items.price',

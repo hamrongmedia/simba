@@ -70,4 +70,26 @@ class OrderService
         $orderItem->save();
         return $orderItem;
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Delete Order Item
+    * @return Return \Illuminate\Support\Facades\View
+    *--------------------------------------------------------------------------
+    */
+   public function deleteOrderItem(OrderItem $orderItem)
+   {
+        $total_price = $orderItem->price * $orderItem->quantity;
+        $order_id = $orderItem->order_id;
+        $orderItem->delete();
+        // Caculator Order
+        $order = Order::find($order_id);
+        $subtotal = $order->subtotal - $total_price;
+        $delivery_fee_total = $order->delivery_fee_total;
+        $payment_total = $subtotal + $delivery_fee_total;
+        $order->subtotal = $subtotal;
+        $order->payment_total = $payment_total;
+        $order->save();
+        return $order;
+   }
 }
