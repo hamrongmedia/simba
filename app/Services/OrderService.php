@@ -77,8 +77,9 @@ class OrderService
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
-   public function deleteOrderItem($orderItem)
+   public function deleteOrderItem($order_item_id)
    {
+        $orderItem = OrderItem::where('id',$order_item_id)->first();
         if(!$orderItem) return false;
         $total_price = $orderItem->price * $orderItem->quantity;
         $order_id = $orderItem->order_id;
