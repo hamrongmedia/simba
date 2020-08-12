@@ -30,7 +30,7 @@
 				<tr>
 					<td>{{ $loop->index+1 }}</td>
 					<td>
-						{{ $cartItem->product_name }}
+						{{ $cartItem->name }}
 						@if($cartItem->type == \App\Models\Product::PRODUCT_ATTRIBUTE)
                             <b>Color:</b> {{ $cartItem->pav1_value }} @if($cartItem->pav2_id) &emsp;<b>Size:</b> {{ $cartItem->pav2_value }} @endif
                         @endif
