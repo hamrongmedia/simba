@@ -7,6 +7,11 @@ Route::group(['prefix' => 'hrm', 'middleware' => 'auth:admin', 'namespace' => 'A
     Route::post('order/status', 'OrderController@changeStatus')->name('admin.order.status');
     Route::get('list-order', 'OrderController@listOrder')->name('admin.order.list_order');
 
+    /*
+    * Order Item Group Route
+    */
+    Route::post('order/delete_item', 'OrderItemController@destroy')->name('admin.order.item.destroy');
+    Route::get('order/add_item', 'OrderItemController@newItem')->name('admin.order.item.new');
 	/*
 	* Order Status Group Route
 	*/
