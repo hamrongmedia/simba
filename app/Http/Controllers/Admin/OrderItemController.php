@@ -54,10 +54,8 @@ class OrderItemController extends Controller
     */
    public function destroy(Request $request)
    {
-   		$id = $request->id;
-   		$orderItem = OrderItem::where('id',$id)->first();
-   		if(!$orderItem) return $this->respondWithError('Không tồn tại bản ghi');
-   		$order = $this->orderService->deleteOrderItem($orderItem);
+   		$order_item_id = $request->id;
+   		$order = $this->orderService->deleteOrderItem($order_item_id);
    		return $this->respondJsonData('Xóa sản phẩm khỏi đơn hàng thành công',$order);
    }
 
