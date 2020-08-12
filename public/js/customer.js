@@ -384,6 +384,40 @@ jQuery(document).ready(function ($) {
         },
     });
 
+    $(".slider-instagram").owlCarousel({
+        loop: true,
+        margin:0,
+        dots: false,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 7000,
+        autoplaySpeed: 1200,
+        smartSpeed: 1200,
+        responsive: {
+            0: {
+                items: 2,
+                margin:1,
+            },
+            320: {
+                items: 2,
+                margin:1,
+            },
+            
+            767: {
+                items: 3,
+                 margin:1,
+            },
+            800: {
+                items: 4,
+                 margin:1,
+            },
+            1199: {
+                items: 5,
+                 margin:1,
+            },
+        },
+    });
+
     // js sản phẩm
     $(".list-color-sp li").click(function () {
         $(this)

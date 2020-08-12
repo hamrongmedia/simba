@@ -219,27 +219,25 @@
                                                 <i class="fas fa-chevron-up"></i>
                                             </div>
                                             <h2 class="h1-title-ctsp" style="margin: 10px 0">{{$product->name}}</h2>
-                                            <div class="price-ctsp">
-                                                @if($product->promotion_price) 
-                                                    <span class="int" style="margin-right: 10px">
-                                                         {{number_format($product->promotion_price,0,',',',')}} đ
-                                                    </span>
-                                                     <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
-                                                       {{--  {{$product->price}} đ --}}
-                                                        {{number_format($product->price,0,',',',')}} đ
-                                                    </span> 
-                                                @else
-                                                    <span class="int" style="margin-right: 10px">
-                                                          {{--  {{$product->price}} đ --}}
-                                                            {{number_format($product->price,0,',',',')}} đ
-                                                    </span>
-                                                @endif
-                                                @if(! $product->price)
-                                                      <span class="int" style="margin-right: 10px">
-                                                         Liên hệ
-                                                    </span>
-                                                @endif               
-                                            </div>
+                                                <div class="price-ctsp">
+                                                    @if($product->sale_price)
+                                                        <span class="int" style="margin-right: 10px">
+                                                            {!! \App\Helpers\Common::priceFormat($product->sale_price) !!} đ
+                                                        </span>
+                                                        <span class="span-gia" style="text-decoration: line-through;color: #333333;font-weight: normal;font-size: 14px;">
+                                                           {!! \App\Helpers\Common::priceFormat($product->price) !!} đ
+                                                        </span> 
+                                                     @else
+                                                        <span class="int" style="margin-right: 10px">
+                                                            {!! \App\Helpers\Common::priceFormat($product->price) !!} đ
+                                                        </span>
+                                                     @endif
+                                                     @if(! $product->price)
+                                                          <span class="int" style="margin-right: 10px">
+                                                             Liên hệ
+                                                        </span>
+                                                     @endif                 
+                                                </div>
                                             <div class="wp-chonmau">
                                                 @if($product->product_attributes)
                                                     <ul class="nav nav-pills">
