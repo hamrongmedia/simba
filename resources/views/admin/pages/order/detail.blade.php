@@ -183,7 +183,12 @@
                                                 @if($datas->count()>0)
                                                     @foreach ($datas as $cartItem)
                                                         <tr>
-                                                            <td>{{ $cartItem->name }}</td>
+                                                            <td>
+                                                                {{ $cartItem->name }}<br>
+                                                                @if($cartItem->type == \App\Models\Product::PRODUCT_ATTRIBUTE)
+                                                                    <b>Color:</b> {{ $cartItem->pav1_value }} @if($cartItem->pav2_id) &emsp;<b>Size:</b> {{ $cartItem->pav2_value }} @endif
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $cartItem->product_code }}</td>
                                                             <td class="product_price">
                                                                 <a href="#"
