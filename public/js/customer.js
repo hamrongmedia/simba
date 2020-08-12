@@ -24,7 +24,7 @@ $(function() {
     $(document).on('click', '.ajax-addtocart', function () {
         var product_type = $(this).data('product-type');
         // Case When Product Attribute
-        if(product_type == 2) {
+        if(product_type == 2 && $('.wp-chonsize').length > 0) {
             if (!validateChooseSize()) {
                 return;
             }            
@@ -56,7 +56,6 @@ $(function() {
         var productId = $('#productId').val();
         var productType = $('.ajax-addtocart').data('product-type');
         if(sizeId == undefined){
-            alert($('.sizeError').text());
              $('.sizeError').show();
              $('.add_bag_size').addClass('errorAnimate');
              setTimeout(function(){
