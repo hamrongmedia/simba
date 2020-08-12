@@ -17,7 +17,7 @@
                         <h3 class="box-title">Chi tiết đơn hàng #{{ $order->order_code }}</h3>
                         <div class="box-tools not-print">
                             <div class="btn-group pull-right" style="margin-right: 0px">
-                                <a href="https://demo.s-cart.org/sc_admin/order"
+                                <a href="{{ route('admin.order.index') }}"
                                     class="btn btn-sm btn-flat btn-default"><i
                                         class="fa fa-list"></i>&nbsp;List</a>
                             </div>
@@ -145,7 +145,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <td class="td-title"><b>Tổng phụ</b>:</td>
-                                    <td><b>{{ \App\Helpers\Common::priceFormat($order->subtotal) }} đ</b></td>
+                                    <td><b>{{ \App\Helpers\Common::priceFormat($order->total) }} đ</b></td>
                                 </tr>
                                 <tr>
                                     <td class="td-title"><b>Phí vận chuyển:</b></td>
@@ -190,22 +190,28 @@
                                                                     class="edit-item-detail" 
                                                                     data-value="{{ $cartItem->price }}"
                                                                     data-name="price" 
-                                                                    data-type="number" 
+                                                                    data-type="tel" 
                                                                     min=0
-                                                                    data-pk="376"
-                                                                    data-url="https://demo.s-cart.org/sc_admin/order/edit_item"
+                                                                    data-pk="{{ $cartItem->order_item_id }}"
+                                                                    data-url="{{ route('admin.order.item.edit') }}"
                                                                     data-title="Price">
                                                                     {{ \App\Helpers\Common::priceFormat($cartItem->price) }} đ
                                                                 </a>
                                                             </td>
                                                             <td class="product_qty">x 
-                                                                <a href="#" class="edit-item-detail" data-value="{{ $cartItem->quantity }}">
+                                                                <a href="#" class="edit-item-detail" 
+                                                                    data-value="{{ $cartItem->quantity }}"
+                                                                    data-name="quantity" 
+                                                                    data-type="tel" 
+                                                                    data-pk="{{ $cartItem->order_item_id }}"
+                                                                    data-url="{{ route('admin.order.item.edit') }}"
+                                                                    min=0>
                                                                     {{ $cartItem->quantity }}
                                                                 </a>
                                                             </td>
                                                             <td class="product_total item_id_376">{{ \App\Helpers\Common::priceFormat($cartItem->price*$cartItem->quantity) }} đ</td>
                                                             <td>
-                                                                <span onclick="deleteItem({{ $cartItem->id }});" class="btn btn-danger btn-xs" data-title="Delete">
+                                                                <span onclick="deleteItem({{ $cartItem->order_item_id }});" class="btn btn-danger btn-xs" data-title="Delete">
                                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                                 </span>
                                                             </td>
@@ -214,25 +220,6 @@
                                                 @else
                                                     <td style="padding: 25px 0px;color: red;" colspan="6" class="text-center">Đơn hàng không có sản phẩm</td>
                                                 @endif
-
-                                                <tr id="add-item" class="not-print">
-                                                    <td colspan="6">
-                                                        <button type="button"
-                                                            class="btn btn-sm btn-flat btn-success"
-                                                            id="add-item-button" 
-                                                            title="Add product">
-                                                            <i class="fa fa-plus"></i> 
-                                                            Thêm sản phẩm
-                                                        </button>
-                                                        &nbsp;&nbsp;&nbsp;
-                                                        <button
-                                                            style="display: none; margin-right: 50px"
-                                                            type="button"
-                                                            class="btn btn-sm btn-flat btn-warning"
-                                                            id="add-item-button-save" title="Save"><i
-                                                                class="fa fa-save"></i> Save</button>
-                                                    </td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -243,6 +230,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div id="loading" style="display: none;">
+            <div id="overlay" class="overlay"><i class="fa fa-spinner fa-pulse fa-5x fa-fw "></i></div>
         </div>
 @endsection
 
@@ -300,26 +290,31 @@
             node.find('.add_qty').eq(0).val('');
             node.find('.add_price').eq(0).val('');
             node.find('.add_attr').html('');
-            node.find('.add_tax').html('');
         } else {
             $.ajax({
-                url: 'https://demo.s-cart.org/sc_admin/order/product_info',
+                url: '{{ route('admin.order.item.product.info') }}',
                 type: "get",
                 dateType: "application/json; charset=utf-8",
                 data: {
                     id: id,
-                    order_id: 300,
+                    order_id: {{ $order->id }},
                 },
                 beforeSend: function () {
                     $('#loading').show();
                 },
-                success: function (returnedData) {
-                    node.find('.add_sku').val(returnedData.sku);
+                success: function (result) {
+                    console.log(result);
+                    var data = result.data;
+                    node.find('.add_sku').val(data.product_code);
                     node.find('.add_qty').eq(0).val(1);
-                    node.find('.add_price').eq(0).val(returnedData.price_final * 1);
-                    node.find('.add_total').eq(0).val(returnedData.price_final * 1);
-                    node.find('.add_attr').eq(0).html(returnedData.renderAttDetails);
-                    node.find('.add_tax').eq(0).html(returnedData.tax);
+                    if(data.sale_price) {
+                        node.find('.add_price').eq(0).val(data.sale_price * 1);
+                        node.find('.add_total').eq(0).val(data.sale_price * 1);
+                    } else {
+                        node.find('.add_price').eq(0).val(data.price * 1);
+                        node.find('.add_total').eq(0).val(data.price * 1);
+                    }
+                    node.find('.add_attr').eq(0).html(data.renderAttDetails);
                     $('#loading').hide();
                 }
             });
@@ -347,7 +342,7 @@
         $('#add-item-button').prop('disabled', true);
         $('#add-item-button-save').button('loading');
         $.ajax({
-            url: 'https://demo.s-cart.org/sc_admin/order/add_item',
+            url: '{{ route('admin.order.item.store') }}',
             type: 'post',
             dataType: 'json',
             data: $('form#form-add-item').serialize(),
@@ -356,18 +351,12 @@
             },
             success: function (result) {
                 $('#loading').hide();
-                if (parseInt(result.error) == 0) {
-                    location.reload();
-                } else {
-                    alertJs('error', result.msg);
-                }
+                location.reload();
             }
         });
     });
-
     //End add item
     //
-
     $(document).ready(function () {
         all_editable();
     });
@@ -437,29 +426,19 @@
             },
             validate: function (value) {
                 if (value == '') {
-                    return 'Data not empty!';
+                    return 'Dữ liệu không trống!';
                 }
                 if (!$.isNumeric(value)) {
-                    return 'Please input numeric!';
+                    return 'Vui lòng nhập số!';
                 }
             },
             success: function (response, newValue) {
-                if (response.error == 0) {
-                    $('.data-shipping').html(response.detail.shipping);
-                    $('.data-received').html(response.detail.received);
-                    $('.data-subtotal').html(response.detail.subtotal);
-                    $('.data-tax').html(response.detail.tax);
-                    $('.data-total').html(response.detail.total);
-                    $('.data-shipping').html(response.detail.shipping);
-                    $('.data-discount').html(response.detail.discount);
-                    $('.item_id_' + response.detail.item_id).html(response.detail.item_total_price);
-                    var objblance = $('.data-balance').eq(0);
-                    objblance.before(response.detail.balance);
-                    objblance.remove();
-                    alertJs('success', response.msg);
-                } else {
-                    alertJs('error', response.msg);
-                }
+                Swal.fire(
+                    'Thành công!',
+                    response.msg,
+                    'success'
+                )
+                location.reload();
             }
 
         });
@@ -471,29 +450,19 @@
             },
             validate: function (value) {
                 if (value == '') {
-                    return 'Data not empty!';
+                    return 'Dữ liệu không trống!';
                 }
                 if (!$.isNumeric(value)) {
-                    return 'Please input numeric!';
+                    return 'Vui lòng nhập số!';
                 }
             },
-
             success: function (response, newValue) {
-                if (response.error == 0) {
-                    $('.data-shipping').html(response.detail.shipping);
-                    $('.data-received').html(response.detail.received);
-                    $('.data-subtotal').html(response.detail.subtotal);
-                    $('.data-tax').html(response.detail.tax);
-                    $('.data-total').html(response.detail.total);
-                    $('.data-shipping').html(response.detail.shipping);
-                    $('.data-discount').html(response.detail.discount);
-                    var objblance = $('.data-balance').eq(0);
-                    objblance.before(response.detail.balance);
-                    objblance.remove();
-                    alertJs('success', response.msg);
-                } else {
-                    alertJs('error', response.msg);
-                }
+                Swal.fire(
+                    'Thành công!',
+                    response.msg,
+                    'success'
+                )
+                location.reload();
             }
         });
     }
@@ -555,14 +524,10 @@
         })
     }
 
-
-
     $(document).ready(function () {
-        // does current browser support PJAX
         if ($.support.pjax) {
             $.pjax.defaults.timeout = 2000; // time in milliseconds
         }
-
     });
 
     function order_print() {

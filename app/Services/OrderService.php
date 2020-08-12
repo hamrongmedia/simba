@@ -77,8 +77,9 @@ class OrderService
     * @return Return \Illuminate\Support\Facades\View
     *--------------------------------------------------------------------------
     */
-   public function deleteOrderItem(OrderItem $orderItem)
+   public function deleteOrderItem($orderItem)
    {
+        if(!$orderItem) return false;
         $total_price = $orderItem->price * $orderItem->quantity;
         $order_id = $orderItem->order_id;
         $orderItem->delete();
@@ -90,6 +91,22 @@ class OrderService
         $order->subtotal = $subtotal;
         $order->payment_total = $payment_total;
         $order->save();
+        return $order;
+   }
+
+   public function reCaculatorOrder($order_id)
+   {
+        if(!$order_id) return false;
+        $order = Order::find($order_id);
+        $total_price = OrderItem::where('order_id', $order_id)->get()->sum(function ($t) {
+            return $t->price * $t->quantity;
+        });
+        DB::transaction(function () use ($order , $total_price) {
+            $payment_total = $order->delivery_fee_total + $total_price;
+            $order->total = $total_price;
+            $order->payment_total = $payment_total;
+            $order->save();
+        });
         return $order;
    }
 }
