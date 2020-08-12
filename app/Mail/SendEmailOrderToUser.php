@@ -34,7 +34,7 @@ class SendEmailOrderToUser extends Mailable
                 ->with([
                   'user' => $this->data['user'],
                   'order' => $this->data['order'],
-                  'data_order_detail' => $this->data['data_order_detail'],
+                  'datas' => $this->data['datas'],
                 ]);
   }
 }

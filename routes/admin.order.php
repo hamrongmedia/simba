@@ -12,6 +12,9 @@ Route::group(['prefix' => 'hrm', 'middleware' => 'auth:admin', 'namespace' => 'A
     */
     Route::post('order/delete_item', 'OrderItemController@destroy')->name('admin.order.item.destroy');
     Route::get('order/add_item', 'OrderItemController@newItem')->name('admin.order.item.new');
+    Route::post('order/edit_item', 'OrderItemController@editItem')->name('admin.order.item.edit');
+    Route::post('order/add_item', 'OrderItemController@storeItem')->name('admin.order.item.store');
+    Route::get('order/item/product-info', 'OrderItemController@productInfo')->name('admin.order.item.product.info');
 	/*
 	* Order Status Group Route
 	*/
