@@ -25,10 +25,15 @@ class ProductInfoController extends Controller
         $product_info_id = $request->product_info_id;
         $product_info = ProductInfo::find($product_info_id);
 		if(!$product_info) return $this->respondWithError('Lỗi! Không có dữ liệu');
-		$data = ProductInfo::leftJoin('product_color','product_info.attribute_value1','=','product_color.color_id')
+		$data = ProductInfo::leftJoin('product_color', function($join)
+					{
+						$join->on('product_info.attribute_value1', '=', 'product_color.color_id');
+						$join->on('product_info.product_id','=','product_color.product_id');
+					})
 					->where('product_info.id',$product_info_id)
 					->select('attribute_value1','attribute_value2','image_path')
 					->first();
+
 		$attribute_map = ProductAttributeMap::where('product_id',$product_info->product_id)
 									->distinct('product_attribute_id')
 									->get()
@@ -340,6 +345,7 @@ class ProductInfoController extends Controller
     */
     public static function createAllProductInfo($product_id,$attribute_map, $product)
     {
+    	if(!is_array($attribute_map)) return false;
         $attribute_values = [];
         $attribute_values1 = ProductAttributeValue::where('attribute_id',$attribute_map[0])->get();
         if( count($attribute_map) == 2 ) {

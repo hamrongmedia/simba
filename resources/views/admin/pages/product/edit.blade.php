@@ -541,6 +541,7 @@ Cập nhật sản phẩm
         var f = window.open(query, "_blank", winprops);
         f.window.focus();
         f.onbeforeunload = function(){ /* my code */ 
+            console.log('vao day');
             popupCallback();
         }
     }
@@ -568,6 +569,7 @@ Cập nhật sản phẩm
                     type: 'success',
                     title: 'Chỉnh sửa biến thể thành công'
                 });
+                console.log(data);
                 $("#product-variations-wrapper").html(data.data);
             },
             error: function (data) {
