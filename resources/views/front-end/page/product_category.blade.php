@@ -19,14 +19,18 @@ Chuyên mục sản phẩm
                                     <ul class="ul-b list-link-title hidden-xs hidden-sm" style="bottom: 3px">
                                         @if ($child_product_cat)
                                             @foreach($child_product_cat as $subcat)
-                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                                <li class="item">
+                                                    <a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a>
+                                                </li>
                                             @endforeach
                                         @endif
                                     </ul>
                                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg" >
                                         @if ($child_product_cat)
                                             @foreach($child_product_cat as $subcat)
-                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                                <li class="item">
+                                                    <a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a>
+                                                </li>
                                             @endforeach
                                         @endif
                                     </ul>
@@ -128,8 +132,13 @@ Chuyên mục sản phẩm
                                 @include('front-end.content.product_list',['data'=>$product])
                             @endforeach  
                         </div>
-                        <div class="product-pagination text-center">
-                            {{ $datas->links() }}
+                        <div id="ajax-product-pagination" style="text-align: center">
+                            <div class="phantrang text-center">
+                                <div class="product-pagination text-center">
+                                    {{ $datas->links() }}
+                                </div> 
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
