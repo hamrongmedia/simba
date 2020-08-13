@@ -9,7 +9,7 @@
         <div class="content-header clearfix">
             <h1 class="pull-left">Chỉnh sửa biến thể</h1>
             <div class="pull-right">
-                <button type="submit" name="save" class="btn bg-blue">
+                <button type="submit" name="save" class="btn bg-blue" onclick="javascript: popupCallback()">
                     <i class="fa fa-floppy-o"></i> Cập nhật
                 </button>
             </div>
