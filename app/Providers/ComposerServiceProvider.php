@@ -38,7 +38,7 @@ class ComposerServiceProvider extends ServiceProvider
         });
 
         //Theme Option header
-        View::composer(['front-end.partials.header.*', 'front-end.partials.footer.footer'], function ($view) {
+        View::composer(['front-end.partials.header.*', 'front-end.partials.footer.footer', 'front-end.checkout.*'], function ($view) {
             $data = ThemeOptions::where('key', 'header')->first();
             if ($data == null) {
                 return;
@@ -60,7 +60,7 @@ class ComposerServiceProvider extends ServiceProvider
         });
 
         //Theme Option Script
-        View::composer(['front-end.partials.footer.*', 'front-end.partials.header.*'], function ($view) {
+        View::composer(['front-end.partials.footer.*', 'front-end.partials.header.*', 'front-end.checkout.*'], function ($view) {
             $data = ThemeOptions::where('key', 'script')->first();
             if ($data == null) {
                 return;

@@ -3383,3 +3383,9 @@ p.sizeError {
 .group-city .col-md-4 {
     padding: 0px 5px;
 }
+
+#main-thanhtoan .img-responsive{
+    width: 106px;
+    height: auto;
+    padding-top: 10px;
+}

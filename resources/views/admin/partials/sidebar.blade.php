@@ -99,11 +99,6 @@
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <span>Danh mục</span></a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-tags" aria-hidden="true"></i>
-                <span>Tags</span></a>
-            </li>
           </ul>
       </li>
       <li class="treeview">
