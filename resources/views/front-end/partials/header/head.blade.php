@@ -41,7 +41,8 @@
     <!-- code css -->
     <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
     @yield('css')
-{{--     @if(isset($themeOptionScript->header_script))
-        {{$themeOptionScript->header_script}}
-    @endif --}}
+
+    @if(isset($themeOptionScript->header_script))
+        {!! $themeOptionScript->header_script !!}
+    @endif
 </head>

@@ -172,7 +172,7 @@
                                 <div class="huongdan-chonsize"><a href="#" data-toggle="modal"
                                                                   data-target="#modal-size">Hướng dẫn chọn size</a>
                                 </div>
-                                <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
+{{--                                 <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div> --}}
                                 <div class="wp-btn-mua">
                                     <input type="hidden" id="productId" value="{{ $product->id }}">
                                     <button class="ajax-addtocart" data-href="{{ route('cart.add') }}"

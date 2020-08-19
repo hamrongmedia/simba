@@ -46,7 +46,7 @@ class BlogController extends Controller
                 'post_category.name',
             ])
             ->groupBy('posts.id')
-            ->paginate(3);
+            ->paginate(12);
 
         return view('front-end.category.detail', ['posts' => $posts, 'cat' => $cat]);
     }

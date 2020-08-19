@@ -10,7 +10,9 @@
             <div class="container">
                 <div class="wp-header-thanhtoan">
                     <div class="wp-logo-fft">
-                        <a href="{{ route('home') }}"><img src="{{asset('images/logo.png')}}" alt="Venus Charm"></a>
+                        <a href="{{url('/')}}">
+                            <img class="img-responsive" src="{{isset($themeOptionHeader->logo_setting) ? $themeOptionHeader->logo_setting : '#1'}}" alt="">
+                        </a>
                     </div>
                     <p><i class="fas fa-question-circle"></i><span> Thông tin khách hàng tuyệt đối bảo mật</span></p>
                 </div>

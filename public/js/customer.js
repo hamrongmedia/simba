@@ -39,7 +39,9 @@ $(function() {
             type: 'POST',
             data: params,
             success: (data) => {
-                $("#site-cart").html(data.data);
+                console.log(data.data.total_quantity);
+                $("#site-cart").html(data.data.data);
+                $('.wp-cart .cout-cart').text(data.data.total_quantity);
                 $("#site-cart").addClass("active");
             },
             error: (data) => {
@@ -124,7 +126,10 @@ function removeCartItem(cart_item_id,url_delete)
             },
             dataType: 'json',
             success: function (data){
+                $('#qtotalitems b').text(data.data.total_quantity);
+                $('.wp-cart .cout-cart').text(data.data.total_quantity);
                 $(current_target).parents('tr.item-cart').remove();
+
             },
             error: function (data) {
                 

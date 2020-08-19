@@ -9,12 +9,16 @@
         filebrowserImageBrowseUrl: '/filemanager?type=Images',
         filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
         filebrowserBrowseUrl: '/filemanager?type=Files',
-        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token=',
+        allowedContent: true
     };
 
     $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
+        CKEDITOR.editorConfig = function(config) {
+            config.extraAllowedContent = true;
+        };
         CKEDITOR.replace('editor', options);
     })
 

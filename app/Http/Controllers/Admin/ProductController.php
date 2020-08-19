@@ -231,6 +231,7 @@ class ProductController extends Controller
                 'image_path'
             )
             ->get();
+
         if (isset($data)) {
             return view('admin.pages.product.edit', compact(
                 'data',

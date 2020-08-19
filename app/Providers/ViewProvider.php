@@ -46,6 +46,12 @@ class ViewProvider extends ServiceProvider
             $view->with(['bottom_menu' => $bottom_menu]);
         });
 
+        view()->composer('front-end.partials.header.header', function($view)
+        {
+            $total_item_cart = CartService::getTotalQuantityCart();
+            View::share('total_item_cart', $total_item_cart);
+        });
+
         // View::composer('*', function($view)
         // {
         //     if (Auth::check()) {
