@@ -62,7 +62,10 @@ class CartController extends Controller
         $user = $this->guard()->user();
         $cartItems = $this->cartRepository->getListItemCart($request, $cart['cart_key'], $user);
         $view = view("front-end.cart.cart_mini", compact('cart', 'cartItems'))->render();
-        return $this->respondJsonData('Thêm mới giỏ hàng thành', $view);
+        return $this->respondJsonData('Thêm mới giỏ hàng thành', [
+            'data' => $view,
+            'total_quantity' => $cart['total_quantity'],
+        ]);
     }
 
     /*
@@ -78,6 +81,7 @@ class CartController extends Controller
         if ($cart) {
             return response()->json(array(
                 'status' => true,
+                'data' => $cart,
             ));
         }
     }

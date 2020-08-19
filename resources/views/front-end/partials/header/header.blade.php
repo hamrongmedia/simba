@@ -61,7 +61,7 @@
                                         <div class="wp-cart">
                                             <a class="btn-click-cart">
                                                 <i class="fas fa-shopping-cart"></i>
-                                                <span class="cout-cart">0</span>
+                                                <span class="cout-cart">{{ $total_item_cart }}</span>
                                             </a>
                                         </div> <!-- end -->
                                     </div>

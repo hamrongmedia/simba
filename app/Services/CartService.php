@@ -158,7 +158,11 @@ class CartService
     public static function getTotalQuantityCart()
     {
         $total_quantity_cart = 0;
-        //$cart = $this->getCarts();
+        $cart_key = session('cart_key');
+        if (empty($cart_key)) {
+            return false;
+        }
+        $cart =  Cart::where('cart_key',$cart_key)->latest('created_at')->first();
         if ($cart) {
             $total_quantity_cart = CartItem::where('cart_id', $cart->id)->sum('quantity');
         }
@@ -254,12 +258,16 @@ class CartService
             ->where('id', $cart_item_id)
             ->delete();
         # Sum Quantity Product
+        $total_quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
         $total_price = CartItem::where('cart_id', $cart->id)->get()->sum(function ($t) {
             return $t->price * $t->quantity;
         });
         # Update Cart
         $cart = $this->updateCart($user_id, $total_price);
-        return true;
+        $datas['cart_key'] = $cart->cart_key;
+        $datas['total_quantity'] = $total_quantity;
+        $datas['total_price'] = $total_price;
+        return $datas;
     }
 
     public function removeProductCart($product)
