@@ -133,8 +133,7 @@ class ProductInfoController extends Controller
 		DB::beginTransaction();
 		try {
 			$attribute_sets = $request->attribute_sets;
-			$product_info = ProductInfo::where('id',$product_info_id)->firstOrFail();
-
+			$product_info = ProductInfo::where('id',$product_info_id)->first();
 			if(count($attribute_sets) == 2 ) {
 				$check_exits = ProductInfo::where('product_id',$product_info->product_id)
 							->where('attribute_value1',$attribute_sets[0])
@@ -152,7 +151,7 @@ class ProductInfoController extends Controller
 				if($request->thumbnail) {
 					$thumbnail = $request->thumbnail;
 					$product_color = ProductColor::updateOrCreate(
-					    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
+					    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
 					    ['image_path' => $thumbnail]
 					);
 				}				
@@ -161,7 +160,7 @@ class ProductInfoController extends Controller
 				if($product_info_id == $check_exits->id) {
 					$thumbnail = $request->thumbnail;
 					$product_color = ProductColor::updateOrCreate(
-					    ['product_id' => $id, 'color_id' => $attribute_sets[0]],
+					    ['product_id' => $product_info->product_id, 'color_id' => $attribute_sets[0]],
 					    ['image_path' => $thumbnail]
 					);
 				} else {
@@ -171,9 +170,8 @@ class ProductInfoController extends Controller
 			$this->storeProductImage($request, $product_info->product_id, $attribute_sets[0]);
             /** Delete Product Image */
             $delete_images = $request->delete_images;
-            Log::info($delete_images);
             $this->deleteImage($product_info->product_id, $delete_images);
-
+            Log::info($product_color);
 			DB::commit();
             return back()->with('close','Đóng');
 		} catch (\Exception $e) {

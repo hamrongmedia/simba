@@ -4,7 +4,7 @@
 @yield('css')
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="main-content-edit-varition">
-    <form action="{{ route('admin.product.info.edit',['id'=>$product_info->product_id]) }}" method="POST" id="form-edit-varition">
+    <form action="{{ route('admin.product.info.edit',['id'=>$product_info->id]) }}" method="POST" id="form-edit-varition">
         {{ csrf_field() }}
         <div class="content-header clearfix">
             <h1 class="pull-left">Chỉnh sửa biến thể</h1>
