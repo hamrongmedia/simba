@@ -57,6 +57,15 @@ class Order extends Model
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
      * @author Bao Do
      */
+    public function shippingStatus()
+    {
+        return $this->hasOne(ShippingStatus::class, 'id', 'shipping_status_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @author Bao Do
+     */
     public function province()
     {
         return $this->hasOne(Province::class, 'id', 'province_id');

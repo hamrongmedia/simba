@@ -540,9 +540,12 @@ Cập nhật sản phẩm
         if (scroll) winprops += ',scrollbars=1';
         var f = window.open(query, "_blank", winprops);
         f.window.focus();
-        f.onbeforeunload = function(){ /* my code */ 
-            popupCallback();
-        }
+        var win_timer = setInterval(function() {   
+          if(f.closed) {
+              popupCallback();
+              clearInterval(win_timer);
+          } 
+          }, 1000); 
     }
     function popupCallback(){
         var product_id = {{ $data->id }};
@@ -568,6 +571,7 @@ Cập nhật sản phẩm
                     type: 'success',
                     title: 'Chỉnh sửa biến thể thành công'
                 });
+                console.log(data);
                 $("#product-variations-wrapper").html(data.data);
             },
             error: function (data) {

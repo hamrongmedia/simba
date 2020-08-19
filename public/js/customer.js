@@ -24,7 +24,7 @@ $(function() {
     $(document).on('click', '.ajax-addtocart', function () {
         var product_type = $(this).data('product-type');
         // Case When Product Attribute
-        if(product_type == 2) {
+        if(product_type == 2 && $('.wp-chonsize').length > 0) {
             if (!validateChooseSize()) {
                 return;
             }            
@@ -56,7 +56,6 @@ $(function() {
         var productId = $('#productId').val();
         var productType = $('.ajax-addtocart').data('product-type');
         if(sizeId == undefined){
-            alert($('.sizeError').text());
              $('.sizeError').show();
              $('.add_bag_size').addClass('errorAnimate');
              setTimeout(function(){
@@ -380,6 +379,40 @@ jQuery(document).ready(function ($) {
             1000: {
                 items: 3,
                  margin:30,
+            },
+        },
+    });
+
+    $(".slider-instagram").owlCarousel({
+        loop: true,
+        margin:0,
+        dots: false,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 7000,
+        autoplaySpeed: 1200,
+        smartSpeed: 1200,
+        responsive: {
+            0: {
+                items: 2,
+                margin:1,
+            },
+            320: {
+                items: 2,
+                margin:1,
+            },
+            
+            767: {
+                items: 3,
+                 margin:1,
+            },
+            800: {
+                items: 4,
+                 margin:1,
+            },
+            1199: {
+                items: 5,
+                 margin:1,
             },
         },
     });

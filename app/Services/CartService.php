@@ -189,6 +189,9 @@ class CartService
             $quantity = $product_cart->quantity + 1;
         }
         $price = $product->price;
+        if($product->sale_price) {
+            $price = $product->sale_price;
+        }
         $cartItem = CartItem::updateOrCreate(
             ['cart_id' => $cart->id, 'product_id' => $product->id, 'attribute_value1' => $attribute_value1, 'attribute_value2' => $attribute_value2],
             ['price' => $price, 'quantity' => $quantity]

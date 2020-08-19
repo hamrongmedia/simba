@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderStatus;
+use App\Models\PaymentMethod;
+use App\Models\ShippingStatus;
 use App\Repositories\Order\OrderRepository;
 use DataTables;
 use Illuminate\Http\Request;
-
+use DB;
 class OrderController extends Controller
 {
     /**
@@ -122,8 +125,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = Order::with(['province' => function ($query) {
-            $query->select('id', 'name');
-        }])
+                $query->select('id', 'name');
+            }])
             ->with(['district' => function ($query) {
                 $query->select('id', 'name');
             }])
@@ -136,8 +139,18 @@ class OrderController extends Controller
             ->where('id', $id)
             ->firstOrFail();
         $datas = $this->orderRepository->getDetailOrder($id);
+        $order_statuss = OrderStatus::pluck('name','id')->toJson();
+        $payment_methods = PaymentMethod::pluck('name','id')->toJson();
+        $shipping_statuss = ShippingStatus::pluck('name','id')->toJson();
         $user = $this->guard()->user();
-        return view('admin.pages.order.detail', compact('order', 'user', 'datas'));
+        return view('admin.pages.order.detail', compact(
+            'order', 
+            'user', 
+            'datas',
+            'payment_methods',
+            'shipping_statuss',
+            'order_statuss'
+        ));
     }
 
     /**
@@ -149,7 +162,32 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::where('id', $id)->first();
+        $name = $request->name;
+        switch ($name) {
+            case 'fullname':
+                $this->updateFullname($request, $order);
+                break;
+            case 'order_status_id':
+                $this->updateFullname($request, $order);
+                break;
+            default:
+                $this->updateFullname($request, $order);
+                break;
+        }
+        return response()->json([
+            'status' => true,
+            'msg'    => 'Thành công'
+        ]);
+    }
+
+    private function updateFullname($request, $order)
+    {
+        DB::transaction(function () use ($request , $order) {
+            $name = $request->name;
+            $order->$name = $request->value;
+            $order->save();
+        });
     }
 
     /**

@@ -2,11 +2,19 @@
 Route::group(['prefix' => 'hrm', 'middleware' => 'auth:admin', 'namespace' => 'Admin'], function () {
     Route::get('order', 'OrderController@index')->name('admin.order.index');
     Route::get('order/edit/{id}', 'OrderController@edit')->name('admin.order.edit');
-    Route::put('order/update', 'OrderController@update')->name('admin.order.update');
+    Route::post('order/{id}/update', 'OrderController@update')->name('admin.order.update');
     Route::post('order/delete', 'OrderController@delete')->name('admin.order.delete');
     Route::post('order/status', 'OrderController@changeStatus')->name('admin.order.status');
     Route::get('list-order', 'OrderController@listOrder')->name('admin.order.list_order');
 
+    /*
+    * Order Item Group Route
+    */
+    Route::post('order/delete_item', 'OrderItemController@destroy')->name('admin.order.item.destroy');
+    Route::get('order/add_item', 'OrderItemController@newItem')->name('admin.order.item.new');
+    Route::post('order/edit_item', 'OrderItemController@editItem')->name('admin.order.item.edit');
+    Route::post('order/add_item', 'OrderItemController@storeItem')->name('admin.order.item.store');
+    Route::get('order/item/product-info', 'OrderItemController@productInfo')->name('admin.order.item.product.info');
 	/*
 	* Order Status Group Route
 	*/

@@ -42,17 +42,20 @@
 
   function deleteAjax(id) {
       $.ajax({
-          url: "{{ route("admin.product.destroy", ":id") }}",
+          url: "{{ route("admin.ajax.destroy") }}",
           type: 'POST',
           data: {
-              id: id
+              id: id,
+              model: 'product',
+              _method: 'delete',
           }
       }).done(function () {
           Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
+              'Xóa sản phẩm!',
+              'Bạn đã xóa sản phẩm thành công.',
               'success',
           );
+          window.location.reload();
           $('#product-' + id).remove();
       })
   }
@@ -60,12 +63,13 @@
   function deleteItem(id) {
     Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "Bạn muốn xóa sản phẩm này!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy bỏ'
     })
     .then((result) => {
         if (result.value) {
@@ -73,6 +77,41 @@
         }
     })
   }
+
+  function restoreItem( id, title= 'Are You Sure?') {
+      var model = 'product';
+      url = '{{ route("admin.ajax.restore") }}';
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "Bạn muốn khôi phục sản phẩm này!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Đồng ý',
+          cancelButtonText: 'Hủy bỏ'
+      })
+      .then((result) => {
+        if (result.value) {
+          $.ajax({
+              url: url,
+              type: 'POST',
+              data: {
+                id: id,
+                model: model,
+              }
+          }).done(function () {
+              Swal.fire(
+                  'Thành công!',
+                  'Bạn đã khôi phục sản phẩm thành công.',
+                  'success',
+              );
+              window.location.reload();
+          })
+        }
+      });
+  }
+
 
   function multipleDelete() {
       let idList = [];

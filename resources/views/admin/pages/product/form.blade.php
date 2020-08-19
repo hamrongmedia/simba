@@ -36,27 +36,27 @@
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="control-label required">Mã sản phẩm</label>
                         <input type="text" name="product_code" class="form-control" placeholder="Nhập mã sản phẩm" value="{{ isset($data) ? $data->product_code : old('product_code') }}">
                         @if ($errors->first('product_code'))
                             <div class="error">{{ $errors->first('product_code') }}</div>
                         @endif
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="control-label required">Giá</label>
                         <input type="text" name="price" class="form-control inputmask" placeholder="Nhập giá sản phẩm" value="{{ isset($data) ? $data->price : old('price') }}">
                         @if ($errors->first('price'))
                             <div class="error">{{ $errors->first('price') }}</div>
                         @endif
                     </div>
-{{--                     <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="control-label">Giá khuyến mãi</label>
                         <input type="text" name="sale_price" class="form-control inputmask" placeholder="Nhập giá khuyến mãi sản phẩm" value="{{ isset($data) ? $data->sale_price : old('sale_price') }}">
                         @if ($errors->first('sale_price'))
                             <div class="error">{{ $errors->first('sale_price') }}</div>
                         @endif
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -258,9 +258,18 @@
                 <select class="form-control input-sm permission select2 select2-hidden-accessible"
                     multiple="" data-placeholder="Chọn danh mục" style="width: 100%;"
                     name="categories[]" tabindex="-1" aria-hidden="true">
+                    @php
+                        $dbCatgories = [];
+                        if(isset($data)) {
+                            $dbCatgories = $data->categories->pluck('id')->toArray();
+                        }
+                    @endphp
                     @foreach($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}
-                        </option>
+                        @if (in_array($category->id, $dbCatgories))
+                            <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                        @else
+                            <option value="{{$category->id}}">{{$category->name}} </option>
+                        @endif
                     @endforeach
                 </select>
             </div>

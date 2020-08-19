@@ -34,4 +34,6 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('/page/destroy', 'PagesController@destroy')->name('admin.page.destroy');
     Route::get('/page/search', 'PagesController@search')->name('admin.page.search');
 
+    Route::delete('ajax/destroy', 'DestroyController@destroy')->name('admin.ajax.destroy');
+    Route::post('ajax/restore', 'RestoreController@restore')->name('admin.ajax.restore');
 });

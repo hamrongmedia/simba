@@ -278,7 +278,7 @@ Trang chủ
             </div>
         </div>
     </section> <!-- end sec-home-07 -->
-    <section class="sec-home-11 mb-80 hidden-xs">
+    <section class="sec-home-11 ">
         <div class="container-fluid pd-0">
             <div class="sec-instagam">
                 <div class="wp-title-sec">
@@ -288,59 +288,54 @@ Trang chủ
                         <h4>#venuscharm</h4>
                     </div>
                 </div>
-                <div class="row img-instagram">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 inst-1">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-mac-thoai-mai-tu-do(1).jpg')}}" alt="banner0">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-ha-noi(1).jpg')}}" alt="banner1">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-danh-gia-san-pham(1).jpg')}}" alt="banner2">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-ren-mac-ao-co-sau(1).jpg')}}" alt="banner3">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 inst-2">
-                        <a data-toggle="modal" data-target="#myModalIn0">
-                            <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-xuat-nhat(1).jpg')}}" alt="banner4">
+                <div class="owl-carousel slider-instagram">
+                    <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-mac-thoai-mai-tu-do(1).jpg')}}" alt="banner0">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs inst-3">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-vua(1).jpg')}}" alt="banner5">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-tu-do-la-tu-lo(1).jpg')}}" alt="banner6">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/hop-qua-tang-venus-charm(1).jpg')}}" alt="banner7">
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <a data-toggle="modal" data-target="#myModalIn0">
-                                    <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-day(2).jpg')}}" alt="banner8">
-                                </a>
-                            </div>
-                        </div>
+                      <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-ha-noi(1).jpg')}}" alt="banner1">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                     <div class="item">
+                         <img class="el_image" src="{{asset('images-demo/venus-charm-danh-gia-san-pham(1).jpg')}}" alt="banner2">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                     <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-ren-mac-ao-co-sau(1).jpg')}}" alt="banner3">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="item" >
+                         <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-vua(1).jpg')}}" alt="banner5">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/venus-charm-tu-do-la-tu-lo(1).jpg')}}" alt="banner6">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/hop-qua-tang-venus-charm(1).jpg')}}" alt="banner7">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="item">
+                        <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-day(2).jpg')}}" alt="banner8">
+                        <a href="#" target="_blank">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>

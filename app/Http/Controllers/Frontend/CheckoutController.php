@@ -113,9 +113,11 @@ class CheckoutController extends Controller
             DB::commit();
             # Send email order to user & admin 
             $dataSendEmail = array();
+            $datas = $this->orderRepository->getDetailOrder($order->id);
             $dataSendEmail['user'] = $user;
             $dataSendEmail['order'] = $order;
             $dataSendEmail['data_order_detail'] = $data_order_detail;
+            $dataSendEmail['datas'] = $datas;
             dispatch(new \App\Jobs\JobSendEmailOrderToUser($dataSendEmail));
             dispatch(new \App\Jobs\JobSendEmailOrderToSystem($dataSendEmail));
 

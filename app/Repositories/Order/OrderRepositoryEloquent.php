@@ -69,9 +69,11 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository 
 					->where('orders.id',$order_id)
 					->select(
 						'orders.*',
+						'order_items.id as order_item_id',
 						'products.thumbnail',
 						'products.name',
 						'products.type',
+						'products.product_code',
 						'products.slug as product_slug',
 						'order_items.quantity',
 						'order_items.price',

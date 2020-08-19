@@ -28,7 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'Cart',
             'CartItem',
             'Order',
-            'OrderItem',
+            'OrderItem'
         );
         foreach ($models as $model) {
              $this->app->bind("App\Repositories\\{$model}\\{$model}Repository",
