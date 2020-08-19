@@ -19,14 +19,18 @@ Chuyên mục sản phẩm
                                     <ul class="ul-b list-link-title hidden-xs hidden-sm" style="bottom: 3px">
                                         @if ($child_product_cat)
                                             @foreach($child_product_cat as $subcat)
-                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                                <li class="item">
+                                                    <a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a>
+                                                </li>
                                             @endforeach
                                         @endif
                                     </ul>
                                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg" >
                                         @if ($child_product_cat)
                                             @foreach($child_product_cat as $subcat)
-                                            <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
+                                                <li class="item">
+                                                    <a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a>
+                                                </li>
                                             @endforeach
                                         @endif
                                     </ul>
@@ -128,17 +132,13 @@ Chuyên mục sản phẩm
                                 @include('front-end.content.product_list',['data'=>$product])
                             @endforeach  
                         </div>
-
                         <div id="ajax-product-pagination" style="text-align: center">
                             <div class="phantrang text-center">
-                                <ul class="pagination">
-                                    <li><a href="#" rel="prev"><i class="fa fa-angle-double-left"></i></a></li>
-                                    <li class="active"><a>1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#" rel="next"><i class="fa fa-angle-double-right"></i></a></li>
-                                </ul>
+                                <div class="product-pagination text-center">
+                                    {{ $datas->links() }}
+                                </div> 
                             </div>
+                           
                         </div>
                     </div>
                 </div>
