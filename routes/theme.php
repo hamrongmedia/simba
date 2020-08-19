@@ -1,7 +1,4 @@
 <?php
-Route::get('hrm/theme-options', function () {
-    return view('admin/theme_options');
-});
 Route::get('mail-smtp', function () {
     return view('admin/smtp_email');
 });
@@ -9,15 +6,28 @@ Route::get('recover-password-d', function () {
     return view('admin/recover-password');
 });
 
-Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/theme', 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/theme-options', 'namespace' => 'Admin'], function () {
     // Menu manage routes
-    Route::get('/', 'ThemeController@index')->name('admin.theme.index');
-    Route::get('/create', 'ThemeController@create')->name('admin.theme.create');
-    Route::post('/create', 'ThemeController@store')->name('admin.theme.store');
-    Route::get('/edit/{id}', 'ThemeController@edit')->name('admin.theme.edit');
-    Route::post('/edit/{id}', 'ThemeController@update')->name('admin.theme.update');
-    Route::post('/delete', 'ThemeController@delete')->name('admin.theme.delete');
-    Route::post('/savetree', 'ThemeController@saveTree')->name('admin.theme.savetree');
+    Route::get('/', 'ThemeOptionsController@index')->name('admin.themeoptions.index');
+
+    Route::get('/social', 'ThemeOptionsController@social')->name('admin.themeoptions.social');
+    Route::post('/social', 'ThemeOptionsController@updatesocial')->name('admin.themeoptions.updatesocial');
+
+    Route::get('/header', 'ThemeOptionsController@header')->name('admin.themeoptions.header');
+    Route::post('/header', 'ThemeOptionsController@updateheader')->name('admin.themeoptions.updateheader');
+
+    Route::get('/homepage', 'ThemeOptionsController@homepage')->name('admin.themeoptions.homepage');
+    Route::post('/homepage', 'ThemeOptionsController@updatehomepage')->name('admin.themeoptions.updatehomepage');
+
+    Route::get('/product', 'ThemeOptionsController@product')->name('admin.themeoptions.product');
+    Route::post('/product', 'ThemeOptionsController@updateproduct')->name('admin.themeoptions.updateproduct');
+
+    Route::get('/script', 'ThemeOptionsController@script')->name('admin.themeoptions.script');
+    Route::post('/script', 'ThemeOptionsController@updatescript')->name('admin.themeoptions.updatescript');
+
+    Route::get('/footer', 'ThemeOptionsController@footer')->name('admin.themeoptions.footer');
+    Route::post('/footer', 'ThemeOptionsController@updatefooter')->name('admin.themeoptions.updatefooter');
+
 });
 
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'hrm/mail', 'namespace' => 'Admin'], function () {

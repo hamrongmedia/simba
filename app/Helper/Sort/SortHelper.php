@@ -1,15 +1,15 @@
 <?php
+namespace App\Helper\Sort;
 
-namespace App\Helper;
-
-class SearchHelper
+class SortHelper
 {
-    public function __construct($model)
+    public static function sort($collection, $sort_by, $sort_type)
     {
-        $this->model = $model;
-    }
-    public static function sortById($field, $sort_type)
-    {
-
+        if ($sort_type == 'desc') {
+            $result = $collection->sortByDesc($sort_by);
+        } else {
+            $result = $collection->sortBy($sort_by);
+        }
+        return $result;
     }
 }

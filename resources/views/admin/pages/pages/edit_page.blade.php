@@ -59,7 +59,7 @@
         <div class="col-md-3">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Đăng</h3>
+                    <h3 class="box-title">Cập nhật</h3>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="box-footer">
                     <button type="reset" class="btn btn-default">Hủy</button>
-                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
+                    <button  class="btn btn-info pull-right" name="save">Cập nhật</button>
                 </div>
             </div>
             <div class="box box-primary">
@@ -81,18 +81,10 @@
                 </div>
                 <div class="box-body">
                     <div class="image-box">
-                        <input type="hidden" name="image" value="" class="image-data">
-                        <div class="preview-image-wrapper ">
-                            <img src="https://cms.botble.com/vendor/core/images/placeholder.png" alt="preview image" class="preview_image" width="150">
-                            <a class="btn_remove_image" title="Remove image">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                        <div class="image-box-actions">
-                            <a href="#" class="btn_gallery" data-result="image" data-action="select-image">
-                                Choose image
-                            </a>
-                        </div>
+                        <?php
+                        $image = $obj->image;
+                        ?>
+                        @include('admin.component.image_button', ['name' => 'image', 'id' => 'thumb-btn', 'value' => $obj->image, 'holder' => 'image-holder'])
                     </div>
                 </div>
             </div>

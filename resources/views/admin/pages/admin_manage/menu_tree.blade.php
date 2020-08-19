@@ -12,8 +12,8 @@
 
 @section('css')
 
-<link rel="stylesheet" href="{{ asset('admin/plugin/iconpicker/fontawesome-iconpicker.min.css')}}">
-<link rel="stylesheet" href="{{asset('admin/plugin/nestable/jquery.nestable.min.css')}}">
+<link rel="stylesheet" href="{{ asset('template/plugin/iconpicker/fontawesome-iconpicker.min.css')}}">
+<link rel="stylesheet" href="{{asset('template/plugin/nestable/jquery.nestable.min.css')}}">
 
 <style>
 
@@ -100,7 +100,7 @@
                                                 for ($i=0; $i < $order; $i++) { 
                                                     $line = $line . '-';
                                                 }
-                                                echo  "<option value='".$item->id."'>" .$line.' '.$item->name. "</option>";
+                                                echo  "<option value='".$item->id."'>" .$line.' '.$item->title. "</option>";
                                                 if($item->child){
                                                     $new_order = $order + 1;
                                                     renderMenu($item->child, $new_order);
@@ -117,7 +117,7 @@
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="title" name="name" value=""
+                                    <input type="text" id="title" name="title" value=""
                                         class="form-control title" placeholder="">
                                 </div>
                             </div>
@@ -132,12 +132,12 @@
                             </div>
                         </div>
                         <div class="form-group   ">
-                            <label for="uri" class="col-sm-2 col-form-label">Route</label>
+                            <label for="uri" class="col-sm-2 col-form-label">Link</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="uri" name="uri" value=""
-                                        class="form-control uri" placeholder="Example: admin.dashboard">
+                                    <input type="text" id="uri" name="link" value=""
+                                        class="form-control uri" placeholder="Example: /ao-dai">
                                 </div>
                             </div>
                         </div>
@@ -151,48 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="form-group  ">
-                            <label for="roles" class="col-sm-2 col-form-label">Roles</label>
-                            <div class="col-sm-8">
-                                <select class="form-control input-sm roles select2 select2-hidden-accessible"
-                                    multiple="" data-placeholder="Select permission" style="width: 100%;" name="roles[]"
-                                    tabindex="-1" aria-hidden="true">
-                                    <option value=""></option>
-                                    <option value="5">Accountant</option>
-                                    <option value="1">Administrator</option>
-                                    <option value="4">Cms manager</option>
-                                    <option value="2">Group only View</option>
-                                    <option value="3">Manager</option>
-                                    <option value="6">Marketing</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group  ">
-                            <label for="permissions" class="col-sm-2 col-form-label">Permissions</label>
-                            <div class="col-sm-8">
-                                <select class="form-control input-sm permissions select2 select2-hidden-accessible"
-                                    multiple="" data-placeholder="Select permission" style="width: 100%;"
-                                    name="permissions[]" tabindex="-1" aria-hidden="true">
-                                    <option value=""></option>
-                                    <option value="1">Admin manager</option>
-                                    <option value="3">Auth manager</option>
-                                    <option value="8">CMS manager</option>
-                                    <option value="17">Customer manager</option>
-                                    <option value="2">Dashboard</option>
-                                    <option value="11">Discount manager</option>
-                                    <option value="20">Order Manager</option>
-                                    <option value="18">Order status</option>
-                                    <option value="15">Payment status</option>
-                                    <option value="6">Plugin manager</option>
-                                    <option value="19">Product manager</option>
-                                    <option value="21">Report manager</option>
-                                    <option value="4">Setting manager</option>
-                                    <option value="14">Shipping status</option>
-                                    <option value="22">Template manager</option>
-                                    <option value="5">Upload management</option>
-                                </select>
-                            </div>
-                        </div> --}}
+
                     </div>
                 </div>
 
@@ -219,8 +178,8 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('admin/plugin/nestable/jquery.nestable.min.js')}}"></script>
-<script src="{{ asset('admin/plugin/iconpicker/fontawesome-iconpicker.min.js')}}"></script>
+<script src="{{ asset('template/plugin/nestable/jquery.nestable.min.js')}}"></script>
+<script src="{{ asset('template/plugin/iconpicker/fontawesome-iconpicker.min.js')}}"></script>
 
 
 <script>
@@ -273,7 +232,6 @@
     /* on change event */
         //var data = $('.dd').nestable('serialize');
         var data = $('.dd').nestable('serialize');
-        console.log(data);
         saveTree(data);
     });
     //Initialize Select2 Elements

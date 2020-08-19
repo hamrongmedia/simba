@@ -35,19 +35,12 @@
                                   <input type="text" id="name" name="name" value="{{$role->name}}" class="form-control name"
                                       placeholder="">
                               </div>
+                              @error('name')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                           </div>
                       </div>
 
-                      <div class="form-group   ">
-                          <label for="slug" class="col-sm-2  control-label">Slug</label>
-                          <div class="col-sm-8">
-                              <div class="input-group">
-                                  <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                  <input type="text" id="slug" name="slug" value="" class="form-control slug"
-                                      placeholder="">
-                              </div>
-                          </div>
-                      </div>
 
                       <div class="form-group  ">
                           <label for="permission" class="col-sm-2  control-label">Select permission</label>
@@ -63,19 +56,12 @@
                                     @endif
                                   @endforeach
                               </select>
+                              @error('permission_list')
+                                    <strong class="text-red">{{$message}}</strong>
+                                @enderror
                           </div>
                       </div>
-                      <div class="form-group  ">
-                          <label for="administrators" class="col-sm-2  control-label">Select user</label>
-                          <div class="col-sm-8">
-                              <select class="form-control input-sm administrators select2 "
-                                  multiple="" data-placeholder="Select user" style="width: 100%;"
-                                  name="guard_name" tabindex="-1" aria-hidden="true">
-                                  <option value=""></option>
-                                  <option value="admin">Administrator</option>
-                                  <option value="user">User</option>
-                              </select>
-                      </div>
+
                   </div>
               </div>
               <!-- /.box-body -->

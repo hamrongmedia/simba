@@ -13,18 +13,18 @@ class CreateProductTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->string('slug');
-            $table->string('meta_keyword');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->integer('status');
-            $table->integer('is_deleted');
-            $table->timestamps();
-        });
+        // Schema::create('product_types', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('description');
+        //     $table->string('slug');
+        //     $table->string('meta_keyword');
+        //     $table->string('meta_title');
+        //     $table->string('meta_description');
+        //     $table->integer('status');
+        //     $table->integer('is_deleted');
+        //     $table->timestamps();
+        // });
 
     }
 
@@ -35,9 +35,6 @@ class CreateProductTypesTable extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('product_type');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
+        // Schema::dropIfExists('product_types');
     }
 }

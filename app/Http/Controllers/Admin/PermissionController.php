@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\Permission;
@@ -16,11 +18,24 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::all()->sortBy('desc');
-        //dd($permissions);
-        return view('admin.pages.admin_manage.permission_list', ['permissions' => $permissions]);
+        if (empty($request->all())) {
+            $permissions = Permission::all()->sortBy('desc');
+            $paginator = new PaginationHelper($permissions, 10);
+            $items = $paginator->getItem(1);
+            return view('admin.pages.admin_manage.permission_list', ['current_page' => 1, 'permissions' => $items, 'paginator' => $paginator]);
+        }
+
+        if ($request->sort_by) {
+            $permissions = Permission::all();
+            $result = SortHelper::sort($permissions, $request->sort_by, $request->sort_type);
+            $paginator = new PaginationHelper($result, 10);
+            $current_page = $request->current_page ?? 1;
+            $items = $paginator->getItem($current_page);
+            return view('admin.pages.ajax_components.permission_table', ['current_page' => $current_page, 'permissions' => $items, 'paginator' => $paginator]);
+        }
+        return abort(404);
     }
 
     /**
@@ -43,6 +58,14 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         //validate from
+        $validatedData = $request->validate([
+            'name' => 'required|unique:permissions|max:255',
+            'action_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'action_list.required' => 'Hành động không được để trống',
+        ]);
 
         //storage data
         $newPermission = new Permission;
@@ -58,7 +81,6 @@ class PermissionController extends Controller
         }
         //redirect
         return redirect()->route('admin.permission.index');
-
     }
 
     /**
@@ -82,7 +104,6 @@ class PermissionController extends Controller
     {
         $actions = Action::all()->sortBy('desc');
         $permission = Permission::find($id);
-        //dd($permission->actions->contains('id', 1));
         return view('admin.pages.admin_manage.permission_edit', ['permission' => $permission, 'actions' => $actions]);
     }
 
@@ -95,7 +116,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::find($id);
+
+        $permission = Permission::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:25|unique:permissions,name,' . $permission->id,
+            'action_list' => 'required',
+        ], [
+            'name.required' => 'Trường tên không được để trống',
+            'name.unique' => 'Tên quyền đã tồn tại',
+            'action_list.required' => 'Hành động không được để trống',
+        ]);
+
         $permission->name = $request->name;
         $permission->save();
 

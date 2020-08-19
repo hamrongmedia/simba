@@ -1,40 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <meta charset="utf-8">
-    <base href="https://venuscharm.vn/">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="content-language" content="vi">
-    <link rel="alternate" href="https://venuscharm.vn/" hreflang="vi-vn">
-    <meta name="robots" content="index,follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Venus Charm">
-    <meta name="copyright" content="Venus Charm">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    @if(isset($themeOptionHeader->favicon_setting))
+    <link rel="icon" type="image/png" sizes="16x16" href="{{$themeOptionHeader->favicon_setting}}">
+    @endif
+    <link rel="canonical" href="{{url('/')}}">
 
     <!-- các thẻ meta -->
 
-    <meta name="keywords" content="Venus Charm">
-    <meta name="description" content="Venus Charm">
-    <meta name="revisit-after" content="1 days">
-    <meta name="rating" content="general">
-    
-    <!-- for Facebook -->
-    <meta property="og:title" content="Venus Charm">
-    <meta property="og:type" content="article">
-    <meta property="og:image" content="{{asset('images-demo/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <meta property="og:description" content="Venus Charm">
-    <meta property="og:site_name" content="Venus Charm">
-    <meta property="fb:admins" content="">
-    <meta property="fb:app_id" content="">
-
-    <!-- for Twitter -->          
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Venus Charm">
-    <meta name="twitter:description" content="Venus Charm">
-    <meta name="twitter:image" content="{{asset('images-demo/venus-charm-banner-dau-trang-1-.jpg')}}">
-    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
-
+     <!-- SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="@yield('description')">
+    <meta name="title" content="@yield('title')">
+    <meta name="keywords" content="@yield('keywords')" >
+    <!-- end SEO -->
+    <!-- tag share facebook -->
+    <meta property="og:description" content="@yield('og:description')">
+    <meta property="og:title" content="@yield('og:title')">
+    <meta property="og:image" content="@yield('og:image')">
+    <meta property="og:site_name" content="">
+    <meta property="og:url" content="{{Request::url()}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN">
+    <!-- end tag facebook -->
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -46,4 +40,9 @@
     <link rel="stylesheet"  href="{{asset('css/owl.carousel.css')}}"/>
     <!-- code css -->
     <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
+    @yield('css')
+
+    @if(isset($themeOptionScript->header_script))
+        {!! $themeOptionScript->header_script !!}
+    @endif
 </head>

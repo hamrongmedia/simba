@@ -6,7 +6,7 @@ Quản lý danh mục sản phẩm
 @section('css')
 <!-- DataTables -->
 <link rel="stylesheet"
-    href="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+    href="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 
 @section('main')
@@ -28,32 +28,32 @@ Quản lý danh mục sản phẩm
                     </thead>
                     <tbody>
                         @foreach($categories as $category)
-                        <tr>
-                            <td>{{$category->id}}</td>
-                            <td>{{$category->name}}</td>
-                            <td>{{$category->slug}}</td>
-                            <td>{{isset($category->parent_category) ? $category->parentCategory->name : 'Không có'}}</td>
-                            <td>
-                                @if ($category->status == 1)
-                                <span class="label label-success">Đang sử dụng</span></a>
-                                @else
-                                <span class="label label-danger">Ngừng sử dụng</span></a>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{route('product-category.edit', ['product_category'=>$category->id])}}"><span title="Sửa"
-                                        type="button" class="btn btn-flat btn-primary">
-                                        <i class="fa fa-edit"></i></span></a>&nbsp;
-                                <a class="btn btn-flat btn-danger"
-                                    href="{{ route('product-category.destroy',$category->id) }}" type="button">
-                                    <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a class="btn btn-flat btn-danger"
-                                        href="{{ route('product-category.show',$category->id) }}" type="button">
-                                        <i class="fa fa-list"></i>
-                                    </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>{{$category->id}}</td>
+                                <td><a href="{{route('product.getProductByCat', $category->slug)}}">{{$category->name}}</a>   </td>
+                                <td>{{$category->slug}}</td>
+                                <td>{{isset($category->parent_category) ? $category->parentCategory->name : 'Không có'}}</td>
+                                <td>
+                                    {!! \App\Helpers\Common::deleteFlag($category->is_deleted) !!}
+                                </td>
+                                <td>
+                                    <a href="{{route('product-category.edit', ['product_category'=>$category->id])}}"><span title="Sửa"
+                                            type="button" class="btn btn-flat btn-primary">
+                                            <i class="fa fa-edit"></i></span></a>&nbsp;
+                                    @if ($category->is_deleted == 0)
+                                        <a class="btn btn-flat btn-danger del-category" data-id="{{$category->id}}"
+                                            href="javascript:void(0)" type="button">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    @endif
+                                    @if ($category->is_deleted == 1)
+                                        <a class="btn btn-flat btn-success restore-category" onclick="restoreItem({{$category->id}})"
+                                            href="javascript:void(0)" type="button">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -68,8 +68,8 @@ Quản lý danh mục sản phẩm
 
 @section('js')
 <!-- DataTables -->
-<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>
     $(function () {
         $('#hrm_list').DataTable({
@@ -82,5 +82,75 @@ Quản lý danh mục sản phẩm
         })
         // $("#hrm_list_filter").prepend('<a class="btn btn-primary" href="{{route('product-category.create')}}"><i class="fa fa-plus"></i> Tạo mới</a>');
     })
+    $(".del-category").on('click', function(e){
+        e.preventDefault();
+        id = $(this).attr('data-id');
+        Swal.fire({
+            title: 'Warning',
+            text: "Bạn có chắc muốn xóa danh mục này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        .then((result) => {
+            if (result.value) {
+                var url =  "{{ route("admin.ajax.destroy") }}";
+                $.ajax({
+                    method: 'delete',
+                    url: url,
+                    data: {
+                        id: id,
+                        model: 'product_category',
+                        _method: 'delete',
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (result) {
+                        Swal.fire(
+                            'Xóa danh mục!',
+                            'Bạn đã xóa chuyên mục sản phẩm thành công.',
+                            'success'
+                        );
+                        window.location.reload();
+                    }
+                })
+                // $(this).parent().parent().remove();
+            }
+        })
+    })
+    function restoreItem( id, title= 'Are You Sure?') {
+      var model = 'product_category';
+      url = '{{ route("admin.ajax.restore") }}';
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "Bạn muốn khôi phục chuyên mục này!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Đồng ý',
+          cancelButtonText: 'Hủy bỏ'
+      })
+      .then((result) => {
+        if (result.value) {
+          $.ajax({
+              url: url,
+              type: 'POST',
+              data: {
+                id: id,
+                model: model,
+              }
+          }).done(function () {
+              Swal.fire(
+                  'Thành công!',
+                  'Bạn đã khôi phục chuyên mục thành công.',
+                  'success',
+              );
+              window.location.reload();
+          })
+        }
+      });
+    }
 </script>
 @endsection

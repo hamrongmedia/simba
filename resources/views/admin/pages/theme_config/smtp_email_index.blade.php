@@ -5,7 +5,7 @@
 
 @section('css')
 <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('admin/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 
 @section('main')
@@ -18,11 +18,19 @@
                 <div class="form-group">
                     <label for="">Email đi</label>
                     <input type="text" name="mail_from_adress" class="form-control" id="" placeholder="">
+                    @error('mail_from_adress')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="">Tên người gửi</label>
                     <input type="text" name="mail_from_name" class="form-control" id="" placeholder="">
+                    @error('mail_from_name')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="">Phương thức gửi gmail</label>
                     <select class="form-control" style="width: 100%;" name="mail_mailer">
@@ -35,12 +43,19 @@
                         <option value="Gmail">Gmail</option>
                         <option value="Amazon SES">Other SMTP</option>
                     </select>
+                    @error('mail_mailer')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
                 <h3 class="box-title">Other SMTP</h3>
                 <div class="form-group">
                     <label for="">SMTP Host</label>
                     <input type="text" name="mail_smpt_host" class="form-control" id="" placeholder="">
+                    @error('mail_smpt_host')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="">Mã hóa</label>
                     <div class="row">
@@ -83,18 +98,27 @@
                 <div class="form-group">
                     <label for="">SMTP Port</label>
                     <input type="number" name="mail_port" class="form-control" id="" placeholder="">
+                    @error('mail_post')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="">SMTP Username</label>
                     <input type="text" name="mail_username" class="form-control" id="" placeholder="">
+                    @error('mail_username')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="">SMTP Password</label>
                     <input type="password" name="mail_password" class="form-control" id="" placeholder="">
-                    <span><em class="help-block">The password is stored in plain text. We highly recommend you set up
-                            your password in your WordPress configuration file for improved security.</em></span>
-                    <span><em class="help-block">define( 'WPMS_SMTP_PASS', 'your_password' );</em></span>
+                    @error('mail_password')
+                        <strong class="text-red">{{$message}}</strong>
+                    @enderror
                 </div>
+                
                 <div class="clearfix box-header box-footer text-right">
                     <button type="submit" class="btn btn-primary btn-sm" name="">Save</button>
                 </div>

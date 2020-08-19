@@ -13,18 +13,25 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Tạo mới một Blog/News</h3>
                 </div>
+                <div class="note note-warning">
+                    @foreach ($errors->all() as $error)
+                        <p style="color: red;">
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                </div>
              <!-- form start -->
                 <div class="box-body">   
                         <div class="form-group">
-                            <label>Tiêu đề</label>
-                            <input type="text" name="title" class="form-control" placeholder="Nhập tiêu đề">
+                            <label  for="title" class="control-label required">Tiêu đề</label>
+                            <input type="text" onblur="changeToSlug()" name="title" class="form-control" placeholder="Nhập tiêu đề" required>
                         </div>
                         <div class="form-group">
-                            <label>Slug</label>
-                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề">
+                            <label for="slug" class="control-label required">Slug</label>
+                            <input type="text" name="slug" class="form-control" placeholder="Nhập tiêu đề" required>
                         </div>
                         <div class="form-group">
-                            <label>Mô Tả</label>
+                            <label for="description">Mô Tả</label>
                             <textarea class="form-control" name="description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
                         </div>
                         <div class="form-group">
@@ -36,7 +43,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Nội dung</label>
+                            <label for="content">Nội dung</label>
                             <textarea id="editor" class="editor" name="content" rows="10" cols="80">
                             </textarea>
                         </div>
@@ -54,11 +61,11 @@
                 <div class="box-body">
                     <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
                     <div class="form-group">
-                        <label>Tiêu đề</label>
+                        <label for="meta_title">Tiêu đề</label>
                         <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
                     </div>
                     <div class="form-group">
-                        <label>Mô Tả</label>
+                        <label for="meta_des">Mô Tả</label>
                         <textarea class="form-control" name="meta_des" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
                     </div>
                 </div>
@@ -88,7 +95,6 @@
                     <h3 class="box-title">Chuyên Mục</h3>
                 </div>
                 <div class="box-body">
-                    
                     @if(!isset($obj))
                     <div class="form-group" style="max-height: 150px; overflow:auto">
                         @foreach($cats as $p)
@@ -120,18 +126,8 @@
                 </div>
                 <div class="box-body">
                     <div class="image-box">
-                        <input type="hidden" name="image" value="" class="image-data">
-                        <div class="preview-image-wrapper ">
-                            <img src="https://cms.botble.com/vendor/core/images/placeholder.png" alt="preview image" class="preview_image" width="150">
-                            <a class="btn_remove_image" title="Remove image">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                        <div class="image-box-actions">
-                            <a href="#" class="btn_gallery" data-result="image" data-action="select-image">
-                                Choose image
-                            </a>
-                        </div>
+                        @include('admin.component.image_button', ['name' => 'image', 'id' => 'thumb-btn', 'value' => '', 'holder' => 'image-holder', 'hidden' => true, 'height' => '300px'])
+
                     </div>
                 </div>
             </div> 
@@ -142,5 +138,40 @@
 @endsection
 
 @section('js')
-    @include('admin.component.ckeditor_js')
+@include('admin.component.ckeditor_js')     
+<script>
+        
+function changeToSlug()
+    {
+        var slug, title;
+        //Lấy text từ thẻ input title 
+        title = document.querySelector('input[name="title"]').value;
+        //Đổi chữ hoa thành chữ thường
+        slug = title.toLowerCase();
+        //Đổi ký tự có dấu thành không dấu
+        slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+        slug = slug.replace(/đ/gi, 'd');
+        //Xóa các ký tự đặt biệt
+        slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+        //Đổi khoảng trắng thành ký tự gạch ngang
+        slug = slug.replace(/ /gi, "-");
+        //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+        //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+        slug = slug.replace(/\-\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-/gi, '-');
+        //Xóa các ký tự gạch ngang ở đầu và cuối
+        slug = '@' + slug + '@';
+        slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+        //In slug ra textbox có id “slug”
+        document.querySelector('input[name="slug"]').value = slug;
+    }   
+</script>
+
 @endsection
