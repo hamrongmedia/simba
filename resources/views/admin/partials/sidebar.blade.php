@@ -186,6 +186,10 @@
                 <i class="fa fa-css3" aria-hidden="true"></i>
                 <span>Custom CSS</span></a>
             </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.instagram.index')}}" class="nav-link"> 
+                <i class="fa fa-instagram"></i> <span>Instagram</span></a>
+            </li>
           </ul>
       </li>
       <li class="treeview">
