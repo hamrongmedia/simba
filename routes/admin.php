@@ -36,4 +36,9 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
 
     Route::delete('ajax/destroy', 'DestroyController@destroy')->name('admin.ajax.destroy');
     Route::post('ajax/restore', 'RestoreController@restore')->name('admin.ajax.restore');
+
+    //API instagram
+    Route::get('/api/instagram', 'InstagramController@index')->name("admin.instagram.index");
+    Route::get('/api/instagram/edit/{id}', 'InstagramController@edit')->name("admin.instagram.edit") ; // Sửa 
+    Route::post('/api/instagram/update', 'InstagramController@update'); // Xử lý sửa 
 });
