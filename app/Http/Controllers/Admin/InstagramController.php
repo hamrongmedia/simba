@@ -12,7 +12,7 @@ class InstagramController extends Controller
     public function index()
     {
         $api = DB::table('db_instagram')->select('*')->get();
-        return view('admin/api/Instagram_index', compact('api'));
+        return view('admin/api/instagram_index', compact('api'));
     }
     public function edit($id)
     {
@@ -20,7 +20,7 @@ class InstagramController extends Controller
         $getData = DB::table('db_instagram')->select('*')->where('id',$id)->get();
         
         
-        return view('admin/api/Instagram_edit')->with('getSanphamById',$getData);
+        return view('admin/api/instagram_edit')->with('getSanphamById',$getData);
     }
 
     public function update(Request $request)
