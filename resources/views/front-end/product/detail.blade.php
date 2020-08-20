@@ -60,8 +60,6 @@
         }
     </style>
 @endsection
-
-
 @section('content')
     <section class="sec-main-page">
         <div class="container-fluid">
@@ -69,41 +67,50 @@
                 <!-- chi tiết sản phẩm desktop -->
                 <div class="wp-img-ctsp hidden-xs">
                     <div class="row" style="position: relative;">
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <div class="col-md-7 col-sm-8 col-xs-12">
                             <div class="wp-img-left">
                                 <div class="tab-content">
                                     @if($product->product_attributes)
                                         @foreach($product->product_attributes as $pr_at)
                                             <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}"
-                                                 class="tab-pane fade row @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
+                                                 class="tab-pane fade @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                 @if(count($pr_at['image_files']) > 0)
                                                     @foreach($pr_at['image_files'] as $img)
-                                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                            @if($img)
-                                                                <img src="{{ $img }}">
-                                                            @endif
+                                                        <div class="wp-sautab img-cover">
+                                                            @if($img)<img src="{{ $img }}">@endif
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    @for($i=0;$i<4;$i++)
-                                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                            <img src="{{ $product->thumbnail }}">
+                                                    <div class="product-gallery">
+                                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                                            <a href="javascript:void"><img src="{{ $product->thumbnail }}"></a>
                                                         </div>
-                                                    @endfor
+                                                        <div class="product-image-detail">
+                                                            <div class="wp-sautab img-cover">
+                                                                <img src="{{ $product->thumbnail }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </div> <!-- end -->
                                         @endforeach
                                     @else
-                                        @for($i=0;$i<4;$i++)
-                                            <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                    <div class="product-gallery">
+                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                            <a href="javascript:void"><img src="{{ $product->thumbnail }}"></a>
+                                        </div>
+                                        <div class="product-image-detail">
+                                            <div class="wp-sautab img-cover">
                                                 <img src="{{ $product->thumbnail }}">
                                             </div>
-                                        @endfor
+                                        </div>
+                                    </div>
+                                       
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 pca-pl-r fixed-menu">
+                        <div class="col-md-5 col-sm-4 col-xs-12 pca-pl-r fixed-menu">
                             <div class="wp-text-right">
                                 <h1 class="h1-title-ctsp">{{$product->name}}</h1>
                                 <div class="price-ctsp">
@@ -169,10 +176,10 @@
                                         <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
                                     </div>
                                 @endif
-                                <div class="huongdan-chonsize"><a href="#" data-toggle="modal"
-                                                                  data-target="#modal-size">Hướng dẫn chọn size</a>
+                                <div class="huongdan-chonsize">
+                                    <a href="#">Hướng dẫn chọn size</a>
                                 </div>
-{{--                                 <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div> --}}
+                                {{--    <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div> --}}
                                 <div class="wp-btn-mua">
                                     <input type="hidden" id="productId" value="{{ $product->id }}">
                                     <button class="ajax-addtocart" data-href="{{ route('cart.add') }}"
@@ -182,8 +189,7 @@
                                 </div>
                                 <!-- ưu dãi -->
                                 @include('front-end.content.uu_dai_product')
-
-                            <!-- tab content -->
+                                <!-- tab content -->
                                 @include('front-end.content.content_product')
 
                             </div>
