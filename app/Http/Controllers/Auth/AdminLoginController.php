@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class AdminLoginController extends Controller
 {
@@ -67,11 +68,17 @@ class AdminLoginController extends Controller
             'username' => 'required',
             'password' => 'min:8|required',
         ]);
+        $remember = isset($request->remember) ? true : false;
         //Attempt to log the user if
-        if (Auth::guard('admin')->attempt([$this->username => $request->username, 'password' => $request->password])) {
+        if (Auth::viaRemember()) {
             return redirect()->route('admin.index');
         }
-        return back()->withInput();
+
+        if (Auth::guard('admin')->attempt([$this->username => $request->username, 'password' => $request->password], $remember)) {
+            return redirect()->route('admin.index');
+        }
+
+        return back()->withInput()->withErrors(['fail' => ['Thông tin đăng nhập sai!']]);
     }
 
     /**
@@ -97,6 +104,8 @@ class AdminLoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        Session::flush();
 
         return redirect()->route('admin.login');
 

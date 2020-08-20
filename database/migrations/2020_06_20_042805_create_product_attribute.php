@@ -16,10 +16,10 @@ class CreateProductAttribute extends Migration
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type');
-            $table->string('description');
-            $table->integer('status');
-            $table->integer('is_deleted');
+            $table->string('type')->nullable();
+            $table->string('description')->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateProductAttribute extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_attribute');
+        Schema::dropIfExists('product_attributes');
     }
 }

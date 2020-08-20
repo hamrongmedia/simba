@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
 use App\Models\Posts;
+use DataTables;
+use DB;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -14,10 +20,47 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = Posts::all();
-        return view('admin.pages.posts.list', ['data' => $objs]);
+        return view('admin.pages.posts.list');
+    }
+
+    public function listPost()
+    {
+        $posts = Posts::query();
+
+        return DataTables::eloquent($posts)
+            ->addColumn('action', function ($post) {
+                return '<a href="' . route("admin.post.edit", $post->id) . '">
+                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                <i class="fa fa-edit"></i></span></a>&nbsp;
+                <span onclick="deleteItem(' . $post->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+            })
+            ->editColumn('status', function ($post) {
+                if ($post->status == 1) {
+                    return '<span class="label label-success">Đang sử dụng</span>';
+                }
+                return '<span class="label label-danger">Ngừng sử dụng</span>';
+            })
+            ->editColumn('title', function ($post) {
+                if ($post->slug) {
+                    $link = route('post.detail', $post->slug);
+                    return "<a href='{$link}'>{$post->title}</a>";
+                }
+                return '';
+            })
+            ->addColumn('categories', function ($post) {
+                $result = '';
+                foreach ($post->category as $category) {
+                    $result = $result . '<br><span>' . $category->name . '</span>';
+                }
+                return $result;
+            })
+            ->editColumn('image', function ($post) {
+                return '<img src="' . $post->image . '" style="max-width: 200px;">';
+            })
+            ->rawColumns(['action', 'status', 'image', 'categories', 'title'])
+            ->make(true);
     }
 
     /**
@@ -27,6 +70,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Posts::class);
         $cats = PostCategory::where('status', 1)->get();
         return view('admin.pages.posts.create_post', ['cats' => $cats]);
     }
@@ -39,9 +83,32 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->authorize('create', Posts::class);
+        $data = $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:posts',
+        ],
+            [
+                'slug.unique' => 'Slug đã tồn tại',
+            ]
+        );
+
         $data = $request->all();
-        dd($data);
-        Posts::create($data);
+        $new_post = Posts::create($data);
+        $cats = $request->cat_id;
+
+        if ($cats) {
+            foreach ($cats as $cat_id) {
+                DB::table('post_has_categories')->insert(
+                    [
+                        'post_id' => $new_post->id,
+                        'category_id' => $cat_id,
+                    ]
+                );
+            }
+        }
+
         return redirect(route('admin.post.index'));
     }
 
@@ -68,7 +135,9 @@ class PostsController extends Controller
         if ($obj == null) {
             return redirect()->route('admin.post.index');
         }
+
         $cats = PostCategory::where('status', 1)->get();
+
         return view('admin.pages.posts.edit_post', ['obj' => $obj, 'cats' => $cats]);
     }
 
@@ -86,6 +155,23 @@ class PostsController extends Controller
             return redirect()->route('admin.post.index');
         }
         $obj->update($request->all());
+
+        $cats = $request->cat_id;
+
+        if ($cats) {
+            //delete relation
+            DB::table('post_has_categories')->where('post_id', $obj->id)->delete();
+            // add new relation
+            foreach ($cats as $cat_id) {
+                DB::table('post_has_categories')->insert(
+                    [
+                        'post_id' => $obj->id,
+                        'category_id' => $cat_id,
+                    ]
+                );
+            }
+        }
+
         return redirect()->route('admin.post.edit', ['id' => $id])->with('success', 'Cập nhật thành công');
     }
 
@@ -93,11 +179,31 @@ class PostsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
-        Posts::find($request->id)->delete();
+        $post = Posts::find($request->id);
+        $this->authorize('delete', $post);
+        $post->delete();
         return ['msg' => 'Item deleted'];
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Posts::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('admin.pages.ajax_components.post_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+    }
+
+    public function createSlug($name)
+    {
+        return Str::of($name ?? '')->slug('-');
     }
 }

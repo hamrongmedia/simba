@@ -21,7 +21,14 @@ class ActionSeeder extends Seeder
             "name" => 'edit-admin',
         ]);
         DB::table('actions')->insert([
-            "name" => 'delete-admin',
+            "name" => 'create-post',
         ]);
+        DB::table('actions')->insert([
+            "name" => 'view-post',
+        ]);
+        DB::table('actions')->insert([
+            "name" => 'delete-post',
+        ]);
+
     }
 }

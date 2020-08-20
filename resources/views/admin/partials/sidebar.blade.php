@@ -23,7 +23,7 @@
       </div>
     </form>
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">ADMIN SHOP</li>
+      <li class="header">ADMIN SHOP</li>  
       <li class="treeview">
         <a href="#">
           <i class="fa fa-cart-arrow-down"></i> <span>Quản lý đơn hàng</span>
@@ -33,23 +33,13 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order" class="nav-link">
+              <a href="{{route('admin.order.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý đơn hàng</span></a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order_status" class="nav-link">
-                <i class="fa fa-circle-o"></i>
-                <span>Trạng thái đơn hàng</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Trạng thái thanh toán</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Trạng thái vận chuyển</span></a>
-            </li>
+            @include('admin.pages.order_status.aside')
+            @include('admin.pages.payment_status.aside')
+            @include('admin.pages.shipping_status.aside')
         </ul>
       </li>
       <li class="treeview">
@@ -61,7 +51,7 @@
         </a>
           <ul class="treeview-menu">
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/order" class="nav-link">
+              <a href="{{route('admin.product.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý sản phẩm</span></a>
             </li>
@@ -70,42 +60,44 @@
                 <i class="fa fa-circle-o"></i>
                 <span>Quản lý danh mục</span></a>
             </li>
+{{--             <li class="nav-item has-treeview">
+              <a href="{{route('product-type.index')}}" class="nav-link">
+                <i class="fa fa-circle-o"></i>
+                <span>Quản lý loại sản phẩm</span></a>
+            </li> --}}
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/payment_status" class="nav-link">
+              <a href="{{route('product-attribute.index')}}" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Nhóm thuộc tính</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
+              <a href="" class="nav-link">
                 <i class="fa fa-circle-o"></i> <span>Quản lý phí vận chuyển</span></a>
             </li>
           </ul>
       </li>
       <li class="header">ADMIN CONTENT</li>
-      <li class="treeview">
+      <li class="treeview ">
         <a href="">
           <i class="fa fa-edit"></i> <span>Blog/Tin tức</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-          <ul class="treeview-menu">
-            <li class="nav-item has-treeview">
+          <ul class="treeview-menu ">
+            <li class="nav-item has-treeview ">
               <a href="{{route('admin.post.create')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+                </i><i class="fa fa-plus" aria-hidden="true"></i>
                 <span>Tạo mới tin</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.post.index')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+                <i class="fa fa-list" aria-hidden="true"></i>
                 <span>Danh sách tin</span></a>
             </li>
             <li class="nav-item has-treeview">
               <a href="{{route('admin.category.index')}}" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Danh mục</span></a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Tags</span></a>
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <span>Danh mục</span></a>
             </li>
           </ul>
       </li>
@@ -129,10 +121,42 @@
             </li>
           </ul>
       </li>
-      <li>
+      <li class="">
         <a href="{{url('hrm/filemanage')}}">
           <i class="fa fa-image"></i> <span>Thư viện ảnh</span>
         </a>
+      </li>
+      <li class="treeview">
+        <a href="">
+          <i class="fa fa fa-clone"></i> <span>Liên hệ</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+
+        <ul class="treeview-menu">
+
+          <li class="nav-item has-treeview">
+            <a href="{{url('hrm/contacts')}}" class="nav-link">
+              <i class="fa fa-envelope"></i>
+              <span>Hộp thư</span></a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.product_reviews.index')}}" class="nav-link">
+              <i class="fa fa-commenting"></i>
+              <span>Đánh giá sản phẩm</span></a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.page.create')}}" class="nav-link">
+              <i class="fa fa-question-circle"></i>
+              <span>Hỏi đáp sản phẩm</span></a>
+          </li>
+
+          
+
+        </ul>
       </li>
       <li class="header">ADMIN SYSTEM</li>
 
@@ -149,8 +173,8 @@
                 <i class="fa fa-bars"></i> <span>Menu</span></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="" class="nav-link">
-                <i class="fa fa-circle-o"></i>
+              <a href="{{route('admin.themeoptions.header')}}" class="nav-link">
+                <i class="fa fa-television" aria-hidden="true"></i>
                 <span>Theme options</span></a>
             </li>
             <li class="nav-item has-treeview">
@@ -159,7 +183,12 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="" class="nav-link">
-                <i class="fa fa-circle-o"></i> <span>Custom CSS</span></a>
+                <i class="fa fa-css3" aria-hidden="true"></i>
+                <span>Custom CSS</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.instagram.index')}}" class="nav-link"> 
+                <i class="fa fa-instagram"></i> <span>Instagram</span></a>
             </li>
           </ul>
       </li>

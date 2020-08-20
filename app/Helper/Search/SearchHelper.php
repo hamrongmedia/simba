@@ -1,15 +1,16 @@
 <?php
-
-namespace App\Helper;
+namespace App\Helper\Search;
 
 class SearchHelper
 {
-    public function __construct($model)
+    public static function search($model, $search_field = [], $keyword)
     {
-        $this->model = $model;
-    }
-    public static function searchById($model)
-    {
-
+        $result = $model::where('id', '=', intval($keyword));
+        $i = 0;
+        while ($i < count($search_field)) {
+            $result = $result->orwhere($search_field[$i], 'like', "%" . $keyword . "%");
+            $i++;
+        }
+        return $result->get();
     }
 }

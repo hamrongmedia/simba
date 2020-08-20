@@ -14,12 +14,8 @@ class CreateProductToCategories extends Migration
     public function up()
     {
         Schema::create('product_to_categories', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('category_id');
-            $table->integer('status');
-            $table->integer('is_deleted');
-            $table->timestamps();
 
             $table->foreign('product_id')
                 ->references('id')
@@ -40,6 +36,6 @@ class CreateProductToCategories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_categories');
+        Schema::dropIfExists('product_to_categories');
     }
 }

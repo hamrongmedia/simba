@@ -16,12 +16,10 @@ class CreateMenuTable extends Migration
         Schema::create('menu', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('name');
-            $table->string('route')->nullable();
+            $table->string('link')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedTinyInteger('sort');
             $table->unsignedMediumInteger('parent_id')->nullable();
-            $table->unsignedMediumInteger('link')->nullable();
             $table->timestamps();
         });
 
@@ -63,6 +61,5 @@ class CreateMenuTable extends Migration
         Schema::dropIfExists('menu');
         Schema::dropIfExists('menu_has_roles');
         Schema::dropIfExists('menu_has_permissions');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
