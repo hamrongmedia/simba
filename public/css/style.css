@@ -699,8 +699,6 @@ span.pro-price-view {
     background-color: #fff;
 }
 
-
-
 .slider-home.owl-carousel .owl-nav.disabled,
 .slider-home.owl-carousel .owl-dots.disabled{
      display: block;
@@ -727,6 +725,7 @@ span.pro-price-view {
 }
 #ajax-product-pagination{
     clear: both;
+
 }
 /*--------------------------------------------------------------
 # menu
@@ -835,14 +834,20 @@ span.pro-price-view {
     padding: 0px;
     line-height: 1;
 }
+
 .box-search-mb .btn-search-mb i {
-    width: 25px;
-    height: 25px;
+    width: 55px;
+    height: 49px;
     background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
+
     background-image: url(../images/iconsearch.svg);
     opacity: 0.6;
+        background-position: center;
+    background-repeat: no-repeat;
+}
+.box-search-mb button.btn-search-mb i{
+     width: 25px;
+    height: 25px;
 }
 .box-search-mb .btn-search-mb i::before {
     content: "";
@@ -2905,11 +2910,11 @@ span.pro-price-view {
         transition: all 0.5s ease-in-out;
     }
     .wp-text-slide-sp-22.active {
-       /* position: absolute;*/
         top: 30px;
         left: 0;
         width: 100%;
         background: #fff;
+
     }
     .wp-titlle-tin-page .row {
         margin-left: -10px;
@@ -3001,6 +3006,7 @@ span.pro-price-view {
     }
     .sec-main-page .contentimages p {
         font-size: 14px;
+        height: 260px;
     }
 }
 @media (max-width: 600px) {
@@ -3312,6 +3318,51 @@ span.pro-price-view {
 
 .wp-review {
     margin: 50px 0px;
+}
+
+.so-danhgia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.so-danhgia > * {
+    margin: 0px 10px;
+}
+
+.so-danhgia .start {
+    color: #f7b3a3;
+}
+
+.wp-btn-hoi {
+    display: table;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.wp-btn-hoi button {
+    padding: 8px 15px;
+    text-transform: uppercase;
+    color: #333333;
+    border: 1px solid #333333;
+    background: #fff;
+    margin-left: 10px;
+}
+
+.wp-tab-content-review > ul {
+    border-bottom: 2px solid #ccc;
+}
+
+.wp-tab-content-review > ul li a {
+    border-radius: 0px;
+    text-transform: uppercase;
+}
+
+.wp-tab-content-review > ul li.active a {
+    background: #fcdcda !important;
+    color: #333333;
+}
 }
 
 .so-danhgia {

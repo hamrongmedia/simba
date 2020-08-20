@@ -101,10 +101,67 @@ function changeColor() {
         $('.add_bag_size li').each(function(index) {
             if ($(_this).attr('data-sizeids') != undefined && $(_this).attr('data-sizeids').indexOf("|" + $(this).attr('data-size') + "|") > -1) {
                 sizeId = $(this).attr("data-size");
+
             }
         });
     }
 }
+
+// Trigger Cart
+function siteCloseHandle() {
+    $('#site-cart').removeClass("active");
+}
+// Remove Product From Cart Item
+function removeCartItem(cart_item_id,url_delete)
+{
+    $('.delete_item').click(function(){
+        var current_target = $(this);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: url_delete,
+            data: {
+                cart_item_id : cart_item_id,
+            },
+            dataType: 'json',
+            success: function (data){
+                $('#qtotalitems b').text(data.data.total_quantity);
+                $('.wp-cart .cout-cart').text(data.data.total_quantity);
+                $(current_target).parents('tr.item-cart').remove();
+
+            },
+            error: function (data) {
+                
+            }
+        });
+    })
+}
+// Remove Product From Cart
+function removeProductCart(product_id,url_delete){
+    $('.delete_item').click(function(){
+        var current_target = $(this);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: url_delete,
+            data: {
+                product_id : product_id,
+            },
+            dataType: 'json',
+            success: function (data){
+                $(current_target).parents('tr.item-cart').remove();
+            },
+            error: function (data) {
+                
+            }
+        });
+    });
+}
+
 
 // Trigger Cart
 function siteCloseHandle() {
@@ -498,20 +555,6 @@ jQuery(document).ready(function ($) {
             .addClass("active");
     });
 
-    // function stick(id, el_class, offset_top, stick, unstick) {
-    //     if ($(id).length > 0) {
-    //         $(id).stick_in_parent({
-    //             sticky_class: el_class,
-    //             offset_top: offset_top
-    //         }).on("sticky_kit:stick", function (e) {
-    //             $(stick).hide();
-    //         }).on("sticky_kit:unstick", function (e) {
-    //             $(unstick).show();
-    //         });
-    //     }
-    // };    /*---------- Cố định menu dọc trang danh sách sản phẩm khi scroll ----------*/
-    // stick(".pca-pl-r", "fixed-menu", 1, "", "");
-
     $(".slide-sp-title").owlCarousel({
         loop: true,
         margin: 0,
@@ -596,5 +639,6 @@ jQuery(document).ready(function ($) {
                 items: 1,
             },
         },
+
     });
 });

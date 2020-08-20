@@ -1,3 +1,4 @@
+
     <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.js')}}"></script>
@@ -13,13 +14,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        if($(window).width() > 768) {
 
-            $(document).ready(function() {
-                // $('.wp-footer-main').click(function() {
-                //     $('.list-ft-main').slideToggle("fast");
-                // });
-            });
-        }
     </script>
+
 @yield('custom-js')

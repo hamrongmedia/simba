@@ -20,5 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductAttributeValueSeeder::class);
         $this->call(ProductInfoSeeder::class);
         $this->call(ProductCategorySeeder::class);
+        $this->call(Instagram::class);
+
+
     }
 }
