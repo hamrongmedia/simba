@@ -725,6 +725,9 @@ span.pro-price-view {
 .slider-home .owl-prev{
     left: 10px;
 }
+#ajax-product-pagination{
+    clear: both;
+}
 /*--------------------------------------------------------------
 # menu
 --------------------------------------------------------------*/
@@ -2907,9 +2910,6 @@ span.pro-price-view {
         left: 0;
         width: 100%;
         background: #fff;
-/*        height: calc(100vh - 15px);
-        height: -moz-calc(100vh - 15px);
-        height: -webkit-calc(100vh - 15px);*/
     }
     .wp-titlle-tin-page .row {
         margin-left: -10px;
@@ -2997,8 +2997,10 @@ span.pro-price-view {
         height: 277px;
     }
         .slider-instagram img{
-        height: 260px;
-        
+        height: 260px; 
+    }
+    .sec-main-page .contentimages p {
+        font-size: 14px;
     }
 }
 @media (max-width: 600px) {

@@ -115,7 +115,6 @@ Trang chủ
                             <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
                             @endforeach
                         @endif
-                        
                     </ul>
                     <!-- trên mobile -->
                      <!-- để danh mục sản phẩm con không vượt quá 10 -->
@@ -335,9 +334,6 @@ Trang chủ
         </div>
         @include('front-end.content.modal_inatagram')
     </section> <!-- end sec-home-11 -->
-
-
-
 @endsection
 
 @section('custom-js')

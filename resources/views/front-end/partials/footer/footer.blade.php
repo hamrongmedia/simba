@@ -87,7 +87,6 @@
                     </div>
                 </div>
             </div>
-           
         </div><!--  end -->
         <div class="wp-footer-bottom">
             <div class="row">
@@ -100,6 +99,3 @@
         </div>
     </div>
 </footer>
-<div class="feedback">
-    <a href="#" target="_blank"><div class="inner rotate">Feedback</div></a>
-</div>
