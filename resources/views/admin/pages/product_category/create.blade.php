@@ -10,17 +10,10 @@ Tạo danh mục sản phẩm
         enctype="multipart/form-data">
         @csrf
         <!-- {{ csrf_field() }} -->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
-                        @if (\Session::has('success'))
-                            <div class="alert alert-success">
-                                <ul>
-                                    <li>{!! \Session::get('success') !!}</li>
-                                </ul>
-                            </div>
-                        @endif
                         @if (\Session::has('error'))
                             <div class="alert alert-danger">
                                 <ul>
@@ -52,95 +45,54 @@ Tạo danh mục sản phẩm
                         <textarea class="form-control" name="description" rows="3"
                                 placeholder="Nhập mô tả ngắn"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta title(Tiêu đề SEO)</label>
-                        <input type="text" name="meta_title" class="form-control" placeholder="Nhập tên chuyên mục">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta key word</label>
-                        <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập tên chuyên mục">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Meta description</label>
-                        <textarea class="form-control" name="meta_description" rows="3"
-                            placeholder="Nhập mô tả ngắn"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="assign-switch">
-                            <label class="switch-label">
-                                <input type="checkbox" class="switch-assign" name="status">
-                                <span class="slider round"></span>
-                            </label>
-                            <label class="d-inline-block">Bật tắt</label>
+                </div>
+            </div>
+            <div class="box box-primary collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tối ưu hoá bộ máy tìm kiếm (SEO)</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                         </div>
+                    </div>
+                    
+                    <div class="box-body">
+                        <p>Thiết lập các thẻ mô tả giúp người dùng dễ dàng tìm thấy trên công cụ tìm kiếm như Google.</p>
+                        <div class="form-group">
+                            <label for="meta_title">Tiêu đề (Tiêu đề SEO)</label>
+                            <input type="text" name="meta_title" class="form-control" placeholder="Nhập tiêu đề">
+                        </div>
+                        <div class="form-group">
+                            <label for="meta_des">Mô Tả</label>
+                            <textarea class="form-control" name="meta_description" rows="3" placeholder="Nhập mô tả ngắn"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Meta Keyword</label>
+                            <input type="text" name="meta_keyword" class="form-control" placeholder="Nhập từ khóa">
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        <div class="col-md-3">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Đăng</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <select class="form-control" name="status">
+                            <option value="1">Đã đăng</option>
+                            <option value="0">Bản nháp</option>
+                        </select>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    <button type="reset" class="btn btn-default">Hủy</button>
+                    <button  class="btn btn-info pull-right" name="save">Đăng</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<style>
-    .switch-label {
-        position: relative;
-        display: inline-block;
-        width: 40px;
-        height: 16px;
-        top:2px;
-    }
-
-.switch-label input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 10px;
-  width: 10px;
-  left: 2px;
-  bottom: 3px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #37dc53;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #37dc53;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
 @endsection

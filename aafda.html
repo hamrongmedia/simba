@@ -1,127 +1,274 @@
-<div class="row">
-    <div class="col-md-6">
-        <form action="{{}}" role="form">
-            <div class="theme-options-setting box box-primary clearfix">
-                <h3 class="box-title">Mail</h3>
-                <div class="form-group">
-                    <label for="">Email đi</label>
-                    <input type="text" name="hrm_email_smtp" class="form-control" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Tên người gửi</label>
-                    <input type="text" name="hrm_name_smtp" class="form-control" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Phương thức gửi gmail</label>
-                    <select class="form-control" style="width: 100%;" name="hrm_formality_smtp">
-                        <option value="Default (none)">Default (none)</option>
-                        <option value="SMTP.com">SMTP.com</option>
-                        <option value="Pepipost">Pepipost</option>
-                        <option value="Sendinblue">Sendinblue</option>
-                        <option value="Mailgun">Mailgun</option>
-                        <option value="sendGrid">SendGrid</option>
-                        <option value="Gmail">Gmail</option>
-                        <option value="Amazon SES">Other SMTP</option>
-                    </select>
-                </div>
-                <h3 class="box-title">Other SMTP</h3>
-                <div class="form-group">
-                    <label for="">SMTP Host</label>
-                    <input type="text" name="hrm_host_smtp" class="form-control" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Mã hóa</label>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="radio">
-                                <label>
-                                    <div class="iradio_minimal-blue checked">
-                                        <input type="radio" name="hrm_encode_smtp" class="minimal" checked="">
-                                        <ins class="iCheck-helper"></ins>
-                                        Không
-                                    </div>
-                                </label>
-                            </div>
+<script type="text/javascript">
 
-                        </div>
-                        <div class="col-md-2">
-                            <div class="radio">
-                                <label>
-                                    <div class="iradio_minimal-blue checked">
-                                        <input type="radio" name="hrm_encode_smtp" class="minimal">
-                                        <ins class="iCheck-helper"></ins>
-                                        SSl
-                                    </div>
-                                </label>
-                            </div>
+    $(document).ready(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    });
 
-                        </div>
-                        <div class="col-md-2">
-                            <div class="radio">
-                                <label>
-                                    <div class="iradio_minimal-blue checked">
-                                        <input type="radio" name="hrm_encode_smtp" class="minimal">
-                                        <ins class="iCheck-helper"></ins>
-                                        TLS
-                                    </div>
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">SMTP Port</label>
-                    <input type="number" name="hrm_port_smtp" class="form-control" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">SMTP Username</label>
-                    <input type="text" name="hrm_username_smtp" class="form-control" id="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">SMTP Password</label>
-                    <input type="password" name="hrm_password_smtp" class="form-control" id="" placeholder="">
-                    <span><em class="help-block">The password is stored in plain text. We highly recommend you set up
-                            your password in your WordPress configuration file for improved security.</em></span>
-                    <span><em class="help-block">define( 'WPMS_SMTP_PASS', 'your_password' );</em></span>
-                </div>
-                <div class="clearfix box-header box-footer text-right">
-                    <button type="button" class="btn btn-primary btn-sm" name="">Save</button>
-                    <input type="hidden" class="" name="">
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6">
-        <div class="theme-options-setting box box-primary clearfix">
-            <h3 class="box-title">Mail List</h3>
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Task</th>
-                        <th>Phương thức gửi</th>
-                        <th style="width: 80px">Thao tác</th>
-                    </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>tranhoang123@gmail.com</td>
-                        <td>
-                            SMPT
-                        </td>
-                        <td style="text-align: center">
-                            <i class="fa fa-pencil p-1" style="margin-right: 10px" aria-hidden="true"></i>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    function update_total(e) {
+        node = e.closest('tr');
+        var qty = node.find('.add_qty').eq(0).val();
+        var price = node.find('.add_price').eq(0).val();
+        node.find('.add_total').eq(0).val(qty * price);
+    }
 
 
-            <div class="clearfix box-header box-footer text-right">
-                <button type="button" class="btn btn-primary btn-sm" name="">Save</button>
-                <input type="hidden" class="" name="">
-            </div>
-        </div>
-    </div>
-</div>
+    //Add item
+    function selectProduct(element) {
+        node = element.closest('tr');
+        var id = parseInt(node.find('option:selected').eq(0).val());
+        if (id == 0) {
+            node.find('.add_sku').val('');
+            node.find('.add_qty').eq(0).val('');
+            node.find('.add_price').eq(0).val('');
+            node.find('.add_attr').html('');
+            node.find('.add_tax').html('');
+        } else {
+            $.ajax({
+                url: 'https://demo.s-cart.org/sc_admin/order/product_info',
+                type: "get",
+                dateType: "application/json; charset=utf-8",
+                data: {
+                    id: id,
+                    order_id: 300,
+                },
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (returnedData) {
+                    node.find('.add_sku').val(returnedData.sku);
+                    node.find('.add_qty').eq(0).val(1);
+                    node.find('.add_price').eq(0).val(returnedData.price_final * 1);
+                    node.find('.add_total').eq(0).val(returnedData.price_final * 1);
+                    node.find('.add_attr').eq(0).html(returnedData.renderAttDetails);
+                    node.find('.add_tax').eq(0).html(returnedData.tax);
+                    $('#loading').hide();
+                }
+            });
+        }
+
+    }
+
+    $('#add-item-button-save').click(function (event) {
+        $('#add-item-button').prop('disabled', true);
+        $('#add-item-button-save').button('loading');
+        $.ajax({
+            url: 'https://demo.s-cart.org/sc_admin/order/add_item',
+            type: 'post',
+            dataType: 'json',
+            data: $('form#form-add-item').serialize(),
+            beforeSend: function () {
+                $('#loading').show();
+            },
+            success: function (result) {
+                $('#loading').hide();
+                if (parseInt(result.error) == 0) {
+                    location.reload();
+                } else {
+                    alertJs('error', result.msg);
+                }
+            }
+        });
+    });
+
+    //End add item
+    //
+
+    $(document).ready(function () {
+        all_editable();
+    });
+
+    function all_editable() {
+        $.fn.editable.defaults.params = function (params) {
+            params._token = "foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20";
+            return params;
+        };
+
+        $('.updateInfo').editable({
+            success: function (response) {
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+        $(".updatePrice").on("shown", function (e, editable) {
+            var value = $(this).text().replace(/,/g, "");
+            editable.input.$input.val(parseInt(value));
+        });
+
+        $('.updateStatus').editable({
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+            },
+            success: function (response) {
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+        $('.updateInfoRequired').editable({
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+            },
+            success: function (response, newValue) {
+                console.log(response.msg);
+                if (response.error == 0) {
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+
+
+        $('.edit-item-detail').editable({
+            ajaxOptions: {
+                type: 'post',
+                dataType: 'json'
+            },
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+                if (!$.isNumeric(value)) {
+                    return 'Please input numeric!';
+                }
+            },
+            success: function (response, newValue) {
+                if (response.error == 0) {
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-received').html(response.detail.received);
+                    $('.data-subtotal').html(response.detail.subtotal);
+                    $('.data-tax').html(response.detail.tax);
+                    $('.data-total').html(response.detail.total);
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-discount').html(response.detail.discount);
+                    $('.item_id_' + response.detail.item_id).html(response.detail.item_total_price);
+                    var objblance = $('.data-balance').eq(0);
+                    objblance.before(response.detail.balance);
+                    objblance.remove();
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+
+        });
+
+        $('.updatePrice').editable({
+            ajaxOptions: {
+                type: 'post',
+                dataType: 'json'
+            },
+            validate: function (value) {
+                if (value == '') {
+                    return 'Data not empty!';
+                }
+                if (!$.isNumeric(value)) {
+                    return 'Please input numeric!';
+                }
+            },
+
+            success: function (response, newValue) {
+                if (response.error == 0) {
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-received').html(response.detail.received);
+                    $('.data-subtotal').html(response.detail.subtotal);
+                    $('.data-tax').html(response.detail.tax);
+                    $('.data-total').html(response.detail.total);
+                    $('.data-shipping').html(response.detail.shipping);
+                    $('.data-discount').html(response.detail.discount);
+                    var objblance = $('.data-balance').eq(0);
+                    objblance.before(response.detail.balance);
+                    objblance.remove();
+                    alertJs('success', response.msg);
+                } else {
+                    alertJs('error', response.msg);
+                }
+            }
+        });
+    }
+
+
+
+    function deleteItem(id) {
+        Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true,
+        }).fire({
+            title: 'Are you sure to delete this item?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: "#DD6B55",
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        method: 'POST',
+                        url: 'https://demo.s-cart.org/sc_admin/order/delete_item',
+                        data: {
+                            'pId': id,
+                            _token: 'foBMOeniEJ52saPQBN2IkKdhQHw74SYV3lyxqF20',
+                        },
+                        success: function (response) {
+                            if (response.error == 0) {
+                                location.reload();
+                                alertJs('success', response.msg);
+                            } else {
+                                alertJs('error', response.msg);
+                            }
+
+                        }
+                    });
+                });
+            }
+
+        }).then((result) => {
+            if (result.value) {
+                alertMsg('success', 'Item has been deleted.', 'Deleted!');
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                // swalWithBootstrapButtons.fire(
+                //   'Cancelled',
+                //   'Your imaginary file is safe :)',
+                //   'error'
+                // )
+            }
+        })
+    }
+
+
+
+    $(document).ready(function () {
+        // does current browser support PJAX
+        if ($.support.pjax) {
+            $.pjax.defaults.timeout = 2000; // time in milliseconds
+        }
+
+    });
+
+    function order_print() {
+        $('.not-print').hide();
+        window.print();
+        $('.not-print').show();
+    }
+</script>

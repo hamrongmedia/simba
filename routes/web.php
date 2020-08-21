@@ -11,24 +11,8 @@
 |
  */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Route::get('chuyen-muc-san-pham', function () {
     return view('chuyenmucsanpham');
-});
-
-Route::get('chi-tiet-san-pham', function () {
-    return view('chitietsanpham');
-});
-
-Route::get('blog', function () {
-    return view('blog');
-});
-
-Route::get('post', function () {
-    return view('post');
 });
 
 Route::get('feedback', function () {
@@ -41,23 +25,28 @@ Route::get('giohang', function () {
 Route::get('tim-kiem', function () {
     return view('tim_kiem');
 });
-//START ADMIN ROUTE
-@include 'admin.php';
 
 //Include user management route
+//START ADMIN ROUTE
+@include_once 'admin.php';
 
 @include_once 'login.php';
-
+//contact
+@include_once 'contact.php';
 // theme
 @include_once 'theme.php';
 
+@include_once 'frontend.php';
+
+@include_once 'product.php';
+
+@include_once 'product_reviews.php';
+
+@include_once 'admin.order.php';
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'file', 'middleware' => ['web', 'auth:admin']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+Route::get('/home', 'Frontend\HomeController@index')->name('home');
 
 Route::group(['prefix' => 'filemanager', 'middleware' => 'auth:admin'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\Pagination\PaginationHelper;
+use App\Helper\Search\SearchHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PostCategory;
+use DataTables;
 use Illuminate\Http\Request;
 use Session;
 
@@ -14,10 +17,36 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $objs = PostCategory::all();
-        return view('admin.pages.category.list')->with('data', $objs);
+        return view('admin.pages.category.list');
+    }
+
+    public function listCategories()
+    {
+        $categories = PostCategory::with('parent')->select('post_category.*');
+
+        return DataTables::eloquent($categories)
+            ->addColumn('action', function ($category) {
+                return '<a href="' . route("admin.category.edit", $category->id) . '">
+                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                <i class="fa fa-edit"></i></span></a>&nbsp;
+                <span onclick="deleteItem(' . $category->id . ')" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span></td>';
+            })
+            ->editColumn('status', function ($category) {
+                if ($category->status == 1) {
+                    return '<span class="label label-success">Đang sử dụng</span>';
+                }
+                return '<span class="label label-danger">Ngừng sử dụng</span>';
+            })
+            ->addColumn('parent', function ($category) {
+                if ($category->parent) {
+                    return '<span>' . $category->parent->name ?? '' . '</span>';
+                }
+                return '';
+            })
+            ->rawColumns(['action', 'status', 'parent'])
+            ->make(true);
     }
 
     /**
@@ -101,5 +130,17 @@ class CategoryController extends Controller
     {
         PostCategory::find($request->id)->delete();
         return ['msg' => 'Item deleted'];
+    }
+
+    public function search(Request $request)
+    {
+        $data = $request->keyword;
+        $result = SearchHelper::search(Pages::class, ['title', 'slug'], $data);
+
+        $paginator = new PaginationHelper($result, 10);
+        $current_page = $request->current_page ?? 1;
+        $items = $paginator->getItem($current_page);
+
+        return view('admin.pages.ajax_components.category_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
     }
 }

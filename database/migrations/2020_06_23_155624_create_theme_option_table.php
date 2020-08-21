@@ -13,7 +13,7 @@ class CreateThemeOptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('themeoptions', function (Blueprint $table) {
+        Schema::create('theme_options', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique()->index();
             $table->text('value')->nullable();
@@ -28,6 +28,6 @@ class CreateThemeOptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('theme_options');
     }
 }

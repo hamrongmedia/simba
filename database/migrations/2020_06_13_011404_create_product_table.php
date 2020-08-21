@@ -14,31 +14,39 @@ class CreateProductTable extends Migration
     public function up()
     {
 
+        /* Create Master Database Table Products */
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
             $table->string('name');
-            $table->longText('description');
-            $table->unsignedInteger('type_id');
-            // $table->unsignedInteger('category_id');
-            $table->integer('price');
-            $table->integer('promotion_price');
-            $table->longText('images');
-            $table->integer('quantity');
-            $table->longText('attribute');
-            $table->string('meta_keyword');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->integer('status');
-            $table->integer('is_deleted');
-            $table->integer('view');
-            
+            $table->string('slug');
+            $table->string('product_code',20)->nullable();
+            $table->text('description')->nullable();
+            $table->integer('price')->default(0);
+            $table->integer('stock')->nullable();
+            $table->tinyInteger('stock_unlimited')->default(1);
+            $table->integer('sale_price')->nullable()->default(0);
+            $table->mediumText('content')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->tinyInteger('type')->comment('1:Default, 2:Attribute')->default(1);
+            $table->tinyInteger('status')->default(1);
+            $table->boolean('is_deleted')->default(0);
+            $table->timestamps();
+        });
+
+        /* Create Relationship Database Table Product Images */
+
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('attribute_value1')->nullable();
+            $table->string('image_file');
+            $table->tinyInteger('sort_order')->default(1);
             $table->timestamps();
 
-            $table->foreign('type_id')
-                ->references('id')
-                ->on('product_types')
-                ->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
     }
@@ -50,6 +58,7 @@ class CreateProductTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('product_images');
         Schema::dropIfExists('products');
     }
 }
