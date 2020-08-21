@@ -224,32 +224,26 @@
                                             @if($product->product_attributes)
                                                 @foreach($product->product_attributes as $pr_at)
                                                     <div id="img-id1{{$product->id}}{{$pr_at['pav1_id']}}"
-                                                         class="tab-pane fade row @if($loop->first) active in @endif  img-id1{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
+                                                         class="tab-pane fade @if($loop->first) active in @endif  img-id1{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                         @if(count($pr_at['image_files']) > 0)
-                                                            @foreach($pr_at['image_files'] as $img)
-                                                                <div
-                                                                    class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                                    @if($img)
-                                                                        <img src="{{ $img }}" alt="ảnh sản phẩm">
-                                                                    @endif
-                                                                </div>
-                                                            @endforeach
+                                                            <div class="product-mobile owl-carousel">
+                                                                @foreach($pr_at['image_files'] as $img)
+                                                                    <div class="wp-sautab img-cover">
+                                                                        @if($img)<img src="{{ $img }}" alt="ảnh sản phẩm">@endif
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
                                                         @else
-                                                            @for($i=0;$i<4;$i++)
-                                                                <div
-                                                                    class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                                    <img src="{{ $product->thumbnail }}">
-                                                                </div>
-                                                            @endfor
+                                                            <div class="wp-sautab img-cover">
+                                                                <img src="{{ $product->thumbnail }}">
+                                                            </div>
                                                         @endif
                                                     </div> <!-- end -->
                                                 @endforeach
                                             @else
-                                                @for($i=0;$i<4;$i++)
-                                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                        <img src="{{ $product->thumbnail }}">
-                                                    </div>
-                                                @endfor
+                                                <div class="wp-sautab img-cover">
+                                                    <img src="{{ $product->thumbnail }}">
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -317,8 +311,16 @@
                                             </div>
                                         @endif
                                         <div class="wp-bottom-text-sp-22" style="display: none;">
-                                            <div class="wwp-uudai-rieng">
+                                            {{-- <div class="wwp-uudai-rieng">
                                                 <p>Ưu đãi dành riêng cho bạn</p>
+                                            </div> --}}
+
+                                            <div class="wp-btn-mua">
+                                                <input type="hidden" id="productId" value="{{ $product->id }}">
+                                                <button class="ajax-addtocart" data-href="{{ route('cart.add') }}"
+                                                        data-product-type={{ $product->type }}>
+                                                    Mua ngay <i class="fas fa-shopping-bag"></i>
+                                                </button>
                                             </div>
 
                                             <!-- ưu đãi -->

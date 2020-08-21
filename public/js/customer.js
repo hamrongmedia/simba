@@ -600,6 +600,27 @@ jQuery(document).ready(function ($) {
             },
         },
     });
+    $(".product-mobile").owlCarousel({
+        loop: false,
+        margin: 0,
+        dots: false,
+        nav: true,
+        autoplay: false,
+        autoplayTimeout: 3000,
+        autoplaySpeed: 1200,
+        smartSpeed: 1200,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            600: {
+                items: 1,
+            },
+            1000: {
+                items: 1,
+            },
+        },
+    });
     $(".slide-sp-mobile").owlCarousel({
         loop: true,
         margin: 0,
