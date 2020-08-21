@@ -1,6 +1,8 @@
 
     <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/sticky-sidebar.js')}}"></script>
     <script src="{{asset('js/owl.carousel.js')}}"></script>
     <script src="{{asset('js/rangeslider.js')}}"></script>
     <script src="{{asset('js/fontawesome.min.js')}}"></script>
@@ -14,7 +16,5 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
     </script>
-
 @yield('custom-js')

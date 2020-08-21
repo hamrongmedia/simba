@@ -67,7 +67,7 @@
                 <!-- chi tiết sản phẩm desktop -->
                 <div class="wp-img-ctsp hidden-xs">
                     <div class="row" style="position: relative;">
-                        <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="col-md-7 col-sm-8 col-xs-12 no-padding">
                             <div class="wp-img-left">
                                 <div class="tab-content">
                                     @if($product->product_attributes)
@@ -75,11 +75,28 @@
                                             <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}"
                                                  class="tab-pane fade @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                 @if(count($pr_at['image_files']) > 0)
-                                                    @foreach($pr_at['image_files'] as $img)
-                                                        <div class="wp-sautab img-cover">
-                                                            @if($img)<img src="{{ $img }}">@endif
+                                                     <div class="product-gallery">
+                                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                                            <div class="img-thumbs">
+                                                                <?php $dem = 0; ?>
+                                                                @foreach($pr_at['image_files'] as $img)
+                                                                <?php $dem ++; ?>   
+                                                                    @if($img)
+                                                                        <a href="<?php echo '#images-thumbs-'.$dem; ?>"><img src="{{ $img }}"></a>
+                                                                    @endif
+                                                                @endforeach
+                                                            </div>
                                                         </div>
-                                                    @endforeach
+                                                        <div class="product-image-detail">
+                                                            <?php $dem2 = 0; ?>
+                                                            @foreach($pr_at['image_files'] as $img)
+                                                            <?php $dem2 ++; ?>
+                                                                <div class="wp-sautab img-cover" id="<?php echo 'images-thumbs-'.$dem2; ?>">
+                                                                    @if($img)<img src="{{ $img }}">@endif
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 @else
                                                     <div class="product-gallery">
                                                         <div class="product-gallery-thumbs hidden-sm hidden-xs">
@@ -110,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5 col-sm-4 col-xs-12 pca-pl-r fixed-menu">
+                        <div class="col-md-5 col-sm-4 col-xs-12 pca-pl-r fixed-menu no-padding">
                             <div class="wp-text-right">
                                 <h1 class="h1-title-ctsp">{{$product->name}}</h1>
                                 <div class="price-ctsp">

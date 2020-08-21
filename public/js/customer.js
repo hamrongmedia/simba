@@ -555,6 +555,8 @@ jQuery(document).ready(function ($) {
             .addClass("active");
     });
 
+
+    
     $(".slide-sp-title").owlCarousel({
         loop: true,
         margin: 0,
@@ -641,4 +643,17 @@ jQuery(document).ready(function ($) {
         },
 
     });
+    var hef = $('.sticky-wrapper').height();
+    $(document).on('click', '.product-gallery-thumbs a[href*="#"]', function (event) {
+        event.preventDefault();
+        
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - hef
+        }, 500);
+    });
+
+   $('.product-gallery-thumbs, .fixed-menu').stickySidebar({
+        topSpacing: hef,
+        bottomSpacing: 400
+    }); 
 });
