@@ -49,20 +49,9 @@
                         <div class="wp-ft-top ft-form-ft">
                             <h3 class="h3-title-ft">ĐĂNG KÝ NHẬN THÔNG TIN MỚI</h3>
                             <div class="wp-form-dk">
-                                <form action="" id="sform" method="post">
-                                    <div class="error alert" style="display: none;"></div>
 
-                                    <div class="form-dk-email">
-                                        <input type="email" placeholder="Email của bạn" class="form-control email" required="" name="email">
-                                        <input type="hidden" value="ĐĂNG KÝ NHẬN THÔNG TIN MỚI" class="form-control title" name="title">
-                                        <button class="btn btn-default btn-dk btn-hover">Đăng ký</button>
-                                    </div>
-                                    <div class="checkbox hidden-xs">
-                                        <label>
-                                            <input type="checkbox" class="check" value="" required=""> Tôi đồng ý với các điều kiện &amp; điều khoản
-                                        </label>
-                                    </div>
-                                </form>
+                            @include('admin.pages.customer_contact.contact_email_create')
+
                             </div>
                         </div>
                          <div class="wp-ft-top ft-form-ft">

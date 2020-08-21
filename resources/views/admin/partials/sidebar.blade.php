@@ -135,7 +135,16 @@
         </a>
 
         <ul class="treeview-menu">
-
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.contactemail.index')}}" class="nav-link">
+              <i class="fa fa-envelope"></i>
+              <span>Email contact</span></a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.contactphone.index')}}" class="nav-link"> 
+              <i class="fa fa-phone-square"></i>
+              <span>Phone contact</span></a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="{{url('hrm/contacts')}}" class="nav-link">
               <i class="fa fa-envelope"></i>
