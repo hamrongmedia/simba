@@ -318,7 +318,7 @@
                         <div class="so-danhgia">
                             <span>
                                 <a href="javascript:void()" class="click_show_comment"> <span
-                                        class="count_comments">0</span> Reviews</a>,
+                                        class="count_comments">{{ count($danhgia) }}</span> Reviews</a>,
                                 <a href="javascript:void()" class="click_show_comment"><span
                                         class="count_cauhoi">0</span> QAs</a>
                             </span>
@@ -476,10 +476,87 @@
                                 <div class="tab-content">
                                     <div id="rv1" class="tab-pane fade in active">
                                         <div class="wp-sautab">
-                                            <p class="b-mn "><span class="count_comments">0</span> đánh giá</p>
-                                            <div class="wp-list-danhgia comment-list"></div>
+                                            <p class="b-mn "><span class="count_comments">{{ count($danhgia) }}</span> đánh giá</p>
+                                            <div class="wp-list-danhgia comment-list">
+                                            
+                                            </div>
 
+                                        <!-- phần lấy dữ liệu từ bảng đánh giá - product_reviews -->
+                                            
+                                            
+                                            @foreach($danhgia as $danhgia)
+                                                <div class="row list-comment">
+                                                    <div class="col-md-1">
+                                                        <div class="">
+                                                            <img class="img-user" src="https://koolkampus.co.in/wp-content/uploads/2014/02/admin.png">
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-md-11">
+                                                            <b>{{$danhgia->customer_name}}</b>
+                                                            <br>
+                                                            <b>Sản phẩm : {{$product->name}}</b>
+                                                            <hr>  
+                                                    </div>
+                                                </div>    
+                                                
+                                                <div class="row list-comment">    
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <ul class="list-traodoi">
+                                                            <li><p>{{$danhgia->comment}}</p></li>
+                                                            <br>
+                                                            <li><p class="head-phanhoi">&nbsp;&nbsp;&nbsp;&nbsp; Phản hồi của cửa hàng</p></li>
+            
+                                                            <li><p>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                            <!-- lấy dữ liệu từ phần phản hồi -->
+                                                                <?php
+                                                                $traloi = DB::table('product_reviews_answer')->select('*')->where('product_review_id',$danhgia->id)->get();
+                                                                ?>
+                                                                    @foreach($traloi as $traloi)
+                                                                        {{$traloi->answer}} 
+                                                                    @endforeach
+                                                                <!-- end -->    
+                                                            </p></li>
+                                                             
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            @endforeach 
+                                            <!-- end -->
+                                            
+                                            
                                             <style>
+                                                .head-phanhoi
+                                                {
+                                                    font-weight:bold;
+                                                    color:red;
+                                                }
+                                                li
+                                                {
+                                                    list-style:none;
+                                                }
+                                                .list-traodoi
+                                                {
+                                                    float:left;
+                                                }
+                                                .list-traodoi li p
+                                                {
+                                                    float:left;
+                                                    font-size:12px;
+                                                    text-transform: capitalize;
+                                                }
+                                                .img-user
+                                                {
+                                                    width:50px;
+                                                }
+                                                .list-comment .col-md-11 b
+                                                {
+                                                    float:left;
+                                                    font-size:12px;
+                                                }
                                                 .left-dg h4 {
 
                                                     margin-bottom: 0px;
