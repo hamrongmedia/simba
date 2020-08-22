@@ -8,20 +8,16 @@ Trang chủ
     <section class="sec-home-01 mb-80">
         <div class="container-fluid pd-0">
             <div class="row row-edit-0 row-banner-1">
-                <div class="col-md-12 col-edit-0">
-                    <div class="wp-banner">
+                 <div class="col-md-12 col-edit-0">
+                    <div class="wp-banner slider-home owl-carousel">
                         <div class="img-banner">
-                            <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                           <!--  banner mobile -->
-                            <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
+                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
                         </div>
-                        <div class="text-banner">
-                            <div style="z-index: 9; font-size: 50px;color: #c73550;" class="hidden">
-                                <b>TỰ DO</b>
-                                <p style="font-size: 25px">là khi</p>
-                            </div>
-                            <a class="btn btn-default btn-xem btn-hover" href="#" data-toggle="modal" data-target="#modal-size">ĐO SIZE</a>
-                            <a href="#" class="btn btn-default btn-xem btn-hover" style="color: #fff;background: #333333">MUA NGAY</a>
+                        <div class="img-banner">
+                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
+                        </div>
+                        <div class="img-banner">
+                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
                         </div>
                     </div>
                 </div>
