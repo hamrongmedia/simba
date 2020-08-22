@@ -88,6 +88,9 @@
         </div>
     </div>
 </footer>
+
+{{-- {{isset($themeOptionFooter->footer_script) ? $themeOptionFooter->footer_script : 'hello'}} --}}
+
 <!-- Load Facebook SDK for JavaScript 
       <div id="fb-root"></div>
       <script>
