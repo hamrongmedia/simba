@@ -42,7 +42,7 @@
     <link rel="stylesheet"  href="{{asset('css/style.css')}}"/>
     @yield('css')
 
-    @if(isset($themeOptionScript->header_script))
+    {{-- @if(isset($themeOptionScript->header_script))
         {!! $themeOptionScript->header_script !!}
-    @endif
+    @endif --}}
 </head>
