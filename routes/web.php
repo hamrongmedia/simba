@@ -31,7 +31,8 @@ Route::get('tim-kiem', function () {
 @include_once 'admin.php';
 
 @include_once 'login.php';
-
+//contact
+@include_once 'contact.php';
 // theme
 @include_once 'theme.php';
 
