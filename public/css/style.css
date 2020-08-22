@@ -3060,12 +3060,11 @@ span.pro-price-view {
    .img-uudai img {
         height: 277px;
     }
-        .slider-instagram img{
+    .slider-instagram img{
         height: 260px; 
     }
     .sec-main-page .contentimages p {
         font-size: 14px;
-        height: 260px;
     }
 }
 @media (max-width: 600px) {
