@@ -12,7 +12,7 @@
           <tr>
             <th>ID</th>
             <th>Emai contact</th>
-            <th></th>
+            <th width="15%"></th>
           </tr>
         </thead>
         <tbody>
@@ -21,9 +21,9 @@
             <th>{{$row->id}}</th>
             <th>{{$row->email}}</th>
             <th>  
-                <a href="{{route('admin.contactemail.edit', $row->id) }}">Sửa</a>
+                <a class="btn btn-flat btn-danger grid-trash" href="{{route('admin.contactemail.delete', $row->id) }}"><i class="fa fa-trash-o"></i></a>
                 &nbsp;&nbsp;
-                <a href="{{route('admin.contactemail.delete', $row->id) }}">Xoá</a>
+                <a class="btn btn-flat btn-primary grid-refresh" href="{{route('admin.contactemail.edit', $row->id) }}"><i class="fa fa-refresh"></i></a>
             </td>
           </tr>      
         @endforeach

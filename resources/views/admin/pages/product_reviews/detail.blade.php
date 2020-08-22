@@ -12,7 +12,19 @@
                 <strong>Nội dung tin nhắn</strong>
                 <!-- /.box-tools -->
             </div>
-
+            <div class="box-body">
+                <strong>Thông tin sản phẩm đánh giá</strong>
+                <hr>
+            <!-- /Thông tin sp -->
+                @foreach($product as $sanpham)
+                    <img width="200px" src="{{$sanpham->thumbnail}}"> 
+                    <br><br>
+                    <p><strong>Tên sản phẩm : </strong>{{$sanpham->name}}</p> 
+                    <p><strong>Giá : </strong>{{$sanpham->price}} <sup>đ</sup></p> 
+                    <a href="{{route('product.detail', $sanpham->slug) }}">Xem chi tiết sản phẩm</a>
+                @endforeach
+            </div>
+            <hr>
             <div class="box-body">
                 <p><strong>Ngày nhận: </strong>{{$review->create_at ?? ''}}</p> 
                 <p><strong>Người gửi: </strong>{{$review->customer_name ?? ''}}</p> 
