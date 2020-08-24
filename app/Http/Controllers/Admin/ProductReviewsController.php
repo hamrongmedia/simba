@@ -10,9 +10,11 @@ use App\Models\ProductReview;
 use App\Models\ProductReviewAnswer;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductReviewsController extends Controller
 {
+
 
     public function __construct()
     {
@@ -27,6 +29,8 @@ class ProductReviewsController extends Controller
     public function index(Request $request)
     {
 
+        
+        
         $productReviews = ProductReview::all();
         if (empty($request->all())) {
             $paginator = new PaginationHelper($productReviews, 10);
@@ -90,8 +94,8 @@ class ProductReviewsController extends Controller
     public function edit($id)
     {
         $review = ProductReview::find($id);
-
-        return view('admin.pages.product_reviews.detail', ['review' => $review]);
+        $product = DB::table('products')->select('*')->where('id',$id)->get();
+        return view('admin.pages.product_reviews.detail', ['review' => $review, 'product' => $product]);
 
     }
 
@@ -165,10 +169,13 @@ class ProductReviewsController extends Controller
             }
         }
     }
-
-    public function showReview()
+    /**
+     * @param int $product_id
+     */
+    public function getReviewsByProduct($product_id)
     {
-        
+        $danhgia = DB::table('product_reviews')->select('*')->get();
+        return view('front-end/product/detail', compact('danhgia'));
     }
 
 }

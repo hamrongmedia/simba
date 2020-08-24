@@ -12,7 +12,7 @@
           <tr>
             <th>ID</th>
             <th>Phone contact</th>
-            <th></th>
+            <th width="15%"></th>
           </tr>
         </thead>
         <tbody>
@@ -21,9 +21,9 @@
             <th>{{$row->id}}</th>
             <th>{{$row->phone}}</th>
             <th>
-                <a href="{{route('admin.contactphone.edit', $row->id) }}">Sửa</a>
+                <a class="btn btn-flat btn-danger grid-trash" href="{{route('admin.contactphone.delete', $row->id) }}"><i class="fa fa-trash-o"></i></a>
                 &nbsp;&nbsp;
-                <a href="{{route('admin.contactphone.delete', $row->id) }}">Xoá</a></td>
+                <a class="btn btn-flat btn-primary grid-refresh" href="{{route('admin.contactphone.edit', $row->id) }}"><i class="fa fa-refresh"></i></a></td>
           </tr>      
         @endforeach
         </tbody>
