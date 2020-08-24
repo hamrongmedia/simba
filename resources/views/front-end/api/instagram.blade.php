@@ -5,7 +5,7 @@
                     <div class="title-instagram text-center">
                         <span><i class="fab fa-instagram" aria-hidden="true"></i></span>
                         <h2>SHOP OUR INSTAGRAM</h2>
-                        <h4>#venuscharm</h4>
+                        <h4>#samunderwear</h4>
                     </div>
                 </div>
                 <div class="owl-carousel slider-instagram">

@@ -8,9 +8,27 @@ use App\Models\Posts;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ThemeOptions;
-
+use App\Repositories\Product\ProductRepository;
+use Illuminate\Http\Request;
 class HomeController extends Controller
 {
+    /**
+     * @var request
+     */
+    protected $request;
+
+    /**
+     * @var productRepository
+     */
+    protected $productRepository;
+
+    public function __construct(
+        Request $request,
+        ProductRepository $productRepository
+    ) {
+        $this->request = $request;
+        $this->productRepository = $productRepository;
+    }
     /**
      * Show the application dashboard.
      *
