@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helper\Pagination\PaginationHelper;
 use App\Helper\Search\SearchHelper;
-use App\Helper\Sort\SortHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Pages;
 use Illuminate\Http\Request;
@@ -19,22 +18,26 @@ class PagesController extends Controller
     public function index(Request $request)
     {
 
-        if (empty($request->all())) {
-            $data = Pages::all()->sortBy('desc');
-            $paginator = new PaginationHelper($data, 1);
-            $items = $paginator->getItem(1);
-            return view('admin.pages.pages.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
-        }
+        // if (empty($request->all())) {
+        //     $data = Pages::all()->sortBy('desc');
+        //     $paginator = new PaginationHelper($data, 1);
+        //     $items = $paginator->getItem(1);
+        //     return view('admin.pages.pages.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
+        // }
 
-        if ($request->sort_by) {
-            $data = Pages::all();
-            $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-            $paginator = new PaginationHelper($result, 1);
-            $current_page = $request->current_page ?? 1;
-            $items = $paginator->getItem($current_page);
-            return view('admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
-        }
-        return abort(404);
+        // if ($request->sort_by) {
+        //     $data = Pages::all();
+        //     $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
+        //     $paginator = new PaginationHelper($result, 1);
+        //     $current_page = $request->current_page ?? 1;
+        //     $items = $paginator->getItem($current_page);
+        //     return view('admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
+        // }
+        // return abort(404);
+
+        $pages = Pages::all()->sortByDesc('id');
+        return view('admin.pages.pages.list', compact('pages'));
+
     }
 
     /**
@@ -112,7 +115,7 @@ class PagesController extends Controller
     public function destroy(Request $request)
     {
         Pages::find($request->id)->delete();
-        return ['msg' => 'Item deleted'];
+        return ['success' => 'Xóa trang thành công!'];
     }
 
     public function search(Request $request)

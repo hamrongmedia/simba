@@ -79,7 +79,6 @@ $(function () {
     responsive:true,
     autoWidth:false,
     scrollX: true,
-
     ajax: "{{route('admin.post.list_post')}}",
     columns: [
         { "data": "id" },
@@ -89,7 +88,6 @@ $(function () {
         { "data" :"image"},
         { "data" :"status"},
         { "data" :"action"},
-
     ]
     });
 });
@@ -106,45 +104,15 @@ $(function () {
           }
       }).done(function () {
           Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
+              'Xóa thành công!',
+              'Xóa thành công',
               'success',
           );
-          $('#post-' + id).remove();
+          setTimeout(() => {
+            location.reload();          
+          }, 300);
       })
   }
-
-  function searchAjax(page = 1){
-      var input = $('#search_input').val();
-      $.ajax({
-          url: '{{route("admin.post.search")}}' ,
-          data:{
-              keyword: input,
-              current_page:page,
-          }
-      }).done(function (result) {
-          type = 'search';
-          $('.table-list').html(result);
-      })
-  }   
-
-  function sortAjax(current_page = 1) {
-      var input = $('#order_sort option:selected').val().split('__');
-
-      $.ajax({
-          url: "{{route('admin.post.index')}}",
-          data: {
-              sort_by: input[0],
-              sort_type: input[1],
-              current_page: current_page,
-          }
-      })
-          .done(function (result) {
-              type = 'sort';
-              $('.table-list').html(result);
-          })
-  }
-
 
   function deleteItem(id) {
       Swal.fire({

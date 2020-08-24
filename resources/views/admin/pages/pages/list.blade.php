@@ -1,35 +1,16 @@
 @extends('admin.layout')
 @section('title')
-  Quản lý trang
+  Quản lý bài viết
 @endsection
-
+@section('css')
+{{-- Datatable --}}
+<link rel="stylesheet" href="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+@endsection
 @section('main')
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body">
-        <div class="box-header with-border">
-          <div class="pull-right">
-              <div class="menu-right">
-                  <form action="{{route('admin.page.search')}}" id="button_search">
-                      <div onclick="searchAjax()" class="btn-group pull-right">
-                          <a class="btn btn-flat btn-primary" title="Refresh">
-                              <i class="fa  fa-search"></i>
-                          </a>
-                      </div>
-                      <div class="btn-group pull-right">
-                          <div class="form-group">
-                              <input type="text" id="search_input" name="query" class="form-control"
-                                  placeholder="Search Name, ID or Email" value="">
-                          </div>
-                      </div>
-                  </form>
-              </div>
-          </div>
-          <div class="pull-left">
-          </div>
-          <!-- /.box-tools -->
-      </div>
 
       <div class="box-header with-border">
           <div class="pull-right">
@@ -40,43 +21,43 @@
                   </a>
               </div>
           </div>
-          <div class="pull-left">
-              <div class="menu-left">
-                  <button type="button" class="btn btn-default grid-select-all"><i
-                          class="fa fa-square-o"></i></button>
-              </div>
-              <div class="menu-left">
-                  <a class="btn btn-flat btn-danger grid-trash"  onclick="multipleDelete()" title="Delete"><i class="fa fa-trash-o"></i></a>
-              </div>
-
-              <div class="menu-left">
-                  <a class="btn btn-flat btn-primary grid-refresh" title="Refresh"><i
-                          class="fa fa-refresh"></i></a>
-              </div>
-
-              <div class="menu-left">
-                  <div class="btn-group">
-                      <select class="form-control" id="order_sort">
-                          <option value="id__desc">ID desc</option>
-                          <option value="id__asc">ID asc</option>
-                          <option value="title__desc">Tiêu đề giảm dần</option>
-                          <option value="title__asc">Tiêu đề tăng đân</option>
-                          <option value="slug__desc">Name desc</option>
-                          <option value="slug__asc">Name asc</option>
-                      </select>
-                  </div>
-                  <div class="btn-group">
-                      <a class="btn btn-flat btn-primary" title="Sort" id="button_sort">
-                          <i class="fa fa-sort-amount-asc"></i>
-                      </a>
-                  </div>
-              </div>
-          </div>
- 
       </div>
       <section id="pjax-container" class="table-list">
-        @include('admin.pages.ajax_components.page_table')
-
+        {{-- @include('admin.pages.ajax_components.post_table') --}}
+        <table id="pages-table" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên trang</th>
+                    <th>Đường dẫn</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($pages as $index => $page)
+                    <tr>
+                        <td>{{$index + 1}}</td>
+                        <td>{{$page->title}}</td>
+                        <td><a target="_blank" href="{{route('page.detail', $page->slug)}}">{{ $page->slug}}</a></td>
+                        <td>
+                            @if ($page->status == 1)
+                                <span class="label label-success">Đang hoạt động</span>
+                            @else
+                                <span class="label label-danger">Dừng hoạt động</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a target="_blank" href="{{route('admin.page.edit', $page->id)}}">
+                                <span title="Edit" type="button" class="btn btn-flat btn-primary">
+                                    <i class="fa fa-edit"></i></span>
+                            </a>
+                            <span onclick="deleteItem({{$page->id}})" title="Delete" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>  
       </section>
       </div>
       <!-- /.box-body -->
@@ -88,112 +69,53 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('template/AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>
-  var type = 'sort';
+$(function () {
+    $("#pages-table").dataTable({
+    processing: true,
+    responsive:true,
+    autoWidth:false,
+    scrollX: true,
+    });
+});
 
-  function deleteAjax(id) {
-      $.ajax({
-          url: "{{route('admin.page.destroy')}}",
-          type: 'POST',
-          data: {
-              id: id
-          }
-      }).done(function () {
-          Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success',
-          );
-          $('#page-' + id).remove();
-      })
-  }
-
-  function searchAjax(page = 1){
-      var input = $('#search_input').val();
-      $.ajax({
-          url: '{{route("admin.page.search")}}' ,
-          data:{
-              keyword: input,
-              current_page:page,
-          }
-      }).done(function (result) {
-          type = 'search';
-          $('.table-list').html(result);
-      })
-  }   
-
-  function sortAjax(current_page = 1) {
-      var input = $('#order_sort option:selected').val().split('__');
-
-      $.ajax({
-          url: "{{route('admin.page.index')}}",
-          data: {
-              sort_by: input[0],
-              sort_type: input[1],
-              current_page: current_page,
-          }
-      })
-          .done(function (result) {
-              type = 'sort';
-              $('.table-list').html(result);
-          })
-  }
+    function deleteAjax(url, id){
+        $.ajax({
+            type:'post',
+            url: url,
+            data:{
+                id: id,
+            },
+            success: function(data){
+                swalToast(data.success);
+            },
+            error: function(error){
+                swalToast('Lỗi phía server!', 'error');
+            }
+        })
+    }
 
 
   function deleteItem(id) {
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-      })
-          .then((result) => {
-              if (result.value) {
-                  deleteAjax(id);
-              }
-          })
+    Swal.fire({
+        title: 'Xóa danh mục?',
+        text: "Bạn không thể hoàn tác!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vẫn xóa nó'
+    })
+    .then((result) => {
+        var url = "{{route('admin.page.destroy')}}";
+        if (result.value) {
+            deleteAjax(url,id);
+            location.reload();
+        }
+    })
   }
 
-  $('#button_sort').on('click', function (e) {
-      sortAjax(1);
-  });
-
-  function getDataPaginate(item, type) {
-      let nextPage = item.textContent;
-      if (type == 'sort') {
-          sortAjax(nextPage);
-      }
-      if (type == 'search') {
-          searchAjax(nextPage);
-      }
-  };
-
-  function multipleDelete() {
-      let idList = [];
-      let input = document.querySelectorAll('.table-checkbox:checked').forEach(function (item) {
-          idList.push(item.getAttribute('data-id'));
-      })
-
-      if (idList.length > 0) {
-          Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-              if (result.value) {
-                  idList.forEach(function (id) {
-                      deleteAjax(id);
-                  })
-              }
-          })
-      }
-  }
 </script>
 @endsection
