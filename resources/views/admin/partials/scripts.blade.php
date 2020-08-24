@@ -104,6 +104,20 @@ function changeToSlug()
     document.querySelector('input[name="slug"]').value = slug;
 }
 
+// sweet alert mixin
+function swalToast(message, type = 'success', position = 'top-end') {
+    Swal.mixin({
+      toast: true,
+      position: position,
+      showConfirmButton: false,
+      timer: 3000
+    }).fire({
+      type: type,
+      icon: type,
+      title: message,
+    })
+  }
+
 
 
 </script>
