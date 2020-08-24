@@ -125,6 +125,7 @@ Trang chủ
                     <!-- trên mobile -->
                      <!-- để danh mục sản phẩm con không vượt quá 10 -->
                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
+
                         @if ($child_product_cat1)
                             @foreach($child_product_cat1 as $subcat)
                             <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
