@@ -80,10 +80,9 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     public function getProductCatalog($request, $catalog_id)
     {
         $data = $this->model
-             ->whereHas('categories', function($q) use ($catalog_id)
-             {
-                 $q->where('product_categories.id',$catalog_id);
-             })
+            ->whereHas('categories', function ($q) use ($catalog_id) {
+                $q->where('product_categories.id', $catalog_id);
+            })
             ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
             ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')
@@ -111,6 +110,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->selectRaw('GROUP_CONCAT(pc.image_path) as images_path')
             ->groupBy('products.id')
             ->distinct()
+            ->orderByDesc('products.id')
             ->paginate(self::TAKE);
         return $data;
     }
@@ -145,7 +145,8 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->groupBy('products.id')
             ->distinct()
             ->where('products.id', '!=', $product_id)
-            ->paginate(self::TAKE);
+            ->orderByDesc('products.id')
+            ->paginate(8);
         return $data;
     }
 

@@ -82,12 +82,12 @@ class Product extends Model
         return $list;
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::deleting(function (Post $post) {
-            $post->categories()->detach();
-        });
-    }
+    //     static::deleting(function (Post $post) {
+    //         $post->categories()->detach();
+    //     });
+    // }
 }

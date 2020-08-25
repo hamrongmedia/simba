@@ -456,4 +456,12 @@ class ProductController extends Controller
         $this->uploadService->handleRemove($image_path);
         return Response::json(['success' => $image_path], 200);
     }
+
+    /**
+     * Hard remove Product
+     *
+     *
+     *
+     */
+
 }

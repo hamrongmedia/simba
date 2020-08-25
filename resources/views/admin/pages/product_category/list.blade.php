@@ -104,6 +104,7 @@ Quản lý danh mục sản phẩm
                     data: {
                         id: id,
                         model: 'product_category',
+                        is_hard_destroy: 1,
                         _method: 'delete',
                         "_token": "{{ csrf_token() }}",
                     },
@@ -152,6 +153,10 @@ Quản lý danh mục sản phẩm
           })
         }
       });
+    }
+
+    function hardDelete(){
+
     }
 </script>
 @endsection
