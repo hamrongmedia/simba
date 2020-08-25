@@ -74,6 +74,7 @@
 <script>
 $(function () {
     $("#pages-table").dataTable({
+    order: [[ 0, "desc" ]],
     processing: true,
     responsive:true,
     autoWidth:false,

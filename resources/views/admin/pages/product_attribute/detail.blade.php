@@ -56,6 +56,7 @@ Quản lý giá trị thuộc tính: {{$attribute->name}}
 <script>
     $(function () {
         $('#hrm_list').DataTable({
+            order: [[ 0, "desc" ]],
             'paging': true,
             'lengthChange': true,
             'searching': true,

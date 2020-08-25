@@ -74,6 +74,7 @@
 <script>
 $(function () {
     $("#posts-table").dataTable({
+    order: [[ 0, "desc" ]],
     processing: true,
     serverSide: true,
     responsive:true,
@@ -81,7 +82,7 @@ $(function () {
     scrollX: true,
     ajax: "{{route('admin.post.list_post')}}",
     columns: [
-        { "data": "id" },
+        { "data": "DT_RowIndex","name": 'id' , "searchable": false},
         { "data": "title" },
         { "data": "slug" },
         { "data": "categories" },

@@ -23,6 +23,6 @@ class Cart extends Model
      */
     public function cartItems()
     {
-        return $this->hasMany('App\CartItem');
+        return $this->hasMany('App\CartItem')->orderByDesc('id');
     }
 }

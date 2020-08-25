@@ -73,6 +73,7 @@ Quản lý danh mục sản phẩm
 <script>
     $(function () {
         $('#hrm_list').DataTable({
+            order: [[ 0, "desc" ]],
             'paging': true,
             'lengthChange': true,
             'searching': true,

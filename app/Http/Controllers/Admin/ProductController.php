@@ -63,7 +63,6 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        //
 
         return view('admin.pages.product.list');
     }
@@ -73,6 +72,7 @@ class ProductController extends Controller
         $products = Product::query()->with('categories');
 
         return DataTables::eloquent($products)
+            ->addIndexColumn()
             ->addColumn('image', function (Product $product) {
                 $link = $product->thumbnail;
                 $pos = strrpos($link, '/');
@@ -91,14 +91,14 @@ class ProductController extends Controller
                 $html = '<a href="' . route("admin.product.edit", $product->id) . '">
                         <span title="Edit" type="button" class="btn btn-flat btn-primary">
                         <i class="fa fa-edit"></i></span></a>&nbsp';
-                if($product->is_deleted==false) {
-                    $html.='<span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
+                if ($product->is_deleted == false) {
+                    $html .= '<span onclick="deleteItem(' . $product->id . ')" title="Delete" class="btn btn-flat btn-danger">
                             <i class="fa fa-trash"></i></span>';
                 }
-                if($product->is_deleted==true) {
-                    $html.='&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success haha" onclick="restoreItem('.$product->id.')"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
+                if ($product->is_deleted == true) {
+                    $html .= '&nbsp;<span title="Khôi phục" type="button" class="btn btn-flat btn-success haha" onclick="restoreItem(' . $product->id . ')"><i class="fa fa-refresh" aria-hidden="true"></i></span>';
                 }
-                $html.='</td>';
+                $html .= '</td>';
                 return $html;
             })
             ->addColumn('is_deleted', function (Product $product) {
@@ -111,7 +111,7 @@ class ProductController extends Controller
                 }
                 return $result;
             })
-            ->rawColumns(['image', 'action', 'name','is_deleted'])
+            ->rawColumns(['image', 'action', 'name', 'is_deleted'])
             ->make(true);
     }
 
