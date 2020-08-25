@@ -27,6 +27,7 @@ class CategoryController extends Controller
         $categories = PostCategory::with('parent')->select('post_category.*');
 
         return DataTables::eloquent($categories)
+            ->addIndexColumn()
             ->addColumn('action', function ($category) {
                 return '<a href="' . route("admin.category.edit", $category->id) . '">
                 <span title="Edit" type="button" class="btn btn-flat btn-primary">

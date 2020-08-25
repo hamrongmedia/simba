@@ -28,10 +28,10 @@
                 responsive: true,
                 autoWidth: false,
                 scrollX: true,
-
+                order: [[ 0, "desc" ]],
                 ajax: "{{route('admin.category.list_categories')}}",
                 columns: [
-                    { "data": "id" },
+                    { "data": "DT_RowIndex","name": 'id' , "searchable": false},
                     { "data": "name" },
                     { "data": "slug" },
                     { "data": "parent", 'name': 'post_category.name' },

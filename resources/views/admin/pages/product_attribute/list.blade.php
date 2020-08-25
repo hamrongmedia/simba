@@ -70,6 +70,7 @@ Quản lý thuộc tính sản phẩm
 <script>
     $(function () {
         $('#hrm_list').DataTable({
+            order: [[ 0, "desc" ]],
             'paging': true,
             'lengthChange': true,
             'searching': true,

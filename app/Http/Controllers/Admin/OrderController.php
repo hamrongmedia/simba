@@ -11,6 +11,7 @@ use App\Repositories\Order\OrderRepository;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class OrderController extends Controller
 {
@@ -51,6 +52,7 @@ class OrderController extends Controller
         $orders = Order::query()->select('orders.*')->with('paymentMethod');
 
         return DataTables::eloquent($orders)
+            ->addIndexColumn()
             ->addColumn('action', function ($order) {
                 return '<a href="' . route("admin.order.edit", $order->id) . '">
             <span title="Edit" type="button" class="btn btn-flat btn-primary">
@@ -79,6 +81,9 @@ class OrderController extends Controller
                 if ($order->paymentMethod) {
                     return $order->paymentMethod->name;
                 }
+            })
+            ->editColumn('created_at', function (Order $order) {
+                return Carbon::parse($order->created_at)->format('d/m/Y | H:s:a');
             })
             ->rawColumns(['action', 'status'])
             ->make(true);

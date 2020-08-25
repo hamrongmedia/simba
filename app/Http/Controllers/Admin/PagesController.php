@@ -17,24 +17,6 @@ class PagesController extends Controller
      */
     public function index(Request $request)
     {
-
-        // if (empty($request->all())) {
-        //     $data = Pages::all()->sortBy('desc');
-        //     $paginator = new PaginationHelper($data, 1);
-        //     $items = $paginator->getItem(1);
-        //     return view('admin.pages.pages.list', ['current_page' => 1, 'data' => $items, 'paginator' => $paginator]);
-        // }
-
-        // if ($request->sort_by) {
-        //     $data = Pages::all();
-        //     $result = SortHelper::sort($data, $request->sort_by, $request->sort_type);
-        //     $paginator = new PaginationHelper($result, 1);
-        //     $current_page = $request->current_page ?? 1;
-        //     $items = $paginator->getItem($current_page);
-        //     return view('admin.pages.ajax_components.page_table', ['current_page' => $current_page, 'data' => $items, 'paginator' => $paginator]);
-        // }
-        // return abort(404);
-
         $pages = Pages::all()->sortByDesc('id');
         return view('admin.pages.pages.list', compact('pages'));
 

@@ -28,10 +28,11 @@
                 responsive: true,
                 autoWidth: false,
                 scrollX: true,
+                order: [[ 0, "desc" ]],
 
                 ajax: "{{route('admin.user.list_users')}}",
                 columns: [
-                    { "data": "id" },
+                    { "data": "DT_RowIndex","name": 'id' , "searchable": false},
                     { "data": "username" },
                     { "data": "name" },
                     { "data": "roles" },

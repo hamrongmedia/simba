@@ -24,6 +24,7 @@
     <script>
         $(function () {
             $("#product-table").dataTable({
+                order: [[ 0, "desc" ]],
                 processing: true,
                 serverSide: true,
                 autoWidth: false,
@@ -32,7 +33,7 @@
                 ],
                 ajax: "{{route('admin.product.table_ajax')}}",
                 columns: [
-                    { "data": "id" },
+                    { "data": "DT_RowIndex","name": 'id' , "searchable": false},
                     { "data": "image", "width": "100px" },
                     { "data": "name" },
                     { "data": "categories", "name": "categories.name" },

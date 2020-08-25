@@ -30,6 +30,7 @@ class PostsController extends Controller
         $posts = Posts::query();
 
         return DataTables::eloquent($posts)
+            ->addIndexColumn()
             ->addColumn('action', function ($post) {
                 return '<a href="' . route("admin.post.edit", $post->id) . '">
                 <span title="Edit" type="button" class="btn btn-flat btn-primary">

@@ -16,7 +16,7 @@ class ProductCategory extends Model
 
     public function subCategory()
     {
-        return $this->hasMany('App\Models\ProductCategory', 'parent_category', 'id');
+        return $this->hasMany('App\Models\ProductCategory', 'parent_category', 'id')->orderByDesc('id');
     }
 
     /**
