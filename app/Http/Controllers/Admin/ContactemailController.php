@@ -62,7 +62,7 @@ class ContactemailController extends Controller
         
         //Insert vào bảng
         $insertData = DB::table('contactemail')->insert($dataInsertToDatabase);
-
-        return redirect('/');
+        Session::put('message','Thêm Email thành công !');
+        return redirect()->back();
     }
 }

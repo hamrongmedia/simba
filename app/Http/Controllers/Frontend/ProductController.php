@@ -106,8 +106,9 @@ class ProductController extends Controller
         $data_product_setting = ThemeOptions::where('key', 'product')->first();
         $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
-        $danhgia = DB::table('product_reviews')->select('*')->where('product_id',$product->id)->get();  
-        return view('front-end.product.detail', compact('product', 'product_setting', 'datas', 'danhgia'));
+        $danhgia = DB::table('product_reviews')->select('*')->where('product_id',$product->id)->get(); 
+        $cauhoi = DB::table('questions')->select('*')->where('product_id',$product->id)->get();  
+        return view('front-end.product.detail', compact('product', 'product_setting', 'datas', 'danhgia', 'cauhoi'));
     }
 
     /**

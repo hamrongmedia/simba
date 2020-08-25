@@ -62,7 +62,7 @@ class ContactphoneController extends Controller
         
         //Insert vào bảng
         $insertData = DB::table('contactphone')->insert($dataInsertToDatabase);
-
-        return redirect('/');
+        Session::put('message','Thêm số điện thoại thành công !');
+        return redirect()->back();
     }
 }
