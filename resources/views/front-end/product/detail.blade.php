@@ -384,7 +384,6 @@
                                                                        type="radio" name="star" data-value="1"/>
                                                                 <label class="star star-1" for="star-4-1"></label>
                                                             </span>
-
                                                         </div>
                                                         <div class="wpdg2 form-group">
                                                             <div class="error mt20 alert"></div>
@@ -420,8 +419,6 @@
                                                                    value="" type="text">
 
                                                         </div>
-
-
                                                         <div class="wpdg2 form-group">
 
                                                             <p class="mb0">Nội dung</p>
