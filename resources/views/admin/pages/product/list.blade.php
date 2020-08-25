@@ -47,7 +47,7 @@
           data: {
               id: id,
               model: 'product',
-              is_hard_destroy: 1,
+              //is_hard_destroy: 1,
               _method: 'delete',
           }
       }).done(function () {
