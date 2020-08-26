@@ -121,6 +121,7 @@ class ProductController extends Controller
                     ])->firstOrFail();
         $child_product_cat = $catalog->subCategory;
         $datas = $this->productRepository->getProductCatalog($this->request, $catalog->id);
+        
         if ($datas) {
             foreach ($datas as $data) {
                 # Get Product Images

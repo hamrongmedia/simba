@@ -42,6 +42,7 @@ $(function() {
                 console.log(data.data.total_quantity);
                 $("#site-cart").html(data.data.data);
                 $('.wp-cart .cout-cart').text(data.data.total_quantity);
+                $('.wp-cart-mb .cout-cart').text(data.data.total_quantity);
                 $("#site-cart").addClass("active");
             },
             error: (data) => {
