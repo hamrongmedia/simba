@@ -86,10 +86,15 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
             ->leftJoin('product_info as pi', 'products.id', '=', 'pi.product_id')
             ->leftJoin('product_attribute_values as pav1', 'pi.attribute_value1', '=', 'pav1.id')
             ->leftJoin('product_attribute_values as pav2', 'pi.attribute_value2', '=', 'pav2.id')
-            ->leftJoin('product_color as pc', 'pi.attribute_value1', '=', 'pc.id')
+            ->leftJoin('product_color as pc', function ($join) {
+                $join->on('pi.attribute_value1', '=', 'pc.color_id');
+                $join->on('pi.product_id', '=', 'pc.product_id');
+
+            })
             ->select(
                 'products.id',
                 'products.name',
+                'products.type',
                 'products.slug as slug',
                 'products.price',
                 'products.sale_price',
@@ -101,7 +106,8 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
                 'image_path'
             )
             ->selectRaw('GROUP_CONCAT(pav1.value) as colors')
-            ->selectRaw('GROUP_CONCAT(image_path) as images_path')
+            ->selectRaw('GROUP_CONCAT(pav1.id) as color_ids')
+            ->selectRaw('GROUP_CONCAT(pc.image_path) as images_path')
             ->groupBy('products.id')
             ->distinct()
             ->orderByDesc('products.id')
