@@ -44,7 +44,12 @@ $(function () {
             success: (data) => {
                 console.log(data.data.total_quantity);
                 $("#site-cart").html(data.data.data);
+<<<<<<< HEAD
+                $('.wp-cart .cout-cart').text(data.data.total_quantity);
+                $('.wp-cart-mb .cout-cart').text(data.data.total_quantity);
+=======
                 $(".wp-cart .cout-cart").text(data.data.total_quantity);
+>>>>>>> origin/project
                 $("#site-cart").addClass("active");
             },
             error: (data) => {
