@@ -96,7 +96,7 @@ Trang chủ
         <div class="wp-spnb-margin">
             <div class="container-fluid pd-0 ">
                 <div class="wp-title-sec">
-                    <h2 class="h2-title up-case">SẢN PHẨM MỚI</h2>
+                    <h2 class="h2-title up-case">ƯU ĐÃI TRONG TUẦN</h2>
                 </div>
                 <div class="wp-list-uudai">
                      @include('front-end.content.uu_dai')
@@ -134,7 +134,9 @@ Trang chủ
                         
                     </ul>
                 </div> --}}
-
+                <div class="wp-title-sec">
+                    <h2 class="h2-title up-case">SẢN PHẨM MỚI</h2>
+                </div>
                 <div class="wp-list-sp-home">
                     <div class="row">
                         @foreach($new_products as $product)
@@ -215,7 +217,7 @@ Trang chủ
     <section class="sec-home-06 mb-20">
         <div class="wp-spnb-margin">
             <div class="container-fluid">
-                <div class="wp-title-sec-sp clearfix">
+                {{-- <div class="wp-title-sec-sp clearfix">
                     <h2 class="h2-title">
                         <a href="{{$product_cat2->slug ?? ''}}">{{$product_cat2->name ?? ''}}</a>
                     </h2>
@@ -237,8 +239,11 @@ Trang chủ
                         @endif
                         
                     </ul>
-                </div>
+                </div> --}}
                 <div class="wp-list-sp-home">
+                    <div class="wp-title-sec">
+                        <h2 class="h2-title up-case">SẢN PHẨM NỔI BẬT</h2>
+                    </div>
                     <div class="row">
                         @foreach($single_product_cat2 as $product)
                             @include('front-end.content.product_list',['data'=>$product])

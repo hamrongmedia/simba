@@ -62,7 +62,7 @@ class HomeController extends Controller
         if ($hot_cat) {
             $hot_products = $hot_cat->products;
         } else {
-            $hot_products = [];
+            $hot_products = $new_products;
         }
 
         $hot_products1 = array(
