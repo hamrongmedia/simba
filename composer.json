@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "kjmtrue/vietnam-zone": "^1.0",
         "laravel/framework": "^7.0",
+        "laravel/scout": "^8.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "unisharp/laravel-filemanager": "^2.1",

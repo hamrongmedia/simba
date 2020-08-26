@@ -25,7 +25,7 @@ class ProductCategory extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_to_categories', 'category_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_to_categories', 'category_id', 'product_id')->where('products.is_deleted', '<>', 1);
     }
 
     protected static function boot()
@@ -36,4 +36,5 @@ class ProductCategory extends Model
             $category->products()->detach();
         });
     }
+
 }

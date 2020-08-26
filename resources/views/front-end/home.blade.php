@@ -96,7 +96,7 @@ Trang chủ
         <div class="wp-spnb-margin">
             <div class="container-fluid pd-0 ">
                 <div class="wp-title-sec">
-                    <h2 class="h2-title up-case">Ưu đãi trong tuần</h2>
+                    <h2 class="h2-title up-case">SẢN PHẨM MỚI</h2>
                 </div>
                 <div class="wp-list-uudai">
                      @include('front-end.content.uu_dai')
@@ -109,7 +109,7 @@ Trang chủ
     <section class="sec-home-06">
         <div class="wp-spnb-margin">
             <div class="container-fluid">
-                <div class="wp-title-sec-sp clearfix">
+                {{-- <div class="wp-title-sec-sp clearfix">
                     <h2 class="h2-title">
                         <a href="{{route('product.getProductByCat', $product_cat1->slug)}}">{{$product_cat1->name ?? ''}}</a>
                     </h2>
@@ -133,11 +133,11 @@ Trang chủ
                         @endif
                         
                     </ul>
-                </div>
+                </div> --}}
 
                 <div class="wp-list-sp-home">
                     <div class="row">
-                        @foreach($single_product_cat1 as $product)
+                        @foreach($new_products as $product)
                             @include('front-end.content.product_list',['data'=>$product])
                         @endforeach   
                     </div>
@@ -158,7 +158,8 @@ Trang chủ
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb2">
                             <div class="row">
-                                @foreach( $hot_products as $product )
+                                {{-- Lấy ra 4 sản phẩm hot (mới nhất từ 1-4) --}}
+                                @foreach( $hot_products->chunk(4)[0] ?? [] as $product )
                                     @isset($product)
                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                         <div class="wp-item-spnb2">
@@ -255,7 +256,8 @@ Trang chủ
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb2">
                             <div class="row">
-                                @foreach( $hot_products1 as $product )
+                                {{-- Lấy ra 4 sản phẩm hot (mới nhất từ 5-9) --}}
+                                @foreach( $hot_products->chunk(4)[1] ?? []  as $product ) 
                                     @isset($product)
                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                         <div class="wp-item-spnb2">
