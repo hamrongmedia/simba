@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductToCategory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -51,7 +51,7 @@ class Product extends Model
      */
     public function productImage()
     {
-        return $this->hasMany(ProductImage::class,'product_id','id');
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
     /**
@@ -60,7 +60,7 @@ class Product extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(ProductCategory::class, 'product_to_categories','product_id','category_id');
+        return $this->belongsToMany(ProductCategory::class, 'product_to_categories', 'product_id', 'category_id');
     }
 
     /**
@@ -69,25 +69,25 @@ class Product extends Model
      */
     public function productAttributes()
     {
-        return $this->belongsToMany(ProductAttribute::class, 'product_attribute_map','product_id','product_attribute_id');
+        return $this->belongsToMany(ProductAttribute::class, 'product_attribute_map', 'product_id', 'product_attribute_id');
     }
-    
-    public function getCategories(){
+
+    public function getCategories()
+    {
         $categories = ProductToCategory::where('product_id', $this->id)->get();
         $list = [];
-        foreach($categories as $category){
+        foreach ($categories as $category) {
             $list[] = $category->category_id;
         }
         return $list;
     }
 
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function (Post $post) {
-            $post->categories()->detach();
-        });
-    }
+    //     static::deleting(function (Post $post) {
+    //         $post->categories()->detach();
+    //     });
+    // }
 }

@@ -8,21 +8,19 @@ Trang chủ
     <section class="sec-home-01 mb-80">
         <div class="container-fluid pd-0">
             <div class="row row-edit-0 row-banner-1">
-                <div class="col-md-12 col-edit-0">
-                    <div class="wp-banner">
-                        <div class="img-banner">
-                            <img class="sample2 el_image hidden-xs" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                           <!--  banner mobile -->
-                            <img class="sample2 el_image hidden-md hidden-lg hidden-sm" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                        </div>
-                        <div class="text-banner">
-                            <div style="z-index: 9; font-size: 50px;color: #c73550;" class="hidden">
-                                <b>TỰ DO</b>
-                                <p style="font-size: 25px">là khi</p>
+                 <div class="col-md-12 col-edit-0">
+                    <div class="wp-banner slider-home owl-carousel">
+                        @if (isset($homepageOption->home1_background))
+                            @php
+                                $banners = $homepageOption->home1_background;
+                                $banners = explode(',', $banners);
+                            @endphp
+                            @foreach ($banners as $banner_link)
+                            <div class="img-banner">
+                                <img class="sample2 el_image" src="{{$banner_link ?? ''}}" alt="banner">
                             </div>
-                            <a class="btn btn-default btn-xem btn-hover" href="#" data-toggle="modal" data-target="#modal-size">ĐO SIZE</a>
-                            <a href="#" class="btn btn-default btn-xem btn-hover" style="color: #fff;background: #333333">MUA NGAY</a>
-                        </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -127,6 +125,7 @@ Trang chủ
                     <!-- trên mobile -->
                      <!-- để danh mục sản phẩm con không vượt quá 10 -->
                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
+
                         @if ($child_product_cat1)
                             @foreach($child_product_cat1 as $subcat)
                             <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>
@@ -278,70 +277,10 @@ Trang chủ
             </div>
         </div>
     </section> <!-- end sec-home-07 -->
-    <section class="sec-home-11 ">
-        <div class="container-fluid pd-0">
-            <div class="sec-instagam">
-                <div class="wp-title-sec">
-                    <div class="title-instagram text-center">
-                        <span><i class="fab fa-instagram" aria-hidden="true"></i></span>
-                        <h2>SHOP OUR INSTAGRAM</h2>
-                        <h4>#venuscharm</h4>
-                    </div>
-                </div>
-                <div class="owl-carousel slider-instagram">
-                    <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-mac-thoai-mai-tu-do(1).jpg')}}" alt="banner0">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                      <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-ha-noi(1).jpg')}}" alt="banner1">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                     <div class="item">
-                         <img class="el_image" src="{{asset('images-demo/venus-charm-danh-gia-san-pham(1).jpg')}}" alt="banner2">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                     <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/venus-charm-do-lot-ren-mac-ao-co-sau(1).jpg')}}" alt="banner3">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="item" >
-                         <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-vua(1).jpg')}}" alt="banner5">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/venus-charm-tu-do-la-tu-lo(1).jpg')}}" alt="banner6">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/hop-qua-tang-venus-charm(1).jpg')}}" alt="banner7">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <img class="el_image" src="{{asset('images-demo/venus-charm-ao-lot-khong-gong-dem-day(2).jpg')}}" alt="banner8">
-                        <a href="#" target="_blank">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @include('front-end.content.modal_inatagram')
-    </section> <!-- end sec-home-11 -->
+
+    
+<!-- api- instagram -->
+@include('front-end.api.instagram')
 
 
 

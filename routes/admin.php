@@ -36,4 +36,25 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
 
     Route::delete('ajax/destroy', 'DestroyController@destroy')->name('admin.ajax.destroy');
     Route::post('ajax/restore', 'RestoreController@restore')->name('admin.ajax.restore');
+
+    //API instagram
+    Route::get('/api/instagram', 'InstagramController@index')->name("admin.instagram.index");
+    Route::get('/api/instagram/edit/{id}', 'InstagramController@edit')->name("admin.instagram.edit");
+    Route::post('/api/instagram/update', 'InstagramController@update');
+
+    //Contact Email
+    Route::get('/contact/email', 'ContactemailController@index')->name("admin.contactemail.index");
+    Route::get('/contact/email/edit/{id}', 'ContactemailController@edit')->name("admin.contactemail.edit"); // Sửa
+    Route::post('/contact/email/update', 'ContactemailController@update'); // Xử lý sửa
+    Route::get('/contact/email/delete/{id}', 'ContactemailController@delete')->name("admin.contactemail.delete");
+    Route::get('/contact/email/create', 'ContactemailController@create')->name("admin.contactemail.create");
+    Route::post('/contact/email/create', 'ContactemailController@store'); // Xử lý thêm mới
+
+    //Contact Phone
+    Route::get('/contact/phone', 'ContactphoneController@index')->name("admin.contactphone.index");
+    Route::get('/contact/phone/edit/{id}', 'ContactphoneController@edit')->name("admin.contactphone.edit"); // Sửa
+    Route::post('/contact/phone/update', 'ContactphoneController@update'); // Xử lý sửa
+    Route::get('/contact/phone/delete/{id}', 'ContactphoneController@delete')->name("admin.contactphone.delete");
+    Route::get('/contact/phone/create', 'ContactphoneController@create')->name("admin.contactphone.create");
+    Route::post('/contact/phone/create', 'ContactphoneController@store'); // Xử lý thêm mới
 });

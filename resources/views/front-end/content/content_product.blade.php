@@ -22,10 +22,5 @@
         </div>
     </div>
 </div>
-<div class="wp-form-sdt">                                
-    <form action="" id="sform_phone" method="post">
-        <div class="error uk-alert" style="display: none;"></div>
-        <input type="text" class="form-group form-control phone" placeholder="Nhập số điện thoại" name="phone">
-        <button class="btn btn-default btn-hover">Gọi lại cho tôi</button>
-    </form>
-</div>
+
+@include('admin.pages.customer_contact.contact_phone_create')

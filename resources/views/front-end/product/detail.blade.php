@@ -60,8 +60,6 @@
         }
     </style>
 @endsection
-
-
 @section('content')
     <section class="sec-main-page">
         <div class="container-fluid">
@@ -69,41 +67,67 @@
                 <!-- chi tiết sản phẩm desktop -->
                 <div class="wp-img-ctsp hidden-xs">
                     <div class="row" style="position: relative;">
-                        <div class="col-md-9 col-sm-8 col-xs-12">
+                        <div class="col-md-7 col-sm-8 col-xs-12 no-padding">
                             <div class="wp-img-left">
                                 <div class="tab-content">
                                     @if($product->product_attributes)
                                         @foreach($product->product_attributes as $pr_at)
                                             <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}"
-                                                 class="tab-pane fade row @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
+                                                 class="tab-pane fade @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                 @if(count($pr_at['image_files']) > 0)
-                                                    @foreach($pr_at['image_files'] as $img)
-                                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                            @if($img)
-                                                                <img src="{{ $img }}">
-                                                            @endif
+                                                     <div class="product-gallery">
+                                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                                            <div class="img-thumbs">
+                                                                <?php $dem = 0; ?>
+                                                                @foreach($pr_at['image_files'] as $img)
+                                                                <?php $dem ++; ?>   
+                                                                    @if($img)
+                                                                        <a href="<?php echo '#images-thumbs-'.$dem; ?>"><img src="{{ $img }}"></a>
+                                                                    @endif
+                                                                @endforeach
+                                                            </div>
                                                         </div>
-                                                    @endforeach
+                                                        <div class="product-image-detail">
+                                                            <?php $dem2 = 0; ?>
+                                                            @foreach($pr_at['image_files'] as $img)
+                                                            <?php $dem2 ++; ?>
+                                                                <div class="wp-sautab img-cover" id="<?php echo 'images-thumbs-'.$dem2; ?>">
+                                                                    @if($img)<img src="{{ $img }}">@endif
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 @else
-                                                    @for($i=0;$i<4;$i++)
-                                                        <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                            <img src="{{ $product->thumbnail }}">
+                                                    <div class="product-gallery">
+                                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                                            <a href="javascript:void"><img src="{{ $product->thumbnail }}"></a>
                                                         </div>
-                                                    @endfor
+                                                        <div class="product-image-detail">
+                                                            <div class="wp-sautab img-cover">
+                                                                <img src="{{ $product->thumbnail }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                             </div> <!-- end -->
                                         @endforeach
                                     @else
-                                        @for($i=0;$i<4;$i++)
-                                            <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
+                                    <div class="product-gallery">
+                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
+                                            <a href="javascript:void"><img src="{{ $product->thumbnail }}"></a>
+                                        </div>
+                                        <div class="product-image-detail">
+                                            <div class="wp-sautab img-cover">
                                                 <img src="{{ $product->thumbnail }}">
                                             </div>
-                                        @endfor
+                                        </div>
+                                    </div>
+                                       
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 pca-pl-r fixed-menu">
+                        <div class="col-md-5 col-sm-4 col-xs-12 pca-pl-r fixed-menu no-padding">
                             <div class="wp-text-right">
                                 <h1 class="h1-title-ctsp">{{$product->name}}</h1>
                                 <div class="price-ctsp">
@@ -169,10 +193,10 @@
                                         <p class="sizeError" style="display: none">Vui lòng chọn kích cỡ</p>
                                     </div>
                                 @endif
-                                <div class="huongdan-chonsize"><a href="#" data-toggle="modal"
-                                                                  data-target="#modal-size">Hướng dẫn chọn size</a>
+                                <div class="huongdan-chonsize">
+                                    <a href="#">Hướng dẫn chọn size</a>
                                 </div>
-                                <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div>
+                                {{--    <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div> --}}
                                 <div class="wp-btn-mua">
                                     <input type="hidden" id="productId" value="{{ $product->id }}">
                                     <button class="ajax-addtocart" data-href="{{ route('cart.add') }}"
@@ -182,8 +206,7 @@
                                 </div>
                                 <!-- ưu dãi -->
                                 @include('front-end.content.uu_dai_product')
-
-                            <!-- tab content -->
+                                <!-- tab content -->
                                 @include('front-end.content.content_product')
 
                             </div>
@@ -201,32 +224,26 @@
                                             @if($product->product_attributes)
                                                 @foreach($product->product_attributes as $pr_at)
                                                     <div id="img-id1{{$product->id}}{{$pr_at['pav1_id']}}"
-                                                         class="tab-pane fade row @if($loop->first) active in @endif  img-id1{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
+                                                         class="tab-pane fade @if($loop->first) active in @endif  img-id1{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                         @if(count($pr_at['image_files']) > 0)
-                                                            @foreach($pr_at['image_files'] as $img)
-                                                                <div
-                                                                    class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                                    @if($img)
-                                                                        <img src="{{ $img }}" alt="ảnh sản phẩm">
-                                                                    @endif
-                                                                </div>
-                                                            @endforeach
+                                                            <div class="product-mobile owl-carousel">
+                                                                @foreach($pr_at['image_files'] as $img)
+                                                                    <div class="wp-sautab img-cover">
+                                                                        @if($img)<img src="{{ $img }}" alt="ảnh sản phẩm">@endif
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
                                                         @else
-                                                            @for($i=0;$i<4;$i++)
-                                                                <div
-                                                                    class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                                    <img src="{{ $product->thumbnail }}">
-                                                                </div>
-                                                            @endfor
+                                                            <div class="wp-sautab img-cover">
+                                                                <img src="{{ $product->thumbnail }}">
+                                                            </div>
                                                         @endif
                                                     </div> <!-- end -->
                                                 @endforeach
                                             @else
-                                                @for($i=0;$i<4;$i++)
-                                                    <div class="wp-sautab img-cover col-md-6 col-xs-6 col-sm-6">
-                                                        <img src="{{ $product->thumbnail }}">
-                                                    </div>
-                                                @endfor
+                                                <div class="wp-sautab img-cover">
+                                                    <img src="{{ $product->thumbnail }}">
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -294,8 +311,16 @@
                                             </div>
                                         @endif
                                         <div class="wp-bottom-text-sp-22" style="display: none;">
-                                            <div class="wwp-uudai-rieng">
+                                            {{-- <div class="wwp-uudai-rieng">
                                                 <p>Ưu đãi dành riêng cho bạn</p>
+                                            </div> --}}
+
+                                            <div class="wp-btn-mua">
+                                                <input type="hidden" id="productId" value="{{ $product->id }}">
+                                                <button class="ajax-addtocart" data-href="{{ route('cart.add') }}"
+                                                        data-product-type={{ $product->type }}>
+                                                    Mua ngay <i class="fas fa-shopping-bag"></i>
+                                                </button>
                                             </div>
 
                                             <!-- ưu đãi -->
@@ -318,7 +343,7 @@
                         <div class="so-danhgia">
                             <span>
                                 <a href="javascript:void()" class="click_show_comment"> <span
-                                        class="count_comments">0</span> Reviews</a>,
+                                        class="count_comments">{{ count($danhgia) }}</span> Reviews</a>,
                                 <a href="javascript:void()" class="click_show_comment"><span
                                         class="count_cauhoi">0</span> QAs</a>
                             </span>
@@ -359,7 +384,6 @@
                                                                        type="radio" name="star" data-value="1"/>
                                                                 <label class="star star-1" for="star-4-1"></label>
                                                             </span>
-
                                                         </div>
                                                         <div class="wpdg2 form-group">
                                                             <div class="error mt20 alert"></div>
@@ -395,8 +419,6 @@
                                                                    value="" type="text">
 
                                                         </div>
-
-
                                                         <div class="wpdg2 form-group">
 
                                                             <p class="mb0">Nội dung</p>
@@ -476,10 +498,87 @@
                                 <div class="tab-content">
                                     <div id="rv1" class="tab-pane fade in active">
                                         <div class="wp-sautab">
-                                            <p class="b-mn "><span class="count_comments">0</span> đánh giá</p>
-                                            <div class="wp-list-danhgia comment-list"></div>
+                                            <p class="b-mn "><span class="count_comments">{{ count($danhgia) }}</span> đánh giá</p>
+                                            <div class="wp-list-danhgia comment-list">
+                                            
+                                            </div>
 
+                                        <!-- phần lấy dữ liệu từ bảng đánh giá - product_reviews -->
+                                            
+                                            
+                                            @foreach($danhgia as $danhgia)
+                                                <div class="row list-comment">
+                                                    <div class="col-md-1">
+                                                        <div class="">
+                                                            <img class="img-user" src="https://koolkampus.co.in/wp-content/uploads/2014/02/admin.png">
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-md-11">
+                                                            <b>{{$danhgia->customer_name}}</b>
+                                                            <br>
+                                                            <b>Sản phẩm : {{$product->name}}</b>
+                                                            <hr>  
+                                                    </div>
+                                                </div>    
+                                                
+                                                <div class="row list-comment">    
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <ul class="list-traodoi">
+                                                            <li><p>{{$danhgia->comment}}</p></li>
+                                                            <br>
+                                                            <li><p class="head-phanhoi">&nbsp;&nbsp;&nbsp;&nbsp; Phản hồi của cửa hàng</p></li>
+            
+                                                            <li><p>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                            <!-- lấy dữ liệu từ phần phản hồi -->
+                                                                <?php
+                                                                $traloi = DB::table('product_reviews_answer')->select('*')->where('product_review_id',$danhgia->id)->get();
+                                                                ?>
+                                                                    @foreach($traloi as $traloi)
+                                                                        {{$traloi->answer}} 
+                                                                    @endforeach
+                                                                <!-- end -->    
+                                                            </p></li>
+                                                             
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            @endforeach 
+                                            <!-- end -->
+                                            
+                                            
                                             <style>
+                                                .head-phanhoi
+                                                {
+                                                    font-weight:bold;
+                                                    color:red;
+                                                }
+                                                li
+                                                {
+                                                    list-style:none;
+                                                }
+                                                .list-traodoi
+                                                {
+                                                    float:left;
+                                                }
+                                                .list-traodoi li p
+                                                {
+                                                    float:left;
+                                                    font-size:12px;
+                                                    text-transform: capitalize;
+                                                }
+                                                .img-user
+                                                {
+                                                    width:50px;
+                                                }
+                                                .list-comment .col-md-11 b
+                                                {
+                                                    float:left;
+                                                    font-size:12px;
+                                                }
                                                 .left-dg h4 {
 
                                                     margin-bottom: 0px;

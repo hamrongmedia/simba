@@ -34,6 +34,7 @@ class UserManageController extends Controller
         $users = Admin::query();
 
         return DataTables::eloquent($users)
+            ->addIndexColumn()
             ->addColumn('action', function ($user) {
                 return '<a href="' . route("admin.user.edit", $user->id) . '">
                 <span title="Edit" type="button" class="btn btn-flat btn-primary">

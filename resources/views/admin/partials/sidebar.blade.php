@@ -99,11 +99,6 @@
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <span>Danh mục</span></a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="http://localhost/s-cart/public/sc_admin/shipping_status" class="nav-link">
-                <i class="fa fa-tags" aria-hidden="true"></i>
-                <span>Tags</span></a>
-            </li>
           </ul>
       </li>
       <li class="treeview">
@@ -140,7 +135,16 @@
         </a>
 
         <ul class="treeview-menu">
-
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.contactemail.index')}}" class="nav-link">
+              <i class="fa fa-envelope"></i>
+              <span>Email contact</span></a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{route('admin.contactphone.index')}}" class="nav-link"> 
+              <i class="fa fa-phone-square"></i>
+              <span>Phone contact</span></a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="{{url('hrm/contacts')}}" class="nav-link">
               <i class="fa fa-envelope"></i>
@@ -190,6 +194,10 @@
               <a href="" class="nav-link">
                 <i class="fa fa-css3" aria-hidden="true"></i>
                 <span>Custom CSS</span></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('admin.instagram.index')}}" class="nav-link"> 
+                <i class="fa fa-instagram"></i> <span>Instagram</span></a>
             </li>
           </ul>
       </li>
