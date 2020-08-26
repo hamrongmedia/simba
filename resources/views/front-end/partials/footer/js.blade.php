@@ -41,7 +41,7 @@
             })
         });
         $(document).on('click', '.search-suggestion', function(){
-            $('.search-input').val($(this).text());
+            $('.search-input').val($(this).text()).trigger('change');
         });
 
 
