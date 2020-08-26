@@ -27,10 +27,12 @@
                                         <div class="box-search-mb hidden-lg hidden-md">
                                             <button class="btn btn-default btn-search-mb"><i class="fas fa-search"></i></button>
                                             <div class="wp-box-search-mb">
-                                                <form action="tim-kiem.html" method="get">
-                                                    <input type="text" class="form-control" name="key" value="" placeholder="Nhập từ khóa cần tìm kiếm">
+                                                <form action="{{route('search.get_data')}}" method="get">
+                                                    <input type="text" class="form-control search-input" name="keyword" value="" placeholder="Nhập từ khóa cần tìm kiếm">
                                                     <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
                                                 </form>
+                                                <div class="search-result" style="padding: 10px">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="wp-cart-mb hidden-lg hidden-md">
@@ -39,7 +41,7 @@
                                                     <img src="{{asset('images/icon-cart.png')}}" alt="icon giỏ hàng">
                                                 </a>
                                             </div>
-                                            <span>0</span>
+                                            <span class="cout-cart">{{ $total_item_cart }}</span>
                                         </div><!--  end mobile -->
                                     </div>
                                 </div>
@@ -48,15 +50,15 @@
                                 </div>
                                 <div class="col-md-4 hidden-sm hidden-xs">
                                     <div class="wp-main-header-right">
-                                        <?php /** form tim kiếm **/ ?>
                                         <div class="wp-search">
-                                            <form action="" method="get">
-                                               
-                                                <input type="text" placeholder="Bạn cần tìm gì" value="" name="key" class="form-control">
+                                            <form action="{{route('search.get_data')}}" method="get">
+                                                <input type="text" placeholder="Bạn cần tìm gì" value="" name="keyword" class="form-control search-input">
                                                  <button class="btn btn-default btn-search" type="submit">
                                                     <i class="far fa-search" aria-hidden="true"></i>
                                                 </button>
                                             </form>
+                                            <div class="search-result" style="padding: 10px">
+                                            </div>
                                         </div><!--  end -->
                                         <div class="wp-cart">
                                             <a class="btn-click-cart">
@@ -79,5 +81,5 @@
     <!-- menu mobile -->
 
     @include('front-end.partials.header.menu_mobile')
-
 </header> <!-- end header -->
+

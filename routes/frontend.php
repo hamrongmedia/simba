@@ -33,4 +33,7 @@ Route::namespace ('Frontend')->group(function () {
 
     Route::get('dat-hang-thanh-cong/{order_code}', 'CheckoutController@success')->name('checkout.success');
 
+    Route::get('/tim-kiem', 'SearchController@getData')->name('search.get_data');
+    Route::get('/goi-y', 'SearchController@getSuggestions')->name('search.get_suggestions');
+
 });

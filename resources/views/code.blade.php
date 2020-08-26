@@ -91,7 +91,7 @@
                                                     <img src="{{asset('images/icon-cart.png')}}" alt="icon giỏ hàng">
                                                 </a>
                                             </div>
-                                            <span>0</span>
+                                            <span class="cout-cart">{{ $total_item_cart }}</span>
                                         </div>
                                     </div>
                                 </div>

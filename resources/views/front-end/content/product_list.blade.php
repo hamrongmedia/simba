@@ -10,17 +10,17 @@
                     @foreach($color_ids as $color_id)
                         <div class="wp-item-sp-main @if($loop->first) active @endif">
                             @if( isset($data->img_attr[$color_id]) )
-                                @foreach($data->img_attr[$color_id] as $img)
-                                    <div class="slide-sp owl-carousel">
-                                        <div class="item">
-                                            <div class="wp-img-slide-sp">
-                                                <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
-                                                    <img class="el_image" src="{{ $img }}">
-                                                </a>
+                                <div class="slide-sp owl-carousel">
+                                    @foreach($data->img_attr[$color_id] as $img)
+                                            <div class="item">
+                                                <div class="wp-img-slide-sp">
+                                                    <a href="{{ route('product.detail',['slug'=>$data->slug]) }}" title="{{ $data->name }}">
+                                                        <img class="el_image" src="{{ $img }}">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             @else
                                 <div class="slide-sp owl-carousel">
                                     <div class="item">

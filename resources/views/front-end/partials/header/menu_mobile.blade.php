@@ -22,10 +22,7 @@
                         @endif
                     </li>
                     @endforeach
-                @endif
-
-               
-
+                @endif 
             </ul>
         </div>
     </div>

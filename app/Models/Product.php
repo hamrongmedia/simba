@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
     const PUBLISHED = 1;
     const PENDING = 0;
     const DRAFT = 2;

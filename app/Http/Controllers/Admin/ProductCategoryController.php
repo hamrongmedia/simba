@@ -31,7 +31,7 @@ class ProductCategoryController extends Controller
     public function create()
     {
         //
-        $categories = ProductCategory::where('delete_flag', 0)->get();
+        $categories = ProductCategory::where('is_deleted', 0)->get();
         return view('admin.pages.product_category.create', ['categories' => $categories]);
     }
 
