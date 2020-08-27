@@ -60,7 +60,7 @@
                                 <li><a href="{{isset($themeOptionSocial->facebook) ? $themeOptionSocial->facebook : '#'}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="{{isset($themeOptionSocial->instagram) ? $themeOptionSocial->instagram : '#'}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                 <li><a href="{{isset($themeOptionSocial->youtube) ? $themeOptionSocial->youtube : '#'}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="{{isset($themeOptionSocial->zalo) ? $themeOptionSocial->zalo : '#'}}" target="_blank" class="fa-zalo"><img src="{{asset('images/logo-zalo-vector.png')}}" alt="Zalo"></a></li>
+                                <li><a href="{{isset($themeOptionSocial->zalo) ? $themeOptionSocial->zalo : '#'}}" target="_blank" class="fa-zalo"><img src="{{asset('images/blogger.png')}}" alt="Blogger"></a></li>
                             </ul>
                         </div>
                     </div>

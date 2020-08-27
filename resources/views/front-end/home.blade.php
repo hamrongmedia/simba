@@ -96,7 +96,7 @@ Trang chủ
         <div class="wp-spnb-margin">
             <div class="container-fluid pd-0 ">
                 <div class="wp-title-sec">
-                    <h2 class="h2-title up-case">Ưu đãi trong tuần</h2>
+                    <h2 class="h2-title up-case">ƯU ĐÃI TRONG TUẦN</h2>
                 </div>
                 <div class="wp-list-uudai">
                      @include('front-end.content.uu_dai')
@@ -109,7 +109,7 @@ Trang chủ
     <section class="sec-home-06">
         <div class="wp-spnb-margin">
             <div class="container-fluid">
-                <div class="wp-title-sec-sp clearfix">
+                {{-- <div class="wp-title-sec-sp clearfix">
                     <h2 class="h2-title">
                         <a href="{{route('product.getProductByCat', $product_cat1->slug)}}">{{$product_cat1->name ?? ''}}</a>
                     </h2>
@@ -133,11 +133,13 @@ Trang chủ
                         @endif
                         
                     </ul>
+                </div> --}}
+                <div class="wp-title-sec">
+                    <h2 class="h2-title up-case">SẢN PHẨM MỚI</h2>
                 </div>
-
                 <div class="wp-list-sp-home">
                     <div class="row">
-                        @foreach($single_product_cat1 as $product)
+                        @foreach($new_products as $product)
                             @include('front-end.content.product_list',['data'=>$product])
                         @endforeach   
                     </div>
@@ -158,7 +160,8 @@ Trang chủ
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb2">
                             <div class="row">
-                                @foreach( $hot_products as $product )
+                                {{-- Lấy ra 4 sản phẩm hot (mới nhất từ 1-4) --}}
+                                @foreach( $hot_products->chunk(4)[0] ?? [] as $product )
                                     @isset($product)
                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                         <div class="wp-item-spnb2">
@@ -181,30 +184,30 @@ Trang chủ
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-feeship-don-hang-700k-full.png')}}" alt="FREESHIP ĐƠN HÀNG TỪ 03 SẢN PHẨM TRỞ LÊN">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon1) ? $homepageOption->home7_icon1 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">FREESHIP ĐƠN HÀNG TỪ 03 SẢN PHẨM TRỞ LÊN</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title1) ? $homepageOption->home7_title1 : ''!!}</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay-full.png')}}" alt="BẢO HÀNH SẢN PHẨM TRONG 30 NGÀY">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon2) ? $homepageOption->home7_icon2 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">BẢO HÀNH SẢN PHẨM TRONG 30 NGÀY</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title2) ? $homepageOption->home7_title2 : ''!!}</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh-full.png')}}" alt="ĐẢM BẢO SẢN PHẨM NHƯ HÌNH">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon3) ? $homepageOption->home7_icon3 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">ĐẢM BẢO SẢN PHẨM NHƯ HÌNH</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title3) ? $homepageOption->home7_title3 : ''!!}</h2>
                          </div>
                     </div>
                 </div>
@@ -214,7 +217,7 @@ Trang chủ
     <section class="sec-home-06 mb-20">
         <div class="wp-spnb-margin">
             <div class="container-fluid">
-                <div class="wp-title-sec-sp clearfix">
+                {{-- <div class="wp-title-sec-sp clearfix">
                     <h2 class="h2-title">
                         <a href="{{$product_cat2->slug ?? ''}}">{{$product_cat2->name ?? ''}}</a>
                     </h2>
@@ -236,8 +239,11 @@ Trang chủ
                         @endif
                         
                     </ul>
-                </div>
+                </div> --}}
                 <div class="wp-list-sp-home">
+                    <div class="wp-title-sec">
+                        <h2 class="h2-title up-case">SẢN PHẨM NỔI BẬT</h2>
+                    </div>
                     <div class="row">
                         @foreach($single_product_cat2 as $product)
                             @include('front-end.content.product_list',['data'=>$product])
@@ -255,7 +261,8 @@ Trang chủ
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="wp-sp-nb sp-nb2">
                             <div class="row">
-                                @foreach( $hot_products1 as $product )
+                                {{-- Lấy ra 4 sản phẩm hot (mới nhất từ 5-9) --}}
+                                @foreach( $hot_products->chunk(4)[1] ?? []  as $product ) 
                                     @isset($product)
                                     <div class="col-md-6 col-sm-6 col-xs-6">
                                         <div class="wp-item-spnb2">

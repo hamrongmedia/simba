@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
     const PUBLISHED = 1;
     const PENDING = 0;
     const DRAFT = 2;
@@ -82,12 +83,12 @@ class Product extends Model
         return $list;
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::deleting(function (Post $post) {
-            $post->categories()->detach();
-        });
-    }
+    //     static::deleting(function (Post $post) {
+    //         $post->categories()->detach();
+    //     });
+    // }
 }
