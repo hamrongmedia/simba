@@ -40,8 +40,6 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::get('product-reviews/search', 'ProductReviewsController@search')->name('admin.product_reviews.search');
 
     Route::get('product-question', 'ProductQuestionController@index')->name('admin.product_question.index');
-    Route::get('product-question/create', 'ProductQuestionController@create')->name('admin.product_question.create');
-    Route::post('product-question/create', 'ProductQuestionController@store')->name('admin.product_question.store');
     Route::get('product-question/{id}', 'ProductQuestionController@edit')->name('admin.product_question.edit');
     Route::put('product-question/{id}', 'ProductQuestionController@update')->name('admin.product_question.update');
     Route::post('product-question/destroy', 'ProductQuestionController@delete')->name('admin.product_question.delete');
@@ -50,3 +48,5 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('product-question/status', 'ProductQuestionController@changeStatus')->name('admin.product_question.status');
 
 });
+Route::get('product-question/create', 'Admin\ProductQuestionController@create')->name('admin.product_question.create');
+Route::post('product-question/create', 'Admin\ProductQuestionController@store')->name('admin.product_question.store');
