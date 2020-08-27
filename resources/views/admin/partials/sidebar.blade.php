@@ -158,7 +158,7 @@
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="{{route('admin.page.create')}}" class="nav-link">
+            <a href="{{route('admin.product_question.index')}}" class="nav-link">
               <i class="fa fa-question-circle"></i>
               <span>Hỏi đáp sản phẩm</span></a>
           </li>

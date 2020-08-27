@@ -345,7 +345,7 @@
                                 <a href="javascript:void()" class="click_show_comment"> <span
                                         class="count_comments">{{ count($danhgia) }}</span> Reviews</a>,
                                 <a href="javascript:void()" class="click_show_comment"><span
-                                        class="count_cauhoi">0</span> QAs</a>
+                                        class="count_cauhoi">{{ count($cauhoi) }}</span> QAs</a>
                             </span>
                         </div>
                         <div id="tab-content-none" style="display: none;">
@@ -460,19 +460,24 @@
                                             <div class="modal-body">
                                                 <div class="wp-cauhoi">
                                                     <h4>Hỏi đáp</h4>
-                                                    <form action="#"
-                                                          method="post" id="rateformCH">
+                                                    <form 
+                                                        action="{{route('admin.product_question.store')}}"
+                                                        method="post" id="rateformCH">
+                                                        <input type="hidden" id="_token" name="_token" value=""/>
+                                                            {{ csrf_field()}}
                                                         <div class="wpdg2 form-group">
                                                             <div class="errorcauhoi mt20 alert"
                                                                  style="display: none;"></div>
                                                         </div>
-                                                        <input name="fullname" class="form-control wpdg2 form-group"
+                                                        <input name="user_name" class="form-control wpdg2 form-group"
                                                                id="rate-namecauhoi"
+                                                               required=""
                                                                placeholder="Nhập tên của bạn *" value="" type="text">
-                                                        <input type="hidden" name="customersid" value="0">
+                                                        <input type="hidden" name="product_id" value="{{$product->id}}">
                                                         <textarea rows="5" title="Nhập nội dung đánh giá / nhận xét"
-                                                                  name="message"
+                                                                  name="question_content"
                                                                   id="rate-contentcauhoir"
+                                                                  required=""
                                                                   placeholder="Nhập nội dung câu hỏi..."
                                                                   class="wpdg2 form-group form-control"
                                                                   aria-required="true"></textarea>
@@ -497,15 +502,12 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div id="rv1" class="tab-pane fade in active">
+                                        <br>        
                                         <div class="wp-sautab">
                                             <p class="b-mn "><span class="count_comments">{{ count($danhgia) }}</span> đánh giá</p>
                                             <div class="wp-list-danhgia comment-list">
-                                            
                                             </div>
-
                                         <!-- phần lấy dữ liệu từ bảng đánh giá - product_reviews -->
-                                            
-                                            
                                             @foreach($danhgia as $danhgia)
                                                 <div class="row list-comment">
                                                     <div class="col-md-1">
@@ -521,7 +523,6 @@
                                                             <hr>  
                                                     </div>
                                                 </div>    
-                                                
                                                 <div class="row list-comment">    
                                                     <div class="col-md-1">
                                                     </div>
@@ -531,16 +532,16 @@
                                                             <br>
                                                             <li><p class="head-phanhoi">&nbsp;&nbsp;&nbsp;&nbsp; Phản hồi của cửa hàng</p></li>
             
-                                                            <li><p>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                            <li> 
                                                             <!-- lấy dữ liệu từ phần phản hồi -->
                                                                 <?php
                                                                 $traloi = DB::table('product_reviews_answer')->select('*')->where('product_review_id',$danhgia->id)->get();
                                                                 ?>
                                                                     @foreach($traloi as $traloi)
-                                                                        {{$traloi->answer}} 
+                                                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;{!!$traloi->answer!!} </p>
                                                                     @endforeach
                                                                 <!-- end -->    
-                                                            </p></li>
+                                                            </li>
                                                              
                                                         </ul>
                                                     </div>
@@ -572,7 +573,7 @@
                                                 }
                                                 .img-user
                                                 {
-                                                    width:50px;
+                                                    width:80px;
                                                 }
                                                 .list-comment .col-md-11 b
                                                 {
@@ -604,6 +605,51 @@
                                     </div>
                                     <div id="rv2" class="tab-pane fade">
                                         <div class="wp-sautab cauhoi-list">
+                                        <br>
+                                            <p class="b-mn "><span class="count_comments">{{ count($cauhoi) }}</span> câu hỏi</p>
+                                                <div class="wp-list-danhgia comment-list">
+                                            </div>                                       
+                                        <!-- phần lấy dữ liệu từ bảng câu hỏi - -->
+                                        @foreach($cauhoi as $cauhoi)
+                                            <div class="row list-comment">
+                                                <div class="col-md-1">
+                                                    <div class="">
+                                                        <img class="img-user" src="https://koolkampus.co.in/wp-content/uploads/2014/02/admin.png">
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="col-md-11">
+                                                        <b>{{$cauhoi->user_name}}</b>
+                                                        <br>
+                                                        <b>Sản phẩm : {{$product->name}}</b>
+                                                        <hr>  
+                                                </div>
+                                            </div>    
+                                            <div class="row list-comment">    
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <ul class="list-traodoi">
+                                                        <li><p>{{$cauhoi->question_content}}</p></li>
+                                                        <br>
+                                                        <li><p class="head-phanhoi">&nbsp;&nbsp;&nbsp;&nbsp; Phản hồi của cửa hàng</p></li>
+                                                            
+                                                        <li>
+                                                            <?php 
+                                                                $reply = DB::table('question_answer')->select('*')->where('question_id',$cauhoi->id)->get();
+                                                            ?>
+                                                            @foreach($reply as $reply)
+                                                                <p>&nbsp;&nbsp;&nbsp;&nbsp; {!! $reply->answer !!}<p>
+                                                            @endforeach 
+                                                        </li>
+                                                            
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <hr>    
+                                        @endforeach    
+                                            
+                                        <!-- end -->
                                         </div>
                                     </div>
                                 </div>

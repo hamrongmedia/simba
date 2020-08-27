@@ -184,30 +184,30 @@ Trang chủ
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/venus-charm-feeship-don-hang-700k-full.png')}}" alt="FREESHIP ĐƠN HÀNG TỪ 03 SẢN PHẨM TRỞ LÊN">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon1) ? $homepageOption->home7_icon1 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">FREESHIP ĐƠN HÀNG TỪ 03 SẢN PHẨM TRỞ LÊN</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title1) ? $homepageOption->home7_title1 : ''!!}</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/bao-hanh-venus-charm-30-ngay-full.png')}}" alt="BẢO HÀNH SẢN PHẨM TRONG 30 NGÀY">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon2) ? $homepageOption->home7_icon2 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">BẢO HÀNH SẢN PHẨM TRONG 30 NGÀY</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title2) ? $homepageOption->home7_title2 : ''!!}</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="wp-item-dv">
                             <div class="icon-dv">
-                                <img class="el_image" src="{{asset('images-demo/dam-bao-san-pham-nhu-hinh-full.png')}}" alt="ĐẢM BẢO SẢN PHẨM NHƯ HÌNH">
+                                <img class="el_image" src="{{isset($homepageOption->home7_icon3) ? $homepageOption->home7_icon3 : ''}}">
                             </div>
                             <div class="text-dv">
-                                <h2 class="h2-title">ĐẢM BẢO SẢN PHẨM NHƯ HÌNH</h2>
+                                <h2 class="h2-title">{!!isset($homepageOption->home7_title3) ? $homepageOption->home7_title3 : ''!!}</h2>
                          </div>
                     </div>
                 </div>

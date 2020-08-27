@@ -25,7 +25,7 @@
       @endif
     </div>
     <div class="form-group">
-      <label for="">Zalo</label>
+      <label for="">Blogger</label>
       @if($value != null && isset($value->zalo))
        <input type="text" name="zalo" class="form-control" id="" value="{{$value->zalo}}">
       @else

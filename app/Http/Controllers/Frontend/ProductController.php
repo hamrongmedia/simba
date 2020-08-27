@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductInfo;
 use App\Models\ThemeOptions;
+use App\Models\ProductQuestion;
 use App\Repositories\Product\ProductRepository;
 use DB;
 use Illuminate\Http\Request;
@@ -106,8 +107,9 @@ class ProductController extends Controller
         $data_product_setting = ThemeOptions::where('key', 'product')->first();
         $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
-        $danhgia = DB::table('product_reviews')->select('*')->where('product_id', $product->id)->get();
-        return view('front-end.product.detail', compact('product', 'product_setting', 'datas', 'danhgia'));
+        $danhgia = DB::table('product_reviews')->select('*')->where('product_id', $product->id)->limit(10)->get();
+        $cauhoi = ProductQuestion::where([['product_id', $product->id],['status',1]])->limit(10)->get();
+        return view('front-end.product.detail', compact('product', 'product_setting', 'datas', 'danhgia', 'cauhoi'));
     }
 
     /**
