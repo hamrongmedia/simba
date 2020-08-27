@@ -75,23 +75,10 @@
                                             <div id="img-id{{$product->id}}{{$pr_at['pav1_id']}}"
                                                  class="tab-pane fade @if($loop->first) active in @endif  img-id{{$product->id}}{{$pr_at['pav1_id']}} tab-images">
                                                 @if(count($pr_at['image_files']) > 0)
-                                                     <div class="product-gallery">
-                                                        <div class="product-gallery-thumbs hidden-sm hidden-xs">
-                                                            <div class="img-thumbs">
-                                                                <?php $dem = 0; ?>
-                                                                @foreach($pr_at['image_files'] as $img)
-                                                                <?php $dem ++; ?>   
-                                                                    @if($img)
-                                                                        <a href="<?php echo '#images-thumbs-'.$dem; ?>"><img src="{{ $img }}"></a>
-                                                                    @endif
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-image-detail">
-                                                            <?php $dem2 = 0; ?>
+                                                    <div class="product-gallery content-carousel">
+                                                        <div class="owl-carousel product-slider-thumbs">
                                                             @foreach($pr_at['image_files'] as $img)
-                                                            <?php $dem2 ++; ?>
-                                                                <div class="wp-sautab img-cover" id="<?php echo 'images-thumbs-'.$dem2; ?>">
+                                                                <div class="">
                                                                     @if($img)<img src="{{ $img }}">@endif
                                                                 </div>
                                                             @endforeach
