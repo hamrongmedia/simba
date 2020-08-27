@@ -13,6 +13,16 @@ use Auth;
 
 class ProductQuestionController extends Controller
 {
+    public function __construct()
+    {
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @param Illuminate\Http\Request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
 
@@ -35,28 +45,135 @@ class ProductQuestionController extends Controller
         return abort(404);
     }
 
-    public function delete(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        ProductQuestion::find($request->id)->delete();
-        return redirect('hrm/product-question');
-
+        //
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        //Lấy giá trị đã nhập
         $allRequest  = $request->all();
         $user_name = $allRequest['user_name'];
+        $product_id = $allRequest['product_id'];
         $question_content = $allRequest['question_content'];
-        $product_id = $allRequest['$product->id'];
         //Gán giá trị vào array
         $dataInsertToDatabase = array(
             'user_name' => $user_name,
-            'question_content' => $question_content,
             'product_id' => $product_id,
+            'question_content' => $question_content,
         );
         
         //Insert vào bảng
         $insertData = DB::table('questions')->insert($dataInsertToDatabase);
         return redirect()->back();
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $question = ProductQuestion::find($id);
+        $sanpham_id = $question->product_id;
+        $product = DB::table('products')->select('*')->where('id',$sanpham_id)->get();
+        $reply = DB::table('question_answer')->select('*')->where('question_id',$question->id)->get();
+        return view('admin.pages.product_question.detail', ['question' => $question,'product' => $product,'reply' => $reply]);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request)
+    {
+        ProductQuestion::find($request->id)->delete();
+        return ['msg' => 'Item deleted'];
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reply(Request $request)
+    {
+        $allRequest  = $request->all();
+        $question_id = $allRequest['question_id'];
+        $answer = $allRequest['answer'];
+        //Gán giá trị vào array
+        $dataInsertToDatabase = array(
+            'question_id' => $question_id,
+            'answer' => $answer,
+        );
+        DB::table('question_answer')->where('question_id', $question_id)->delete();
+        $product = DB::table('question_answer')->insert($dataInsertToDatabase);
+        return back()->with('success', 'Gửi trả lời thành công');
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $question = ProductQuestion::find($request->question_id);
+
+        $status = $request->status;
+        if ($question) {
+
+            if ($status == 'on') {
+                $question->status = 1;
+                $question->save();
+                return ['msg' => 'Đã công khai câu hỏi này!'];
+            } else {
+                $question->status = 0;
+                $question->save();
+                return ['msg' => 'Đã ẩn câu hỏi này!'];
+            }
+        }
+    }
+    /**
+     * @param int $product_id
+     */
+    public function getReviewsByProduct($product_id)
+    {
+        $danhgia = DB::table('product_reviews')->select('*')->get();
+        return view('front-end/product/detail', compact('danhgia'));
     }
 }

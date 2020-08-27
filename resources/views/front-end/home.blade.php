@@ -10,15 +10,17 @@ Trang chủ
             <div class="row row-edit-0 row-banner-1">
                  <div class="col-md-12 col-edit-0">
                     <div class="wp-banner slider-home owl-carousel">
-                        <div class="img-banner">
-                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                        </div>
-                        <div class="img-banner">
-                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                        </div>
-                        <div class="img-banner">
-                            <img class="sample2 el_image" src="{{isset($homepageOption->home1_background) ? $homepageOption->home1_background : ''}}" alt="banner1">
-                        </div>
+                        @if (isset($homepageOption->home1_background))
+                            @php
+                                $banners = $homepageOption->home1_background;
+                                $banners = explode(',', $banners);
+                            @endphp
+                            @foreach ($banners as $banner_link)
+                            <div class="img-banner">
+                                <img class="sample2 el_image" src="{{$banner_link ?? ''}}" alt="banner">
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -123,6 +125,7 @@ Trang chủ
                     <!-- trên mobile -->
                      <!-- để danh mục sản phẩm con không vượt quá 10 -->
                     <ul class="ul-b list-link-title slide-sp-title owl-carousel hidden-md hidden-lg">
+
                         @if ($child_product_cat1)
                             @foreach($child_product_cat1 as $subcat)
                             <li class="item"><a href="{{route('product.getProductByCat', $subcat->slug)}}">{{$subcat->name}}</a></li>

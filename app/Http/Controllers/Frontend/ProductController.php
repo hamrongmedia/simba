@@ -7,11 +7,12 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductInfo;
 use App\Models\ThemeOptions;
+use App\Models\ProductQuestion;
 use App\Repositories\Product\ProductRepository;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use DB;
 
 class ProductController extends Controller
 {
@@ -106,8 +107,8 @@ class ProductController extends Controller
         $data_product_setting = ThemeOptions::where('key', 'product')->first();
         $product_setting = json_decode($data_product_setting->value);
         $datas = $this->productRepository->getProductRelated($this->request, $product->id);
-        $danhgia = DB::table('product_reviews')->select('*')->where('product_id',$product->id)->get(); 
-        $cauhoi = DB::table('questions')->select('*')->where('product_id',$product->id)->get();  
+        $danhgia = DB::table('product_reviews')->select('*')->where('product_id', $product->id)->limit(10)->get();
+        $cauhoi = ProductQuestion::where([['product_id', $product->id],['status',1]])->limit(10)->get();
         return view('front-end.product.detail', compact('product', 'product_setting', 'datas', 'danhgia', 'cauhoi'));
     }
 
@@ -119,9 +120,9 @@ class ProductController extends Controller
     public function getProductByCategory($product_cat_slug)
     {
         $catalog = ProductCategory::where([
-                        [ 'slug', $product_cat_slug ],
-                        [ 'is_deleted', false ]
-                    ])->firstOrFail();
+            ['slug', $product_cat_slug],
+            ['is_deleted', false],
+        ])->firstOrFail();
         $child_product_cat = $catalog->subCategory;
         $datas = $this->productRepository->getProductCatalog($this->request, $catalog->id);
         if ($datas) {

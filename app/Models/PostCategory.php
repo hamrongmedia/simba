@@ -13,7 +13,7 @@ class PostCategory extends Model
 
     public function child()
     {
-        return $this->hasMany('App\Models\PostCategory');
+        return $this->hasMany('App\Models\PostCategory')->orderByDesc('id');
     }
 
     public function parent()

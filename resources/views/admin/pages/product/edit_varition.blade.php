@@ -127,8 +127,12 @@
               var target_preview = $('#' + $(this).data('preview'));
               window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
               window.SetUrl = function (items) {
-                var file_path = items.map(function (item) {
-                  return item.url;
+                    var file_path = items.map(function (item) {
+                    var url = item.url;
+                    index = url.indexOf("/", 10);
+                    url = url.slice(index);
+                    return url;
+                    //return item.url;
                 }).join(',');
 
                 // set the value of the desired input to image url
@@ -159,7 +163,11 @@
               window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
               window.SetUrl = function (items) {
                 var file_path = items.map(function (item) {
-                  return item.url;
+                    var url = item.url;
+                    index = url.indexOf("/", 10);
+                    url = url.slice(index);
+                    return url;
+                    //return item.url;
                 }).join(',');
 
                 // set the value of the desired input to image url
@@ -170,7 +178,11 @@
 
                 // set or change the preview image src
                 items.forEach(function (item) {
-                    $('.images-show').append('<div class="item-prev"><div class="atr-image"><img src="'+item.url+'"/></div><div class="atr-elm"><input type="hidden" name="product_images[]" value="'+item.url+'"><a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a></div></div>');
+                    var url = item.url;
+                    index = url.indexOf("/", 10);
+                    url = url.slice(index);
+
+                    $('.images-show').append('<div class="item-prev"><div class="atr-image"><img src="'+url+'"/></div><div class="atr-elm"><input type="hidden" name="product_images[]" value="'+url+'"><a class="atr-remove" href="javascript:void(0);" onclick="removeAtrImage()" data-dz-remove="">Xóa hình ảnh</a></div></div>');
                 });
 
                 // trigger change event

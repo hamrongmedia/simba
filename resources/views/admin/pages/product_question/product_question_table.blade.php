@@ -24,7 +24,7 @@
                     </td>
                     <td>{{$productQuestion->status == 1 ? 'Đã duyệt' : 'Chưa duyệt'}}</td>
                     <td>
-                        <a href="{{route('admin.product_question.edit', $productQuestionw->id ?? '1')}}"><span title="Edit"
+                        <a href="{{route('admin.product_question.edit', $productQuestion->id ?? '1')}}"><span title="Edit"
                                 type="button" class="btn btn-flat btn-primary"><i
                                     class="fa fa-edit"></i></span></a>&nbsp;
                         <span onclick="deleteItem({{$productQuestion->id ?? '1'}});" title="Delete" class="btn btn-flat btn-danger"><i

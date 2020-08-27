@@ -16,8 +16,15 @@
     <input id="{{$name ?? ''}}" value="{{$value ?? ''}}" class="form-control"  type="{{$hidden ?? 'text'}}" name="{{$name ?? ''}}" >
   </div>
 <div id="{{$holder ?? ''}}" style="margin-top:15px;max-height:{{$height ?? '100px'}};">
+
   @if($value)
-    <img src="{{$value}}" style="height: 7rem;">
+    @php
+        $holder_list = explode(',', $value);
+    @endphp
+    @foreach ($holder_list as $item)
+      <img src="{{$item}}" style="height: 7rem;">
+    @endforeach
+
   @elseif (isset($holder_img))
     @php
         $holder_list = explode(',', $holder_img);
@@ -26,6 +33,7 @@
       <img src="{{$item}}" style="height: 7rem;">
     @endforeach
   @endif
+
 </div>
 
 @section('js')
@@ -34,6 +42,8 @@
 <script>
       // custom unisharp
   $("#{{$id ?? 'lfm'}}").filemanager('image', {prefix:  "/filemanager" });
+
+
 </script>
 @endsection
 

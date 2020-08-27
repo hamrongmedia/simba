@@ -73,6 +73,7 @@ Quản lý danh mục sản phẩm
 <script>
     $(function () {
         $('#hrm_list').DataTable({
+            order: [[ 0, "desc" ]],
             'paging': true,
             'lengthChange': true,
             'searching': true,
@@ -103,6 +104,7 @@ Quản lý danh mục sản phẩm
                     data: {
                         id: id,
                         model: 'product_category',
+                        is_hard_destroy: 1,
                         _method: 'delete',
                         "_token": "{{ csrf_token() }}",
                     },
@@ -151,6 +153,10 @@ Quản lý danh mục sản phẩm
           })
         }
       });
+    }
+
+    function hardDelete(){
+
     }
 </script>
 @endsection

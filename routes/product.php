@@ -19,6 +19,8 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::post('product/destroy', 'ProductController@delete')->name('admin.product.destroy');
     Route::get('product/search', 'ProductController@search')->name('admin.product.search');
 
+    Route::post('product/hard-delete', 'ProductController@hardDelete')->name('admin.product.hard_delete');
+
     Route::get('product-info-edit', 'ProductInfoController@show')->name('admin.product.info.show');
     Route::post('product/{id}/product-info', 'ProductInfoController@store')->name('admin.product.info.store');
     Route::post('product/{id}/product-info-update', 'ProductInfoController@update')->name('admin.product.info.edit');
@@ -44,4 +46,7 @@ Route::prefix('/hrm')->middleware('auth:admin')->namespace('Admin')->group(funct
     Route::put('product-question/{id}', 'ProductQuestionController@update')->name('admin.product_question.update');
     Route::post('product-question/destroy', 'ProductQuestionController@delete')->name('admin.product_question.delete');
     Route::get('product-question/search', 'ProductQuestionController@search')->name('admin.product_question.search');
+    Route::post('product-question/reply', 'ProductQuestionController@reply')->name('admin.product_question.reply');
+    Route::post('product-question/status', 'ProductQuestionController@changeStatus')->name('admin.product_question.status');
+
 });

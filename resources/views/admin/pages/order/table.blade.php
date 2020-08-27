@@ -29,10 +29,12 @@
                 serverSide: true,
                 responsive: true,
                 autoWidth: false,
+                order: [[ 0, "desc" ]],
                 scrollX: true,
                 ajax: "{{route('admin.order.list_order')}}",
+                order: [[ 0, "desc" ]],
                 columns: [
-                    { "data": "id" },
+                    { "data": "DT_RowIndex","name": 'id' , "searchable": false},
                     { "data": "email" },
                     { "data": "payment_total" },
                     { "data": "delivery_fee_total"},

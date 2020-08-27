@@ -9,8 +9,10 @@ use App\Models\PaymentMethod;
 use App\Models\ShippingStatus;
 use App\Repositories\Order\OrderRepository;
 use DataTables;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
 class OrderController extends Controller
 {
     /**
@@ -50,6 +52,7 @@ class OrderController extends Controller
         $orders = Order::query()->select('orders.*')->with('paymentMethod');
 
         return DataTables::eloquent($orders)
+            ->addIndexColumn()
             ->addColumn('action', function ($order) {
                 return '<a href="' . route("admin.order.edit", $order->id) . '">
             <span title="Edit" type="button" class="btn btn-flat btn-primary">
@@ -58,7 +61,7 @@ class OrderController extends Controller
             })
             ->editColumn('status', function (Order $order) {
 
-                if ( $order->orderStatus ) {
+                if ($order->orderStatus) {
                     switch ($order->orderStatus->id) {
                         case 1:
                             return '<span class="label label-success">' . $order->orderStatus->name . '</span>';
@@ -78,6 +81,9 @@ class OrderController extends Controller
                 if ($order->paymentMethod) {
                     return $order->paymentMethod->name;
                 }
+            })
+            ->editColumn('created_at', function (Order $order) {
+                return Carbon::parse($order->created_at)->format('d/m/Y | H:s:a');
             })
             ->rawColumns(['action', 'status'])
             ->make(true);
@@ -125,8 +131,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = Order::with(['province' => function ($query) {
-                $query->select('id', 'name');
-            }])
+            $query->select('id', 'name');
+        }])
             ->with(['district' => function ($query) {
                 $query->select('id', 'name');
             }])
@@ -139,13 +145,13 @@ class OrderController extends Controller
             ->where('id', $id)
             ->firstOrFail();
         $datas = $this->orderRepository->getDetailOrder($id);
-        $order_statuss = OrderStatus::pluck('name','id')->toJson();
-        $payment_methods = PaymentMethod::pluck('name','id')->toJson();
-        $shipping_statuss = ShippingStatus::pluck('name','id')->toJson();
+        $order_statuss = OrderStatus::pluck('name', 'id')->toJson();
+        $payment_methods = PaymentMethod::pluck('name', 'id')->toJson();
+        $shipping_statuss = ShippingStatus::pluck('name', 'id')->toJson();
         $user = $this->guard()->user();
         return view('admin.pages.order.detail', compact(
-            'order', 
-            'user', 
+            'order',
+            'user',
             'datas',
             'payment_methods',
             'shipping_statuss',
@@ -177,13 +183,13 @@ class OrderController extends Controller
         }
         return response()->json([
             'status' => true,
-            'msg'    => 'Thành công'
+            'msg' => 'Thành công',
         ]);
     }
 
     private function updateFullname($request, $order)
     {
-        DB::transaction(function () use ($request , $order) {
+        DB::transaction(function () use ($request, $order) {
             $name = $request->name;
             $order->$name = $request->value;
             $order->save();

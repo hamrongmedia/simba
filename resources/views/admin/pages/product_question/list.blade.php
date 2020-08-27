@@ -69,7 +69,8 @@
             </div>
             <!-- /.box-header -->
             <section id="pjax-container" class="table-list">
-                @include('admin.pages.product_question.product_question_table')    
+                 @include('admin.pages.product_question.product_question_table')
+
             </section>
             <!-- /.box-body -->
         </div>
@@ -96,7 +97,7 @@
                 'Your file has been deleted.',
                 'success',
             );
-            $('#product-review-' + id).remove();
+            $('#product-question-' + id).remove();
         })
     }
 

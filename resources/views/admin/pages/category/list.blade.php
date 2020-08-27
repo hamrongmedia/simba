@@ -51,26 +51,28 @@
                 'Your file has been deleted.',
                 'success',
             );
-            $('#category-' + id).remove();
+            setTimeout(() => {
+                location.reload();
+            }, 300);
         })
     }
 
 
     function deleteItem(id) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Xóa danh mục?',
+            text: "Bạn không thể hoàn tác!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Vẫn xóa nó!'
         })
-            .then((result) => {
-                if (result.value) {
-                    deleteAjax(id);
-                }
-            })
+        .then((result) => {
+            if (result.value) {
+                deleteAjax(id);
+            }
+        })
     }
 
     function multipleDelete() {

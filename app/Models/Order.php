@@ -23,7 +23,7 @@ class Order extends Model
      */
     public function orderItems()
     {
-        return $this->hasMany('App\Models\OrderItem');
+        return $this->hasMany('App\Models\OrderItem')->orderByDesc('id');
     }
 
     /**
