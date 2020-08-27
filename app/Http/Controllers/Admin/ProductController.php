@@ -144,6 +144,7 @@ class ProductController extends Controller
             $product->slug = $request->slug;
             $product->product_code = $request->product_code;
             $product->description = $request->description;
+            $product->sub_description = $request->sub_description;
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;
@@ -262,6 +263,7 @@ class ProductController extends Controller
             $product->slug = $request->slug;
             $product->product_code = $request->product_code;
             $product->description = $request->description;
+            $product->sub_description = $request->sub_description;
             $product->price = $request->price;
             $product->sale_price = $request->sale_price;
             $product->content = $request->content;

@@ -65,6 +65,7 @@ class SearchController extends Controller
 
     public function getData(Request $request)
     {
+
         if (!$request->has('keyword')) {
             return back();
         }
@@ -72,7 +73,7 @@ class SearchController extends Controller
             $keyword = $request->keyword;
             $keyword = $this->utf8convert($keyword);
             if ($keyword == '') {
-                return [];
+                return view('tim_kiem', ['result' => [], 'keyword' => "Không tìm thấy từ khóa!"]);
             }
         }
         $products = Product::all();

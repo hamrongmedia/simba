@@ -11,54 +11,54 @@
 @section('og:image',  isset($product->image) ?  $product->image : '')
 
 @section('css')
-    @parent
-    <style>
+@parent
+<style>
 
-        .stars {
-            display: inline-block;
-        }
+    .stars {
+        display: inline-block;
+    }
 
-        .stars input.star {
-            display: none;
-        }
+    .stars input.star {
+        display: none;
+    }
 
-        .stars label.star {
-            float: right;
-            padding: 2px;
-            font-size: 14px;
-            margin-bottom: 0;
-            line-height: 1;
-            color: #c3c3c3;
-            transition: all .2s;
-        }
+    .stars label.star {
+        float: right;
+        padding: 2px;
+        font-size: 14px;
+        margin-bottom: 0;
+        line-height: 1;
+        color: #c3c3c3;
+        transition: all .2s;
+    }
 
-        .stars input.star:checked ~ label.star:before {
-            content: "\f005";
-            color: #FD4;
-            transition: all .25s;
-            font-weight: 900
-        }
+    .stars input.star:checked ~ label.star:before {
+        content: "\f005";
+        color: #FD4;
+        transition: all .25s;
+        font-weight: 900
+    }
 
-        .stars input.star-1:checked ~ label.star:before {
-            color: #F62;
-        }
+    .stars input.star-1:checked ~ label.star:before {
+        color: #F62;
+    }
 
-        .stars input.star-5:checked ~ label.star:before {
-            color: #FE7;
-        }
+    .stars input.star-5:checked ~ label.star:before {
+        color: #FE7;
+    }
 
-        .stars label.star:hover:before {
-            content: "\f005";
-            color: #c3c3c3;
-            cursor: pointer;
-        }
+    .stars label.star:hover:before {
+        content: "\f005";
+        color: #c3c3c3;
+        cursor: pointer;
+    }
 
-        .stars label.star:before {
-            content: "\f005";
-            color: #c3c3c3;
-            font-family: 'Font Awesome\ 5 Free';
-        }
-    </style>
+    .stars label.star:before {
+        content: "\f005";
+        color: #c3c3c3;
+        font-family: 'Font Awesome\ 5 Free';
+    }
+</style>
 @endsection
 @section('content')
     <section class="sec-main-page">
@@ -617,7 +617,8 @@
                         <img src="{{asset('images/icon-c4.svg')}}" alt="sản phẩm đặc biệt">
                     </div>
                     <div class="wp-text col-md-8 col-sm-7 col-xs-12" style="text-align: center">
-                        <p> Sản phẩm đặc biệt dành cho:</p>
+                    {!!isset($product_setting->order_product) ? $product_setting->order_product : ''!!}
+
                     </div>
                     <div class="wp-btn col-md-2 col-xs-12 col-sm-3" style="text-align: center">
                         <a href="javascript:void()" class="ajax-addtocart" data-href="{{ route('cart.add') }}"

@@ -19,8 +19,14 @@
         CKEDITOR.editorConfig = function(config) {
             config.extraAllowedContent = true;
         };
-        CKEDITOR.replace('editor', options);
-    })
+        $('.ck-textarea').each(function(){
+            if ($(this).attr('id')) {
+                CKEDITOR.replace($(this).attr('id'));
+            }
+        });
 
-    
+        
+        CKEDITOR.replace('editor', options);
+        
+    })
 </script>

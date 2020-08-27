@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Mô tả</label>
-                <textarea class="form-control" rows="4"
+                <textarea class="form-control ck-textarea" rows="4"
                           placeholder="Nhập mô tả sản phẩm" data-counter="400"
                           name="description" cols="50"
                           id="description">{{ isset($data) ? $data->description : old('description') }}</textarea>
@@ -34,6 +34,18 @@
                     <div class="error">{{ $errors->first('description') }}</div>
                 @endif
             </div>
+            
+            <div class="form-group">
+                <label class="control-label">Mô tả phụ</label>
+                <textarea class="form-control ck-textarea" rows="4"
+                          placeholder="Nhập mô tả sản phẩm" data-counter="400"
+                          name="sub_description" cols="50"
+                          id="sub-description">{{ isset($data) ? $data->sub_description : old('sub_description') }}</textarea>
+                @if ($errors->first('description'))
+                    <div class="error">{{ $errors->first('sub_description') }}</div>
+                @endif
+            </div>
+
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">

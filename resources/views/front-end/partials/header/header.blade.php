@@ -28,7 +28,7 @@
                                             <button class="btn btn-default btn-search-mb"><i class="fas fa-search"></i></button>
                                             <div class="wp-box-search-mb">
                                                 <form action="{{route('search.get_data')}}" method="get">
-                                                    <input type="text" class="form-control search-input" name="keyword" value="" placeholder="Nhập từ khóa cần tìm kiếm">
+                                                    <input autocomplete="off" type="text" class="form-control search-input" name="keyword" value="" placeholder="Nhập từ khóa cần tìm kiếm">
                                                     <button class="btn btn-default" type="submit"><i class="fas fa-search"></i></button>
                                                 </form>
                                                 <div class="search-result" style="padding: 10px">
@@ -52,7 +52,7 @@
                                     <div class="wp-main-header-right">
                                         <div class="wp-search">
                                             <form action="{{route('search.get_data')}}" method="get">
-                                                <input type="text" placeholder="Bạn cần tìm gì" value="" name="keyword" class="form-control search-input">
+                                                <input autocomplete="off"  type="text" placeholder="Bạn cần tìm gì" value="" name="keyword" class="form-control search-input">
                                                  <button class="btn btn-default btn-search" type="submit">
                                                     <i class="far fa-search" aria-hidden="true"></i>
                                                 </button>

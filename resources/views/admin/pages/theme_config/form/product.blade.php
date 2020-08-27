@@ -5,6 +5,8 @@
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Cam kết sản phẩm</a></li>
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Phí Ship</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Đổi trả</a></li>
+        <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Đặt mua</a></li>
+
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -93,6 +95,16 @@
                <textarea class="form-control" name="refund_product" rows="4"  name="refund_product">{{$value->refund_product}}</textarea>
               @else
               <textarea class="form-control" rows="4" placeholder="Enter ..." name="refund_product"></textarea>
+              @endif
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_4">
+          <div class="form-group">
+            <label for="">Nội dung đặt mua</label>
+              @if($value != null && isset($value->order_product))
+               <textarea class="form-control ck-textarea" id="order-product" rows="4"  name="order_product">{{$value->order_product}}</textarea> 
+              @else
+              <textarea class="form-control ck-textarea"  id="order-product" rows="4" placeholder="Enter ..." name="order_product"></textarea>
               @endif
           </div>
         </div>

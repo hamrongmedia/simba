@@ -7,7 +7,7 @@
     <div class="tab-content">
         <div id="tab-mt-1" class="tab-pane fade in active tab-mt-1 tab-contets">
             <div class="wp-sautab" style="padding: 15px 0px;">
-                {{$product->description}}
+                {!!$product->description!!}
             </div>
        </div>
         <div id="tab-mt-2" class="tab-pane fade tab-mt-2 tab-contets">

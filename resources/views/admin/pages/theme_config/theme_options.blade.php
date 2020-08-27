@@ -32,4 +32,7 @@
     </div>
   </form>
 @endsection
+@section('js')
+   @include('admin.component.ckeditor_js') 
+@endsection
 

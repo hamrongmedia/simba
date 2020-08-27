@@ -44,6 +44,10 @@
             $('.search-input').val($(this).text()).trigger('change');
         });
 
+        $(document).on('blur', '.search-input', function(){
+            $('.search-result').html('');
+        })
+
 
     </script>
 @yield('custom-js')
