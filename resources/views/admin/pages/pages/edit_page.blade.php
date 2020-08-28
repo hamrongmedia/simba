@@ -25,11 +25,14 @@
                         </div>
                         <div class="form-group">
                             <label>Mô Tả</label>
-                            <textarea class="form-control" name="description" rows="3" value="{{isset($obj) ? $obj->description : ''}}"></textarea>
+                            <textarea class="form-control" name="description" rows="3" value="">
+                                {{isset($obj) ? $obj->description : ''}}
+                            </textarea>
                         </div>
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <textarea id="editor" class="editor" name="content" rows="10" cols="80" value="{{isset($obj) ? $obj->editor : ''}}">
+                            <textarea id="editor" class="editor" name="content" rows="10" cols="80" value="">
+                                {{isset($obj) ? $obj->content : ''}}
                             </textarea>
                         </div>
                 </div>

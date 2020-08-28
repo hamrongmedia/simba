@@ -194,7 +194,7 @@
                                     </div>
                                 @endif
                                 <div class="huongdan-chonsize">
-                                    <a href="#">Hướng dẫn chọn size</a>
+                                    <a href="{{$product_setting->size_helper}}">Hướng dẫn chọn size</a>
                                 </div>
                                 {{--    <div class="wwp-uudai-rieng"><p>Ưu đãi dành riêng cho bạn</p></div> --}}
                                 <div class="wp-btn-mua">
@@ -662,10 +662,12 @@
                     <div class="wp-icon">
                         <img src="{{asset('images/icon-c4.svg')}}" alt="sản phẩm đặc biệt">
                     </div>
-                    <div class="wp-text col-md-8 col-sm-7 col-xs-12" style="text-align: center">
-                    {!!isset($product_setting->order_product) ? $product_setting->order_product : ''!!}
 
+                    <div class="wp-text col-md-8 col-sm-7 col-xs-12" style="text-align: center">
+                        {!!isset($product_setting->order_product) ? $product_setting->order_product : ''!!} <br>
+                        {!!$product->sub_description ?? ''!!}
                     </div>
+
                     <div class="wp-btn col-md-2 col-xs-12 col-sm-3" style="text-align: center">
                         <a href="javascript:void()" class="ajax-addtocart" data-href="{{ route('cart.add') }}"
                            data-product-type={{ $product->type }}>ĐẶT MUA</a>

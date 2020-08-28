@@ -6,6 +6,7 @@
         <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Phí Ship</a></li>
         <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Đổi trả</a></li>
         <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Đặt mua</a></li>
+        <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Hướng dẫn chọn size</a></li>
 
       </ul>
       <div class="tab-content">
@@ -105,6 +106,16 @@
                <textarea class="form-control ck-textarea" id="order-product" rows="4"  name="order_product">{{$value->order_product}}</textarea> 
               @else
               <textarea class="form-control ck-textarea"  id="order-product" rows="4" placeholder="Enter ..." name="order_product"></textarea>
+              @endif
+          </div>
+        </div>
+        <div class="tab-pane" id="tab_5">
+          <div class="form-group">
+            <label for="">Trang hướng dẫn chọn size</label>
+              @if($value != null && isset($value->size_helper))
+               <textarea class="form-control" id="size-helper" rows="4"  name="size_helper">{{$value->size_helper}}</textarea> 
+              @else
+              <textarea class="form-control"  id="size-helper" rows="4" placeholder="Nhập link trang hướng dẫn chọn size" name="size_helper"></textarea>
               @endif
           </div>
         </div>
