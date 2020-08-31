@@ -700,7 +700,7 @@
 
             var moduleid = '{{$product->id}}';
 
-            listComment(module, moduleid, $('.comment-list').attr('data-page'));
+            // listComment(module, moduleid, $('.comment-list').attr('data-page'));
 
             var uri = $('#rateform').attr('action');
 
@@ -755,8 +755,6 @@
 
                 var page = $(this).attr('data-ci-pagination-page');
 
-                listComment(module, moduleid, page);
-
                 return false;
 
             });
@@ -764,18 +762,6 @@
         });
 
         function listComment(module, moduleid, page) {
-
-            var uri = "{{route('admin.product_reviews.show_review')}}";
-            $.post(uri, {
-                    module: module, moduleid: moduleid, page: page
-                },
-                function (data) {
-                    if (data) {
-                        var json = JSON.parse(data);
-                        $('.comment-list').html(json.html);
-                        $('.count_comments').html(json.count_comments);
-                    }
-                });
         }
     </script>
     <script>
