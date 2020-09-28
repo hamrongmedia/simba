@@ -25,8 +25,6 @@
             }
         });
 
-        
-        CKEDITOR.replace('editor', options);
-        
+        CKEDITOR.replace('editor', options);  
     })
 </script>

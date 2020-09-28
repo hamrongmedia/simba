@@ -17,18 +17,26 @@
                             $r->token;
                         }
                         $url='https://graph.instagram.com/'.$r->id_user.'/media?fields=username,id,ig_id,media_url,permalink,username&access_token='.$r->token.'';
-                        $content = file_get_contents($url);
+                        
+                        $content = null;
+                        try {
+                            $content = file_get_contents($url);
+                        } catch (\Exception $e) {
+                            $content = null;
+                        }
                         $json = json_decode($content, true);
                     ?>
-        <!-- list posts -->
-                    @for ($i = 0 ;$i < 10 ; $i++)
-                            <div class="item">
-                                <img class="el_image" src="{{ $json['data'][$i]['media_url'] }}" alt="banner0">
-                                <a href="{{ $json['data'][$i]['permalink'] }}" target="_bank">  
-                                    <i class="fab fa-instagram" aria-hidden="true"></i>
-                                </a>
-                            </div> 
-                    @endfor    
+                    @if ($content)
+                        @for ($i = 0 ;$i < 10 ; $i++)
+                                <div class="item">
+                                    <img class="el_image" src="{{ $json['data'][$i]['media_url'] }}" alt="banner0">
+                                    <a href="{{ $json['data'][$i]['permalink'] }}" target="_bank">  
+                                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                </div> 
+                        @endfor   
+                    @endif
+                       
                 </div>
             </div>
         </div>
